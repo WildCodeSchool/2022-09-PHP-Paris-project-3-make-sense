@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Cycle;
+use App\Entity\Comments;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Cycle>
+ * @extends ServiceEntityRepository<Comments>
  *
- * @method Cycle|null find($id, $lockMode = null, $lockVersion = null)
- * @method Cycle|null findOneBy(array $criteria, array $orderBy = null)
- * @method Cycle[]    findAll()
- * @method Cycle[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Comments|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Comments|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Comments[]    findAll()
+ * @method Comments[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CycleRepository extends ServiceEntityRepository
+class CommentsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Cycle::class);
+        parent::__construct($registry, Comments::class);
     }
 
-    public function save(Cycle $entity, bool $flush = false): void
+    public function save(Comments $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class CycleRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Cycle $entity, bool $flush = false): void
+    public function remove(Comments $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class CycleRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Cycle[] Returns an array of Cycle objects
+//     * @return Comments[] Returns an array of Comments objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class CycleRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Cycle
+//    public function findOneBySomeField($value): ?Comments
 //    {
 //        return $this->createQueryBuilder('c')
 //            ->andWhere('c.exampleField = :val')

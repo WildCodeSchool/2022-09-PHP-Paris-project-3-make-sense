@@ -2,29 +2,35 @@
 
 namespace App\Entity;
 
-use App\Repository\CycleRepository;
+use App\Repository\DecisionHistoryRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Entity\Decision;
 
-#[ORM\Entity(repositoryClass: CycleRepository::class)]
-class Cycle
+#[ORM\Entity(repositoryClass: DecisionHistoryRepository::class)]
+class DecisionHistory
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\Date]
     private ?\DateTimeInterface $startAt = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\Date]
     private ?\DateTimeInterface $endAt = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\Length(min: 1, max: 50)]
     private ?string $status = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $report = null;
+    #[ORM\ManyToOne(inversedBy: 'decisionhistories')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?decision $decision = null;
 
     public function getId(): ?int
     {
@@ -67,14 +73,14 @@ class Cycle
         return $this;
     }
 
-    public function getReport(): ?string
+    public function getDecision(): ?decision
     {
-        return $this->report;
+        return $this->decision;
     }
 
-    public function setReport(?string $report): self
+    public function setDecision(?decision $decision): self
     {
-        $this->report = $report;
+        $this->decision = $decision;
 
         return $this;
     }
