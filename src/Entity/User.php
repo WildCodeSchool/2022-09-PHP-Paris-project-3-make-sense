@@ -51,11 +51,15 @@ class User
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Notification::class)]
     private Collection $notifications;
 
+    #[ORM\ManyToMany(targetEntity: Expertise::class, mappedBy: 'user')]
+    private Collection $expertises;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->validations = new ArrayCollection();
         $this->notifications = new ArrayCollection();
+        $this->expertises = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -229,6 +233,33 @@ class User
             if ($notification->getUser() === $this) {
                 $notification->setUser(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Expertise>
+     */
+    public function getExpertises(): Collection
+    {
+        return $this->expertises;
+    }
+
+    public function addExpertise(Expertise $expertise): self
+    {
+        if (!$this->expertises->contains($expertise)) {
+            $this->expertises->add($expertise);
+            $expertise->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExpertise(Expertise $expertise): self
+    {
+        if ($this->expertises->removeElement($expertise)) {
+            $expertise->removeUser($this);
         }
 
         return $this;

@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Comments;
 use App\Entity\DecisionHistory;
+use App\Entity\Skill;
 
 #[ORM\Entity(repositoryClass: DecisionRepository::class)]
 class Decision
@@ -58,12 +59,16 @@ class Decision
     #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Validation::class)]
     private Collection $validations;
 
+    #[ORM\ManyToMany(targetEntity: skill::class, inversedBy: 'decisions')]
+    private Collection $skill;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->opinions = new ArrayCollection();
         $this->decisionhistories = new ArrayCollection();
         $this->validations = new ArrayCollection();
+        $this->skill = new ArrayCollection();
     }
 
 
@@ -278,6 +283,30 @@ class Decision
                 $validation->setDecision(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, skill>
+     */
+    public function getSkill(): Collection
+    {
+        return $this->skill;
+    }
+
+    public function addSkill(skill $skill): self
+    {
+        if (!$this->skill->contains($skill)) {
+            $this->skill->add($skill);
+        }
+
+        return $this;
+    }
+
+    public function removeSkill(skill $skill): self
+    {
+        $this->skill->removeElement($skill);
 
         return $this;
     }
