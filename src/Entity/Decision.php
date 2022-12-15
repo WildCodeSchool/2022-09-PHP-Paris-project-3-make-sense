@@ -8,9 +8,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use App\Entity\Comments;
+use App\Entity\Content;
 use App\Entity\DecisionHistory;
-use App\Entity\Skill;
+use \Datetime;
 
 #[ORM\Entity(repositoryClass: DecisionRepository::class)]
 class Decision
@@ -28,7 +28,7 @@ class Decision
     private ?string $description = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $impact = null;
+    private ?string $impacts = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $benefits = null;
@@ -36,19 +36,8 @@ class Decision
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $risks = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Assert\Date]
-    private ?\DateTimeInterface $startAt = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Assert\Date]
-    private ?\DateTimeInterface $endAt = null;
-
     #[ORM\Column]
     private ?int $likeThreshold = null;
-
-    #[ORM\ManyToMany(targetEntity: comments::class, inversedBy: 'decisions')]
-    private Collection $comments;
 
     #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Opinion::class, orphanRemoval: true)]
     private Collection $opinions;
@@ -59,18 +48,37 @@ class Decision
     #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Validation::class)]
     private Collection $validations;
 
-    #[ORM\ManyToMany(targetEntity: skill::class, inversedBy: 'decisions')]
-    private Collection $skill;
+    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Department::class)]
+    private Collection $departments;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\Type("\DateTimeInterface")]
+    private ?\DateTimeInterface $createdAt = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\Type("\DateTimeInterface")]
+    private ?\DateTimeInterface $updatedAt = null;
+
+    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Notification::class)]
+    private Collection $notifications;
+
+    #[ORM\ManyToOne(inversedBy: 'decisions')]
+    private ?User $createdBy = null;
+
+    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Content::class)]
+    private Collection $contents;
 
     public function __construct()
     {
-        $this->comments = new ArrayCollection();
+        // $this->contents = new ArrayCollection();
         $this->opinions = new ArrayCollection();
         $this->decisionhistories = new ArrayCollection();
         $this->validations = new ArrayCollection();
-        $this->skill = new ArrayCollection();
+        $this->departments = new ArrayCollection();
+        $this->notifications = new ArrayCollection();
+        $this->createdAt =  new \DateTime('now');
+        $this->updatedAt =  new \DateTime('now');
     }
-
 
     public function getId(): ?int
     {
@@ -101,14 +109,14 @@ class Decision
         return $this;
     }
 
-    public function getImpact(): ?string
+    public function getImpacts(): ?string
     {
-        return $this->impact;
+        return $this->impacts;
     }
 
-    public function setImpact(?string $impact): self
+    public function setImpacts(?string $impacts): self
     {
-        $this->impact = $impact;
+        $this->impacts = $impacts;
 
         return $this;
     }
@@ -137,30 +145,6 @@ class Decision
         return $this;
     }
 
-    public function getStartAt(): ?\DateTimeInterface
-    {
-        return $this->startAt;
-    }
-
-    public function setStartAt(\DateTimeInterface $startAt): self
-    {
-        $this->startAt = $startAt;
-
-        return $this;
-    }
-
-    public function getEndAt(): ?\DateTimeInterface
-    {
-        return $this->endAt;
-    }
-
-    public function setEndAt(\DateTimeInterface $endAt): self
-    {
-        $this->endAt = $endAt;
-
-        return $this;
-    }
-
     public function getLikeThreshold(): ?int
     {
         return $this->likeThreshold;
@@ -174,25 +158,25 @@ class Decision
     }
 
     /**
-     * @return Collection<int, comments>
+     * @return Collection<int, contents>
      */
-    public function getComments(): Collection
+    public function getContents(): Collection
     {
-        return $this->comments;
+        return $this->contents;
     }
 
-    public function addComment(comments $comment): self
+    public function addContent(content $content): self
     {
-        if (!$this->comments->contains($comment)) {
-            $this->comments->add($comment);
+        if (!$this->contents->contains($content)) {
+            $this->contents->add($content);
         }
 
         return $this;
     }
 
-    public function removeComment(comments $comment): self
+    public function removeContent(content $content): self
     {
-        $this->comments->removeElement($comment);
+        $this->contents->removeElement($content);
 
         return $this;
     }
@@ -288,26 +272,103 @@ class Decision
     }
 
     /**
-     * @return Collection<int, skill>
+     * @return Collection<int, Department>
      */
-    public function getSkill(): Collection
+    public function getDepartments(): Collection
     {
-        return $this->skill;
+        return $this->departments;
     }
 
-    public function addSkill(skill $skill): self
+    public function addDepartment(Department $department): self
     {
-        if (!$this->skill->contains($skill)) {
-            $this->skill->add($skill);
+        if (!$this->departments->contains($department)) {
+            $this->departments->add($department);
+            $department->setDecision($this);
         }
 
         return $this;
     }
 
-    public function removeSkill(skill $skill): self
+    public function removeDepartment(Department $department): self
     {
-        $this->skill->removeElement($skill);
+        if ($this->departments->removeElement($department)) {
+            // set the owning side to null (unless already changed)
+            if ($department->getDecision() === $this) {
+                $department->setDecision(null);
+            }
+        }
 
         return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Notification>
+     */
+    public function getNotifications(): Collection
+    {
+        return $this->notifications;
+    }
+
+    public function addNotification(Notification $notification): self
+    {
+        if (!$this->notifications->contains($notification)) {
+            $this->notifications->add($notification);
+            $notification->setDecision($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotification(Notification $notification): self
+    {
+        if ($this->notifications->removeElement($notification)) {
+            // set the owning side to null (unless already changed)
+            if ($notification->getDecision() === $this) {
+                $notification->setDecision(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?User $createdBy): self
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 }

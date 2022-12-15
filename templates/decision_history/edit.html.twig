@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit DecisionHistory{% endblock %}
+
+{% block body %}
+    <h1>Edit DecisionHistory</h1>
+
+    {{ include('decision_history/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_decision_history_index') }}">back to list</a>
+
+    {{ include('decision_history/_delete_form.html.twig') }}
+{% endblock %}

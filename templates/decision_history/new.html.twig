@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New DecisionHistory{% endblock %}
+
+{% block body %}
+    <h1>Create new DecisionHistory</h1>
+
+    {{ include('decision_history/_form.html.twig') }}
+
+    <a href="{{ path('app_decision_history_index') }}">back to list</a>
+{% endblock %}

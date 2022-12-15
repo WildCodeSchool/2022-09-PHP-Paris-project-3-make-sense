@@ -20,12 +20,15 @@ class Opinion
     private ?bool $isLike = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Assert\Date]
+    #[Assert\Type("\DateTimeInterface")]
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'opinions')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?decision $decision = null;
+    private ?Decision $decision = null;
+
+    #[ORM\ManyToOne(inversedBy: 'opinions')]
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -64,6 +67,18 @@ class Opinion
     public function setDecision(?decision $decision): self
     {
         $this->decision = $decision;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

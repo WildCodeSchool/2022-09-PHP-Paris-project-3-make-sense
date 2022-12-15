@@ -23,5 +23,7 @@
         "watch": "encore dev --watch",
         "build": "encore production --progress"
     },
-    "dependencies": {}
+    "dependencies": {
+        "@makesenseorg/design-system": "^1.8.0"
+    }
 }

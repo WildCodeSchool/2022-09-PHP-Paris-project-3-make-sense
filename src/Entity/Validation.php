@@ -21,17 +21,17 @@ class Validation
     private ?bool $isApprouved = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Assert\Date]
+    #[Assert\Type("\DateTimeInterface")]
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $comments = null;
+    private ?string $comment = null;
 
     #[ORM\ManyToOne(inversedBy: 'validations')]
-    private ?decision $decision = null;
+    private ?Decision $decision = null;
 
     #[ORM\ManyToOne(inversedBy: 'validations')]
-    private ?user $user = null;
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -62,36 +62,36 @@ class Validation
         return $this;
     }
 
-    public function getComments(): ?string
+    public function getComment(): ?string
     {
-        return $this->comments;
+        return $this->comment;
     }
 
-    public function setComments(?string $comments): self
+    public function setComment(?string $comment): self
     {
-        $this->comments = $comments;
+        $this->comment = $comment;
 
         return $this;
     }
 
-    public function getDecision(): ?decision
+    public function getDecision(): ?Decision
     {
         return $this->decision;
     }
 
-    public function setDecision(?decision $decision): self
+    public function setDecision(?Decision $decision): self
     {
         $this->decision = $decision;
 
         return $this;
     }
 
-    public function getUser(): ?user
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(?user $user): self
+    public function setUser(?User $user): self
     {
         $this->user = $user;
 

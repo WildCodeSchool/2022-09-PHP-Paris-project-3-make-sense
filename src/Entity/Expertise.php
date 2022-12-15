@@ -3,10 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ExpertiseRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: ExpertiseRepository::class)]
 class Expertise
@@ -16,70 +13,52 @@ class Expertise
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $type = null;
+    #[ORM\ManyToOne(inversedBy: 'expertises')]
+    private ?Department $department = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Skill $skill = null;
+    #[ORM\ManyToOne(inversedBy: 'expertises')]
+    private ?User $user = null;
 
-    #[ORM\ManyToMany(targetEntity: user::class, inversedBy: 'expertises')]
-    private Collection $user;
-
-    public function __construct()
-    {
-        $this->user = new ArrayCollection();
-    }
+    #[ORM\Column]
+    private ?bool $isExpert = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getType(): ?string
+    public function getDepartment(): ?Department
     {
-        return $this->type;
+        return $this->department;
     }
 
-    public function setType(string $type): self
+    public function setDepartment(?Department $department): self
     {
-        $this->type = $type;
+        $this->department = $department;
 
         return $this;
     }
 
-    public function getSkill(): ?Skill
-    {
-        return $this->skill;
-    }
-
-    public function setSkill(Skill $skill): self
-    {
-        $this->skill = $skill;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, user>
-     */
-    public function getUser(): Collection
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function addUser(user $user): self
+    public function setUser(?User $user): self
     {
-        if (!$this->user->contains($user)) {
-            $this->user->add($user);
-        }
+        $this->user = $user;
 
         return $this;
     }
 
-    public function removeUser(user $user): self
+    public function isIsExpert(): ?bool
     {
-        $this->user->removeElement($user);
+        return $this->isExpert;
+    }
+
+    public function setIsExpert(bool $isExpert): self
+    {
+        $this->isExpert = $isExpert;
 
         return $this;
     }

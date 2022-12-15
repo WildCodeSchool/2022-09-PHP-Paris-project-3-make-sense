@@ -5,10 +5,13 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity('email')]
 class User
 {
     #[ORM\Id]
@@ -18,16 +21,21 @@ class User
 
     #[ORM\Column(length: 80)]
     #[Assert\Length(min: 1, max: 80)]
+    #[Assert\NotNull]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 80)]
+    #[Assert\NotNull]
     #[Assert\Length(min: 1, max: 80)]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Length(min: 1, max: 255)]
     private ?string $picture = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(min: 5, max: 255)]
+    #[Assert\NotNull]
     #[Assert\Email(message: "Le mail {{ value }} n\'est pas un email valide")]
     private ?string $email = null;
 
@@ -35,15 +43,10 @@ class User
     #[Assert\Length(min: 6, max: 12)]
     private ?string $phone = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?bool $isAdmin = null;
-
     #[ORM\Column(length: 12)]
     #[Assert\Length(min: 6, max: 12)]
+    #[Assert\NotNull]
     private ?string $password = null;
-
-    #[ORM\ManyToMany(targetEntity: Comments::class, mappedBy: 'user')]
-    private Collection $comments;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Validation::class)]
     private Collection $validations;
@@ -51,21 +54,38 @@ class User
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Notification::class)]
     private Collection $notifications;
 
-    #[ORM\ManyToMany(targetEntity: Expertise::class, mappedBy: 'user')]
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $createdAt = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $updatedAt = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Expertise::class)]
     private Collection $expertises;
+
+    #[ORM\OneToMany(mappedBy: 'createdBy', targetEntity: Decision::class)]
+    private Collection $decisions;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Opinion::class)]
+    private Collection $opinions;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Content::class)]
+    private Collection $contents;
 
     public function __construct()
     {
-        $this->comments = new ArrayCollection();
         $this->validations = new ArrayCollection();
         $this->notifications = new ArrayCollection();
         $this->expertises = new ArrayCollection();
+        $this->decisions = new ArrayCollection();
+        $this->opinions = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
     }
+
 
     public function getFirstname(): ?string
     {
@@ -127,18 +147,6 @@ class User
         return $this;
     }
 
-    public function isIsAdmin(): ?bool
-    {
-        return $this->isAdmin;
-    }
-
-    public function setIsAdmin(?bool $isAdmin): self
-    {
-        $this->isAdmin = $isAdmin;
-
-        return $this;
-    }
-
     public function getPassword(): ?string
     {
         return $this->password;
@@ -147,33 +155,6 @@ class User
     public function setPassword(string $password): self
     {
         $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Comments>
-     */
-    public function getComments(): Collection
-    {
-        return $this->comments;
-    }
-
-    public function addComment(Comments $comment): self
-    {
-        if (!$this->comments->contains($comment)) {
-            $this->comments->add($comment);
-            $comment->addUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeComment(Comments $comment): self
-    {
-        if ($this->comments->removeElement($comment)) {
-            $comment->removeUser($this);
-        }
 
         return $this;
     }
@@ -238,6 +219,30 @@ class User
         return $this;
     }
 
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Expertise>
      */
@@ -250,7 +255,7 @@ class User
     {
         if (!$this->expertises->contains($expertise)) {
             $this->expertises->add($expertise);
-            $expertise->addUser($this);
+            $expertise->setUser($this);
         }
 
         return $this;
@@ -259,7 +264,105 @@ class User
     public function removeExpertise(Expertise $expertise): self
     {
         if ($this->expertises->removeElement($expertise)) {
-            $expertise->removeUser($this);
+            // set the owning side to null (unless already changed)
+            if ($expertise->getUser() === $this) {
+                $expertise->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @return Collection<int, Decision>
+     */
+    public function getDecisions(): Collection
+    {
+        return $this->decisions;
+    }
+
+    public function addDecision(Decision $decision): self
+    {
+        if (!$this->decisions->contains($decision)) {
+            $this->decisions->add($decision);
+            $decision->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDecision(Decision $decision): self
+    {
+        if ($this->decisions->removeElement($decision)) {
+            // set the owning side to null (unless already changed)
+            if ($decision->getCreatedBy() === $this) {
+                $decision->setCreatedBy(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Opinion>
+     */
+    public function getOpinions(): Collection
+    {
+        return $this->opinions;
+    }
+
+    public function addOpinion(Opinion $opinion): self
+    {
+        if (!$this->opinions->contains($opinion)) {
+            $this->opinions->add($opinion);
+            $opinion->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOpinion(Opinion $opinion): self
+    {
+        if ($this->opinions->removeElement($opinion)) {
+            // set the owning side to null (unless already changed)
+            if ($opinion->getUser() === $this) {
+                $opinion->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Content>
+     */
+    public function getContents(): Collection
+    {
+        return $this->contents;
+    }
+
+    public function addContent(Content $content): self
+    {
+        if (!$this->contents->contains($content)) {
+            $this->contents->add($content);
+            $content->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContent(Content $content): self
+    {
+        if ($this->contents->removeElement($content)) {
+            // set the owning side to null (unless already changed)
+            if ($content->getUser() === $this) {
+                $content->setUser(null);
+            }
         }
 
         return $this;

@@ -17,12 +17,12 @@ class DecisionHistory
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Assert\Date]
-    private ?\DateTimeInterface $startAt = null;
+    #[Assert\Type("\DateTimeInterface")]
+    private ?\DateTimeInterface $startedAt = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Assert\Date]
-    private ?\DateTimeInterface $endAt = null;
+    #[Assert\Type("\DateTimeInterface")]
+    private ?\DateTimeInterface $endedAt = null;
 
     #[ORM\Column(length: 50)]
     #[Assert\Length(min: 1, max: 50)]
@@ -30,33 +30,33 @@ class DecisionHistory
 
     #[ORM\ManyToOne(inversedBy: 'decisionhistories')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?decision $decision = null;
+    private ?Decision $decision = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getStartAt(): ?\DateTimeInterface
+    public function getStartedAt(): ?\DateTimeInterface
     {
-        return $this->startAt;
+        return $this->startedAt;
     }
 
-    public function setStartAt(\DateTimeInterface $startAt): self
+    public function setStartedAt(\DateTimeInterface $startedAt): self
     {
-        $this->startAt = $startAt;
+        $this->startedAt = $startedAt;
 
         return $this;
     }
 
-    public function getEndAt(): ?\DateTimeInterface
+    public function getEndedAt(): ?\DateTimeInterface
     {
-        return $this->endAt;
+        return $this->endedAt;
     }
 
-    public function setEndAt(\DateTimeInterface $endAt): self
+    public function setEndedAt(\DateTimeInterface $endedAt): self
     {
-        $this->endAt = $endAt;
+        $this->endedAt = $endedAt;
 
         return $this;
     }
@@ -73,12 +73,12 @@ class DecisionHistory
         return $this;
     }
 
-    public function getDecision(): ?decision
+    public function getDecision(): ?Decision
     {
         return $this->decision;
     }
 
-    public function setDecision(?decision $decision): self
+    public function setDecision(?Decision $decision): self
     {
         $this->decision = $decision;
 
