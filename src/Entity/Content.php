@@ -78,12 +78,12 @@ class Content
         return $this;
     }
 
-    public function getDecision(): ?decision
+    public function getDecision(): ?Decision
     {
         return $this->decision;
     }
 
-    public function setDecision(?decision $decision): self
+    public function setDecision(?Decision $decision): self
     {
         $this->decision = $decision;
 
