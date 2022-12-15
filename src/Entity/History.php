@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\DecisionHistoryRepository;
+use App\Repository\HistoryRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Decision;
 
-#[ORM\Entity(repositoryClass: DecisionHistoryRepository::class)]
-class DecisionHistory
+#[ORM\Entity(repositoryClass: HistoryRepository::class)]
+class History
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -28,7 +28,7 @@ class DecisionHistory
     #[Assert\Length(min: 1, max: 50)]
     private ?string $status = null;
 
-    #[ORM\ManyToOne(inversedBy: 'decisionhistories')]
+    #[ORM\ManyToOne(inversedBy: 'histories')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Decision $decision = null;
 

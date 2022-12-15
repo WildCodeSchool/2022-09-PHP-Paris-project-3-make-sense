@@ -9,8 +9,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Content;
-use App\Entity\DecisionHistory;
-use \Datetime;
+use App\Entity\History;
 
 #[ORM\Entity(repositoryClass: DecisionRepository::class)]
 class Decision
@@ -42,8 +41,8 @@ class Decision
     #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Opinion::class, orphanRemoval: true)]
     private Collection $opinions;
 
-    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Decisionhistory::class, orphanRemoval: true)]
-    private Collection $decisionhistories;
+    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: History::class, orphanRemoval: true)]
+    private Collection $histories;
 
     #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Validation::class)]
     private Collection $validations;
@@ -70,9 +69,9 @@ class Decision
 
     public function __construct()
     {
-        // $this->contents = new ArrayCollection();
+        $this->contents = new ArrayCollection();
         $this->opinions = new ArrayCollection();
-        $this->decisionhistories = new ArrayCollection();
+        $this->histories = new ArrayCollection();
         $this->validations = new ArrayCollection();
         $this->departments = new ArrayCollection();
         $this->notifications = new ArrayCollection();
@@ -157,9 +156,6 @@ class Decision
         return $this;
     }
 
-    /**
-     * @return Collection<int, contents>
-     */
     public function getContents(): Collection
     {
         return $this->contents;
@@ -212,29 +208,29 @@ class Decision
     }
 
     /**
-     * @return Collection<int, Decisionhistory>
+     * @return Collection<int, History>
      */
-    public function getDecisionhistories(): Collection
+    public function getHistories(): Collection
     {
-        return $this->decisionhistories;
+        return $this->histories;
     }
 
-    public function addDecisionhistory(Decisionhistory $decisionhistory): self
+    public function addHistory(History $history): self
     {
-        if (!$this->decisionhistories->contains($decisionhistory)) {
-            $this->decisionhistories->add($decisionhistory);
-            $decisionhistory->setDecision($this);
+        if (!$this->histories->contains($history)) {
+            $this->histories->add($history);
+            $history->setDecision($this);
         }
 
         return $this;
     }
 
-    public function removeDecisionhistory(Decisionhistory $decisionhistory): self
+    public function removeHistory(History $history): self
     {
-        if ($this->decisionhistories->removeElement($decisionhistory)) {
+        if ($this->histories->removeElement($history)) {
             // set the owning side to null (unless already changed)
-            if ($decisionhistory->getDecision() === $this) {
-                $decisionhistory->setDecision(null);
+            if ($history->getDecision() === $this) {
+                $history->setDecision(null);
             }
         }
 
