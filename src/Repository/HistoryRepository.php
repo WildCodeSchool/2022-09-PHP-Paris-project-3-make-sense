@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\DecisionHistory;
+use App\Entity\History;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<DecisionHistory>
+ * @extends ServiceEntityRepository<History>
  *
- * @method DecisionHistory|null find($id, $lockMode = null, $lockVersion = null)
- * @method DecisionHistory|null findOneBy(array $criteria, array $orderBy = null)
- * @method DecisionHistory[]    findAll()
- * @method DecisionHistory[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method History|null find($id, $lockMode = null, $lockVersion = null)
+ * @method History|null findOneBy(array $criteria, array $orderBy = null)
+ * @method History[]    findAll()
+ * @method History[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class DecisionHistoryRepository extends ServiceEntityRepository
+class HistoryRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, DecisionHistory::class);
+        parent::__construct($registry, History::class);
     }
 
-    public function save(DecisionHistory $entity, bool $flush = false): void
+    public function save(History $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class DecisionHistoryRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(DecisionHistory $entity, bool $flush = false): void
+    public function remove(History $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
