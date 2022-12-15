@@ -1,0 +1,87 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\DecisionHistoryRepository;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Entity\Decision;
+
+#[ORM\Entity(repositoryClass: DecisionHistoryRepository::class)]
+class DecisionHistory
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\Type("\DateTimeInterface")]
+    private ?\DateTimeInterface $startedAt = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\Type("\DateTimeInterface")]
+    private ?\DateTimeInterface $endedAt = null;
+
+    #[ORM\Column(length: 50)]
+    #[Assert\Length(min: 1, max: 50)]
+    private ?string $status = null;
+
+    #[ORM\ManyToOne(inversedBy: 'decisionhistories')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Decision $decision = null;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getStartedAt(): ?\DateTimeInterface
+    {
+        return $this->startedAt;
+    }
+
+    public function setStartedAt(\DateTimeInterface $startedAt): self
+    {
+        $this->startedAt = $startedAt;
+
+        return $this;
+    }
+
+    public function getEndedAt(): ?\DateTimeInterface
+    {
+        return $this->endedAt;
+    }
+
+    public function setEndedAt(\DateTimeInterface $endedAt): self
+    {
+        $this->endedAt = $endedAt;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getDecision(): ?Decision
+    {
+        return $this->decision;
+    }
+
+    public function setDecision(?Decision $decision): self
+    {
+        $this->decision = $decision;
+
+        return $this;
+    }
+}
