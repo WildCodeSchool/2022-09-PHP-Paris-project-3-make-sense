@@ -3,62 +3,68 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity('email')]
-class User
+#[ORM\Entity(repositoryClass: UserRepository::class)]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 80)]
-    #[Assert\Length(min: 1, max: 80)]
+    #[ORM\Column(length: 180, unique: true)]
+    #[Assert\Length(min: 1, max: 180)]
+    #[Assert\Email]
+
+    private ?string $email = null;
+
+    #[ORM\Column]
     #[Assert\NotNull]
+    private array $roles = [];
+
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
+    #[Assert\NotBlank]
+    private ?string $password = null;
+
+    #[ORM\Column(length: 80)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 1, max: 80)]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 80)]
-    #[Assert\NotNull]
+    #[Assert\NotBlank]
     #[Assert\Length(min: 1, max: 80)]
     private ?string $lastname = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\Length(min: 1, max: 255)]
+    #[ORM\Column(length: 255)]
+    #[Assert\Length(min: 1, max: 180)]
     private ?string $picture = null;
 
-    #[ORM\Column(length: 255)]
-    #[Assert\Length(min: 5, max: 255)]
+    #[ORM\Column]
+    #[Assert\Positive]
+    #[Assert\LessThan(12)]
+    private ?int $phone = null;
+
+    #[ORM\Column]
     #[Assert\NotNull]
-    #[Assert\Email(message: "Le mail {{ value }} n\'est pas un email valide")]
-    private ?string $email = null;
+    private ?\DateTimeImmutable $created_at = null;
 
-    #[ORM\Column(length: 12, nullable: true)]
-    #[Assert\Length(min: 6, max: 12)]
-    private ?string $phone = null;
+    private $plainPassword = null;
 
-    #[ORM\Column(length: 12)]
-    #[Assert\Length(min: 6, max: 12)]
+    #[ORM\Column]
     #[Assert\NotNull]
-    private ?string $password = null;
-
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Validation::class)]
-    private Collection $validations;
-
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Notification::class)]
-    private Collection $notifications;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $createdAt = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $updatedAt = null;
+    private ?\DateTimeImmutable $updated_at = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Expertise::class)]
     private Collection $expertises;
@@ -69,11 +75,17 @@ class User
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Opinion::class)]
     private Collection $opinions;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Notification::class)]
+    private Collection $notifications;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Validation::class)]
+    private Collection $validations;
+
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Content::class)]
     private Collection $contents;
-
     public function __construct()
     {
+        $this->created_at = new \DateTimeImmutable();
         $this->validations = new ArrayCollection();
         $this->notifications = new ArrayCollection();
         $this->expertises = new ArrayCollection();
@@ -87,6 +99,70 @@ class User
         return $this->id;
     }
 
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
 
     public function getFirstname(): ?string
     {
@@ -117,139 +193,66 @@ class User
         return $this->picture;
     }
 
-    public function setPicture(?string $picture): self
+    public function setPicture(string $picture): self
     {
         $this->picture = $picture;
 
         return $this;
     }
 
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getPhone(): ?string
+    public function getPhone(): ?int
     {
         return $this->phone;
     }
 
-    public function setPhone(?string $phone): self
+    public function setPhone(int $phone): self
     {
         $this->phone = $phone;
 
         return $this;
     }
 
-    public function getPassword(): ?string
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->password;
+        return $this->created_at;
     }
 
-    public function setPassword(string $password): self
+    public function setCreatedAt(\DateTimeImmutable $created_at): self
     {
-        $this->password = $password;
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updated_at): self
+    {
+        $this->updated_at = $updated_at;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, Validation>
+     * Get the value of plainPassword
      */
-    public function getValidations(): Collection
+    public function getPlainPassword()
     {
-        return $this->validations;
+        return $this->plainPassword;
     }
 
-    public function addValidation(Validation $validation): self
-    {
-        if (!$this->validations->contains($validation)) {
-            $this->validations->add($validation);
-            $validation->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeValidation(Validation $validation): self
-    {
-        if ($this->validations->removeElement($validation)) {
-            // set the owning side to null (unless already changed)
-            if ($validation->getUser() === $this) {
-                $validation->setUser(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
-     * @return Collection<int, Notification>
+     * Set the value of plainPassword
      */
-    public function getNotifications(): Collection
+    public function setPlainPassword($plainPassword): self
     {
-        return $this->notifications;
-    }
-
-    public function addNotification(Notification $notification): self
-    {
-        if (!$this->notifications->contains($notification)) {
-            $this->notifications->add($notification);
-            $notification->setUser($this);
-        }
+        $this->plainPassword = $plainPassword;
 
         return $this;
-    }
-
-    public function removeNotification(Notification $notification): self
-    {
-        if ($this->notifications->removeElement($notification)) {
-            // set the owning side to null (unless already changed)
-            if ($notification->getUser() === $this) {
-                $notification->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Expertise>
-     */
-    public function getExpertises(): Collection
-    {
-        return $this->expertises;
     }
 
     public function addExpertise(Expertise $expertise): self
@@ -368,4 +371,62 @@ class User
 
         return $this;
     }
+    public function getValidations(): Collection
+    {
+        return $this->validations;
+    }
+
+    public function addValidation(Validation $validation): self
+    {
+        if (!$this->validations->contains($validation)) {
+            $this->validations->add($validation);
+            $validation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeValidation(Validation $validation): self
+    {
+        if ($this->validations->removeElement($validation)) {
+            // set the owning side to null (unless already changed)
+            if ($validation->getUser() === $this) {
+                $validation->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+    public function getNotification(): Collection
+    {
+        return $this->notifications;
+    }
+
+    public function addNotification(Notification $notification): self
+    {
+        if (!$this->notifications->contains($notification)) {
+            $this->notifications->add($notification);
+            $notification->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotification(Notification $notification): self
+    {
+        if ($this->notifications->removeElement($notification)) {
+            // set the owning side to null (unless already changed)
+            if ($notification->getUser() === $this) {
+                $notification->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getNotifications(): Collection
+    {
+        return $this->notifications;
+    }
+
 }
