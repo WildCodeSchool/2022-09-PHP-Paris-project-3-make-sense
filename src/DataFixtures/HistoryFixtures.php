@@ -27,8 +27,7 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
                     $history->setDecision($this->getReference('decision_' . $faker->numberBetween(0, 24)));
 
                     $history->setStatus($faker->text(15));
-                    $this->addReference('history_' . ((($decisionId * self::NB_DECISION) +
-                    $decisionId) * self::NB_HISTORY) + $historyId, $history);
+                    $this->addReference('history_' . ((($decisionId * self::NB_DECISION) + $decisionId) * self::NB_HISTORY) + $historyId, $history);
 
 
 
