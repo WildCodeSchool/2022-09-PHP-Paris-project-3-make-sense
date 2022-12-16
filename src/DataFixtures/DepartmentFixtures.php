@@ -40,6 +40,7 @@ class DepartmentFixtures extends Fixture implements DependentFixtureInterface
 	public function getDependencies() {
         return [
             DecisionFixtures::class,
+            DecisionFixtures::class,
          ];
 	}
 }
