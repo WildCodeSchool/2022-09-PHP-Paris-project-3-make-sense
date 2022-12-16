@@ -23,8 +23,8 @@ class UserFixtures extends Fixture
             $user->setLastname($faker->lastName());
             $user->setPassword('12345678');
             $user->setemail($faker->email());
-            $user->setCreatedAt(new \DateTime('now'));
-            $user->setUpdatedAt(new \DateTime('now'));
+            $user->setCreatedAt(new \DateTimeImmutable('now'));
+            $user->setUpdatedAt(new \DateTimeImmutable('now'));
             $this->addReference('user_' . $user_id, $user);
             $manager->persist($user);
         }
