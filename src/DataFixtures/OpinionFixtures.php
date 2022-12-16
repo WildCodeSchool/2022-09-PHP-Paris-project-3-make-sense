@@ -1,4 +1,5 @@
 <?php
+
 namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -17,36 +18,35 @@ class OpinionFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
-    $faker = Factory::create();
+        $faker = Factory::create();
 
-    for ($user_id = 0; $user_id < self::NB_USER; $user_id++) {
-        for ($history_id = 0; $history_id < self::NB_DECISION; $history_id++) {
-            for ($opinion_id = 0; $opinion_id < self::NB_OPINION; $opinion_id++) {
-                $opinion = new Opinion();
+        for ($userId = 0; $userId < self::NB_USER; $userId++) {
+            for ($historyId = 0; $historyId < self::NB_DECISION; $historyId++) {
+                for ($opinionId = 0; $opinionId < self::NB_OPINION; $opinionId++) {
+                    $opinion = new Opinion();
 
-                $opinion->setIsLike($faker->boolean());
-                $opinion->setCreatedAt($faker->dateTime());
-                $this->addReference('opinion_' . $opinion_id, $opinion);
+                    $opinion->setIsLike($faker->boolean());
+                    $opinion->setCreatedAt($faker->dateTime());
+                    $this->addReference('opinion_' . $opinionId, $opinion);
 
-                $opinion->setUser($this->getReference('user_' . $faker->numberBetween(0, 5)));
-                $opinion->setDecision($this->getReference('decision_' . $faker->numberBetween(0, 5)));
+                    $opinion->setUser($this->getReference('user_' . $faker->numberBetween(0, 5)));
+                    $opinion->setDecision($this->getReference('decision_' . $faker->numberBetween(0, 5)));
 
 
-                $manager->persist($opinion);
+                    $manager->persist($opinion);
+                }
+
+                $manager->flush();
             }
-
-            $manager->flush();
         }
     }
-}   
-    
 
-	public function getDependencies() 
+    public function getDependencies()
     {
         return [
            UserFixtures::class,
            DecisionFixtures::class,
 
          ];
-	}
+    }
 }
