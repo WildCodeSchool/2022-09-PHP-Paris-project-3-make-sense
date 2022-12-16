@@ -6,18 +6,28 @@ use App\Entity\Department;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Faker\Factory;
+use Faker;
 class DepartmentFixtures extends Fixture implements DependentFixtureInterface
 {
+    public const DEPARTMENTS=[
+        'Ressources Humaines',
+        'Commercial',
+        'Comptabilité',
+        'Informatique',
+        'Marketing',
+        'Finance',
+        'Achats',
+        'Juridique',
+    ];
     public function load(ObjectManager $manager): void
     {
-        $faker = Factory::create();
-        for ($i = 1; $i < 7; $i++) {
+        $faker = Faker\Factory::create();
+        foreach (self::DEPARTMENTS as $departments) {
             $department = new Department();
-            $department->setName($faker->words(3, true));
-            $department->AddDecision($this->getReference('decision_' . $faker->numberBetween(1, 5)));
+            $department->setName($departments);
+            $department->addDecision($this->getReference('decision_' . $faker->numberBetween(1, 8)));
             $manager->persist($department);
-            $this->addReference('department_' . $i, $department);
+            $this->addReference('department_' . $departments, $department);
         }
 
         $manager->flush();
@@ -29,6 +39,7 @@ class DepartmentFixtures extends Fixture implements DependentFixtureInterface
 	 */
 	public function getDependencies() {
         return [
+            DecisionFixtures::class,
             DecisionFixtures::class,
          ];
 	}
