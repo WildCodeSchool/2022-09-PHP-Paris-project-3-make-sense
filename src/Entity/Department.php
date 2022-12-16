@@ -23,10 +23,14 @@ class Department
     #[ORM\OneToMany(mappedBy: 'department', targetEntity: Expertise::class)]
     private Collection $expertises;
 
+    #[ORM\ManyToMany(targetEntity: Decision::class, mappedBy: 'department')]
+    private Collection $decisions;
+
 
     public function __construct()
     {
         $this->expertises = new ArrayCollection();
+        $this->decisions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -79,5 +83,32 @@ class Department
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection<int, Decision>
+     */
+    public function getDecisions(): Collection
+    {
+        return $this->decisions;
+    }
+
+    public function addDecision(Decision $decision): self
+    {
+        if (!$this->decisions->contains($decision)) {
+            $this->decisions->add($decision);
+            $decision->addDepartment($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDecision(Decision $decision): self
+    {
+        if ($this->decisions->removeElement($decision)) {
+            $decision->removeDepartment($this);
+        }
+
+        return $this;
     }
 }
