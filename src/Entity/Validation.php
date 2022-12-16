@@ -18,7 +18,7 @@ class Validation
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?bool $isApprouved = null;
+    private ?bool $isApproved = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\Type("\DateTimeInterface")]
@@ -38,14 +38,14 @@ class Validation
         return $this->id;
     }
 
-    public function isIsApprouved(): ?bool
+    public function isIsApproved(): ?bool
     {
-        return $this->isApprouved;
+        return $this->isApproved;
     }
 
-    public function setIsApprouved(bool $isApprouved): self
+    public function setIsApproved(bool $isApproved): self
     {
-        $this->isApprouved = $isApprouved;
+        $this->isApproved = $isApproved;
 
         return $this;
     }
