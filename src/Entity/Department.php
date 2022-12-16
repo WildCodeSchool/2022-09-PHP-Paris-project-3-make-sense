@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use App\Entity\Decision;
 
 #[ORM\Entity(repositoryClass: DepartmentRepository::class)]
 class Department
@@ -21,11 +20,9 @@ class Department
     #[Assert\Length(min: 1, max: 50)]
     private ?string $name = null;
 
-    #[ORM\ManyToOne(inversedBy: 'departments', targetEntity: Decision::class)]
-    private ?Decision $decision = null;
-
     #[ORM\OneToMany(mappedBy: 'department', targetEntity: Expertise::class)]
     private Collection $expertises;
+
 
     public function __construct()
     {
@@ -45,18 +42,6 @@ class Department
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getDecision(): ?Decision
-    {
-        return $this->decision;
-    }
-
-    public function setDecision(?Decision $decision): self
-    {
-        $this->decision = $decision;
 
         return $this;
     }
