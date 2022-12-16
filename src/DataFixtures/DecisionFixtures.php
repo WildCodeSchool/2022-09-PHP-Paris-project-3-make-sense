@@ -22,7 +22,6 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
             for($j = 0; $j < self::DECISION; $j++ )
             {
             $decision = new Decision();
-            $decision = $faker->text(25);
             $decision->setTitle($faker->word(25, true));
             $decision->setDescription($faker->text(25));
             $decision->setImpacts($faker->text(25));
