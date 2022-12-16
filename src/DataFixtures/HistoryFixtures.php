@@ -10,7 +10,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class HistoryFixtures extends Fixture implements DependentFixtureInterface
 {
-    public const NB_HISTORY = 2;
+    public const NB_HISTORY = 5;
     public const NB_DECISION = 5;
 
 
@@ -22,12 +22,12 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
             for ($historyId = 0; $historyId < self::NB_HISTORY; $historyId++) {
                     $history = new History();
 
-                    $history->setStatus($faker->text(15));
-                    $this->addReference('history_' . $historyId, $history);
+                    $history->setStartedAt((new \DateTimeImmutable('now')));
+                    $history->setEndedAt((new \DateTimeImmutable('now')));
+                    $history->setDecision($this->getReference('decision_' . $faker->numberBetween(0, 24)));
 
-                    $history->setStartedAt($this->getReference('started_at_' . $faker->numberBetween(0, 5)));
-                    $history->setDecision($this->getReference('decision_' . $faker->numberBetween(0, 5)));
-                    $history->setEndedAt($this->getReference('ended_at_' . $faker->numberBetween(0, 5)));
+                    $history->setStatus($faker->text(15));
+                    $this->addReference('history_' . ((($decisionId*self::NB_DECISION)+$decisionId)*self::NB_HISTORY) + $historyId, $history);
 
 
 

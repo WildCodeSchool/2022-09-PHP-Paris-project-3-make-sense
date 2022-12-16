@@ -24,12 +24,13 @@ class NotificationFixtures extends Fixture implements DependentFixtureInterface
                 for ($notificationId = 0; $notificationId < self::NB_NOTIFICATION; $notificationId++) {
                     $notification = new Notification();
 
-                    $notification->setCreatedAt($faker->dateTime());
+                    $notification->setCreatedAt(new \DateTimeImmutable('now'));
                     $notification->setMessage($faker->paragraphs(3, true));
-                    $this->addReference('notification_' . $notificationId, $notification);
 
-                    $notification->setUser($this->getReference('user_' . $faker->numberBetween(0, 5)));
-                    $notification->setDecision($this->getReference('decision_' . $faker->numberBetween(0, 5)));
+                    $notification->setUser($this->getReference('user_' . $faker->numberBetween(0, 4)));
+                    $notification->setDecision($this->getReference('decision_' . $faker->numberBetween(0, 24)));
+                    $this->addReference('notification_' . ((($userId*self::NB_DECISION)+$decisionId)*self::NB_NOTIFICATION)+ $notificationId, $notification);
+
 
 
                     $manager->persist($notification);
