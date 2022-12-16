@@ -11,7 +11,7 @@ use Faker;
 class DecisionFixtures extends Fixture implements DependentFixtureInterface
 {
     public const USER = 5;
-    public const DECISION = 25;
+    public const DECISION = 5;
 
     public function load(ObjectManager $manager): void
     {
@@ -46,29 +46,5 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
 
 
 
-    // public function load(ObjectManager $manager): void
-    // {
-    //     $faker = Factory::create();
-
-    //     for ($decision_id = 0; $decision_id < self::NB_DECISION; $decision_id++) {
-    //         $decision = new Decision();
-    //         $decision->setTitle($faker->text(5));
-    //         $decision->setDescription($faker->text(15));
-    //         $decision->setBenefits($faker->text(15));
-    //         $decision->setLikeThreshold(1);
-    //         $decision->setCreatedAt(new \DateTime('now'));
-    //         $decision->setOwner($this->getReference('user_' . '1'));
-    //         $this->addReference('decision_' . $decision_id, $decision);
-    //         $manager->persist($decision);
-    //     }
-
-    //     $manager->flush();
-    // }
-
-    // public function getDependencies(): array
-    // {
-    //     return [
-    //         UserFixtures::class
-    //     ];
-    // }
+  
 }
