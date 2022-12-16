@@ -69,7 +69,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Expertise::class)]
     private Collection $expertises;
 
-    #[ORM\OneToMany(mappedBy: 'createdBy', targetEntity: Decision::class)]
+    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Decision::class)]
     private Collection $decisions;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Opinion::class)]
@@ -91,6 +91,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->expertises = new ArrayCollection();
         $this->decisions = new ArrayCollection();
         $this->opinions = new ArrayCollection();
+        $this->contents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -293,7 +294,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->decisions->contains($decision)) {
             $this->decisions->add($decision);
-            $decision->setCreatedBy($this);
+            $decision->setOwner($this);
         }
 
         return $this;
@@ -303,8 +304,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->decisions->removeElement($decision)) {
             // set the owning side to null (unless already changed)
-            if ($decision->getCreatedBy() === $this) {
-                $decision->setCreatedBy(null);
+            if ($decision->getOwner() === $this) {
+                $decision->setOwner(null);
             }
         }
 
