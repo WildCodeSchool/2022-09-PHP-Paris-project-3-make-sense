@@ -11,7 +11,7 @@ use Faker;
 class DecisionFixtures extends Fixture implements DependentFixtureInterface
 {
     public const USER = 5;
-    public const DECISION = 5;
+    public const DECISION = 25;
 
     public function load(ObjectManager $manager): void
     {
