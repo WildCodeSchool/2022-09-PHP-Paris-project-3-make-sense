@@ -31,7 +31,7 @@ class OpinionFixtures extends Fixture implements DependentFixtureInterface
                     $opinion->setUser($this->getReference('user_' . $faker->numberBetween(0, 4)));
                     $opinion->setDecision($this->getReference('decision_' . $faker->numberBetween(0, 24)));
 
-                    $this->addReference('opinion_' . ((($userId*self::NB_DECISION)+$decisionId)*self::NB_OPINION)+ $opinionId, $opinion);
+                    $this->addReference('opinion_' . ((($userId * self::NB_DECISION) + $decisionId) * self::NB_OPINION) + $opinionId, $opinion);
 
                     $manager->persist($opinion);
                 }
