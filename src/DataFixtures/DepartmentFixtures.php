@@ -15,7 +15,7 @@ class DepartmentFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 1; $i < 7; $i++) {
             $department = new Department();
             $department->setName($faker->words(3, true));
-            $department->setDecision($this->getReference('decision_' . $faker->numberBetween(1, 5)));
+            $department->AddDecision($this->getReference('decision_' . $faker->numberBetween(1, 5)));
             $manager->persist($department);
             $this->addReference('department_' . $i, $department);
         }
@@ -29,7 +29,7 @@ class DepartmentFixtures extends Fixture implements DependentFixtureInterface
 	 */
 	public function getDependencies() {
         return [
-            DecisionsFixtures::class,
+            DecisionFixtures::class,
          ];
 	}
 }

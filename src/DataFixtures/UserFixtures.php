@@ -6,7 +6,6 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\User;
 use Faker\Factory;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class UserFixtures extends Fixture 
 {
@@ -22,9 +21,11 @@ class UserFixtures extends Fixture
             $user->setFirstname($faker->firstName());
             $user->setLastname($faker->lastName());
             $user->setPassword('12345678');
+            $user->setPicture('photo.jpg');
+            $user->setPhone('0654454545');
             $user->setemail($faker->email());
-            $user->setCreatedAt(new \DateTime('now'));
-            $user->setUpdatedAt(new \DateTime('now'));
+            $user->setCreatedAt(new \DateTimeImmutable('now'));
+            $user->setUpdatedAt(new \DateTimeImmutable('now'));
             $this->addReference('user_' . $user_id, $user);
             $manager->persist($user);
         }
