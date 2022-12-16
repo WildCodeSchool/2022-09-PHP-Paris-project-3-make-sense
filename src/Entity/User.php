@@ -244,7 +244,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->plainPassword;
     }
 
-
     /**
      * Set the value of plainPassword
      */
