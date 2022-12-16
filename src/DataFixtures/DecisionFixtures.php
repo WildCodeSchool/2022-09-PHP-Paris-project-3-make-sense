@@ -30,7 +30,7 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
             $decision->setRisks($faker->text(25));
             $decision->setLikeThreshold($faker->numberBetween(30, 70));
             $decision->setCreatedAt(new \DateTime('now'));
-            $decision->setOwne($this->getReference('user_'.rand(1,UserFixtures::NB_USER)));
+            $decision->setOwner($this->getReference('user_'.rand(1,UserFixtures::NB_USER)));
             $this->addReference('decision_'.$j, $decision);
             $manager->persist($decision);
             }
