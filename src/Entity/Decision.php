@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Content;
 use App\Entity\History;
-use App\Entity\Department;
+
 
 #[ORM\Entity(repositoryClass: DecisionRepository::class)]
 class Decision
@@ -68,17 +68,18 @@ class Decision
     #[ORM\ManyToMany(targetEntity: Department::class, inversedBy: 'decisions')]
     private Collection $department;
 
+
     public function __construct()
     {
         $this->contents = new ArrayCollection();
         $this->opinions = new ArrayCollection();
         $this->histories = new ArrayCollection();
         $this->validations = new ArrayCollection();
-        // $this->departments = new ArrayCollection();
         $this->notifications = new ArrayCollection();
         $this->createdAt =  new \DateTime('now');
         $this->updatedAt =  new \DateTime('now');
         $this->department = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -341,10 +342,27 @@ class Decision
     }
 
     /**
-     * @return Collection<int, department>
+     * @return Collection<int, Department>
      */
     public function getDepartment(): Collection
     {
         return $this->department;
     }
+
+    public function addDepartment(Department $department): self
+    {
+        if (!$this->department->contains($department)) {
+            $this->department->add($department);
+        }
+
+        return $this;
+    }
+
+    public function removeDepartment(Department $department): self
+    {
+        $this->department->removeElement($department);
+
+        return $this;
+    }
+   
 }
