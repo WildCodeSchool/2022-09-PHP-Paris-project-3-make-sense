@@ -17,14 +17,13 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
         $faker = Factory::create();
 
         for ($decision_id = 0; $decision_id < self::NB_DECISION; $decision_id++) {
-
             $decision = new Decision();
             $decision->setTitle($faker->text(5));
             $decision->setDescription($faker->text(15));
             $decision->setBenefits($faker->text(15));
             $decision->setLikeThreshold(1);
             $decision->setCreatedAt(new \DateTime('now'));
-            $decision->getCreatedBy($this->getReference('user_' . '1'));
+            $decision->setOwner($this->getReference('user_' . '1'));
             $this->addReference('decision_' . $decision_id, $decision);
             $manager->persist($decision);
         }

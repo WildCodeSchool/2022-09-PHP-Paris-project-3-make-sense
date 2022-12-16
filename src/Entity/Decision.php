@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Content;
 use App\Entity\History;
+use App\Entity\Department;
 
 #[ORM\Entity(repositoryClass: DecisionRepository::class)]
 class Decision
@@ -47,9 +48,6 @@ class Decision
     #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Validation::class)]
     private Collection $validations;
 
-    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Department::class)]
-    private Collection $departments;
-
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\Type("\DateTimeInterface")]
     private ?\DateTimeInterface $createdAt = null;
@@ -62,10 +60,13 @@ class Decision
     private Collection $notifications;
 
     #[ORM\ManyToOne(inversedBy: 'decisions')]
-    private ?User $createdBy = null;
+    private ?User $owner = null;
 
     #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Content::class)]
     private Collection $contents;
+
+    #[ORM\ManyToMany(targetEntity: Department::class, inversedBy: 'decisions')]
+    private Collection $department;
 
     public function __construct()
     {
@@ -73,10 +74,11 @@ class Decision
         $this->opinions = new ArrayCollection();
         $this->histories = new ArrayCollection();
         $this->validations = new ArrayCollection();
-        $this->departments = new ArrayCollection();
+        // $this->departments = new ArrayCollection();
         $this->notifications = new ArrayCollection();
         $this->createdAt =  new \DateTime('now');
         $this->updatedAt =  new \DateTime('now');
+        $this->department = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -267,36 +269,6 @@ class Decision
         return $this;
     }
 
-    /**
-     * @return Collection<int, Department>
-     */
-    public function getDepartments(): Collection
-    {
-        return $this->departments;
-    }
-
-    public function addDepartment(Department $department): self
-    {
-        if (!$this->departments->contains($department)) {
-            $this->departments->add($department);
-            $department->setDecision($this);
-        }
-
-        return $this;
-    }
-
-    public function removeDepartment(Department $department): self
-    {
-        if ($this->departments->removeElement($department)) {
-            // set the owning side to null (unless already changed)
-            if ($department->getDecision() === $this) {
-                $department->setDecision(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -351,14 +323,14 @@ class Decision
         return $this;
     }
 
-    public function getCreatedBy(): ?User
+    public function getOwner(): ?User
     {
-        return $this->createdBy;
+        return $this->owner;
     }
 
-    public function setCreatedBy(?User $createdBy): self
+    public function setOwner(?User $owner): self
     {
-        $this->createdBy = $createdBy;
+        $this->owner = $owner;
 
         return $this;
     }
@@ -366,5 +338,13 @@ class Decision
     public function __toString()
     {
         return $this->title;
+    }
+
+    /**
+     * @return Collection<int, department>
+     */
+    public function getDepartment(): Collection
+    {
+        return $this->department;
     }
 }
