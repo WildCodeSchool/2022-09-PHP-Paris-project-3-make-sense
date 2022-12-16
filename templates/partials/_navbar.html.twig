@@ -1,0 +1,59 @@
+<nav class="navbar navbar-expand-lg navbar-light border border-dark">
+
+	<div class="container-fluid">
+
+		<div class="nav nav-pills nav-fill col-4">
+			<img src="asset('build/images/logo-makesense.png')">
+		</div>
+
+		<div class="col-4 nav justify-content-between align-items-center">
+
+			<div class="dropdown">
+				<button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					Watchlist
+				</button>
+
+				<ul class="dropdown-menu">
+					<li>
+						<a class="dropdown-item" href="#">serie 1</a>
+					</li>
+					<li>
+						<a class="dropdown-item" href="#">serie 2</a>
+					</li>
+					<li>
+						<a class="dropdown-item" href="#">serie 3</a>
+					</li>
+				</ul>
+			</div>
+
+			{% if app.user is empty %}
+				<li class="nav-item">
+					<a class="nav-link" href="#">Inscription</a>
+				</li>
+			{% endif %}
+
+			<li class="nav-item">
+				{% if app.user %}
+
+					<div class="dropdown">
+						<button class="me-5 btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Profil
+						</button>
+
+						<ul class="dropdown-menu">
+							<li>
+								<a class="dropdown-item" href="#">Mon profil</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="#">Se déconnecter</a>
+							</li>
+						</ul>
+					{% else %}
+						<a class="nav-link" href="#">Se connecter</a>
+					{% endif %}
+				</li>
+			</li>
+		</div>
+
+	</div>
+</nav>
