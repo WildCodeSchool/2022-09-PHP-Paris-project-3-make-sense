@@ -22,6 +22,7 @@ class UserFixtures extends Fixture
             $user->setPassword('12345678');
             $user->setPicture('photo.jpg');
             $user->setPhone(0654454545);
+            $user->setRoles(['ROLE_USER']);
             $user->setemail($faker->email());
             $user->setCreatedAt(new \DateTimeImmutable('now'));
             $user->setUpdatedAt(new \DateTimeImmutable('now'));
