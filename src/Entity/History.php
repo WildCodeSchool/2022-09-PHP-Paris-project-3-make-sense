@@ -11,6 +11,15 @@ use App\Entity\Decision;
 #[ORM\Entity(repositoryClass: HistoryRepository::class)]
 class History
 {
+    public const STATUS = [
+        'Brouillon',
+        'En cours',
+        '1ère décision',
+        'Conflit',
+        'Aboutie',
+        'Non aboutie'
+    ];
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

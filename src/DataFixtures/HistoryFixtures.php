@@ -13,7 +13,6 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
     public const NB_HISTORY = 5;
     public const NB_DECISION = 5;
 
-
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
@@ -25,16 +24,10 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
                     $history->setStartedAt((new \DateTimeImmutable('now')));
                     $history->setEndedAt((new \DateTimeImmutable('now')));
                     $history->setDecision($this->getReference('decision_' . $faker->numberBetween(0, 24)));
-
-                    $history->setStatus($faker->text(15));
-                    $this->addReference('history_' . ((($decisionId * self::NB_DECISION) + $decisionId) * self::NB_HISTORY) + $historyId, $history);
-
-
-
+                    $history->setStatus(HISTORY::STATUS[rand(0, 5)]);
                     $manager->persist($history);
             }
         }
-
         $manager->flush();
     }
 

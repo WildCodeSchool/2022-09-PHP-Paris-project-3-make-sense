@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Content;
+use App\Entity\Comment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Content>
+ * @extends ServiceEntityRepository<Comment>
  *
- * @method Content|null find($id, $lockMode = null, $lockVersion = null)
- * @method Content|null findOneBy(array $criteria, array $orderBy = null)
- * @method Content[]    findAll()
- * @method Content[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Comment|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Comment|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Comment[]    findAll()
+ * @method Comment[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ContentRepository extends ServiceEntityRepository
+class CommentRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Content::class);
+        parent::__construct($registry, Comment::class);
     }
 
-    public function save(Content $entity, bool $flush = false): void
+    public function save(Comment $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class ContentRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Content $entity, bool $flush = false): void
+    public function remove(Comment $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
