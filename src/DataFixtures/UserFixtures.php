@@ -7,7 +7,7 @@ use Doctrine\Persistence\ObjectManager;
 use App\Entity\User;
 use Faker\Factory;
 
-class UserFixtures extends Fixture 
+class UserFixtures extends Fixture
 {
     public const NB_USER = 5;
 
@@ -15,29 +15,20 @@ class UserFixtures extends Fixture
     {
         $faker = Factory::create();
 
-        for ($user_id = 0; $user_id < self::NB_USER; $user_id++) {
-
+        for ($userId = 0; $userId < self::NB_USER; $userId++) {
             $user = new User();
             $user->setFirstname($faker->firstName());
             $user->setLastname($faker->lastName());
             $user->setPassword('12345678');
             $user->setPicture('photo.jpg');
-            $user->setPhone('0654454545');
+            $user->setPhone(0654454545);
             $user->setRoles(['ROLE_USER']);
             $user->setemail($faker->email());
             $user->setCreatedAt(new \DateTimeImmutable('now'));
             $user->setUpdatedAt(new \DateTimeImmutable('now'));
-            $this->addReference('user_' . $user_id, $user);
+            $this->addReference('user_' . $userId, $user);
             $manager->persist($user);
         }
-
         $manager->flush();
     }
-
-    // public function getDependencies(): array
-    // {
-    //     return [
-    //         // DecisionFixtures::class,
-    //     ];
-    // }
 }
