@@ -69,9 +69,23 @@ class DecisionType extends AbstractType
                     'class' => 'form-label'
                 ]
             ])
-            ->add('likeThreshold', IntegerType::class, [
-                'label' => 'Avis négatifs générant'])
+            ->add('likeThreshold', IntegerType::class,[
+                'attr' => [
+                    'required' => true,
+                    'class' => 'form-control',
+                ],
+                'label' => 'Avis négatifs générant un conflit (%)',
+                'label_attr' => [
+                    'class' => 'form-label'
+                ]
+                    ])
+
             ->add('department', EntityType::class, [
+                'attr' => [
+                    'required' => true,
+                    'class' => 'form-control h-50',
+                    
+                ],
                 'class' => Department::class,
                 'choice_label' => 'name',
                 'multiple' => true,

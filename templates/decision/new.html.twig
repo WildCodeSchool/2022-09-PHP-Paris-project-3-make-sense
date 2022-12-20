@@ -6,53 +6,48 @@
 
 	{{ form_start(form) }}
 	<legend class="d-flex justify-content-center mt-5 pt-5">Ajouter une annonce</legend>
-	<div class="row mb-3 d-flex justify-content-center">
-		<div class="col-3 pt-5">
-			{{ form_row(form.title) }}
+
+	<div class="container">
+		<div class="row form-control mb-3 d-flex justify-content-center">
+			<div class="col-sm-4 form-control mb-5">
+				{{ form_row(form.title) }}
+			</div>
+
+
+			<div class="col-sm-6 form-control mb-5">
+				{{ form_row(form.description) }}
+			</div>
+
+
+			<div class="col-sm-6 form-control mb-5">
+				{{ form_row(form.impacts) }}
+			</div>
+
+
+			<div class="col-sm-6 form-control mb-5">
+				{{ form_row(form.benefits) }}
+			</div>
+
+
+			<div class="col-sm-6 form-control mb-5">
+				{{ form_row(form.risks) }}
+			</div>
+
+
+			<div class="col-sm-6 form-control mb-5">
+				{{ form_row(form.likeThreshold) }}
+			</div>
+
+
+			<div class="col-sm-6 form-control mb-5">
+				{{ form_row(form.department) }}
+			</div>
+
+
+			<div class="col-sm-6 form-control mb-5">
+				{{ form_row(form.submit) }}
+			</div>
 		</div>
 	</div>
-
-	<div class="row mb-3 d-flex justify-content-center">
-		<div class="col-3">
-			{{ form_row(form.description) }}
-		</div>
-	</div>
-
-	<div class="row mb-3 d-flex justify-content-center">
-		<div class="col-3">
-			{{ form_row(form.impacts) }}
-		</div>
-	</div>
-
-	<div class="row mb-3 d-flex justify-content-center">
-		<div class="col-3">
-			{{ form_row(form.benefits) }}
-		</div>
-	</div>
-
-	<div class="row mb-3 d-flex justify-content-center">
-		<div class="col-3">
-			{{ form_row(form.risks) }}
-		</div>
-	</div>
-
-	<div class="row mb-3 d-flex justify-content-center">
-		<div class="col-3 pt-5">
-			{{ form_row(form.likeThreshold) }}
-		</div>
-	</div>
-
-	<div class="row mb-3 d-flex justify-content-center">
-		<div class="col-3 pt-5">
-			{{ form_row(form.department) }}
-		</div>
-	</div>
-
-	<div class="row mb-3 d-flex justify-content-center">
-		<div class="col-3">
-			{{ form_row(form.submit) }}
-		</div>
-	</div>
-
 	{{form_end(form)}}
 {% endblock %}
