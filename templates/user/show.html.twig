@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+{{user.firstname}} {{user.lastname}}
+
+    {% for decisions in decisions %}
+    <div>
+         <h1>{{ decisions.title }}</h1> 
+        <h3>{{ decisions.description }}</h3>
+    </div>
+    {% endfor %}
+
+
+{% endblock %}
