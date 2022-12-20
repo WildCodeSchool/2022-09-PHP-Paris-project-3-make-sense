@@ -8,8 +8,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use App\Entity\Decision;
 use Faker;
 use DateTimeImmutable;
-use DateTime;
-use DateTimeInterface;
+
 
 class DecisionFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -28,7 +27,7 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
             $decision->setBenefits($faker->text(25));
             $decision->setRisks($faker->text(25));
             $decision->setLikeThreshold($faker->numberBetween(30, 70));
-            $decision->setCreatedAt(new \DateTimeImmutable('now'));
+            $decision->setCreatedAt(new DateTimeImmutable('now'));
             $decision->setOwner($this->getReference('user_' . rand(0, UserFixtures::NB_USER - 1)));
             $this->addReference('decision_' . $j, $decision);
             $manager->persist($decision);
@@ -40,5 +39,4 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [UserFixtures::class];
-    }
-}
+    
