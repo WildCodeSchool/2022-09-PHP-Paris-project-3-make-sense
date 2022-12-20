@@ -3,33 +3,45 @@
 	<div class="container-fluid">
 
 		<div class="nav nav-pills nav-fill col-4">
-			<img class = "logo" src="{{ asset('build/images/logo-makesense.png') }}">
+			<a class="dropdown-item" href="{{ path('app_home') }}">
+				<img class="logo" src="{{ asset('build/images/logo-makesense.png') }}">
+			</a>
 		</div>
 
-		<div class="col-4 nav justify-content-end align-items-center">
+		<div class="col-6 nav justify-content-end align-items-center">
+			<li	class="nav-item">
+				<button class="fs-4 me-5 btn" type="button">
+						Décisions
+				</button>
+			</li>
 
-			<li class="nav-item">
-				{% if app.user %}
+			<li	class="nav-item">
+				<button class="fs-4 me-5 btn" type="button">
+						Notification
+				</button>
+			</li>
+			
+			<li	class="nav-item">
+				{# {% if app.user %} #}
 
-					<div class="dropdown">
-						<button class="me-5 btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Profil
-						</button>
+				<div class="dropdown">
+					<button class="fs-4 me-5 btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+						Mon Profil
+					</button>
 
-						<ul class="dropdown-menu">
-							<li>
-								<a class="dropdown-item" href="#">Mon profil</a>
-							</li>
-							<li>
-								<a class="dropdown-item" href="#">Se déconnecter</a>
-							</li>
-						</ul>
-					{% else %}
-						<a class="nav-link" href="#">Se connecter</a>
-					{% endif %}
-				</li>
+					<ul class="dropdown-menu">
+						<li>
+							<a class="fs-5 dropdown-item" href="#">Mes décisions</a>
+						</li>
+						<li>
+							<a class="fs-5 dropdown-item" href="#">Se déconnecter</a>
+						</li>
+					</ul>
+				</div>
+				{# {% else %}
+														<a class="nav-link" href="#">Se connecter</a>
+													{% endif %} #}
 			</li>
 		</div>
-
 	</div>
 </nav>
