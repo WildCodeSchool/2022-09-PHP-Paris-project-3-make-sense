@@ -15,13 +15,18 @@ class HomeController extends AbstractController
         return $this->render(
             'home/index.html.twig',
             [
-                'allFirstDecisionCreated' => $decisionRepository->findBy(
+                'allLastDecision' => $decisionRepository->findBy(
                     [],
+                    ['createdAt' => 'DESC'],
+                    3,
+                    0),
+                'myLastDecision' => $decisionRepository->findBy(
+                    ['owner' => 178],
                     ['createdAt' => 'DESC'],
                     3,
                     0
                 ),
-                'myFirstDecisionCreated' => $decisionRepository->findBy(
+                'myLastDraft' => $decisionRepository->findBy(
                     ['owner' => 178],
                     ['createdAt' => 'DESC'],
                     3,
