@@ -7,6 +7,9 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use App\Entity\Decision;
 use Faker;
+use DateTimeImmutable;
+use DateTime;
+use DateTimeInterface;
 
 class DecisionFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -17,11 +20,9 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Faker\Factory::create('fr_FR');
 
-        // for ($i = 0; $i < self::USER; $i++ )
-        // {
         for ($j = 0; $j < self::DECISION; $j++) {
             $decision = new Decision();
-            $decision->setTitle($faker->word(25, true));
+            $decision->setTitle($faker->words(25, true));
             $decision->setDescription($faker->text(25));
             $decision->setImpacts($faker->text(25));
             $decision->setBenefits($faker->text(25));
@@ -32,12 +33,11 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
             $this->addReference('decision_' . $j, $decision);
             $manager->persist($decision);
         }
-        // }
+
         $manager->flush();
     }
 
     public function getDependencies()
-
     {
         return [UserFixtures::class];
     }
