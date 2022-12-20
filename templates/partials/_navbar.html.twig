@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg navbar-light border border-dark">
+
+	<div class="container-fluid">
+
+		<div class="nav nav-pills nav-fill col-4">
+			<img class = "logo" src="{{ asset('build/images/logo-makesense.png') }}">
+		</div>
+
+		<div class="col-4 nav justify-content-end align-items-center">
+
+			<li class="nav-item">
+				{% if app.user %}
+
+					<div class="dropdown">
+						<button class="me-5 btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Profil
+						</button>
+
+						<ul class="dropdown-menu">
+							<li>
+								<a class="dropdown-item" href="#">Mon profil</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="#">Se déconnecter</a>
+							</li>
+						</ul>
+					{% else %}
+						<a class="nav-link" href="#">Se connecter</a>
+					{% endif %}
+				</li>
+			</li>
+		</div>
+
+	</div>
+</nav>
