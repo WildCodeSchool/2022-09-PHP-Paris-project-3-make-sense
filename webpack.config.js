@@ -81,7 +81,7 @@ Encore
         config.corejs = 3;
     })
 
-    // uncomment if you use TypeScript
+    /* uncomment if you use TypeScript
     // .enableTypeScriptLoader()
 
     // uncomment if you use React
@@ -94,7 +94,7 @@ Encore
     // uncomment if you're having problems with a jQuery plugin
     // .autoProvidejQuery()
 
-    // enables Sass/SCSS support
+    // enables Sass/SCSS support */
     .enableSassLoader();  
 const fullConfig = Encore.getWebpackConfig();
 fullConfig.devServer = {
