@@ -9,7 +9,6 @@ use App\Entity\Decision;
 use Faker;
 use DateTimeImmutable;
 
-
 class DecisionFixtures extends Fixture implements DependentFixtureInterface
 {
     public const USER = 5;
@@ -39,4 +38,5 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [UserFixtures::class];
-    
+    }
+}
