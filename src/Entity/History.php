@@ -11,6 +11,15 @@ use App\Entity\Decision;
 #[ORM\Entity(repositoryClass: HistoryRepository::class)]
 class History
 {
+    public const STATUS = [
+        'Brouillon',
+        'En cours',
+        '1ère décision',
+        'Conflit',
+        'Aboutie',
+        'Non aboutie'
+    ];
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -31,6 +40,12 @@ class History
     #[ORM\ManyToOne(inversedBy: 'histories')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Decision $decision = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $updatedAt = null;
 
     public function getId(): ?int
     {
@@ -81,6 +96,30 @@ class History
     public function setDecision(?Decision $decision): self
     {
         $this->decision = $decision;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

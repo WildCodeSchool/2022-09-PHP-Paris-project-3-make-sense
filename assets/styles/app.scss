@@ -5,13 +5,15 @@
 
 :root {
     --cerise-dark-color: rgb(155, 8, 79);
-  }
+}
 
 .card-bg-color {
     background-color: var(--cerise-dark-color);
 }
 
 .profil-photo {
+    height:60px;
+    width: 60px;
     border-radius: 50%;
 }
 
@@ -32,6 +34,6 @@
 }
 
 body {
-//     // var (--font-heading) : Raleway, Helvetica, Arial, sans-serif;
-     font-family: Raleway;
- }
+    // var (--font-heading): Raleway, Helvetica, Arial, sans-serif;
+    font-family: Raleway;
+}
