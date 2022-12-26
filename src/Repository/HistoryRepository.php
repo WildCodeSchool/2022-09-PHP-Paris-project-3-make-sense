@@ -42,7 +42,6 @@ class HistoryRepository extends ServiceEntityRepository
         }
     }
 
-
     public function findLastUpdatedByStatus(string $status, int $maxresult = 0): mixed
     {
         $conn = $this->entityManager->getConnection();
