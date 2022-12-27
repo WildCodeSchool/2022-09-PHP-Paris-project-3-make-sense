@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Opinion;
 use App\Service\OpinionLike;
 use App\Repository\DecisionRepository;
 use App\Repository\HistoryRepository;
@@ -18,6 +17,7 @@ class HomeController extends AbstractController
         HistoryRepository $historyRepository,
         OpinionLike $opinionLike
     ): Response {
+
         $owner = 202;
 
         $myLastDecisions = $decisionRepository->findBy(['owner' => $owner], ['createdAt' => 'DESC'], 3, 0);
