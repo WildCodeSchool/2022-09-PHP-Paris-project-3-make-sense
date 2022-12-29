@@ -15,10 +15,7 @@
 				<a href="#" class="fs-4 btn" type="button">
 					Notification
 				</a>
-				{% set notification = notificationSum(200) %}
-				{% if notification > 0%}
-					<span class="badge bg-primary rounded-pill">{{ notification }}</span>
-				{% endif %}
+				{{ render_hinclude(controller('App\\Controller\\NotificationController::notificationSum', {default: 'Loading...'})) }}
 			</li>
 			<li class="nav-item">
 				<div class="dropdown">
