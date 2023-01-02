@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Form\SearchDecisionType;
+use App\Repository\DecisionRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/decision', name: 'decision_')]
 class DecisionController extends AbstractController
@@ -17,11 +20,21 @@ class DecisionController extends AbstractController
         ]);
     }
 
-    #[Route('/', name: 'show')]
-    public function showAll(): Response
+    #[Route('/show_all', name: 'show_all')]
+    public function showAll(DecisionRepository $decisionRepository, Request $request): Response
     {
+        $form = $this->createForm(SearchDecisionType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $search = $form->getData()['search'];
+            $decisions = $decisionRepository->findLikeTitle($search);
+        } else {
+            $decisions = $decisionRepository->findAll();
+        }
         return $this->render('decision/show_all.html.twig', [
-            'controller_name' => 'DecisionController',
+            'decisions' => $decisions,
+            'form' => $form->createView()
         ]);
     }
 }

@@ -39,6 +39,16 @@ class DecisionRepository extends ServiceEntityRepository
         }
     }
 
+    public function findLikeTitle(string $title): array
+    {
+        $queryBuilder = $this->createQueryBuilder('d')
+            ->where('d.title LIKE :title')
+            ->setParameter('title', '%' . $title . '%')
+            ->orderBy('d.title', 'ASC')
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
+
 //    /**
 //     * @return Decision[] Returns an array of Decision objects
 //     */
