@@ -95,6 +95,7 @@ Encore
 
     // enables Sass/SCSS support
     .enableSassLoader();
+
 const fullConfig = Encore.getWebpackConfig();
 fullConfig.devServer = {
     headers: {
