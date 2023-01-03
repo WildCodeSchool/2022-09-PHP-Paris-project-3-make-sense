@@ -16,10 +16,11 @@ use App\Form\DecisionType;
 class DecisionController extends AbstractController
 {
     #[Route('/decision', name: 'app_decision')]
-    public function index(): Response
+    public function index(DecisionRepository $decisionRepository): Response
     {
+        $decisions = $decisionRepository->findAll();
         return $this->render('decision/index.html.twig', [
-            'controller_name' => 'DecisionController',
+            'decisions' => $decisions,
         ]);
     }
 
@@ -31,7 +32,7 @@ class DecisionController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $decisionRepository->save($decision, true);          
-            return $this->redirectToRoute('decision_index');
+            return $this->redirectToRoute('app_home');
         }
         return $this->renderForm('decision/new.html.twig', [
             'form' => $form,

@@ -26,7 +26,7 @@ class DecisionType extends AbstractType
                 ],
                 'label' => 'Titre',
                 'label_attr' => [
-                    'class' => 'form-label'
+                    'class' => 'form-label h4 d-flex justify-content-center mb-3 mt-3'
                 ]
             ])
             ->add('description', CKEditorType::class, [
@@ -36,7 +36,7 @@ class DecisionType extends AbstractType
                 ],
                 'label' => 'Description',
                 'label_attr' => [
-                    'class' => 'form-label'
+                    'class' => 'form-label h4 d-flex justify-content-center mb-3 mt-3'
                 ]
             ])
             ->add('impacts', CKEditorType::class, [
@@ -46,7 +46,7 @@ class DecisionType extends AbstractType
                 ],
                 'label' => 'Les impacts',
                 'label_attr' => [
-                    'class' => 'form-label'
+                    'class' => 'form-label h4 d-flex justify-content-center mb-3 mt-3'
                 ]
             ])
             ->add('benefits', CKEditorType::class, [
@@ -56,7 +56,7 @@ class DecisionType extends AbstractType
                 ],
                 'label' => 'Les bénéfices',
                 'label_attr' => [
-                    'class' => 'form-label'
+                    'class' => 'form-label h4 d-flex justify-content-center mb-3 mt-3'
                 ]
             ])
             ->add('risks', CKEditorType::class, [
@@ -66,7 +66,7 @@ class DecisionType extends AbstractType
                 ],
                 'label' => 'Les risques',
                 'label_attr' => [
-                    'class' => 'form-label'
+                    'class' => 'form-label h4 d-flex justify-content-center mb-3 mt-3'
                 ]
             ])
             ->add('likeThreshold', IntegerType::class,[
@@ -76,7 +76,7 @@ class DecisionType extends AbstractType
                 ],
                 'label' => 'Avis négatifs générant un conflit (%)',
                 'label_attr' => [
-                    'class' => 'form-label'
+                    'class' => 'form-label h4 d-flex justify-content-center mb-3 mt-3'
                 ]
                     ])
 
@@ -89,7 +89,10 @@ class DecisionType extends AbstractType
                 'class' => Department::class,
                 'choice_label' => 'name',
                 'multiple' => true,
-                'label' => 'Domaine'
+                'label' => 'Domaine',
+                'label_attr' => [
+                    'class' => 'form-label h4 d-flex justify-content-center mb-3 mt-3'
+                ]
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
@@ -106,4 +109,8 @@ class DecisionType extends AbstractType
             'data_class' => Decision::class,
         ]);
     }
+
+    /**
+     */
+    
 }

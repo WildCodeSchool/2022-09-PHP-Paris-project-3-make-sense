@@ -5,49 +5,51 @@
 {% block body %}
 
 	{{ form_start(form) }}
-	<legend class="d-flex justify-content-center mt-5 pt-5">Ajouter une annonce</legend>
 
+	<div class=" offset-1 d-flex justify-content-between pr-4 pl-5 mt-5 mb-5">
+		<h1>Ajouter une annonce</h1>
+	</div>
 	<div class="container">
-		<div class="row form-control mb-3 d-flex justify-content-center">
-			<div class="col-sm-4 form-control mb-5">
-				{{ form_row(form.title) }}
-			</div>
 
-
-			<div class="col-sm-6 form-control mb-5">
-				{{ form_row(form.description) }}
-			</div>
-
-
-			<div class="col-sm-6 form-control mb-5">
-				{{ form_row(form.impacts) }}
-			</div>
-
-
-			<div class="col-sm-6 form-control mb-5">
-				{{ form_row(form.benefits) }}
-			</div>
-
-
-			<div class="col-sm-6 form-control mb-5">
-				{{ form_row(form.risks) }}
-			</div>
-
-
-			<div class="col-sm-6 form-control mb-5">
-				{{ form_row(form.likeThreshold) }}
-			</div>
-
-
-			<div class="col-sm-6 form-control mb-5">
-				{{ form_row(form.department) }}
-			</div>
-
-
-			<div class="col-sm-6 form-control mb-5">
-				{{ form_row(form.submit) }}
-			</div>
+		<div class="col-sm-4 form-control mb-5">
+			{{ form_row(form.title) }}
 		</div>
+
+
+		<div class="col-sm-6 form-control mb-5">
+			{{ form_row(form.description) }}
+		</div>
+
+
+		<div class="col-sm-6 form-control mb-5">
+			{{ form_row(form.impacts) }}
+		</div>
+
+
+		<div class="col-sm-6 form-control mb-5">
+			{{ form_row(form.benefits) }}
+		</div>
+
+
+		<div class="col-sm-6 form-control mb-5">
+			{{ form_row(form.risks) }}
+		</div>
+
+
+		<div class="col-sm-6 form-control mb-5">
+			{{ form_row(form.likeThreshold) }}
+		</div>
+
+
+		<div class="col-sm-6 form-control mb-5">
+			{{ form_row(form.department) }}
+		</div>
+
+
+		<div class=" d-flex justify-content-center">
+			{{ form_row(form.submit) }}
+		</div>
+
 	</div>
 	{{form_end(form)}}
 {% endblock %}
