@@ -1,0 +1,28 @@
+<div class="container-fluid">
+	<div class="row mt-4 d-flex justify-content-center">
+		<div class="col-10">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">Date mise à jour</th>
+						<th scope="col">Décision</th>
+						<th scope="col">Message</th>
+						<th scope="col">Status</th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for notification in notifications %}
+						<tr class="table-active">
+							<td>{{ notification.updatedAt| date }}</td>
+							<td>{{ notification.title }}</td>
+							<td>message</td>
+							<td>{{ notification.status }}</td>
+							<td>Column content</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

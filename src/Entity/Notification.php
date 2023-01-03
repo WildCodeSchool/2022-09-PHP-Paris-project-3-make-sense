@@ -16,46 +16,15 @@ class Notification
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Assert\Type("\DateTimeInterface")]
-    private ?\DateTimeInterface $createdAt = null;
-
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $message = null;
-
     #[ORM\ManyToOne(inversedBy: 'notifications')]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'notifications')]
-    private ?Decision $decision = null;
+    private ?History $History = null;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getMessage(): ?string
-    {
-        return $this->message;
-    }
-
-    public function setMessage(string $message): self
-    {
-        $this->message = $message;
-
-        return $this;
     }
 
     public function getUser(): ?User
@@ -70,14 +39,14 @@ class Notification
         return $this;
     }
 
-    public function getDecision(): ?Decision
+    public function getHistory(): ?History
     {
-        return $this->decision;
+        return $this->History;
     }
 
-    public function setDecision(?Decision $decision): self
+    public function setHistory(?History $History): self
     {
-        $this->decision = $decision;
+        $this->History = $History;
 
         return $this;
     }
