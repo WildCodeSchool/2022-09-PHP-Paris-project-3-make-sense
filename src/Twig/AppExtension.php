@@ -7,13 +7,6 @@ use Twig\TwigFunction;
 
 class AppExtension extends AbstractExtension
 {
-    // public NotificationRepository $notificationRepository;
-
-    // public function __construct(NotificationRepository $notification)
-    // {
-    //     $this->notificationRepository = $notification;
-    // }
-
     public function getFunctions()
     {
         return [
