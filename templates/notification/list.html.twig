@@ -18,12 +18,17 @@
 							<td class="col-1">{{ notification.updatedAt| date("d/m/Y") }}</td>
 							<td class="col-4">{{ notification.title }}</td>
 							<td class="col-4">{{ messages[notification.status]}}</td>
-							<td class="col-1">{{ notification.status }}{{ notification.decisionid }}</td>
-							{% include 'notification/button.html.twig' %} 
+							<td class="col-1">{{ notification.status }}</td>
+							{% include 'notification/button.html.twig' %}
 						</tr>
 					{% endfor %}
 				</tbody>
 			</table>
+
+			<div class="navigation d-flex justify-content-center">
+				{{ knp_pagination_render(notifications) }}
+			</div>
+
 		</div>
 	</div>
 </div>

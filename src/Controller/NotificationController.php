@@ -2,13 +2,14 @@
 
 namespace App\Controller;
 
-use App\Repository\NotificationRepository;
-use App\Repository\ExpertiseRepository;
 use App\Repository\UserRepository;
-use App\Repository\DecisionRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\ExpertiseRepository;
+use App\Repository\NotificationRepository;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class NotificationController extends AbstractController
 {
@@ -35,7 +36,8 @@ class NotificationController extends AbstractController
         NotificationRepository $notificationRepository,
         UserRepository $userRepository,
         ExpertiseRepository $expertiseRepository,
-        // DecisionRepository $decisionRepository
+        PaginatorInterface $paginator,
+        Request $request
     ): Response {
 
         $userId = 200;
@@ -44,10 +46,17 @@ class NotificationController extends AbstractController
         // dd($user);
         // dd($expertiseRepository->countExpertiseByDecision($userId));
         // dd($notificationRepository->findAllNotification($userId));
+
+        $notifications = $paginator->paginate(
+            $notificationRepository->findAllNotification($userId), /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            2 /*limit per page*/
+        );
+
         return $this->render(
             'notification/index.html.twig',
             [
-                'notifications' => $notificationRepository->findAllNotification($userId),
+                'notifications' => $notifications,
                 'experts' => $expertiseRepository->countExpertiseByDecision($userId),
                 'messages' => self::NOTIFICATIONS_MESSAGE,
                 'buttons' => self::NOTIFICATIONS_BUTTON,
