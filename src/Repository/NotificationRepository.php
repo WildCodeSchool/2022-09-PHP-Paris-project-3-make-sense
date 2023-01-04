@@ -39,21 +39,18 @@ class NotificationRepository extends ServiceEntityRepository
         }
     }
 
-
-    public function findAllNotification(?int $userId = null)
+    public function findAllNotification(?int $userId = null): array
     {
-    
         $queryBuilder = $this->createQueryBuilder('n')
-            ->select('d.title', 'h.status, d.updatedAt')
-            ->join('App\Entity\History', 'h', 'WITH', 'n.History = h.id')
+            ->select('d.title', 'h.status', 'h.updatedAt', 'd.id as decisionid', 'identity(d.owner) as owner')
+            ->join('App\Entity\History', 'h', 'WITH', 'n.history = h.id')
             ->join('App\Entity\Decision', 'd', 'WITH', 'h.decision = d.id and n.user = :user_id')
             ->setParameter('user_id', $userId);
 
         $queryBuilder = $queryBuilder->getQuery();
-
+        // dd($queryBuilder)
         // dd($queryBuilder->getResult());
 
         return $queryBuilder->getResult();
     }
-
 }

@@ -1,0 +1,24 @@
+
+{% if notification.status == "Conflit" %}
+	{% if isNotificationDecisionExpert(notification.decisionid, experts) %}
+		<td class="text-center">
+			<button class="rounded-5 col-8 card-bg-color text-white">{{ buttons[notification.status]}}</button>
+		</td>
+	{% else %}
+		<td class="col-1"></td>
+	{% endif %}
+{% else %}
+	{% if notification.status == "1ère décision" %}
+		{% if notification.owner == user.id %}
+			<td class="text-center">
+				<button class="rounded-5 col-8 card-bg-color text-white">{{ buttons[notification.status]}}</button>
+			</td>
+		{% else %}
+			<td class="col-1"></td>
+		{% endif %}
+	{% else %}
+		<td class="text-center">
+			<button class="rounded-5 col-8 card-bg-color text-white">{{ buttons[notification.status]}}</button>
+		</td>
+	{% endif %}
+{% endif %}

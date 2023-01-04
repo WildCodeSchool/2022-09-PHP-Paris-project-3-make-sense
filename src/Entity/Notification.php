@@ -20,7 +20,7 @@ class Notification
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'notifications')]
-    private ?History $History = null;
+    private ?History $history = null;
 
     public function getId(): ?int
     {
@@ -41,12 +41,12 @@ class Notification
 
     public function getHistory(): ?History
     {
-        return $this->History;
+        return $this->history;
     }
 
-    public function setHistory(?History $History): self
+    public function setHistory(?History $history): self
     {
-        $this->History = $History;
+        $this->history = $history;
 
         return $this;
     }

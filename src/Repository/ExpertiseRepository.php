@@ -39,29 +39,17 @@ class ExpertiseRepository extends ServiceEntityRepository
         }
     }
 
+    public function countExpertiseByDecision(?int $userId = null): array
+    {
+        $queryBuilder = $this->createQueryBuilder('e')
+            ->select('d.id as decisionid', 'SUM(e.isExpert) as sum')
+            ->join('\App\Entity\Decision', 'd')
+            ->join('d.departments', 'dep', 'WITH', 'e.department = dep and e.user = :user_id and e.isExpert=1')
+            ->groupBy('d.id')
+            ->setParameter('user_id', $userId);
 
-    //    /**
-    //     * @return Expertise[] Returns an array of Expertise objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('e')
-    //            ->andWhere('e.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('e.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+        $queryBuilder = $queryBuilder->getQuery();
 
-    //    public function findOneBySomeField($value): ?Expertise
-    //    {
-    //        return $this->createQueryBuilder('e')
-    //            ->andWhere('e.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        return $queryBuilder->getResult();
+    }
 }

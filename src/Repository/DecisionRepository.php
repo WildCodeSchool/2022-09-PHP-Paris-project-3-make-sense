@@ -39,5 +39,4 @@ class DecisionRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
 }

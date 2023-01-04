@@ -49,7 +49,7 @@ class History
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\OneToMany(mappedBy: 'History', targetEntity: Notification::class)]
+    #[ORM\OneToMany(mappedBy: 'history', targetEntity: Notification::class)]
     private Collection $notifications;
 
     public function __construct()
