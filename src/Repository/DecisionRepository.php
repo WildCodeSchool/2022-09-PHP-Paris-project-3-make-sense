@@ -6,6 +6,7 @@ use App\Entity\Decision;
 use App\Entity\History;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @extends ServiceEntityRepository<Decision>
@@ -17,8 +18,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class DecisionRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private EntityManagerInterface $entityManager;
+    
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager)
     {
+        $this->entityManager = $entityManager;
         parent::__construct($registry, Decision::class);
     }
 
@@ -41,6 +45,21 @@ class DecisionRepository extends ServiceEntityRepository
     }
 
 
+    public function findLastStatus(int $decisionId): array
+    {
+        $conn = $this->entityManager->getConnection();
+
+        $sql1 = 'SELECT MAX(updated_at) AS max, decision_id as dec_id FROM history h WHERE h.decision_id = :decision_id';
+        $sql = 'SELECT * From decision d INNER JOIN history h1 ON h1.decision_id = d.id ';
+        $sql .= 'INNER JOIN (' . $sql1 . ') ';
+        $sql .= 'ms ON dec_id = h1.decision_id and max = h1.updated_at ';
+    
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery(['decision_id' => $decisionId]);
+
+        return ($resultSet->fetchAssociative());
+    }
+
     public function findByHistory(?array $histories, ?int $ownerId = null): array
     {
         $decisions = [];
@@ -62,66 +81,6 @@ class DecisionRepository extends ServiceEntityRepository
             }
         }
 
-
         return $decisions;
     }
-
-    public function findByStatus2(string $status, int $userId): void
-    {
-        // $em = $this->getEntityManager();
-        // $query = $em->createQuery(
-        //     "SELECT '*' FROM App\Entity\Decision as d INNER JOIN (
-        //         SELECT h.decision_id, status, updated_at from App\Entity\History h
-        //             INNER JOIN (SELECT MAX(updated_at) as t1, decision_id FROM App\Entity\History
-        //                  GROUP BY decision_id) ms ON ms.decision_id = h.decision_id
-        //                     and t1 = h.updated_at and h.status = :status) mt ON
-        //                     mt.decision_id = d.id and d.owner_id= :userId;"
-        // );
-
-        // $query->setParameters(array(
-        //     'status' => $status,
-        //     'userId' => $userId
-        // ));
-
-
-        // $query = $em->createQuery("
-        //         SELECT IDENTITY(h1.decision), MAX(h1.updatedAt) t1
-        //          FROM App\Entity\History h1 GROUP BY h1.decision
-        //          ");
-
-        // $query = $em->createQuery("
-        //     SELECT IDENTITY(h2.decision_id), h2.status, h2.updatedAt from App\Entity\History h2 JOIN
-        //     (SELECT IDENTITY(h1.decision), MAX(h1.updatedAt) t1
-        //         FROM App\Entity\History h1 GROUP BY h1.decision) ms
-        //     ON ms.decision = h2.decision and t1 = h2.updatedAt and h2.status = 'Brouillon'");
-
-        // dd($query->getResult());
-
-        // return $query->getResult();
-    }
-
-    //    /**
-    //     * @return Decision[] Returns an array of Decision objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('d')
-    //            ->andWhere('d.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('d.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Decision
-    //    {
-    //        return $this->createQueryBuilder('d')
-    //            ->andWhere('d.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
 }

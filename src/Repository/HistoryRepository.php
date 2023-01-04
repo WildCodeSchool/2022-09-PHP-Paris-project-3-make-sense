@@ -18,6 +18,7 @@ use Doctrine\ORM\EntityManagerInterface;
 class HistoryRepository extends ServiceEntityRepository
 {
     private EntityManagerInterface $entityManager;
+
     public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;

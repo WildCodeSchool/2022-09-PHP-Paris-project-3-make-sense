@@ -14,13 +14,14 @@
 								<a class="ms-2 text-decoration-none" href="#">{{ myLastDecisions[i].title|u.truncate(50)  }}</a>
 							</div>
 							<div class="mt-2 mb-2">
-								<img class="like" src="{{ asset('build/images/thumbs-up-regular.png') }}">
+								<a href="{{ path('app_opinion', { 'decisionId' : myLastDecisions[i].id, 'opinion' : 'like' })}}">
+									<img class="like" src="{{ asset('build/images/thumbs-up-regular.png') }}">
+								</a>
 								<a>({{ myLastDecisionsOpinion[i].like }})</a>
 								<img class="like ms-2" src="{{ asset('build/images/thumbs-down-regular.png') }}">
 								<a class="text-decoration-none me-2">({{ myLastDecisionsOpinion[i].dislike }})</a>
 							</div>
 						</div>
-
 					{% endfor %}
 				</div>
 			</div>
@@ -62,12 +63,12 @@
 								<img class="ms-2 profil-photo" src="{{ asset('build/images/user.jpg') }}">
 								<a class="ms-2 text-decoration-none" href="#">{{ myLastDrafts[i].title|u.truncate(50) }}</a>
 							</div>
-							<div class="mt-2 mb-2">
-								<img class="like" src="{{ asset('build/images/thumbs-up-regular.png') }}">
-								<a>({{ myLastDraftsOpinion[i].like }})</a>
-								<img class="like ms-2" src="{{ asset('build/images/thumbs-down-regular.png') }}">
-								<a class="text-decoration-none me-2">({{ myLastDraftsOpinion[i].dislike }})</a>
-							</div>
+							{# <div class="mt-2 mb-2">
+															<img class="like" src="{{ asset('build/images/thumbs-up-regular.png') }}">
+															<a>({{ myLastDraftsOpinion[i].like }})</a>
+															<img class="like ms-2" src="{{ asset('build/images/thumbs-down-regular.png') }}">
+															<a class="text-decoration-none me-2">({{ myLastDraftsOpinion[i].dislike }})</a>
+														</div> #}
 						</div>
 					{% endfor %}
 				</div>
@@ -86,14 +87,14 @@
 									{{ AllLastAccomplished[i].title|u.truncate(50) }}
 								</a>
 							</div>
-							<div class="mt-2 mb-2">
-								<img class="like" src="{{ asset('build/images/thumbs-up-regular.png') }}">
-								<a>({{ AllLastAccomplishedOpinion[i].like }})</a>
-								<img class="like ms-2" src="{{ asset('build/images/thumbs-down-regular.png') }}">
-								<a class="text-decoration-none me-2">
-									({{ AllLastAccomplishedOpinion[i].dislike }})
-								</a>
-							</div>
+							{# <div class="mt-2 mb-2">
+															<img class="like" src="{{ asset('build/images/thumbs-up-regular.png') }}">
+															<a>({{ AllLastAccomplishedOpinion[i].like }})</a>
+															<img class="like ms-2" src="{{ asset('build/images/thumbs-down-regular.png') }}">
+															<a class="text-decoration-none me-2">
+																({{ AllLastAccomplishedOpinion[i].dislike }})
+															</a>
+														</div> #}
 						</div>
 					{% endfor %}
 				</div>

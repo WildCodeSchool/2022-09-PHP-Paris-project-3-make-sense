@@ -21,17 +21,15 @@ class HomeController extends AbstractController
         $owner = 202;
 
         $myLastDecisions = $decisionRepository->findBy(['owner' => $owner], ['createdAt' => 'DESC'], 3, 0);
-
         $allLastDecisions = $decisionRepository->findBy([], ['createdAt' => 'DESC'], 3, 0);
 
-        $myLastDrafts = $decisionRepository->findByHistory(
-            $historyRepository->findLastUpdatedByStatus("Brouillon", 3),
-            $owner
-        );
-
-        $allLastAccomplished = $decisionRepository->findByHistory(
-            $historyRepository->findLastUpdatedByStatus("Aboutie", 3)
-        );
+        // $myLastDrafts = $decisionRepository->findByHistory(
+        //     $historyRepository->findLastUpdatedByStatus("Brouillon", 3),
+        //     $owner
+        // );
+        // $allLastAccomplished = $decisionRepository->findByHistory(
+        //     $historyRepository->findLastUpdatedByStatus("Aboutie", 3)
+        // );
 
         return $this->render(
             'home/index.html.twig',
@@ -42,11 +40,14 @@ class HomeController extends AbstractController
                 'allLastDecisions' => $allLastDecisions,
                 'allLastDecisionsOpinion' => $opinionLike->calculateAllOpinion($allLastDecisions),
 
-                'myLastDrafts' => $myLastDrafts,
-                'myLastDraftsOpinion' => $opinionLike->calculateAllOpinion($myLastDrafts),
+                'myLastDrafts' => $decisionRepository->findByHistory(
+                    $historyRepository->findLastUpdatedByStatus("Brouillon", 3),
+                    $owner),
+                // 'myLastDraftsOpinion' => $opinionLike->calculateAllOpinion($myLastDrafts),
 
-                'AllLastAccomplished' => $allLastAccomplished,
-                'AllLastAccomplishedOpinion' => $opinionLike->calculateAllOpinion($allLastAccomplished)
+                'AllLastAccomplished' => $decisionRepository->findByHistory(
+                    $historyRepository->findLastUpdatedByStatus("Aboutie", 3))
+                // 'AllLastAccomplishedOpinion' => $opinionLike->calculateAllOpinion($allLastAccomplished)
             ]
         );
     }
