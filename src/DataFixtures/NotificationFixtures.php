@@ -2,10 +2,11 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Persistence\ObjectManager;
-use App\Entity\Notification;
 use Faker\Factory;
+use DateTimeImmutable;
+use App\Entity\Notification;
+use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class NotificationFixtures extends Fixture implements DependentFixtureInterface
@@ -22,7 +23,7 @@ class NotificationFixtures extends Fixture implements DependentFixtureInterface
             for ($decisionId = 0; $decisionId < self::NB_DECISION; $decisionId++) {
                 for ($notificationId = 0; $notificationId < self::NB_NOTIFICATION; $notificationId++) {
                     $notification = new Notification();
-                    $notification->setCreatedAt(new \DateTimeImmutable('now'));
+                    $notification->setCreatedAt(new DateTimeImmutable('now'));
                     $notification->setMessage($faker->paragraphs(3, true));
                     $notification->setUser($this->getReference('user_' . $faker->numberBetween(0, 4)));
                     $notification->setDecision($this->getReference('decision_' . $faker->numberBetween(0, 24)));

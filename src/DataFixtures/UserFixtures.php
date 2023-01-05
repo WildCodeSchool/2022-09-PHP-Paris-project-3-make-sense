@@ -2,10 +2,11 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Persistence\ObjectManager;
-use App\Entity\User;
 use Faker\Factory;
+use App\Entity\User;
+use DateTimeImmutable;
+use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 
 class UserFixtures extends Fixture
 {
@@ -24,8 +25,8 @@ class UserFixtures extends Fixture
             $user->setPhone(0654454545);
             $user->setRoles(['ROLE_USER']);
             $user->setemail($faker->email());
-            $user->setCreatedAt(new \DateTimeImmutable('now'));
-            $user->setUpdatedAt(new \DateTimeImmutable('now'));
+            $user->setCreatedAt(new DateTimeImmutable('now'));
+            $user->setUpdatedAt(new DateTimeImmutable('now'));
             $this->addReference('user_' . $userId, $user);
             $manager->persist($user);
         }

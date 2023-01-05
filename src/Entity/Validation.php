@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ValidationRepository;
+use App\Entity\User;
+use DateTimeInterface;
+use App\Entity\Decision;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ValidationRepository;
 use Symfony\Component\Validator\Constraints as Assert;
-use App\Entity\Decision;
-use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: ValidationRepository::class)]
 class Validation
@@ -21,8 +22,8 @@ class Validation
     private ?bool $isApproved = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Assert\Type("\DateTimeInterface")]
-    private ?\DateTimeInterface $createdAt = null;
+    #[Assert\Type("DateTimeInterface")]
+    private ?DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $comment = null;
@@ -50,12 +51,12 @@ class Validation
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
