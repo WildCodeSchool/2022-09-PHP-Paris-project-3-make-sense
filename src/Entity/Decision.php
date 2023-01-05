@@ -13,6 +13,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: DecisionRepository::class)]
+/** @SuppressWarnings(PHPMD.TooManyPublicMethods)
+ *  @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
+ */
 class Decision
 {
     #[ORM\Id]

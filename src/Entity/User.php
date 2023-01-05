@@ -15,6 +15,9 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 #[UniqueEntity('email')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\EntityListeners(['App\EntityListener\UserListener'])]
+/** @SuppressWarnings(PHPMD.TooManyPublicMethods)
+ *  @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
+ */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
