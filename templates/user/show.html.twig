@@ -2,14 +2,37 @@
 
 {% block body %}
 
-{{user.firstname}} {{user.lastname}}
 
-    {% for decisions in decisions %}
-    <div>
-         <h1>{{ decisions.title }}</h1> 
-        <h3>{{ decisions.description }}</h3>
-    </div>
-    {% endfor %}
+<div class="container-fluid">
 
+	<div class="row mt-4">
+    {% for decision in decisions %}
 
+		<div class="col-6 d-flex justify-content-center m-0 p-0">
+
+			<div class="card border-dark mb-3" style="width: 40rem;">
+				<div class="card-header fs-3 text-center card-bg-color text-white">Mes dernières décisions créées</div>
+				<div class="card-body m-0 p-0">
+   
+						<div class="d-flex justify-content-between align-items-center border-2 border-bottom">
+							<div class="mt-2 mb-2">
+								<img class="profil-photo" src="{{ asset('build/images/user.jpg') }}">
+								<a class="ms-2 text-decoration-none" href="{{ path('user_decision', {'user' : user.id, 'decision' : decision.id })}}">{{ decision.title }}</a>
+							</div>
+							<div class="mt-2 mb-2">
+								<img class="like" src="{{ asset('build/images/thumbs-up-regular.png') }}">
+								<a>(12)</a>
+								<img class="like ms-2" src="{{ asset('build/images/thumbs-down-regular.png') }}">
+								<a>(22)</a>
+							</div>
+						</div>
+                
+
+				</div>
+
+			</div>
+		</div>
+        {% endfor %}
+
+					
 {% endblock %}
