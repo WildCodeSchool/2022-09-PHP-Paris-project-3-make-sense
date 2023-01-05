@@ -23,10 +23,9 @@ class UserListener
         $this->encodePassword($user);
     }
 
-    public function encodePassword(User $user) 
+    public function encodePassword(User $user)
     {
-        if($user->getPlainPassword() === null)
-        {
+        if ($user->getPlainPassword() === null) {
             return;
         }
         $user->setPassword(
