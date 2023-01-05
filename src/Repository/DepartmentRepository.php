@@ -46,11 +46,6 @@ class DepartmentRepository extends ServiceEntityRepository
             ->setParameter('user_id', $userId);
         $queryBuilder = $queryBuilder->getQuery();
         return $queryBuilder->getResult();
-        // $em = $this->getEntityManager();
-        // $query = $em->createQuery('SELECT e.isExpert, d.name FROM App\Entity\Department as d 
-        //                           LEFT JOIN App\Entity\Expertise as e
-        //                           WITH e.department = d.id and e.user = 200');   
-        // return $query->getResult();
     }
 
 
