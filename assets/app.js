@@ -12,4 +12,6 @@ import 'bootstrap/dist/js/bootstrap.bundle';
 // start the Stimulus application
 import './bootstrap';
 
+import "@fontsource/raleway";
+
 import './styles/app.scss';

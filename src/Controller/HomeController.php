@@ -19,19 +19,25 @@ class HomeController extends AbstractController
     ): Response {
 
         $owner = 202;
-
+        
         $myLastDecisions = $decisionRepository->findBy(['owner' => $owner], ['createdAt' => 'DESC'], 3, 0);
 
+
         $allLastDecisions = $decisionRepository->findBy([], ['createdAt' => 'DESC'], 3, 0);
+
 
         $myLastDrafts = $decisionRepository->findByHistory(
             $historyRepository->findLastUpdatedByStatus("Brouillon", 3),
             $owner
         );
 
+        dd("test");
+
         $allLastAccomplished = $decisionRepository->findByHistory(
             $historyRepository->findLastUpdatedByStatus("Aboutie", 3)
         );
+
+
 
         return $this->render(
             'home/index.html.twig',
