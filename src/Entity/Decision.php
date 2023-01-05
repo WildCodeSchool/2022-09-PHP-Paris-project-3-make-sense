@@ -65,6 +65,9 @@ class Decision
     #[ORM\ManyToMany(targetEntity: Department::class, inversedBy: 'decisions')]
     private Collection $departments;
 
+    #[ORM\Column]
+    private ?\DateTimeImmutable $endAt = null;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -325,6 +328,18 @@ class Decision
     public function removeDepartment(Department $department): self
     {
         $this->departments->removeElement($department);
+
+        return $this;
+    }
+
+    public function getEndAt(): ?\DateTimeImmutable
+    {
+        return $this->endAt;
+    }
+
+    public function setEndAt(\DateTimeImmutable $endAt): self
+    {
+        $this->endAt = $endAt;
 
         return $this;
     }
