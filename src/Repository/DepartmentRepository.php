@@ -46,36 +46,5 @@ class DepartmentRepository extends ServiceEntityRepository
             ->setParameter('user_id', $userId);
         $queryBuilder = $queryBuilder->getQuery();
         return $queryBuilder->getResult();
-        // $em = $this->getEntityManager();
-        // $query = $em->createQuery('SELECT e.isExpert, d.name FROM App\Entity\Department as d 
-        //                           LEFT JOIN App\Entity\Expertise as e
-        //                           WITH e.department = d.id and e.user = 200');   
-        // return $query->getResult();
     }
-
-
-//    /**
-//     * @return Department[] Returns an array of Department objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('d')
-//            ->andWhere('d.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('d.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Department
-//    {
-//        return $this->createQueryBuilder('d')
-//            ->andWhere('d.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }
