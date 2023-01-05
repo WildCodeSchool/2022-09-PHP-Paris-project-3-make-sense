@@ -38,7 +38,6 @@ class DecisionRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
 //    /**
 //     * @return Decision[] Returns an array of Decision objects
 //     */

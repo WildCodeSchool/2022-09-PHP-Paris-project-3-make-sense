@@ -38,6 +38,21 @@ class DepartmentRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findAllExpertiseByDepartement(?int $userId = null)
+    {
+        $queryBuilder = $this->createQueryBuilder('d')
+            ->select('e.isExpert', 'd.name')
+            ->leftjoin('App\Entity\Expertise', 'e', 'WITH', 'e.department = d.id and e.user = :user_id')
+            ->setParameter('user_id', $userId);
+        $queryBuilder = $queryBuilder->getQuery();
+        return $queryBuilder->getResult();
+        // $em = $this->getEntityManager();
+        // $query = $em->createQuery('SELECT e.isExpert, d.name FROM App\Entity\Department as d 
+        //                           LEFT JOIN App\Entity\Expertise as e
+        //                           WITH e.department = d.id and e.user = 200');   
+        // return $query->getResult();
+    }
+
 
 //    /**
 //     * @return Department[] Returns an array of Department objects

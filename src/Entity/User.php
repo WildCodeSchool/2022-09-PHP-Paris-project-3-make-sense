@@ -2,24 +2,37 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
+use App\Entity\Opinion;
+use App\Entity\Decision;
+use App\Entity\Expertise;
+use Vich\UploadableField;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
+use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[UniqueEntity('email')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\EntityListeners(['App\EntityListener\UserListener'])]
+#[Vich\Uploadable]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+
+    #[Vich\UploadableField(mapping: 'poster_file', fileNameProperty: 'imageName')]
+    private ?File $imageFile = null;
+
+    #[ORM\Column(type: 'string')]
+    private ?string $imageName = null;
 
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\Length(min: 1, max: 180)]
@@ -94,6 +107,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->decisions = new ArrayCollection();
         $this->opinions = new ArrayCollection();
         $this->comments = new ArrayCollection();
+    }
+    
+    public function setImageFile(?File $imageFile = null): user
+    {
+        $this->imageFile = $imageFile;
+        return $this;
+
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageName(?string $imageName): void
+    {
+        $this->imageName = $imageName;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
     }
 
     public function getId(): ?int
