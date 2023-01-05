@@ -38,7 +38,7 @@ class DepartmentRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-    public function findAllExpertiseByDepartement(?int $userId = null)
+    public function findAllExpertiseByDepartement(?int $userId = null): array
     {
         $queryBuilder = $this->createQueryBuilder('d')
             ->select('e.isExpert', 'd.name')
