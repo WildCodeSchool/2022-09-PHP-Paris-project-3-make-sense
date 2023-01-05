@@ -7,6 +7,7 @@ use Doctrine\Persistence\ObjectManager;
 use App\Entity\History;
 use Faker\Factory;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use DateTimeImmutable;
 
 class HistoryFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -21,8 +22,10 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
             for ($historyId = 0; $historyId < self::NB_HISTORY; $historyId++) {
                     $history = new History();
 
-                    $history->setStartedAt((new \DateTimeImmutable('now')));
-                    $history->setEndedAt((new \DateTimeImmutable('now')));
+                    $history->setStartedAt((new DateTimeImmutable('now')));
+                    $history->setEndedAt((new DateTimeImmutable('now')));
+                    $history->setcreatedAt((new DateTimeImmutable('now')));
+                    $history->setupdatedAt((new DateTimeImmutable('now')));
                     $history->setDecision($this->getReference('decision_' . $faker->numberBetween(0, 24)));
                     $history->setStatus(HISTORY::STATUS[rand(0, 5)]);
                     $manager->persist($history);
