@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\DecisionRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTime;
+use App\Entity\Comment;
+use App\Entity\History;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\DecisionRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
-use App\Entity\Content;
-use App\Entity\History;
-
 
 #[ORM\Entity(repositoryClass: DecisionRepository::class)]
 class Decision
@@ -62,8 +62,8 @@ class Decision
     #[ORM\ManyToOne(inversedBy: 'decisions')]
     private ?User $owner = null;
 
-    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Content::class)]
-    private Collection $contents;
+    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Comment::class)]
+    private Collection $comments;
 
     #[ORM\ManyToMany(targetEntity: Department::class, inversedBy: 'decisions')]
     private Collection $department;
@@ -71,15 +71,14 @@ class Decision
 
     public function __construct()
     {
-        $this->contents = new ArrayCollection();
+        $this->comments = new ArrayCollection();
         $this->opinions = new ArrayCollection();
         $this->histories = new ArrayCollection();
         $this->validations = new ArrayCollection();
         $this->notifications = new ArrayCollection();
-        $this->createdAt =  new \DateTime('now');
-        $this->updatedAt =  new \DateTime('now');
+        $this->createdAt =  new DateTime('now');
+        $this->updatedAt =  new DateTime('now');
         $this->department = new ArrayCollection();
-
     }
 
     public function getId(): ?int
@@ -159,23 +158,23 @@ class Decision
         return $this;
     }
 
-    public function getContents(): Collection
+    public function getComments(): Collection
     {
-        return $this->contents;
+        return $this->comments;
     }
 
-    public function addContent(content $content): self
+    public function addComment(Comment $comment): self
     {
-        if (!$this->contents->contains($content)) {
-            $this->contents->add($content);
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
         }
 
         return $this;
     }
 
-    public function removeContent(content $content): self
+    public function removeComment(Comment $comment): self
     {
-        $this->contents->removeElement($content);
+        $this->comments->removeElement($comment);
 
         return $this;
     }
@@ -364,5 +363,4 @@ class Decision
 
         return $this;
     }
-   
 }

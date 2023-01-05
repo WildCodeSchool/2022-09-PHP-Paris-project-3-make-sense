@@ -2,16 +2,18 @@
 
 namespace App\Entity;
 
-use App\Repository\ContentRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTime;
+use App\Entity\User;
+use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CommentRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
-use App\Entity\User;
 
-#[ORM\Entity(repositoryClass: ContentRepository::class)]
-class Content
+#[ORM\Entity(repositoryClass: CommentRepository::class)]
+class Comment
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -23,7 +25,7 @@ class Content
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $comment = null;
+    private ?string $content = null;
 
     #[ORM\ManyToOne(inversedBy: 'contents')]
     private ?User $user = null;
@@ -34,7 +36,7 @@ class Content
     public function __construct()
     {
         // $this->user = new ArrayCollection();
-        $this->createdAt =  new \DateTime('now');
+        $this->createdAt =  new DateTime('now');
     }
 
     public function getId(): ?int
@@ -42,26 +44,26 @@ class Content
         return $this->id;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(?\DateTimeInterface $createdAt): self
+    public function setCreatedAt(?DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getComment(): ?string
+    public function getContent(): ?string
     {
-        return $this->comment;
+        return $this->content;
     }
 
-    public function setComment(string $comment): self
+    public function setContent(string $content): self
     {
-        $this->comment = $comment;
+        $this->content = $content;
 
         return $this;
     }

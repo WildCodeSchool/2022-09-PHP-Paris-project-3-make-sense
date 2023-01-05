@@ -11,6 +11,17 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: DepartmentRepository::class)]
 class Department
 {
+    public const DEPARTMENTS = [
+        'Ressources Humaines',
+        'Commercial',
+        'Comptabilité',
+        'Informatique',
+        'Marketing',
+        'Finance',
+        'Achats',
+        'Juridique',
+    ];
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
