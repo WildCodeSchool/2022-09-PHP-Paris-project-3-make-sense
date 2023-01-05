@@ -25,7 +25,12 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+<<<<<<< HEAD
         "@makesenseorg/design-system": "^1.8.0",
         "Hinclude": "^1.2.0"
+=======
+        "@fontsource/raleway": "^4.5.11",
+        "@makesenseorg/design-system": "^1.8.0"
+>>>>>>> define_raleway_fonts
     }
 }
