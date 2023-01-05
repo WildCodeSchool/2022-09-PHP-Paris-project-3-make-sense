@@ -1,5 +1,4 @@
 //start coding by removing this file and adding yours ;)
-<<<<<<< HEAD
 * {
     box-sizing: border-box;
 }
@@ -17,19 +16,8 @@
     height: 30px;
 }
 
-@font-face {
-    font-family: 'Raleway';
-    src:
-        url(/public/build/fonts/Raleway/Raleway-Bold.ttf) format('truetype')
-}
-
 body {
     // var (--font-heading): Raleway, Helvetica, Arial, sans-serif;
-    font-family: Raleway;
-=======
-@import "wcs";
-
-body {
-    font-family: "Raleway";
->>>>>>> define_raleway_fonts
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
 }

@@ -11,10 +11,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
 
 import './styles/app.scss';
-import '@fontsource/raleway'
+
+import '@fontsource/raleway/700.css';
+import 'Hinclude/hinclude.js';
 
 // start the Stimulus application
 import './bootstrap';
 
-import 'Hinclude/hinclude.js';
-import './styles/app.scss';
