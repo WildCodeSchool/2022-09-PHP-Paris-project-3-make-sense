@@ -9,6 +9,7 @@ use Faker\Generator;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use DateTimeImmutable;
 
 class UserFixtures extends Fixture
 {
@@ -28,13 +29,11 @@ class UserFixtures extends Fixture
            // $user->setPassword('12345678');
             $user->setPicture('photo.jpg');
             $user->setPhone(0654454545);
-            $user->setemail($this->faker->email());
-            $user->setCreatedAt(new \DateTimeImmutable('now'));
-            $user->setUpdatedAt(new \DateTimeImmutable('now'));
-            $this->addReference('user_'.$userId, $user);
             $user->setRoles(['ROLE_USER']);
-            $user->setPlainPassword('password');
-
+            $user->setemail($this->faker->email());
+            $user->setCreatedAt(new DateTimeImmutable('now'));
+            $user->setUpdatedAt(new DateTimeImmutable('now'));
+            $this->addReference('user_' . $userId, $user);
             $manager->persist($user);
         }
         $manager->flush();

@@ -3,9 +3,6 @@
 namespace App\Entity;
 
 use DateTimeImmutable;
-use App\Entity\Opinion;
-use App\Entity\Decision;
-use App\Entity\Expertise;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;

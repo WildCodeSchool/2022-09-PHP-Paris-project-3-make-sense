@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\HistoryRepository;
+use DateTimeImmutable;
+use DateTimeInterface;
+use App\Entity\Decision;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\HistoryRepository;
 use Symfony\Component\Validator\Constraints as Assert;
-use App\Entity\Decision;
 
 #[ORM\Entity(repositoryClass: HistoryRepository::class)]
 class History
@@ -27,11 +29,11 @@ class History
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\Type("\DateTimeInterface")]
-    private ?\DateTimeInterface $startedAt = null;
+    private ?DateTimeInterface $startedAt = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\Type("\DateTimeInterface")]
-    private ?\DateTimeInterface $endedAt = null;
+    private ?DateTimeInterface $endedAt = null;
 
     #[ORM\Column(length: 50)]
     #[Assert\Length(min: 1, max: 50)]
@@ -41,29 +43,35 @@ class History
     #[ORM\JoinColumn(nullable: false)]
     private ?Decision $decision = null;
 
+    #[ORM\Column]
+    private ?DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column]
+    private ?DateTimeImmutable $updatedAt = null;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getStartedAt(): ?\DateTimeInterface
+    public function getStartedAt(): ?DateTimeInterface
     {
         return $this->startedAt;
     }
 
-    public function setStartedAt(\DateTimeInterface $startedAt): self
+    public function setStartedAt(DateTimeInterface $startedAt): self
     {
         $this->startedAt = $startedAt;
 
         return $this;
     }
 
-    public function getEndedAt(): ?\DateTimeInterface
+    public function getEndedAt(): ?DateTimeInterface
     {
         return $this->endedAt;
     }
 
-    public function setEndedAt(\DateTimeInterface $endedAt): self
+    public function setEndedAt(DateTimeInterface $endedAt): self
     {
         $this->endedAt = $endedAt;
 
@@ -90,6 +98,30 @@ class History
     public function setDecision(?Decision $decision): self
     {
         $this->decision = $decision;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(DateTimeImmutable $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
