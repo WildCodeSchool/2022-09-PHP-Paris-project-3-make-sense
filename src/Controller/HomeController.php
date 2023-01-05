@@ -18,7 +18,7 @@ class HomeController extends AbstractController
         OpinionLike $opinionLike
     ): Response {
 
-        $owner = 202;
+        $owner = 132;
         
         $myLastDecisions = $decisionRepository->findBy(['owner' => $owner], ['createdAt' => 'DESC'], 3, 0);
 
@@ -31,8 +31,7 @@ class HomeController extends AbstractController
             $owner
         );
 
-        dd("test");
-
+        
         $allLastAccomplished = $decisionRepository->findByHistory(
             $historyRepository->findLastUpdatedByStatus("Aboutie", 3)
         );
