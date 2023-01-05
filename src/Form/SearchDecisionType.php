@@ -34,7 +34,6 @@ class SearchDecisionType extends AbstractType
             ])
             ->add('Status', ChoiceType::class, [
                 'choices' => [
-                   
                  History::STATUS[0] => History::STATUS[0],
                  History::STATUS[1] => History::STATUS[1],
                  History::STATUS[2] => History::STATUS[2],
