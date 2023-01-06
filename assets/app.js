@@ -13,4 +13,3 @@ import '@fontsource/raleway/700.css'
 
 // start the Stimulus application
 import './bootstrap';
-
