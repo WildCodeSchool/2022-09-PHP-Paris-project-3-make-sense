@@ -3,20 +3,52 @@
 		<div class="d-flex justify-content-center m-0 p-0">
 			<div class="col-8">
 				<div class="card border-dark mb-3">
-					<div class="card-header fs-3 card-bg-color text-white">
-						Status :
-						{{ decision.status }}
-						<p class="fs-6">deadline :
-							{{ decision.end_at | date("d/m/Y") }}</p>
+					<div class="card-header fs-3 card-bg-color text-white d-flex justify-content-between">
+						<div class="mt-2">
+							Status :
+							{{ decision.status }}
+							<p class="fs-6">deadline :
+								{{ decision.end_at | date("d/m/Y") }}</p>
+						</div>
+
+						<div>
+							<div>
+								<img class="like" src="{{ asset('build/images/thumbs-up-regular.png') }}">
+								<span class="fs-5">({{ opinionLike.like }})</span>
+							</div>
+							<div>
+								<img class="like" src="{{ asset('build/images/thumbs-down-regular.png') }}">
+								<span class="fs-5">({{ opinionLike.dislike }})</span>
+							</div>
+						</div>
 					</div>
-					<div class="card-body m-0 p-0" style="height:500px">
-						<div class="ms-5 mt-2 fs-3">
-							{{ decision.title}}
+					<div class="card-body m-0 p-0 mt-2" style="height:500px">
+						<div class="d-flex justify-content-between align-items-center">
+
+							<div class="col-8">
+								<div class="ms-4 mt-2 fs-3">
+									{{ decision.title}}
+								</div>
+								<div class="ms-4 mt-2 fs-3">
+									<img class="ms-2 profil-photo" src="{{ asset('build/images/user.jpg') }}">
+									<span class="fs-6 ms-3">
+										par
+										{{ user.firstname }}
+										{{ user.lastname }}
+										le
+										{{ decision.created_at | date("d/m/Y") }}
+									</span>
+								</div>
+							</div>
+
+							<div class="d-flex flex-column justify-content-end col-4 align-items-end">
+								<p class="me-4">Votre avis</p>
+								<img class="ms-3 like me-5" src="{{ asset('build/images/thumbs-up-regular.png') }}">
+							</div>
 						</div>
-						<div class="ms-5 mt-2 fs-3">
-							{{ user.email }}
+						<div class="col-12 d-flex justify-content-center border border-primary">
+							<h1 class="mt-5">Donner son avis</h1>
 						</div>
-						
 					</div>
 				</div>
 			</div>

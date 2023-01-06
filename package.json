@@ -25,6 +25,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "@makesenseorg/design-system": "^1.8.0"
+        "@makesenseorg/design-system": "^1.8.0",
+        "ckeditor4": "^4.13.0"
     }
 }

@@ -26,19 +26,6 @@ Encore
         // pattern: /\.(png|jpg|jpeg)$/
     })
 
-    .copyFiles({
-        from: './assets/styles/fonts',
-
-        // optional target path, relative to the output dir
-        // to: 'images/[path][name].[ext]',
-
-        // if versioning is enabled, add the file hash too
-        to: 'fonts/[path][name].[ext]',
-
-        // only copy files matching this pattern
-        // pattern: /\.(png|jpg|jpeg)$/
-    })
-
     /*
      * ENTRY CONFIG
      *
@@ -94,7 +81,7 @@ Encore
     // .autoProvidejQuery()
 
     // enables Sass/SCSS support
-    .enableSassLoader();  
+    .enableSassLoader();
 const fullConfig = Encore.getWebpackConfig();
 fullConfig.devServer = {
     headers: {
