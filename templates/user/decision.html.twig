@@ -4,7 +4,9 @@
 
 <div class="mt-2 mb-2"> 
   <h1>{{ decision.title }}</h1>
-	<img class="like" src="{{ asset('build/images/thumbs-up-regular.png') }}">
+  <h2>{{ decision.owner.firstname }}<h2>
+  
+<img class="like" src="{{ asset('build/images/thumbs-up-regular.png') }}">
 	<a>(12)</a>
 	<img class="like ms-2" src="{{ asset('build/images/thumbs-down-regular.png') }}">
 	<a>(33)</a>
@@ -64,7 +66,7 @@
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingFive">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-    Les details de la decision
+   Avis
       </button>
     </h2>
     <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample" style="">
