@@ -31,11 +31,11 @@ class History
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\Type("\DateTimeInterface")]
-    private ?\DateTimeInterface $startedAt = null;
+    private ?DateTimeInterface $startedAt = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\Type("\DateTimeInterface")]
-    private ?\DateTimeInterface $endedAt = null;
+    private ?DateTimeInterface $endedAt = null;
 
     #[ORM\Column(length: 50)]
     #[Assert\Length(min: 1, max: 50)]
@@ -46,10 +46,10 @@ class History
     private ?Decision $decision = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    private ?DateTimeImmutable $createdAt = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $updatedAt = null;
+    private ?DateTimeImmutable $updatedAt = null;
 
     #[ORM\OneToMany(mappedBy: 'history', targetEntity: Notification::class)]
     private Collection $notifications;

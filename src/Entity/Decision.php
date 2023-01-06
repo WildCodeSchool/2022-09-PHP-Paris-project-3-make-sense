@@ -56,11 +56,11 @@ class Decision
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\Type("\DateTimeInterface")]
-    private ?\DateTimeInterface $createdAt = null;
+    private ?DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\Type("\DateTimeInterface")]
-    private ?\DateTimeInterface $updatedAt = null;
+    private ?DateTimeInterface $updatedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'decisions')]
     private ?User $owner = null;
@@ -72,7 +72,7 @@ class Decision
     private Collection $departments;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $endAt = null;
+    private ?DateTimeImmutable $endAt = null;
 
     public function __construct()
     {
@@ -285,7 +285,7 @@ class Decision
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?DateTimeInterface
     {
         return $this->updatedAt;
     }
