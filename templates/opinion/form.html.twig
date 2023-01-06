@@ -1,10 +1,23 @@
 <div class="container-fluid">
-	<div class="row mt-4">
-		<div class="col-6 d-flex justify-content-center m-0 p-0">
-			<div class="card border-dark mb-3" style="width: 40rem;">
-				<div class="card-header fs-3 text-center card-bg-color text-white">{{ decision.status }}</div>
-				<div class="card-body m-0 p-0">
-				
+	<div class="row mt-5">
+		<div class="d-flex justify-content-center m-0 p-0">
+			<div class="col-8">
+				<div class="card border-dark mb-3">
+					<div class="card-header fs-3 card-bg-color text-white">
+						Status :
+						{{ decision.status }}
+						<p class="fs-6">deadline :
+							{{ decision.end_at | date("d/m/Y") }}</p>
+					</div>
+					<div class="card-body m-0 p-0" style="height:500px">
+						<div class="ms-5 mt-2 fs-3">
+							{{ decision.title}}
+						</div>
+						<div class="ms-5 mt-2 fs-3">
+							{{ user.email }}
+						</div>
+						
+					</div>
 				</div>
 			</div>
 		</div>

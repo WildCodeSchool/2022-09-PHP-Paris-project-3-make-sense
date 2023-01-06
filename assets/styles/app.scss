@@ -27,13 +27,8 @@
     height: 30px;
 }
 
-@font-face {
-    font-family: 'Raleway';
-    src:
-        url(/public/build/fonts/Raleway/Raleway-Bold.ttf) format('truetype')
-}
-
 body {
     // var (--font-heading): Raleway, Helvetica, Arial, sans-serif;
     font-family: Raleway;
+    font-weight: 700;
 }
