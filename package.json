@@ -25,7 +25,9 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@fontsource/raleway": "^4.5.11",
         "@makesenseorg/design-system": "^1.8.0",
-        "ckeditor4": "^4.13.0"
+        "ckeditor4": "^4.13.0",
+        "install": "^0.13.0"
     }
 }

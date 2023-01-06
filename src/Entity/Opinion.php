@@ -30,6 +30,9 @@ class Opinion
     #[ORM\ManyToOne(inversedBy: 'opinions')]
     private ?User $user = null;
 
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $message = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -79,6 +82,18 @@ class Opinion
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getMessage(): ?string
+    {
+        return $this->message;
+    }
+
+    public function setMessage(string $message): self
+    {
+        $this->message = $message;
 
         return $this;
     }
