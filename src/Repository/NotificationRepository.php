@@ -39,7 +39,7 @@ class NotificationRepository extends ServiceEntityRepository
         }
     }
 
-    public function notificationSum(int $userId): int
+    public function getTotalByUser(int $userId): int
     {
         return $this->createQueryBuilder('n')
             ->select('count(n.user)')

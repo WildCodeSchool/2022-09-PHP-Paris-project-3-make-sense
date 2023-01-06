@@ -14,7 +14,7 @@ class NotificationController extends AbstractController
 
         return $this->render(
             'partials/_notification.html.twig',
-            ['notifications' => $notificationRep->notificationSum($userId)]
+            ['notifications' => $notificationRep->getTotalByUser($userId)]
         );
     }
 }
