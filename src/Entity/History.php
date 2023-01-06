@@ -2,13 +2,15 @@
 
 namespace App\Entity;
 
-use DateTimeImmutable;
-use DateTimeInterface;
-use App\Entity\Decision;
+use App\Repository\HistoryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\HistoryRepository;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Entity\Decision;
+use DateTimeImmutable;
+use DateTimeInterface;
 
 #[ORM\Entity(repositoryClass: HistoryRepository::class)]
 class History
@@ -48,6 +50,14 @@ class History
 
     #[ORM\Column]
     private ?DateTimeImmutable $updatedAt = null;
+
+    #[ORM\OneToMany(mappedBy: 'history', targetEntity: Notification::class)]
+    private Collection $notifications;
+
+    public function __construct()
+    {
+        $this->notifications = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -122,6 +132,36 @@ class History
     public function setUpdatedAt(DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Notification>
+     */
+    public function getNotifications(): Collection
+    {
+        return $this->notifications;
+    }
+
+    public function addNotification(Notification $notification): self
+    {
+        if (!$this->notifications->contains($notification)) {
+            $this->notifications->add($notification);
+            $notification->setHistory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotification(Notification $notification): self
+    {
+        if ($this->notifications->removeElement($notification)) {
+            // set the owning side to null (unless already changed)
+            if ($notification->getHistory() === $this) {
+                $notification->setHistory(null);
+            }
+        }
 
         return $this;
     }
