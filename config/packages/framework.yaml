@@ -16,11 +16,7 @@ framework:
     #fragments: true
     php_errors:
         log: true
-    fragments:
-        hinclude_default_template: 
-
-
-
+    
 when@test:
     framework:
         test: true

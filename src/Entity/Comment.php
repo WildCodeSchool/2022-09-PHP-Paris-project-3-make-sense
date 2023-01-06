@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use DateTime;
-use App\Entity\User;
-use DateTimeInterface;
+use App\Repository\CommentRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\CommentRepository;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Entity\User;
+use DateTime;
+use DateTimeInterface;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment
@@ -20,7 +20,7 @@ class Comment
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     #[Assert\Type("\DateTimeInterface")]
-    private ?\DateTimeInterface $createdAt = null;
+    private ?DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
@@ -33,7 +33,6 @@ class Comment
 
     public function __construct()
     {
-        // $this->user = new ArrayCollection();
         $this->createdAt =  new DateTime('now');
     }
 
