@@ -19,13 +19,12 @@ class OpinionType extends AbstractType
                     'required' => true,
                     'class' => 'form-control',
                 ],
-                'label' => 'Les risques',
                 'label_attr' => [
                     'class' => 'form-label'
                 ]])
             ->add('submit', SubmitType::class, [
                     'attr' => [
-                        'class' => 'btn btn-secondary'
+                        'class' => 'btn'
                         ]    
                 ]);
     }
