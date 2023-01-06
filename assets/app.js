@@ -17,4 +17,3 @@ import 'Hinclude/hinclude.js';
 
 // start the Stimulus application
 import './bootstrap';
-
