@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\OpinionRepository;
+use DateTimeInterface;
+use App\Entity\Decision;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\OpinionRepository;
 use Symfony\Component\Validator\Constraints as Assert;
-use App\Entity\Decision;
 
 #[ORM\Entity(repositoryClass: OpinionRepository::class)]
 class Opinion
@@ -47,12 +48,12 @@ class Opinion
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 

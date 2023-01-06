@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\SearchDecisionType;
 use App\Repository\DecisionRepository;
+use Composer\XdebugHandler\Status;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,7 +24,7 @@ class DecisionController extends AbstractController
     #[Route('/show_all', name: 'show_all')]
     public function showAll(DecisionRepository $decisionRepository, Request $request): Response
     {
-        dd($decisionRepository->findLikeDomainName());
+        // dd($decisionRepository->findLikeDomainName());
         $form = $this->createForm(SearchDecisionType::class);
         $form->handleRequest($request);
 

@@ -15,6 +15,11 @@ use Symfony\Component\Form\Extension\Core\Type\SearchType;
 
 class SearchDecisionType extends AbstractType
 {
+    private HistoryRepository $historyRepository;
+    public function __construct(HistoryRepository $historyRepository)
+    {
+        $this->historyRepository = $historyRepository;
+    }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -34,14 +39,15 @@ class SearchDecisionType extends AbstractType
             ])
             ->add('Status', ChoiceType::class, [
                 'choices' => [
-                 History::STATUS[0] => History::STATUS[0],
-                 History::STATUS[1] => History::STATUS[1],
-                 History::STATUS[2] => History::STATUS[2],
-                 History::STATUS[3] => History::STATUS[3],
-                 History::STATUS[4] => History::STATUS[4],
-                 History::STATUS[5] => History::STATUS[5],
+                History::STATUS[0] => History::STATUS[0],
+                History::STATUS[1] => History::STATUS[1],
+                History::STATUS[2] => History::STATUS[2],
+                History::STATUS[3] => History::STATUS[3],
+                History::STATUS[4] => History::STATUS[4],
+                History::STATUS[5] => History::STATUS[5],
                 ],
             ]);
+         
     }
 
     public function configureOptions(OptionsResolver $resolver): void

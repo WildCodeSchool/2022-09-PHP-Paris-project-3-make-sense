@@ -6,6 +6,7 @@ use App\Entity\Decision;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Department;
 
 /**
  * @extends ServiceEntityRepository<Decision>
@@ -42,11 +43,11 @@ class DecisionRepository extends ServiceEntityRepository
         }
     }
 
-    public function findLikeTitle(string $title): array
+    public function findLikeTitle(string $search): array
     {
         $queryBuilder = $this->createQueryBuilder('d')
             ->where('d.title LIKE :title')
-            ->setParameter('title', '%' . $title . '%')
+            ->setParameter('title', '%' . $search . '%')
             ->orderBy('d.title', 'ASC')
             ->getQuery();
         return $queryBuilder->getResult();
