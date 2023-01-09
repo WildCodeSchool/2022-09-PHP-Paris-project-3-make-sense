@@ -25,6 +25,7 @@ Encore
         // only copy files matching this pattern
         // pattern: /\.(png|jpg|jpeg)$/
     })
+
     /*
      * ENTRY CONFIG
      *
@@ -65,8 +66,9 @@ Encore
         config.useBuiltIns = 'usage';
         config.corejs = 3;
     })
-    // uncomment if you use TypeScript
-    // .enableTypeScriptLoader()
+
+// uncomment if you use TypeScript
+// .enableTypeScriptLoader()
 
 // uncomment if you use React
 // .enableReactPreset()

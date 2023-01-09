@@ -28,6 +28,7 @@
     },
     "dependencies": {
         "@fontsource/raleway": "^4.5.11",
+create_security_connexion
         "@makesenseorg/design-system": "^1.8.0"
     },
     "name": "2022-09-PHP-Paris-project-3-make-sense",
@@ -35,4 +36,11 @@
     "main": "index.js",
     "repository": "git@github.com:WildCodeSchool/2022-09-PHP-Paris-project-3-make-sense.git",
     "author": "Daniel-Brice <boumal1993@gmail.com>"
+
+        "@makesenseorg/design-system": "^1.8.0",
+        "Hinclude": "^1.2.0",
+        "h-include": "^4.4.0",
+        "import": "^0.0.6"
+    }
+ dev
 }

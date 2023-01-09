@@ -7653,6 +7653,7 @@
                 }
             ],
             "time": "2022-12-27T12:28:18+00:00"
+ create_security_connexion
         },
         {
             "name": "vich/uploader-bundle",
@@ -7762,6 +7763,7 @@
                 "source": "https://github.com/dustin10/VichUploaderBundle/tree/2.0.1"
             },
             "time": "2022-11-15T07:11:46+00:00"
+       dev
         },
         {
             "name": "webmozart/assert",
