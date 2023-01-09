@@ -38,4 +38,14 @@ class NotificationRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function getTotalByUser(int $userId): int
+    {
+        return $this->createQueryBuilder('n')
+            ->select('count(n.user)')
+            ->where('n.user = :userid')
+            ->setParameter('userid', $userId)
+            ->getQuery()
+            ->getResult()[0][1];
+    }
 }
