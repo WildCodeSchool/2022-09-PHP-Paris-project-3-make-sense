@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Decision;
 use App\Entity\Opinion;
 use App\Form\OpinionType;
 use App\Service\OpinionLike;
@@ -12,12 +13,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 
 class OpinionController extends AbstractController
 {
-    #[Route('/opinion/{decisionId}/{opinionState}', name: 'app_opinion')]
+    #[Route('/opinion/{decision_id}/{opinionState}', name: 'app_opinion')]
+    #[Entity('decision', options: ['mapping' => ['decision_id' => 'id']])]
     public function index(
-        int $decisionId,
+        Decision $decision,
         string $opinionState,
         DecisionRepository $decisionRepository,
         OpinionLike $opinionLike,
@@ -26,13 +29,12 @@ class OpinionController extends AbstractController
         Request $request
     ): Response {
 
-        $decision = $decisionRepository->findOneBy(['id' => $decisionId]);
+        // dd($decision);
+        // $decision = $decisionRepository->findOneBy(['id' => $decisionId]);
 
         $userId = 202;
 
-        // $opinion = new Opinion();
-
-        $opinion = $opinionRepository->findOneBy(['user' => $userId, 'decision' => $decisionId]);
+        $opinion = $opinionRepository->findOneBy(['user' => $userId, 'decision' => $decision->getId()]);
 
         if (!$opinion) {
             $opinion = new Opinion();
@@ -68,7 +70,7 @@ class OpinionController extends AbstractController
             'opinion/index.html.twig',
             [
                 'form' => $form,
-                'decision' => $decisionRepository->findLastStatus($decisionId),
+                'decision' => $decisionRepository->findLastStatus($decision->getId()),
                 'opinion' => $opinion,
                 'opinionLike' => $opinionLike->calculateOpinion($decision),
                 'user' => $userRepository->findOneBy(['id' => $decision->getOwner()])
