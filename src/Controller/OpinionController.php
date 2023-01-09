@@ -59,7 +59,9 @@ class OpinionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // dd($form->getData());
             $opinionRepository->save($opinion, true);
-            return $this->redirectToRoute('app_home');
+
+            // completer la route vers decision_dashboard
+            return $this->redirectToRoute('/');
         }
 
         return $this->renderForm(
