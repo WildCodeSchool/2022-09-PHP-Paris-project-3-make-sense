@@ -126,9 +126,6 @@ class UserType extends AbstractType
                 $builder
                 ->add('interestedBy' . $department->getId(), CheckboxType::class, [
                     'label' => 'Interessé par ?',
-                    'attr' => [
-                        'name' => 'test'
-                    ],
                     'required' => false,
                     'mapped' => false,
                 ])

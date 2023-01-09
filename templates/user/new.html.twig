@@ -35,10 +35,25 @@
                {{ form_label(form.phone) }}
                {{ form_widget(form.phone) }}
             </div>
-
-            <div class="form-group">
-               
-            </div>
+            
+            <div class="container-fluid">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Departement</th>
+                        <th scope="col">Interéssé par</th>
+                        <th scope="col">Expert</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for expertise in expertises %}
+                      <tr class="table-active">
+                            <td>{{  expertise.name }}</td>
+                            <td> {{'expertIn'  . $department->getId()}} </td>
+                        </tr>
+                     {% endfor %}
+                </tbody>
+                </div>
 
                {{ form_row(form.submit, { 'label': 'Enregistrer' }) }}
             
