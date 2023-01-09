@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Decision;
+use DateTimeImmutable;
 
 #[ORM\Entity(repositoryClass: OpinionRepository::class)]
 class Opinion
@@ -32,6 +33,12 @@ class Opinion
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $message = null;
+
+    public function __construct()
+    {
+        $this->createdAt = new DateTimeImmutable('now');
+        $this->message = "";
+    }
 
     public function getId(): ?int
     {

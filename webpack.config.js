@@ -17,10 +17,10 @@ Encore
         from: './assets/images',
 
         // optional target path, relative to the output dir
-        // to: 'images/[path][name].[ext]',
+        to: 'images/[path][name].[ext]',
 
         // if versioning is enabled, add the file hash too
-        to: 'images/[path][name].[hash:8].[ext]',
+        // to: 'images/[path][name].[hash:8].[ext]',
 
         // only copy files matching this pattern
         // pattern: /\.(png|jpg|jpeg)$/
@@ -42,6 +42,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
+    .addEntry('changeLike', './assets/changeLike.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
@@ -76,21 +77,22 @@ Encore
         config.corejs = 3;
     })
 
-    // uncomment if you use TypeScript
-    // .enableTypeScriptLoader()
+// uncomment if you use TypeScript
+// .enableTypeScriptLoader()
 
-    // uncomment if you use React
-    // .enableReactPreset()
+// uncomment if you use React
+// .enableReactPreset()
 
-    // uncomment to get integrity="..." attributes on your script & link tags
-    // requires WebpackEncoreBundle 1.4 or higher
-    // .enableIntegrityHashes(Encore.isProduction())
+// uncomment to get integrity="..." attributes on your script & link tags
+// requires WebpackEncoreBundle 1.4 or higher
+// .enableIntegrityHashes(Encore.isProduction())
 
-    // uncomment if you're having problems with a jQuery plugin
-    // .autoProvidejQuery()
+// uncomment if you're having problems with a jQuery plugin
+// .autoProvidejQuery()
 
     // enables Sass/SCSS support
     .enableSassLoader();
+
 const fullConfig = Encore.getWebpackConfig();
 fullConfig.devServer = {
     headers: {

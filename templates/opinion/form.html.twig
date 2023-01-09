@@ -22,7 +22,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="card-body m-0 p-0 mt-2" style="height:500px">
+					<div class="card-body m-0 p-0 mt-2">
 						<div class="d-flex justify-content-between align-items-center">
 
 							<div class="col-8">
@@ -43,18 +43,22 @@
 
 							<div class="d-flex flex-column justify-content-end col-4 align-items-end">
 								<p class="me-4">Votre avis</p>
-								<img class="ms-3 like me-5" src="{{ asset('build/images/thumbs-up-regular.png') }}">
+								<img id="likeLogoId" class="ms-3 like me-5" src=" {{ opinion.isIslike() ? asset('build/images/thumbs-up-regular.png')
+																				: asset('build/images/thumbs-down-regular.png') }}">
 							</div>
 						</div>
-						<div class="col-12 d-flex justify-content-center border border-primary">
-							<h1 class="mt-5">Donner son avis</h1>
+						<div class="col-12 d-flex justify-content-center">
+							<h1 class="mt-5 mb-5">Donner votre avis</h1>
 						</div>
 
-						{{ form_start(form) }}
+						<div>
 
-						{{ form_widget(form) }}
+							{{ form_start(form) }}
 
-						{{ form_end(form) }}
+							{{ form_widget(form) }}
+
+							{{ form_end(form) }}
+						</div>
 
 					</div>
 				</div>
