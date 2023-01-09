@@ -10,7 +10,7 @@ class OpinionLike
     {
         $likeDislike = [];
         foreach ($decisions as $decision) {
-            $likeDislike [] = $this->calculateOpinion($decision);
+            $likeDislike[] = $this->calculateOpinion($decision);
             // $decision['like'] = $likeDislike[0];
             // $decision['dislike'] = $likeDislike[1];
         }
@@ -18,7 +18,7 @@ class OpinionLike
         return $likeDislike;
     }
 
-    private function calculateOpinion(Decision $decision): array
+    public function calculateOpinion(Decision $decision): array
     {
         $like = 0;
         $dislike = 0;
