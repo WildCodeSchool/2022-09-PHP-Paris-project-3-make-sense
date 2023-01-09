@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use App\Entity\Department;
+use App\Repository\DepartmentRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Vich\UploaderBundle\Form\Type\VichFileType;
@@ -20,6 +21,13 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class UserType extends AbstractType
 {
+    private DepartmentRepository $departmentRepository;
+    
+    public function __construct(DepartmentRepository $departmentRepository) 
+    {
+        $this->departmentRepository = $departmentRepository;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -105,16 +113,31 @@ class UserType extends AbstractType
                     new Assert\LessThan(12),
                 ]
             ])
-            ->add('department', CheckboxType::class, [
-                'label'    => 'Show this entry publicly?',
-                'required' => false,
-            ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-danger mt-4',
                 ],
                 'label' => 'Enrégistrer'
             ]);
+
+            $departments = $this->departmentRepository->findAll();
+            
+            foreach ($departments as $department) {
+                $builder
+                ->add('interestedBy' . $department->getId(), CheckboxType::class, [
+                    'label' => 'Interessé par ?',
+                    'attr' => [
+                        'name' => 'test'
+                    ],
+                    'required' => false,
+                    'mapped' => false,
+                ])
+                ->add('expertIn'  . $department->getId(), CheckboxType::class, [
+                    'label' => 'Expert ?',
+                    'required' => false,
+                    'mapped' => false,
+                ]);
+            }
 
             $builder->get('roles')
             ->addModelTransformer(

@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UserController extends AbstractController
 {
-    #[Route('/new', name: 'user_new', methods: ['POST' , 'GET'])]
+    #[Route('/user/new', name: 'user_new', methods: ['POST' , 'GET'])]
     public function new( Request $request, EntityManagerInterface $manager, DepartmentRepository $departmentRepository): Response
     {
         $user = new User();
