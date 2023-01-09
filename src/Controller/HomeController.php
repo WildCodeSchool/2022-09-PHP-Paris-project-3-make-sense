@@ -20,11 +20,16 @@ class HomeController extends AbstractController
 
         $owner = 202;
 
-        $myLastDecisions = $decisionRepository->findBy(['owner' => $owner], ['createdAt' => 'DESC'], 3, 0);
+        // $myLastDecisions = $decisionRepository->findBy(['owner' => $owner], ['createdAt' => 'DESC'], 3, 0);
+        $myLastDecisions = $decisionRepository->findByHistory(
+            $historyRepository->findLastUpdatedByStatus("En cours", 3),
+            $owner
+        );
 
-
-        $allLastDecisions = $decisionRepository->findBy([], ['createdAt' => 'DESC'], 3, 0);
-
+        // $allLastDecisions = $decisionRepository->findBy([], ['createdAt' => 'DESC'], 3, 0);
+        $allLastDecisions = $decisionRepository->findByHistory(
+            $historyRepository->findLastUpdatedByStatus("En cours", 3)
+        );
 
         $myLastDrafts = $decisionRepository->findByHistory(
             $historyRepository->findLastUpdatedByStatus("Brouillon", 3),
