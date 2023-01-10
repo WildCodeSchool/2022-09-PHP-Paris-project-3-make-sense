@@ -24,8 +24,6 @@
 				<th>Avis négatifs générant un conflit
 				</th>
 				<th>Domaine</th>
-				<th>Crée le :
-				</th>
 				<th>Date de fin:</th>
 			</tr>
 		</thead>
@@ -39,7 +37,6 @@
 					<td>{{ decision.risks|raw }}</td>
 					<td>{{ decision.like_threshold|number_format }}</td>
 					<td>{{ decision.name|raw}}</td>
-					<td>{{ decision.created_at|raw}}</td>
 					<td>{{ decision.end_at|raw}}</td>
 				</tr>
 

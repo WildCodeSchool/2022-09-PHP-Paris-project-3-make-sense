@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\DecisionRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -10,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Comment;
 use App\Entity\History;
+
+
 
 #[ORM\Entity(repositoryClass: DecisionRepository::class)]
 class Decision
@@ -92,9 +95,9 @@ class Decision
         $this->histories = new ArrayCollection();
         $this->validations = new ArrayCollection();
         $this->notifications = new ArrayCollection();
-        $this->createdAt =  new \DateTime('now');
-        $this->updatedAt =  new \DateTime('now');
-        $this->endAt = new \DateTime('now');
+        $this->createdAt =  new DateTime('now');
+        $this->updatedAt =  new DateTime('now');
+        $this->endAt = new DateTime('now');
         $this->departments = new ArrayCollection();
       
     }
