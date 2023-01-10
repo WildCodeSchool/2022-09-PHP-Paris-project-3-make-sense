@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Decision;
 use App\Entity\User;
+use DateTimeImmutable;
 
 #[ORM\Entity(repositoryClass: ValidationRepository::class)]
 class Validation
@@ -32,6 +33,12 @@ class Validation
 
     #[ORM\ManyToOne(inversedBy: 'validations')]
     private ?User $user = null;
+
+    public function __construct()
+    {
+        $this->createdAt = new DateTimeImmutable('now');
+        $this->comment = "";
+    }
 
     public function getId(): ?int
     {

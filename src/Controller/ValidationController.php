@@ -2,76 +2,61 @@
 
 namespace App\Controller;
 
-use App\Entity\Decision;
 use App\Entity\Opinion;
-use App\Form\OpinionType;
+use App\Entity\Decision;
+use App\Entity\Validation;
+use App\Form\ValidationType;
 use App\Service\OpinionLike;
 use App\Repository\UserRepository;
-use App\Repository\OpinionRepository;
 use App\Repository\DecisionRepository;
+use App\Repository\ValidationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class OpinionController extends AbstractController
+class ValidationController extends AbstractController
 {
-    #[Route('/opinion/{decision_id}/{opinionState}', name: 'app_opinion')]
+    #[Route('/validation/{decision_id}', name: 'app_opinion')]
     #[Entity('decision', options: ['mapping' => ['decision_id' => 'id']])]
     public function index(
         Decision $decision,
-        string $opinionState,
         DecisionRepository $decisionRepository,
         OpinionLike $opinionLike,
         UserRepository $userRepository,
-        OpinionRepository $opinionRepository,
+        ValidationRepository $validationRepository,
         Request $request
     ): Response {
 
-        // dd($decision);
-        // $decision = $decisionRepository->findOneBy(['id' => $decisionId]);
-
         $userId = 202;
 
-        $opinion = $opinionRepository->findOneBy(['user' => $userId, 'decision' => $decision->getId()]);
+        $validation = $validationRepository->findOneBy(['user' => $userId, 'decision' => $decision->getId()]);
 
-        if (!$opinion) {
-            $opinion = new Opinion();
-            $opinion->setDecision($decision);
-            $opinion->setUser($userRepository->findOneBy(['id' => $userId]));
-
-            if ($opinionState == "like") {
-                $opinion->setIsLike(true);
-            } else {
-                $opinion->setIsLike(false);
-            }
+        if (!$validation) {
+            $validation = new Validation();
+            $validation->setDecision($decision);
+            $validation->setUser($userRepository->findOneBy(['id' => $userId]));
         }
 
-        // if ($opinion_ == "like") {
-        //     $opinion->setIsLike(true);
-        // } else {
-        //     $opinion->setIsLike(false);
-        // }
-
-        $form = $this->createForm(OpinionType::class, $opinion);
+        $form = $this->createForm(ValidationType::class, $validation);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             // dd($form->getData());
-            $opinionRepository->save($opinion, true);
+            $validationRepository->save($validation, true);
 
             // completer la route vers decision_dashboard
             return $this->redirectToRoute('/');
         }
 
         return $this->renderForm(
-            'opinion/index.html.twig',
+            'validation/index.html.twig',
             [
                 'form' => $form,
                 'decision' => $decisionRepository->findLastStatus($decision->getId()),
-                'opinion' => $opinion,
+                'validation' => $validation,
                 'opinionLike' => $opinionLike->calculateOpinion($decision),
                 'user' => $userRepository->findOneBy(['id' => $decision->getOwner()])
             ]
