@@ -55,11 +55,15 @@
 
 							<div class="d-flex justify-content-between align-items-center">
 								<div class="w-100 text-center">
-									{{ form_row(form.avispositif, { 'label': 'avis positif' }) }}
+									{# {% if validation.isApproved == false %} #}
+										{{ form_row(form.avispositif, { 'label': 'avis positif' }) }}
+									{# {% endif %} #}
 								</div>
 
 								<div class="w-100 text-center">
-									{{ form_row(form.avisnegatif, { 'label': 'avis négatif' }) }}
+									{# {% if validation.isApproved == true %} #}
+										{{ form_row(form.avisnegatif, { 'label': 'avis négatif' }) }}
+									{# {% endif %} #}
 								</div>
 							</div>
 							{{ form_end(form) }}

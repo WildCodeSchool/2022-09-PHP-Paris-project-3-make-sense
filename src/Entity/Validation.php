@@ -26,6 +26,7 @@ class Validation
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\NotBlank]
     private ?string $comment = null;
 
     #[ORM\ManyToOne(inversedBy: 'validations')]

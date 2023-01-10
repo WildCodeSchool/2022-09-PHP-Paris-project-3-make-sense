@@ -32,8 +32,8 @@ class ValidationType extends AbstractType
         ])
             ->add('avispositif', SubmitType::class, [
                 'attr' => [
-                    'value' => 'avis',
-                    'class' => 'save mt-2 mb-2 rounded-5 col-4 card-bg-color text-white'
+                    // 'label' => 'Save and Add',
+                    'class' => 'mt-2 mb-2 rounded-5 col-4 card-bg-color text-white'
                 ],
             ])
             ->add('avisnegatif', SubmitType::class, [

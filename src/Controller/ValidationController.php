@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Opinion;
 use App\Entity\Decision;
 use App\Entity\Validation;
 use App\Form\ValidationType;
@@ -15,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\ClickableInterface;
 
 class ValidationController extends AbstractController
 {
@@ -45,12 +45,17 @@ class ValidationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // dd($form->getData());
+            /** @var ClickableInterface $button  */
+            $button = $form->get('avispositif');
+            $button->isClicked() ? $validation->setIsApproved(true) : $validation->setIsApproved(false);
+
             $validationRepository->save($validation, true);
 
             // completer la route vers decision_dashboard
             return $this->redirectToRoute('/');
         }
 
+    
         return $this->renderForm(
             'validation/index.html.twig',
             [
