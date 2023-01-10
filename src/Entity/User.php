@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use id;
 use App\Entity\Opinion;
 use App\Entity\Decision;
 use App\Entity\Expertise;
