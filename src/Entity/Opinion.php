@@ -8,6 +8,7 @@ use App\Repository\OpinionRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Decision;
 use DateTimeInterface;
+use DateTimeImmutable;
 
 #[ORM\Entity(repositoryClass: OpinionRepository::class)]
 class Opinion
@@ -20,6 +21,9 @@ class Opinion
     #[ORM\Column]
     private ?bool $isLike = null;
 
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $message = null;
+
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\Type("\DateTimeInterface")]
     private ?DateTimeInterface $createdAt = null;
@@ -30,6 +34,12 @@ class Opinion
 
     #[ORM\ManyToOne(inversedBy: 'opinions')]
     private ?User $user = null;
+
+    public function __construct()
+    {
+        $this->createdAt = new DateTimeImmutable('now');
+        $this->message = "";
+    }
 
     public function getId(): ?int
     {
@@ -81,6 +91,16 @@ class Opinion
     {
         $this->user = $user;
 
+        return $this;
+    }
+
+    public function getMessage(): ?string
+    {
+        return $this->message;
+    }
+    public function setMessage(string $message): self
+    {
+        $this->message = $message;
         return $this;
     }
 }
