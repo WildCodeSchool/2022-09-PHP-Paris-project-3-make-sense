@@ -25,20 +25,19 @@ class DecisionController extends AbstractController
     #[Route('/show_all', name: 'show_all')]
     public function showAll(DecisionRepository $decisionRepository, Request $request, OpinionLike $opinion): Response
     {
-       
         $form = $this->createForm(SearchDecisionType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // dd($decisionRepository->findAll());
-            $title = $form->getData()['search'];
+            // $title = $form->getData()['search'];
             // $domaines = $form->getData()['domaines'][0]->getName();
-            $status = $form->getData()['Status'];
-            $decisions = $decisionRepository->search($title, $status);
+            // $status = $form->getData()['Status'];
+            $decisions = $decisionRepository->search();
+            dd($decisionRepository->search());
             //   dd($decisions);
             // dd($opinion->calculateAllOpinion($decisions));
         } else {
             $decisions = $decisionRepository->findAll();
-            
         }
         return $this->render('decision/show_all.html.twig', [
             'decisions' => $decisions,

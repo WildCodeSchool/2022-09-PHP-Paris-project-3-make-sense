@@ -42,4 +42,13 @@ class DecisionRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function search(): array
+    {
+        return $this->createQueryBuilder('d')
+                    ->join('d.histories', 'h')
+                    ->select('d', 'h')
+                    ->getQuery()
+                    ->getResult();
+    }
 }
