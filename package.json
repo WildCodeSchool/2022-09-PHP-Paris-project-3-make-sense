@@ -11,7 +11,7 @@
         "css-loader": "^6.7.3",
         "eslint": "^8.13.0",
         "file-loader": "^6.0.0",
-        "jquery": "^3.6.2",
+        "jquery": "^3.6.3",
         "postcss-loader": "^7.0.2",
         "regenerator-runtime": "^0.13.2",
         "sass": "^1.57.1",
@@ -30,8 +30,10 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@eonasdan/tempus-dominus": "^6.2.10",
         "@makesenseorg/design-system": "^1.8.0",
         "@popperjs/core": "^2.11.6",
+        "bootstrap-datepicker": "^1.9.0",
         "ckeditor4": "^4.13.0"
     }
 }

@@ -21,21 +21,31 @@ class Decision
 
     #[ORM\Column(length: 255)]
     #[Assert\Length(min: 1, max: 255)]
+    #[Assert\NotBlank]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\NotBlank]
     private ?string $impacts = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank]
     private ?string $benefits = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\NotBlank]
     private ?string $risks = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank]
+    #[Assert\PositiveOrZero]
+    #[Assert\LessThan(
+        value: 100
+    )]
     private ?int $likeThreshold = null;
 
     #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Opinion::class, orphanRemoval: true)]
@@ -48,6 +58,7 @@ class Decision
     private Collection $validations;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\NotBlank]
     #[Assert\Type("\DateTimeInterface")]
     private ?\DateTimeInterface $createdAt = null;
 
@@ -64,9 +75,15 @@ class Decision
     #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Comment::class)]
     private Collection $comments;
 
-    #[ORM\ManyToMany(targetEntity: Department::class, inversedBy: 'decisions')]
-    private Collection $department;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\Type("\DateTimeInterface")]
+    private ?\DateTimeInterface $endAt = null;
+
+    #[ORM\ManyToMany(targetEntity: Department::class, inversedBy: 'decisions')]
+    private Collection $departments;
+
+    
 
     public function __construct()
     {
@@ -77,7 +94,9 @@ class Decision
         $this->notifications = new ArrayCollection();
         $this->createdAt =  new \DateTime('now');
         $this->updatedAt =  new \DateTime('now');
-        $this->department = new ArrayCollection();
+        $this->endAt = new \DateTime('now');
+        $this->departments = new ArrayCollection();
+      
     }
 
     public function getId(): ?int
@@ -336,21 +355,36 @@ class Decision
 
     public function __toString()
     {
-        return $this->title;
+        return $this->getTitle();
+    }
+    
+
+    
+
+    public function getEndAt(): ?\DateTimeInterface
+    {
+        return $this->endAt;
+    }
+
+    public function setEndAt(?\DateTimeInterface $endAt): self
+    {
+        $this->endAt = $endAt;
+
+        return $this;
     }
 
     /**
      * @return Collection<int, Department>
      */
-    public function getDepartment(): Collection
+    public function getDepartments(): Collection
     {
-        return $this->department;
+        return $this->departments;
     }
 
     public function addDepartment(Department $department): self
     {
-        if (!$this->department->contains($department)) {
-            $this->department->add($department);
+        if (!$this->departments->contains($department)) {
+            $this->departments->add($department);
         }
 
         return $this;
@@ -358,7 +392,7 @@ class Decision
 
     public function removeDepartment(Department $department): self
     {
-        $this->department->removeElement($department);
+        $this->departments->removeElement($department);
 
         return $this;
     }

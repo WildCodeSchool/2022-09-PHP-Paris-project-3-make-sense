@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: DepartmentRepository::class)]
 class Department
 {
-    public const DEPARTMENTS = [
+    public const departments = [
         'Ressources Humaines',
         'Commercial',
         'Comptabilité',
@@ -34,14 +34,16 @@ class Department
     #[ORM\OneToMany(mappedBy: 'department', targetEntity: Expertise::class)]
     private Collection $expertises;
 
-    #[ORM\ManyToMany(targetEntity: Decision::class, mappedBy: 'department')]
+    #[ORM\ManyToMany(targetEntity: Decision::class, mappedBy: 'departments')]
     private Collection $decisions;
 
+   
 
     public function __construct()
     {
         $this->expertises = new ArrayCollection();
         $this->decisions = new ArrayCollection();
+       
     }
 
     public function getId(): ?int
@@ -93,7 +95,7 @@ class Department
 
     public function __toString()
     {
-        return $this->name;
+        return $this->getName();
     }
 
     /**
@@ -122,4 +124,6 @@ class Department
 
         return $this;
     }
+
+   
 }

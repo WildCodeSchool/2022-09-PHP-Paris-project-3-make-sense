@@ -1,9 +1,47 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	{% for decision in decisions %}
-		<p>
-			{{ decision.description|raw }}
-		</p>
-	{% endfor %}
-{% endblock %}
+
+	<table>
+
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success mt-4">
+				{{ message }}
+			</div>
+
+		{% endfor %}
+		<thead>
+			<tr>
+				<th>Titre</th>
+				<th>
+					Description</th>
+				<th>Impacts
+				</th>
+				<th>Bénéfices
+				</th>
+				<th>Risques
+				</th>
+				<th>Avis négatifs générant un conflit
+				</th>
+				<th>Domaine</th>
+				<th>Crée en date du :
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for decision in decisions %}
+				<tr>
+					<td>{{ decision.title|raw }}</td>
+					<td>{{ decision.description|raw }}</td>
+					<td>{{ decision.impacts|raw }}</td>
+					<td>{{ decision.benefits|raw }}</td>
+					<td>{{ decision.risks|raw }}</td>
+					<td>{{ decision.like_threshold|number_format }}</td>
+					<td>{{ decision.name|raw}}</td>
+					<td>{{ decision.end_at|raw}}</td>
+				</tr>
+
+			{% endfor %}
+		</tbody>
+	</tbody>
+</table>{% endblock %}

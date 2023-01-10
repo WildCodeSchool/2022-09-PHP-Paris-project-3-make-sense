@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Department as Department;
+use App\Entity\Department as department;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -12,16 +12,16 @@ class DepartmentFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        $faker = Faker\Factory::create();
-        foreach (Department::DEPARTMENTS as $departments) {
-            $department = new Department();
-            $department->setName($departments);
-            $department->addDecision($this->getReference('decision_' . $faker->numberBetween(1, 8)));
-            $manager->persist($department);
-            $this->addReference('department_' . $departments, $department);
-        }
+         $faker = Faker\Factory::create('fr_FR');
+        foreach (Department::departments as $department) {
+             $dept = new Department();
+             $dept->setName($department);
+             $dept->addDecision($this->getReference('decision_' . $faker->numberBetween(1, 8)));
+             $manager->persist($dept);
+             $this->addReference('department_' . $department, $dept);
+         }
 
-        $manager->flush();
+         $manager->flush();
     }
 
     /**
@@ -34,7 +34,7 @@ class DepartmentFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             DecisionFixtures::class,
-            DecisionFixtures::class,
+           
         ];
     }
 }

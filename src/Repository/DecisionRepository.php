@@ -5,7 +5,8 @@ namespace App\Repository;
 use App\Entity\Decision;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\Entity;
 /**
  * @extends ServiceEntityRepository<Decision>
  *
@@ -16,9 +17,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class DecisionRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private EntityManagerInterface $entityManager;
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager)
     {
         parent::__construct($registry, Decision::class);
+        $this->entityManager = $entityManager;
     }
 
     public function save(Decision $entity, bool $flush = false): void
@@ -37,6 +40,14 @@ class DecisionRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+    public function findDecisionDepartment(): array
+    {
+        $conn = $this->entityManager->getConnection();
+        $sql = 'SELECT * FROM decision JOIN decision_department ON decision_id = decision.id JOIN department ON department.id = department_id';
+        $statement = $conn->prepare($sql);
+        $resultSet = $statement->executeQuery();
+        return ($resultSet->fetchAllAssociative());
     }
 
 //    /**

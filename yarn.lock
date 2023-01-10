@@ -905,6 +905,11 @@
   resolved "https://registry.npmjs.org/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
+"@eonasdan/tempus-dominus@^6.2.10":
+  version "6.2.10"
+  resolved "https://registry.npmjs.org/@eonasdan/tempus-dominus/-/tempus-dominus-6.2.10.tgz"
+  integrity sha512-JxbCRxfYRNQRt8P26X/UBuMfFrgz5ve4cnT4mx5cpuaWdBDkzwc8QhELXAspOsCPEZ84wkGBqhliKZr5BCnJlg==
+
 "@eslint/eslintrc@^1.3.0":
   version "1.3.0"
   resolved "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-1.3.0.tgz"
@@ -1049,13 +1054,14 @@
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
 "@makesenseorg/design-system@^1.8.0":
-  version "1.8.0"
-  resolved "https://registry.npmjs.org/@makesenseorg/design-system/-/design-system-1.8.0.tgz"
-  integrity sha512-BE652EiIKYmp1E980t/if+s1m5lnfGt+hCZl1Ei7imUBY2Juq4FvnRSd5oxzQEXmAc7crE3yrvhmHvs7B9WjAQ==
+  version "1.16.3"
+  resolved "https://registry.npmjs.org/@makesenseorg/design-system/-/design-system-1.16.3.tgz"
+  integrity sha512-0HWUv6DYETIV8+y3kgoGMh38OlesJBvSYc7F0vmWrOc5aZ2JEf5AbomaoTiNoFBc1+XuHVZGpI2QS1WXs6iTcw==
   dependencies:
     dayjs "^1.8.26"
     eval "^0.1.4"
     feather-icons "^4.28.0"
+    quill-mention "^3.0.4"
     reset-css "^5.0.1"
     vue "^2.5.17"
     vue-feather "^1.0.1"
@@ -1074,7 +1080,7 @@
 
 "@popperjs/core@^2.11.6":
   version "2.11.6"
-  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.6.tgz#cee20bd55e68a1720bdab363ecf0c821ded4cd45"
+  resolved "https://registry.npmjs.org/@popperjs/core/-/core-2.11.6.tgz"
   integrity sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw==
 
 "@sinclair/typebox@^0.24.1":
@@ -1721,9 +1727,16 @@ boolbase@^1.0.0:
   resolved "https://registry.npmjs.org/boolbase/-/boolbase-1.0.0.tgz"
   integrity sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==
 
+bootstrap-datepicker@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.npmjs.org/bootstrap-datepicker/-/bootstrap-datepicker-1.9.0.tgz"
+  integrity sha512-9rYYbaVOheGYxjOr/+bJCmRPihfy+LkLSg4fIFMT9Od8WwWB/MB50w0JO1eBgKUMbb7PFHQD5uAfI3ArAxZRXA==
+  dependencies:
+    jquery ">=1.7.1 <4.0.0"
+
 bootstrap@^5.2.3:
   version "5.2.3"
-  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-5.2.3.tgz#54739f4414de121b9785c5da3c87b37ff008322b"
+  resolved "https://registry.npmjs.org/bootstrap/-/bootstrap-5.2.3.tgz"
   integrity sha512-cEKPM+fwb3cT8NzQZYEu4HilJ3anCrWqh3CHAok1p9jXqMPsPTBhU25fBckEJHJ/p+tTxTFTsFQGM+gaHpi3QQ==
 
 brace-expansion@^1.1.7:
@@ -3190,10 +3203,15 @@ jest-worker@^29.1.2:
     merge-stream "^2.0.0"
     supports-color "^8.0.0"
 
-jquery@^3.6.2:
-  version "3.6.2"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.2.tgz#8302bbc9160646f507bdf59d136a478b312783c4"
-  integrity sha512-/e7ulNIEEYk1Z/l4X0vpxGt+B/dNsV8ghOPAWZaJs8pkGvsSC0tm33aMGylXcj/U7y4IcvwtMXPMyBFZn/gK9A==
+"jquery@>=1.7.1 <4.0.0":
+  version "3.6.3"
+  resolved "https://registry.npmjs.org/jquery/-/jquery-3.6.3.tgz"
+  integrity sha512-bZ5Sy3YzKo9Fyc8wH2iIQK4JImJ6R0GWI9kL1/k7Z91ZBNgkRXE6U0JfHIizZbort8ZunhSI3jw9I6253ahKfg==
+
+jquery@^3.6.3:
+  version "3.6.3"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.3.tgz#23ed2ffed8a19e048814f13391a19afcdba160e6"
+  integrity sha512-bZ5Sy3YzKo9Fyc8wH2iIQK4JImJ6R0GWI9kL1/k7Z91ZBNgkRXE6U0JfHIizZbort8ZunhSI3jw9I6253ahKfg==
 
 js-tokens@^4.0.0:
   version "4.0.0"
@@ -3238,9 +3256,9 @@ json-stable-stringify-without-jsonify@^1.0.1:
   integrity sha1-nbe1lJatPzz+8wp1FC0tkwrXJlE=
 
 json5@^2.1.2, json5@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.npmjs.org/json5/-/json5-2.2.1.tgz"
-  integrity sha512-1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA==
+  version "2.2.3"
+  resolved "https://registry.npmjs.org/json5/-/json5-2.2.3.tgz"
+  integrity sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==
 
 kind-of@^6.0.2:
   version "6.0.3"
@@ -4048,7 +4066,14 @@ quill-delta@^3.6.2:
     extend "^3.0.2"
     fast-diff "1.1.2"
 
-quill@^1.3.6:
+quill-mention@^3.0.4:
+  version "3.1.0"
+  resolved "https://registry.npmjs.org/quill-mention/-/quill-mention-3.1.0.tgz"
+  integrity sha512-uyjGK8QPJHEcjvNc3wUJy6a05Oiu+6JJ0N9SFAwjYHYThgMzlKucyD975fq28Mr1it8ZFRNiRMPa0sCiVOAEwA==
+  dependencies:
+    quill "^1.3.7"
+
+quill@^1.3.6, quill@^1.3.7:
   version "1.3.7"
   resolved "https://registry.npmjs.org/quill/-/quill-1.3.7.tgz"
   integrity sha512-hG/DVzh/TiknWtE6QmWAF/pxoZKYxfe3J/d/+ShUWkDvvkZQVTPeVmUJVu1uE6DDooC4fWTiCLh84ul89oNz5g==

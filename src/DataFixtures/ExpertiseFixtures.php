@@ -26,7 +26,7 @@ class ExpertiseFixtures extends Fixture implements DependentFixtureInterface
 
                     $expertise->setIsExpert($faker->boolean());
                     $expertise->setUser($this->getReference('user_' . $faker->numberBetween(0, 4)));
-                    $expertise->setDepartment($this->getReference('department_' . Department::DEPARTMENTS[rand(0, 7)]));
+                    $expertise->setDepartment($this->getReference('department_' . Department::departments[rand(0, 7)]));
                     $manager->persist($expertise);
                 }
 

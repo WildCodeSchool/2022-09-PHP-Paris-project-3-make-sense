@@ -6,50 +6,79 @@
 
 	{{ form_start(form) }}
 
-	<div class=" offset-1 d-flex justify-content-between pr-4 pl-5 mt-5 mb-5">
-		<h1>Ajouter une annonce</h1>
-	</div>
-	<div class="container">
 
-		<div class="col-sm-4 form-control mb-5">
-			{{ form_row(form.title) }}
-		</div>
+	<div class="container-fluid d-flex justify-content-center">
+		<div class="row col-8">
 
-
-		<div class="col-sm-6 form-control mb-5">
-			{{ form_row(form.description) }}
-		</div>
+			<div class="card mt-5">
+				<div class="card-header card-bg-color">
+					<h1 class="text-center text-white">Ajouter une annonce</h1>
+				</div>
 
 
-		<div class="col-sm-6 form-control mb-5">
-			{{ form_row(form.impacts) }}
-		</div>
+				<div class="card-body">
+					<div class="mb-5 d-flex justify-content-center">
+						<div class="col-10">
+							{{ form_row(form.title) }}
+						</div>
+					</div>
+
+					<div class="mb-3 d-flex justify-content-center">
+						<div class="col-10">
+							{{ form_label(form.departments, 'Domaine') }}
+						</div>
+					</div>
+					<div class="form-check mb-5 pr-3 d-flex justify-content-around">
+						{% for i in form.departments %}
+							{{ form_widget(i) }}{{ form_label(i) }}<br>
+						{% endfor %}
+
+					</div>
 
 
-		<div class="col-sm-6 form-control mb-5">
-			{{ form_row(form.benefits) }}
-		</div>
+					<div class="mb-5 d-flex justify-content-center">
+						<div class="col-10">
+							{{ form_row(form.like_threshold) }}
+						</div>
+					</div>
+
+					<div id="datepicker" class="mb-5 d-flex justify-content-center">
+						<div class="col-10">
+							{{ form_row(form.end_at) }}
+						</div>
+					</div>
+
+					<div class="mb-5 d-flex justify-content-center">
+						<div class="col-10">
+							{{ form_row(form.description) }}
+						</div>
+					</div>
 
 
-		<div class="col-sm-6 form-control mb-5">
-			{{ form_row(form.risks) }}
-		</div>
+					<div class="mb-5 d-flex justify-content-center">
+						<div class="col-10">
+							{{ form_row(form.impacts) }}
+						</div>
+					</div>
 
 
-		<div class="col-sm-6 form-control mb-5">
-			{{ form_row(form.likeThreshold) }}
-		</div>
+					<div class="mb-5 d-flex justify-content-center">
+						<div class="col-10">
+							{{ form_row(form.benefits) }}
+						</div>
+					</div>
 
 
-		<div class="col-sm-6 form-control mb-5">
-			{{ form_row(form.department) }}
-		</div>
+					<div class="mb-5 d-flex justify-content-center">
+						<div class="col-10">
+							{{ form_row(form.risks) }}
+						</div>
+					</div>
 
-
-		<div class=" d-flex justify-content-center">
-			{{ form_row(form.submit) }}
-		</div>
-
-	</div>
-	{{form_end(form)}}
-{% endblock %}
+					<div class="d-flex justify-content-end">
+						{{ form_row(form.submit) }}
+					</div>
+				</div>
+			</div>
+			{{form_end(form)}}
+		{% endblock %}
