@@ -44,7 +44,7 @@ class DecisionRepository extends ServiceEntityRepository
     public function findDecisionDepartment(): array
     {
         $conn = $this->entityManager->getConnection();
-        $sql = 'SELECT * FROM decision JOIN decision_department ON decision_id = decision.id JOIN department ON department.id = department_id';
+        $sql = 'SELECT * FROM decision JOIN decision_department ON decision_id = decision.id JOIN department ON department.id = department_id ORDER BY created_at DESC';
         $statement = $conn->prepare($sql);
         $resultSet = $statement->executeQuery();
         return ($resultSet->fetchAllAssociative());

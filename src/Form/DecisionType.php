@@ -54,6 +54,15 @@ class DecisionType extends AbstractType
                 'label_attr' => [
                     'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3']
             ])
+            ->add('created_at', DateType::class, [
+                'constraints' => new NotBlank(),
+                'required' => false,
+                'widget' => 'single_text',
+                'attr' => ['class' => 'js-datepicker'],
+                'label' => 'Crée le:',
+                'label_attr' => [
+                    'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3']
+            ])
             ->add('impacts', CKEditorType::class, [
                 'constraints' => new NotBlank(),
                 'attr' => [
