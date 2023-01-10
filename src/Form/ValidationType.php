@@ -14,25 +14,12 @@ class ValidationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        // if ($options['data']->isIsLike() == null) {
-        //     $builder
-        //         ->add('isLike', HiddenType::class, [
-        //             'attr' => ['class' => 'likeCheck', 'value' => "0"]
-        //         ]);
-        // } else {
-        //     $builder
-        //         ->add('isLike', HiddenType::class, [
-        //             'attr' => ['class' => 'likeCheck']
-        //         ]);
-        // }
-
         $builder->add('comment', CKEditorType::class, [
             'label' => false,
             'empty_data' => ''
         ])
             ->add('avispositif', SubmitType::class, [
                 'attr' => [
-                    // 'label' => 'Save and Add',
                     'class' => 'mt-2 mb-2 rounded-5 col-4 card-bg-color text-white'
                 ],
             ])
