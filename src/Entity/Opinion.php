@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use DateTimeInterface;
-use App\Entity\Decision;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\OpinionRepository;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Entity\Decision;
+use DateTimeInterface;
 
 #[ORM\Entity(repositoryClass: OpinionRepository::class)]
 class Opinion
@@ -22,7 +22,7 @@ class Opinion
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\Type("\DateTimeInterface")]
-    private ?\DateTimeInterface $createdAt = null;
+    private ?DateTimeInterface $createdAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'opinions')]
     #[ORM\JoinColumn(nullable: false)]

@@ -2,15 +2,23 @@
 
 namespace App\Entity;
 
+use DateTime;
+use DateTimeImmutable;
 use DateTimeInterface;
 use App\Entity\Comment;
 use App\Entity\History;
+use App\Entity\Opinion;
+use App\Entity\Notification;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\DecisionRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+
+/** @SuppressWarnings(PHPMD.TooManyPublicMethods)
+ *   @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
+ */
 
 #[ORM\Entity(repositoryClass: DecisionRepository::class)]
 class Decision
@@ -56,8 +64,8 @@ class Decision
     #[Assert\Type("\DateTimeInterface")]
     private ?DateTimeInterface $updatedAt = null;
 
-    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Notification::class)]
-    private Collection $notifications;
+    // #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Notification::class)]
+    // private Collection $notifications;
 
     #[ORM\ManyToOne(inversedBy: 'decisions')]
     private ?User $owner = null;
@@ -66,7 +74,10 @@ class Decision
     private Collection $comments;
 
     #[ORM\ManyToMany(targetEntity: Department::class, inversedBy: 'decisions')]
-    private Collection $department;
+    private Collection $departments;
+
+    #[ORM\Column]
+    private ?DateTimeImmutable $endAt = null;
 
     public function __construct()
     {
@@ -74,10 +85,9 @@ class Decision
         $this->opinions = new ArrayCollection();
         $this->histories = new ArrayCollection();
         $this->validations = new ArrayCollection();
-        $this->notifications = new ArrayCollection();
-        $this->createdAt =  new \DateTime('now');
-        $this->updatedAt =  new \DateTime('now');
-        $this->department = new ArrayCollection();
+        $this->createdAt =  new DateTime('now');
+        $this->updatedAt =  new DateTime('now');
+        $this->departments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -292,36 +302,6 @@ class Decision
         return $this;
     }
 
-    /**
-     * @return Collection<int, Notification>
-     */
-    public function getNotifications(): Collection
-    {
-        return $this->notifications;
-    }
-
-    public function addNotification(Notification $notification): self
-    {
-        if (!$this->notifications->contains($notification)) {
-            $this->notifications->add($notification);
-            $notification->setDecision($this);
-        }
-
-        return $this;
-    }
-
-    public function removeNotification(Notification $notification): self
-    {
-        if ($this->notifications->removeElement($notification)) {
-            // set the owning side to null (unless already changed)
-            if ($notification->getDecision() === $this) {
-                $notification->setDecision(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getOwner(): ?User
     {
         return $this->owner;
@@ -344,13 +324,13 @@ class Decision
      */
     public function getDepartment(): Collection
     {
-        return $this->department;
+        return $this->departments;
     }
 
     public function addDepartment(Department $department): self
     {
-        if (!$this->department->contains($department)) {
-            $this->department->add($department);
+        if (!$this->departments->contains($department)) {
+            $this->departments->add($department);
         }
 
         return $this;
@@ -358,7 +338,19 @@ class Decision
 
     public function removeDepartment(Department $department): self
     {
-        $this->department->removeElement($department);
+        $this->departments->removeElement($department);
+
+        return $this;
+    }
+
+    public function getEndAt(): ?DateTimeImmutable
+    {
+        return $this->endAt;
+    }
+
+    public function setEndAt(DateTimeImmutable $endAt): self
+    {
+        $this->endAt = $endAt;
 
         return $this;
     }
