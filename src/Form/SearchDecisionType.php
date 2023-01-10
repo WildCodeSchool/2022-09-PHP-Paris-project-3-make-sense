@@ -25,7 +25,7 @@ class SearchDecisionType extends AbstractType
         $builder
             ->add('search', SearchType::class, [
                 'attr' => [
-                    'class' => 'form-control '
+                    'class' => 'form-control mb-4'
                 ],
                 'label' => 'Chercher une décision',
                 'label_attr' => [
@@ -33,12 +33,19 @@ class SearchDecisionType extends AbstractType
                 ],
             ])
             ->add('domaines', EntityType::class, [
+                'attr' => [
+                    'class' => 'form-check mt-3 mb-3 d-flex justify-content-around '
+                ],
                 'class'    => Department::class,
                 'expanded' => true,
                 'multiple' => true,
             ])
             ->add('Status', ChoiceType::class, [
+                'attr' => [
+                    'class' => 'form-check mt-3 '
+                ],
                 'choices' => [
+                    'Default' => '',
                 History::STATUS[0] => History::STATUS[0],
                 History::STATUS[1] => History::STATUS[1],
                 History::STATUS[2] => History::STATUS[2],
