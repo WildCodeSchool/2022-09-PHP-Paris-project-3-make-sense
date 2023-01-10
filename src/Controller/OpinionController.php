@@ -34,6 +34,8 @@ class OpinionController extends AbstractController
 
         $userId = 202;
 
+        // dd($decisionRepository->test());
+
         $opinion = $opinionRepository->findOneBy(['user' => $userId, 'decision' => $decision->getId()]);
 
         if (!$opinion) {

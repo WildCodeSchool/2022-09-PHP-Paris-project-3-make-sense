@@ -19,7 +19,7 @@ use Doctrine\ORM\EntityManagerInterface;
 class DecisionRepository extends ServiceEntityRepository
 {
     private EntityManagerInterface $entityManager;
-    
+
     public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
@@ -44,7 +44,6 @@ class DecisionRepository extends ServiceEntityRepository
         }
     }
 
-
     public function findLastStatus(int $decisionId): array
     {
         $conn = $this->entityManager->getConnection();
@@ -53,7 +52,7 @@ class DecisionRepository extends ServiceEntityRepository
         $sql = 'SELECT * From decision d INNER JOIN history h1 ON h1.decision_id = d.id ';
         $sql .= 'INNER JOIN (' . $sql1 . ') ';
         $sql .= 'ms ON dec_id = h1.decision_id and max = h1.updated_at ';
-    
+
         $stmt = $conn->prepare($sql);
         $resultSet = $stmt->executeQuery(['decision_id' => $decisionId]);
 
