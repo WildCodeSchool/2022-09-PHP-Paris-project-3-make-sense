@@ -21,13 +21,14 @@ class UserFixtures extends Fixture
             $user->setFirstname($faker->firstName());
             $user->setLastname($faker->lastName());
             $user->setPassword('12345678');
-            $user->setPicture('photo.jpg');
+            $user->setImageName('');
             $user->setPhone(0654454545);
             $user->setRoles(['ROLE_USER']);
             $user->setemail($faker->email());
             $user->setCreatedAt(new DateTimeImmutable('now'));
             $user->setUpdatedAt(new DateTimeImmutable('now'));
             $this->addReference('user_' . $userId, $user);
+            $user->setPlainPassword('password');
             $manager->persist($user);
         }
         $manager->flush();
