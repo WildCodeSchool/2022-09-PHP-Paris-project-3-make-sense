@@ -20,13 +20,11 @@ class HomeController extends AbstractController
 
         $owner = 202;
 
-        // $myLastDecisions = $decisionRepository->findBy(['owner' => $owner], ['createdAt' => 'DESC'], 3, 0);
         $myLastDecisions = $decisionRepository->findByHistory(
             $historyRepository->findLastUpdatedByStatus("En cours", 3),
             $owner
         );
 
-        // $allLastDecisions = $decisionRepository->findBy([], ['createdAt' => 'DESC'], 3, 0);
         $allLastDecisions = $decisionRepository->findByHistory(
             $historyRepository->findLastUpdatedByStatus("En cours", 3)
         );
@@ -35,7 +33,6 @@ class HomeController extends AbstractController
             $historyRepository->findLastUpdatedByStatus("Brouillon", 3),
             $owner
         );
-
 
         $allLastAccomplished = $decisionRepository->findByHistory(
             $historyRepository->findLastUpdatedByStatus("Aboutie", 3)

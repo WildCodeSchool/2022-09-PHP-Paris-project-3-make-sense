@@ -57,7 +57,6 @@ class HistoryRepository extends ServiceEntityRepository
         $stmt = $conn->prepare($sql);
         $resultSet = $stmt->executeQuery(['status' => $status]);
 
-        // dd($resultSet->fetchAllAssociative());
         return ($resultSet->fetchAllAssociative());
     }
 }

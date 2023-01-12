@@ -11,8 +11,6 @@ class OpinionLike
         $likeDislike = [];
         foreach ($decisions as $decision) {
             $likeDislike[] = $this->calculateOpinion($decision);
-            // $decision['like'] = $likeDislike[0];
-            // $decision['dislike'] = $likeDislike[1];
         }
 
         return $likeDislike;
