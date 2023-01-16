@@ -47,7 +47,8 @@ class DecisionRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('d')
                     ->join('d.histories', 'h')
-                    ->select('d', 'h')
+                    ->join('d.departments', 'dp')
+                    ->select('d', 'h', 'dp')
                     ->getQuery()
                     ->getResult();
     }

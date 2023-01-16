@@ -29,7 +29,7 @@ class DecisionController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // dd($decisionRepository->findAll());
-            // $title = $form->getData()['search'];
+            //  $title = $form->getData()['search'];
             // $domaines = $form->getData()['domaines'][0]->getName();
             // $status = $form->getData()['Status'];
             $decisions = $decisionRepository->search();

@@ -15,10 +15,8 @@ use Symfony\Component\Form\Extension\Core\Type\SearchType;
 
 class SearchDecisionType extends AbstractType
 {
-    private HistoryRepository $historyRepository;
-    public function __construct(HistoryRepository $historyRepository)
+    public function __construct()
     {
-        $this->historyRepository = $historyRepository;
     }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -45,7 +43,6 @@ class SearchDecisionType extends AbstractType
                     'class' => 'form-check mt-3 '
                 ],
                 'choices' => [
-                    'Default' => '',
                 History::STATUS[0] => History::STATUS[0],
                 History::STATUS[1] => History::STATUS[1],
                 History::STATUS[2] => History::STATUS[2],
@@ -54,7 +51,6 @@ class SearchDecisionType extends AbstractType
                 History::STATUS[5] => History::STATUS[5],
                 ],
             ]);
-         
     }
 
     public function configureOptions(OptionsResolver $resolver): void
