@@ -43,12 +43,14 @@ class DecisionRepository extends ServiceEntityRepository
         }
     }
 
-    public function search(): array
+    public function search(string $title): array
     {
         return $this->createQueryBuilder('d')
-                    ->join('d.histories', 'h')
                     ->join('d.departments', 'dp')
-                    ->select('d', 'h', 'dp')
+                    ->select('d', 'dp')
+                    ->where('d.title LIKE :title')
+                    ->setParameter('title', '%' . $title . '%')
+                    ->orderBy('d.title', 'ASC')
                     ->getQuery()
                     ->getResult();
     }
