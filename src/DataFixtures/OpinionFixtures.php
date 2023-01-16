@@ -24,7 +24,6 @@ class OpinionFixtures extends Fixture implements DependentFixtureInterface
                     $opinion = new Opinion();
 
                     $opinion->setIsLike($faker->boolean());
-                    $opinion->setCreatedAt($faker->dateTime());
 
                     $opinion->setUser($this->getReference('user_' . $faker->numberBetween(0, 4)));
                     $opinion->setDecision($this->getReference('decision_' . $faker->numberBetween(0, 24)));
