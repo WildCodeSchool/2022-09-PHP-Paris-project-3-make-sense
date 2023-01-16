@@ -39,28 +39,20 @@ class DecisionRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Decision[] Returns an array of Decision objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('d')
-//            ->andWhere('d.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('d.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findLastStatus(int $decisionId): array
+    {
+        $conn = $this->entityManager->getConnection();
+        $sql1 = 'SELECT MAX(updated_at) AS max, decision_id as dec_id FROM history h WHERE h.decision_id = :decision_id';
+        $sql = 'SELECT * From decision d INNER JOIN history h1 ON h1.decision_id = d.id ';
+        $sql .= 'INNER JOIN (' . $sql1 . ') ';
+        $sql .= 'ms ON dec_id = h1.decision_id and max = h1.updated_at ';
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery(['decision_id' => $decisionId]);
+        return ($resultSet->fetchAssociative());
+    }
 
-//    public function findOneBySomeField($value): ?Decision
-//    {
-//        return $this->createQueryBuilder('d')
-//            ->andWhere('d.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function isLike(int $like)
+    {
+        $like = 'SELECT * decision, COUNT(*) AS ';
+    }
 }
