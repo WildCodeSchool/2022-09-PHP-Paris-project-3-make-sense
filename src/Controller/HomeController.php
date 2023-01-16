@@ -20,6 +20,8 @@ class HomeController extends AbstractController
 
         $owner = 202;
 
+        dd($decisionRepository->findLastUpdatedByStatus('en cours', 3));
+        
         $myLastDecisions = $decisionRepository->findByHistory(
             $historyRepository->findLastUpdatedByStatus("En cours", 3),
             $owner

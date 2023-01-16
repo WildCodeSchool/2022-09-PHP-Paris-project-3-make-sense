@@ -42,21 +42,21 @@ class HistoryRepository extends ServiceEntityRepository
         }
     }
 
-    public function findLastUpdatedByStatus(string $status, int $maxresult = 0): mixed
-    {
-        $conn = $this->entityManager->getConnection();
+    // public function findLastUpdatedByStatus(string $status, int $maxresult = 0): mixed
+    // {
+    //     $conn = $this->entityManager->getConnection();
 
-        $sqlmax = 'SELECT MAX(updated_at) AS max, decision_id  FROM history GROUP BY decision_id';
-        $sql = 'SELECT h.decision_id, h.status, h.updated_at from history h INNER JOIN (' . $sqlmax . ') ';
-        $sql .= 'ms ON ms.decision_id = h.decision_id and max = h.updated_at and h.status = :status ';
-        $sql .= 'ORDER BY h.updated_at DESC';
-        if ($maxresult) {
-            $sql .= ' LIMIT ' . $maxresult;
-        }
+    //     $sqlmax = 'SELECT MAX(updated_at) AS max, decision_id  FROM history GROUP BY decision_id';
+    //     $sql = 'SELECT h.decision_id, h.status, h.updated_at from history h INNER JOIN (' . $sqlmax . ') ';
+    //     $sql .= 'ms ON ms.decision_id = h.decision_id and max = h.updated_at and h.status = :status ';
+    //     $sql .= 'ORDER BY h.updated_at DESC';
+    //     if ($maxresult) {
+    //         $sql .= ' LIMIT ' . $maxresult;
+    //     }
 
-        $stmt = $conn->prepare($sql);
-        $resultSet = $stmt->executeQuery(['status' => $status]);
+    //     $stmt = $conn->prepare($sql);
+    //     $resultSet = $stmt->executeQuery(['status' => $status]);
 
-        return ($resultSet->fetchAllAssociative());
-    }
+    //     return ($resultSet->fetchAllAssociative());
+    // }
 }

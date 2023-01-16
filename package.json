@@ -26,6 +26,9 @@
     },
     "dependencies": {
         "@fontsource/raleway": "^4.5.11",
-        "@makesenseorg/design-system": "^1.8.0"
+        "@makesenseorg/design-system": "^1.8.0",
+        "Hinclude": "^1.2.0",
+        "h-include": "^4.4.0",
+        "import": "^0.0.6"
     }
 }
