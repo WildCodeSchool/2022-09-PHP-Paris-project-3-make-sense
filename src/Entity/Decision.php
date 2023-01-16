@@ -94,9 +94,6 @@ class Decision
     #[ORM\ManyToMany(targetEntity: Department::class, inversedBy: 'decisions')]
     private Collection $departments;
 
-    #[ORM\Column]
-    private ?DateTimeInterface $endAt = null;
-
     #[ORM\Column(length: 50)]
     private ?string $status = null;
 
