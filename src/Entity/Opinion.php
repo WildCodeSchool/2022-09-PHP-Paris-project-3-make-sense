@@ -20,10 +20,6 @@ class Opinion
     #[ORM\Column]
     private ?bool $isLike = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Assert\Type("\DateTimeInterface")]
-    private ?DateTimeInterface $createdAt = null;
-
     #[ORM\ManyToOne(inversedBy: 'opinions')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Decision $decision = null;
@@ -44,18 +40,6 @@ class Opinion
     public function setIsLike(bool $isLike): self
     {
         $this->isLike = $isLike;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
 
         return $this;
     }

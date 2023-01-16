@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use DateTime;
-use App\Entity\Comment;
 use App\Entity\History;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,6 +20,15 @@ use DateTimeInterface;
 #[ORM\Entity(repositoryClass: DecisionRepository::class)]
 class Decision
 {
+    public const STATUS = [
+        'brouillon',
+        'en cours',
+        '1ère décision',
+        'conflit',
+        'aboutie',
+        'non aboutie'
+    ];
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -65,18 +73,17 @@ class Decision
     #[ORM\ManyToOne(inversedBy: 'decisions')]
     private ?User $owner = null;
 
-    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Comment::class)]
-    private Collection $comments;
-
     #[ORM\ManyToMany(targetEntity: Department::class, inversedBy: 'decisions')]
     private Collection $departments;
 
     #[ORM\Column]
     private ?DateTimeImmutable $endAt = null;
 
+    #[ORM\Column(length: 50)]
+    private ?string $status = null;
+
     public function __construct()
     {
-        $this->comments = new ArrayCollection();
         $this->opinions = new ArrayCollection();
         $this->histories = new ArrayCollection();
         $this->validations = new ArrayCollection();
@@ -162,26 +169,6 @@ class Decision
         return $this;
     }
 
-    public function getComments(): Collection
-    {
-        return $this->comments;
-    }
-
-    public function addComment(Comment $comment): self
-    {
-        if (!$this->comments->contains($comment)) {
-            $this->comments->add($comment);
-        }
-
-        return $this;
-    }
-
-    public function removeComment(Comment $comment): self
-    {
-        $this->comments->removeElement($comment);
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Opinion>
@@ -346,6 +333,18 @@ class Decision
     public function setEndAt(DateTimeImmutable $endAt): self
     {
         $this->endAt = $endAt;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

@@ -12,14 +12,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Department
 {
     public const DEPARTMENTS = [
-        'Ressources Humaines',
-        'Commercial',
-        'Comptabilité',
-        'Informatique',
-        'Marketing',
-        'Finance',
-        'Achats',
-        'Juridique',
+        'ressources Humaines',
+        'commercial',
+        'comptabilité',
+        'informatique',
+        'marketing',
+        'finance',
+        'achats',
+        'juridique',
     ];
 
     #[ORM\Id]
