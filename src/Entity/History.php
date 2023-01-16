@@ -15,15 +15,6 @@ use DateTimeInterface;
 #[ORM\Entity(repositoryClass: HistoryRepository::class)]
 class History
 {
-    public const STATUS = [
-        'Brouillon',
-        'En cours',
-        '1ère décision',
-        'Conflit',
-        'Aboutie',
-        'Non aboutie'
-    ];
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -47,9 +38,6 @@ class History
 
     #[ORM\Column]
     private ?DateTimeImmutable $createdAt = null;
-
-    #[ORM\Column]
-    private ?DateTimeImmutable $updatedAt = null;
 
     #[ORM\OneToMany(mappedBy: 'history', targetEntity: Notification::class)]
     private Collection $notifications;
@@ -120,18 +108,6 @@ class History
     public function setCreatedAt(DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(DateTimeImmutable $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
 
         return $this;
     }

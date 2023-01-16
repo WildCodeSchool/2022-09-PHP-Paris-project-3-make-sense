@@ -19,6 +19,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 
+/** @SuppressWarnings(PHPMD.TooManyPublicMethods)
+ *   @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
+ */
+
 #[UniqueEntity('email')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\EntityListeners(['App\EntityListener\UserListener'])]
@@ -37,9 +41,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[Vich\UploadableField(mapping: 'poster_file', fileNameProperty: 'imageName')]
     private ?File $imageFile = null;
-
-    #[ORM\Column(type: 'string')]
-    private ?string $imageName = null;
 
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\Length(min: 1, max: 180)]
@@ -68,6 +69,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Length(min: 1, max: 80)]
     private ?string $lastname = null;
 
+    #[ORM\Column(length: 255)]
+    #[Assert\Length(min: 1, max: 180)]
+    private ?string $imagename = null;
 
     #[ORM\Column]
     #[Assert\Positive]
@@ -99,8 +103,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Validation::class)]
     private Collection $validations;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class)]
-    private Collection $comments;
 
     public function __construct()
     {
@@ -110,7 +112,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->expertises = new ArrayCollection();
         $this->decisions = new ArrayCollection();
         $this->opinions = new ArrayCollection();
-        $this->comments = new ArrayCollection();
     }
 
     public function setImageFile(?File $imageFile = null): string
@@ -123,17 +124,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->imageFile;
     }
-
-    public function setImageName(?string $imageName): void
-    {
-        $this->imageName = $imageName;
-    }
-
-    public function getImageName(): ?string
-    {
-        return $this->imageName;
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -224,6 +214,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastname(string $lastname): self
     {
         $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getImagename(): ?string
+    {
+        return $this->imagename;
+    }
+
+    public function setImagename(string $imagename): self
+    {
+        $this->imagename = $imagename;
 
         return $this;
     }
@@ -369,32 +371,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getComments(): Collection
-    {
-        return $this->comments;
-    }
-
-    public function addComment(Comment $comment): self
-    {
-        if (!$this->comments->contains($comment)) {
-            $this->comments->add($comment);
-            $comment->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeComment(Comment $comment): self
-    {
-        if ($this->comments->removeElement($comment)) {
-            // set the owning side to null (unless already changed)
-            if ($comment->getUser() === $this) {
-                $comment->setUser(null);
-            }
-        }
-
-        return $this;
-    }
     public function getValidations(): Collection
     {
         return $this->validations;
