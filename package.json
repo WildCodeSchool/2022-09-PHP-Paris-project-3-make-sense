@@ -31,9 +31,13 @@
     },
     "dependencies": {
         "@eonasdan/tempus-dominus": "^6.2.10",
-        "@makesenseorg/design-system": "^1.8.0",
         "@popperjs/core": "^2.11.6",
         "bootstrap-datepicker": "^1.9.0",
         "ckeditor4": "^4.13.0"
+        "@fontsource/raleway": "^4.5.11",
+        "@makesenseorg/design-system": "^1.8.0",
+        "Hinclude": "^1.2.0",
+        "h-include": "^4.4.0",
+        "import": "^0.0.6"
     }
 }

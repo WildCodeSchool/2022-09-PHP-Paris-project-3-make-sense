@@ -2,21 +2,35 @@
 
 namespace App\Entity;
 
-use App\Repository\DecisionRepository;
 use DateTime;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\History;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\DecisionRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
-use App\Entity\Comment;
-use App\Entity\History;
+use DateTimeImmutable;
+use DateTimeInterface;
 
+/** @SuppressWarnings(PHPMD.TooManyPublicMethods)
+ *   @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
+ */
+use App\Entity\Comment;
 
 
 #[ORM\Entity(repositoryClass: DecisionRepository::class)]
 class Decision
 {
+    public const STATUS = [
+        'brouillon',
+        'en cours',
+        '1ère décision',
+        'conflit',
+        'aboutie',
+        'non aboutie'
+    ];
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -63,20 +77,14 @@ class Decision
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\NotBlank]
     #[Assert\Type("\DateTimeInterface")]
-    private ?\DateTimeInterface $createdAt = null;
+    private ?DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\Type("\DateTimeInterface")]
-    private ?\DateTimeInterface $updatedAt = null;
-
-    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Notification::class)]
-    private Collection $notifications;
+    private ?DateTimeInterface $updatedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'decisions')]
     private ?User $owner = null;
-
-    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Comment::class)]
-    private Collection $comments;
 
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -86,20 +94,20 @@ class Decision
     #[ORM\ManyToMany(targetEntity: Department::class, inversedBy: 'decisions')]
     private Collection $departments;
 
-    
+    #[ORM\Column]
+    private ?DateTimeInterface $endAt = null;
+
+    #[ORM\Column(length: 50)]
+    private ?string $status = null;
 
     public function __construct()
     {
-        $this->comments = new ArrayCollection();
         $this->opinions = new ArrayCollection();
         $this->histories = new ArrayCollection();
         $this->validations = new ArrayCollection();
-        $this->notifications = new ArrayCollection();
         $this->createdAt =  new DateTime('now');
         $this->updatedAt =  new DateTime('now');
-        $this->endAt = new DateTime('now');
         $this->departments = new ArrayCollection();
-      
     }
 
     public function getId(): ?int
@@ -179,26 +187,6 @@ class Decision
         return $this;
     }
 
-    public function getComments(): Collection
-    {
-        return $this->comments;
-    }
-
-    public function addComment(Comment $comment): self
-    {
-        if (!$this->comments->contains($comment)) {
-            $this->comments->add($comment);
-        }
-
-        return $this;
-    }
-
-    public function removeComment(Comment $comment): self
-    {
-        $this->comments->removeElement($comment);
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Opinion>
@@ -290,56 +278,26 @@ class Decision
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    public function setUpdatedAt(DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Notification>
-     */
-    public function getNotifications(): Collection
-    {
-        return $this->notifications;
-    }
-
-    public function addNotification(Notification $notification): self
-    {
-        if (!$this->notifications->contains($notification)) {
-            $this->notifications->add($notification);
-            $notification->setDecision($this);
-        }
-
-        return $this;
-    }
-
-    public function removeNotification(Notification $notification): self
-    {
-        if ($this->notifications->removeElement($notification)) {
-            // set the owning side to null (unless already changed)
-            if ($notification->getDecision() === $this) {
-                $notification->setDecision(null);
-            }
-        }
 
         return $this;
     }
@@ -364,17 +322,8 @@ class Decision
 
     
 
-    public function getEndAt(): ?\DateTimeInterface
-    {
-        return $this->endAt;
-    }
-
-    public function setEndAt(?\DateTimeInterface $endAt): self
-    {
-        $this->endAt = $endAt;
-
-        return $this;
-    }
+    
+    
 
     /**
      * @return Collection<int, Department>
@@ -396,6 +345,30 @@ class Decision
     public function removeDepartment(Department $department): self
     {
         $this->departments->removeElement($department);
+
+        return $this;
+    }
+
+    public function getEndAt(): ?DateTimeInterface
+    {
+        return $this->endAt;
+    }
+
+    public function setEndAt(DateTimeInterface $endAt): self
+    {
+        $this->endAt = $endAt;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

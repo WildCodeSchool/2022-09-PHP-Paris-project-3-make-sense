@@ -39,28 +39,13 @@ class NotificationRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Notification[] Returns an array of Notification objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('n')
-//            ->andWhere('n.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('n.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Notification
-//    {
-//        return $this->createQueryBuilder('n')
-//            ->andWhere('n.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function getTotalByUser(int $userId): int
+    {
+        return $this->createQueryBuilder('n')
+            ->select('count(n.user)')
+            ->where('n.user = :userid')
+            ->setParameter('userid', $userId)
+            ->getQuery()
+            ->getResult()[0][1];
+    }
 }

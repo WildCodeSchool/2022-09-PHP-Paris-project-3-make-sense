@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Decision;
 use App\Repository\DepartmentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -11,6 +12,15 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: DepartmentRepository::class)]
 class Department
 {
+    public const DEPARTMENTS = [
+        'ressources Humaines',
+        'commercial',
+        'comptabilité',
+        'informatique',
+        'marketing',
+        'finance',
+        'achats',
+        'juridique',
     public const departments = [
         'Ressources Humaines',
         'Commercial',
@@ -35,9 +45,8 @@ class Department
     private Collection $expertises;
 
     #[ORM\ManyToMany(targetEntity: Decision::class, mappedBy: 'departments')]
+    #[ORM\ManyToMany(targetEntity: Decision::class, mappedBy: 'departments')]
     private Collection $decisions;
-
-   
 
     public function __construct()
     {

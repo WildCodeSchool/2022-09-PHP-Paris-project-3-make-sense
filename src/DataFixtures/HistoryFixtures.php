@@ -5,8 +5,10 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\History;
+use App\Entity\Decision;
 use Faker\Factory;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use DateTimeImmutable;
 
 class HistoryFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -17,15 +19,18 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Factory::create();
 
+        $historyRef = 0;
         for ($decisionId = 0; $decisionId < self::NB_DECISION; $decisionId++) {
             for ($historyId = 0; $historyId < self::NB_HISTORY; $historyId++) {
-                    $history = new History();
-
-                    $history->setStartedAt((new \DateTimeImmutable('now')));
-                    $history->setEndedAt((new \DateTimeImmutable('now')));
-                    $history->setDecision($this->getReference('decision_' . $faker->numberBetween(0, 24)));
-                    $history->setStatus(HISTORY::STATUS[rand(0, 5)]);
-                    $manager->persist($history);
+                $history = new History();
+                $historyRef++;
+                $history->setStartedAt((new DateTimeImmutable('now')));
+                $history->setEndedAt((new DateTimeImmutable('now')));
+                $history->setcreatedAt((new DateTimeImmutable('now')));
+                $history->setDecision($this->getReference('decision_' . $faker->numberBetween(0, 24)));
+                $history->setStatus(Decision::STATUS[$historyId]);
+                $this->addReference('history_' . $historyRef, $history);
+                $manager->persist($history);
             }
         }
         $manager->flush();
@@ -35,6 +40,6 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             DecisionFixtures::class,
-         ];
+        ];
     }
 }
