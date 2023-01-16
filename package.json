@@ -27,6 +27,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@fontsource/raleway": "^4.5.11",
         "@makesenseorg/design-system": "^1.8.0"
     }
 }

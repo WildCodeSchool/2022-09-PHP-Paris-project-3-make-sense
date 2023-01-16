@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use id;
 use App\Entity\Opinion;
 use App\Entity\Decision;
 use App\Entity\Expertise;
@@ -61,10 +60,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank]
     #[Assert\Length(min: 1, max: 80)]
     private ?string $lastname = null;
-
-    #[ORM\Column(length: 255)]
-    #[Assert\Length(min: 1, max: 180)]
-    private ?string $picture = null;
 
     #[ORM\Column]
     #[Assert\Positive]
@@ -130,11 +125,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getImageName(): ?string
     {
         return $this->imageName;
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getEmail(): ?string
@@ -222,18 +212,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastname(string $lastname): self
     {
         $this->lastname = $lastname;
-
-        return $this;
-    }
-
-    public function getPicture(): ?string
-    {
-        return $this->picture;
-    }
-
-    public function setPicture(string $picture): self
-    {
-        $this->picture = $picture;
 
         return $this;
     }

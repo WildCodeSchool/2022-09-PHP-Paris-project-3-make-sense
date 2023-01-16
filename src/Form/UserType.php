@@ -90,15 +90,15 @@ class UserType extends AbstractType
 
                 ], 
             ])
-            ->add('imageFile', VichFileType::class, [
+             ->add('imageFile', VichFileType::class, [
                 'required'      => false,
                 'allow_delete'  => true, 
                 'download_uri' => true, 
                 'label' => 'Photo de profil',
                 'label_attr' => [
-                    'class' => 'form-label mt-4'
+                     'class' => 'form-label mt-4'
                 ]
-              ])
+               ])
             ->add('phone', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
@@ -120,21 +120,21 @@ class UserType extends AbstractType
                 'label' => 'Enrégistrer'
             ]);
 
-            $departments = $this->departmentRepository->findAll();
+            // $departments = $this->departmentRepository->findAll();
             
-            foreach ($departments as $department) {
-                $builder
-                ->add('interestedBy' . $department->getId(), CheckboxType::class, [
-                    'label' => 'Interessé par ?',
-                    'required' => false,
-                    'mapped' => false,
-                ])
-                ->add('expertIn'  . $department->getId(), CheckboxType::class, [
-                    'label' => 'Expert ?',
-                    'required' => false,
-                    'mapped' => false,
-                ]);
-            }
+            // foreach ($departments as $department) {
+            //     $builder
+            //     ->add('interestedBy' . $department->getId(), CheckboxType::class, [
+            //         'label' => 'Interessé par ?',
+            //         'required' => false,
+            //         'mapped' => false,
+            //     ])
+            //     ->add('expertIn'  . $department->getId(), CheckboxType::class, [
+            //         'label' => 'Expert ?',
+            //         'required' => false,
+            //         'mapped' => false,
+            //     ]);
+            // }
 
             $builder->get('roles')
             ->addModelTransformer(
