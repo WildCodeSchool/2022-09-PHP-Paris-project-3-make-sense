@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="card container d-flex justify-content-center" style="max-width: 40rem;">
+    <div class="card-header text-center text-bg-danger">
+   <h3 class="mt-4">Ajouter un utilisateur</h3>
+  </div>
+   <div class="card-body">
+        {{ form_start(form) }}
+
+            <div class="form-group">
+               {{ form_label(form.firstname) }}
+               {{ form_widget(form.firstname) }}   
+            </div>
+
+            <div class="form-group">
+               {{ form_label(form.lastname) }}
+               {{ form_widget(form.lastname) }}    
+            </div>
+
+            <div class="form-group">
+               {{ form_label(form.email) }}
+               {{ form_widget(form.email) }}  
+            </div>
+
+            <div class="form-group">
+               {{ form_label(form.roles) }}
+               {{ form_widget(form.roles) }}
+            </div>
+
+             {{ form_row(form.imageFile) }}
+
+            <div class="form-group">
+               {{ form_label(form.phone) }}
+               {{ form_widget(form.phone) }}
+            </div>
+
+               {{ form_row(form.submit, { 'label': 'Enregistrer' }) }}
+            
+        {{ form_end(form) }}
+         </div>
+   {% endblock %}
