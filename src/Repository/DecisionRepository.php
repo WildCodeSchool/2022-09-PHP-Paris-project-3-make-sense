@@ -75,27 +75,27 @@ class DecisionRepository extends ServiceEntityRepository
     }
 
 
-    public function findByHistory(?array $histories, ?int $ownerId = null): array
-    {
-        $decisions = [];
+    // public function findByHistory(?array $histories, ?int $ownerId = null): array
+    // {
+    //     $decisions = [];
 
-        foreach ($histories as $history) {
-            $queryBuilder = $this->createQueryBuilder('d');
-            $queryBuilder = $queryBuilder->where('d.id = :decision_id');
-            $queryBuilder = $queryBuilder->setParameter('decision_id', $history['decision_id']);
+    //     foreach ($histories as $history) {
+    //         $queryBuilder = $this->createQueryBuilder('d');
+    //         $queryBuilder = $queryBuilder->where('d.id = :decision_id');
+    //         $queryBuilder = $queryBuilder->setParameter('decision_id', $history['decision_id']);
 
-            if ($ownerId != null) {
-                $queryBuilder = $queryBuilder->andWhere('d.owner = :user_id');
-                $queryBuilder = $queryBuilder->setParameter('user_id', $ownerId);
-            }
+    //         if ($ownerId != null) {
+    //             $queryBuilder = $queryBuilder->andWhere('d.owner = :user_id');
+    //             $queryBuilder = $queryBuilder->setParameter('user_id', $ownerId);
+    //         }
 
-            $queryBuilder = $queryBuilder->getQuery();
+    //         $queryBuilder = $queryBuilder->getQuery();
 
-            if (!empty($queryBuilder->getResult())) {
-                $decisions[] = $queryBuilder->getResult()[0];
-            }
-        }
+    //         if (!empty($queryBuilder->getResult())) {
+    //             $decisions[] = $queryBuilder->getResult()[0];
+    //         }
+    //     }
 
-        return $decisions;
-    }
+    //     return $decisions;
+    // }
 }
