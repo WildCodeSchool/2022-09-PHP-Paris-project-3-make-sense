@@ -28,6 +28,7 @@ class UserFixtures extends Fixture
             $user->setCreatedAt(new DateTimeImmutable('now'));
             $user->setUpdatedAt(new DateTimeImmutable('now'));
             $this->addReference('user_' . $userId, $user);
+            $user->setPlainPassword('password');
             $manager->persist($user);
         }
         $manager->flush();

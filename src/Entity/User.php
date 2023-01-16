@@ -2,15 +2,20 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
+use DateTimeImmutable;
+use App\Entity\Opinion;
+use App\Entity\Decision;
+use App\Entity\Expertise;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
+use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Validator\Constraints as Assert;
-use DateTimeImmutable;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /** @SuppressWarnings(PHPMD.TooManyPublicMethods)
  *   @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
@@ -18,12 +23,25 @@ use DateTimeImmutable;
 
 #[UniqueEntity('email')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\EntityListeners(['App\EntityListener\UserListener'])]
+#[Vich\Uploadable]
+
+/** @SuppressWarnings(PHPMD.TooManyPublicMethods)
+ *   @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
+ *   @SuppressWarnings(PHPMD.ExcessivePublicCount)
+ */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
+    #[Vich\UploadableField(mapping: 'poster_file', fileNameProperty: 'imageName')]
+    private ?File $imageFile = null;
+
+    #[ORM\Column(type: 'string')]
+    private ?string $imageName = null;
 
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\Length(min: 1, max: 180)]
@@ -51,10 +69,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank]
     #[Assert\Length(min: 1, max: 80)]
     private ?string $lastname = null;
-
-    #[ORM\Column(length: 255)]
-    #[Assert\Length(min: 1, max: 180)]
-    private ?string $imagename = null;
 
     #[ORM\Column]
     #[Assert\Positive]
@@ -95,6 +109,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->expertises = new ArrayCollection();
         $this->decisions = new ArrayCollection();
         $this->opinions = new ArrayCollection();
+    }
+
+    public function setImageFile(?File $imageFile = null): string
+    {
+        $this->imageFile = $imageFile;
+        return $this;
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageName(?string $imageName): void
+    {
+        $this->imageName = $imageName;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
     }
 
     public function getId(): ?int
@@ -191,18 +226,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getImagename(): ?string
-    {
-        return $this->imagename;
-    }
-
-    public function setImagename(string $imagename): self
-    {
-        $this->imagename = $imagename;
-
-        return $this;
-    }
-
     public function getPhone(): ?int
     {
         return $this->phone;
@@ -220,7 +243,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -232,7 +255,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
+    public function setUpdatedAt(DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
