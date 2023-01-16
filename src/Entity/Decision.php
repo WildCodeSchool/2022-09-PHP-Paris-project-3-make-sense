@@ -71,6 +71,9 @@ class Decision
     #[ORM\Column]
     private ?\DateTimeImmutable $endAt = null;
 
+    #[ORM\Column(length: 50)]
+    private ?string $status = null;
+
     public function __construct()
     {
         $this->opinions = new ArrayCollection();
@@ -324,4 +327,6 @@ class Decision
 
         return $this;
     }
+
+    
 }
