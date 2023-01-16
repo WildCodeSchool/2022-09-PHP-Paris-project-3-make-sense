@@ -18,29 +18,37 @@ class HomeController extends AbstractController
         OpinionLike $opinionLike
     ): Response {
 
-        $owner = 202;
+        $owner = 5;
 
-        dd($decisionRepository->findLastUpdatedByStatus('en cours', 3));
-        
-        $myLastDecisions = $decisionRepository->findByHistory(
-            $historyRepository->findLastUpdatedByStatus("En cours", 3),
-            $owner
-        );
-
-        $allLastDecisions = $decisionRepository->findByHistory(
-            $historyRepository->findLastUpdatedByStatus("En cours", 3)
-        );
-
-        $myLastDrafts = $decisionRepository->findByHistory(
-            $historyRepository->findLastUpdatedByStatus("Brouillon", 3),
-            $owner
-        );
-
-        $allLastAccomplished = $decisionRepository->findByHistory(
-            $historyRepository->findLastUpdatedByStatus("Aboutie", 3)
-        );
+        // dd($decisionRepository->findLastUpdatedByStatus('en cours', 3, $owner));
 
 
+        // $myLastDecisions = $decisionRepository->findByHistory(
+        //     $historyRepository->findLastUpdatedByStatus("En cours", 3),
+        //      $owner
+        //  );
+
+        $myLastDecisions = $decisionRepository->findLastUpdatedByStatus('en cours', 3, $owner);
+
+        // $allLastDecisions = $decisionRepository->findByHistory(
+        //     $historyRepository->findLastUpdatedByStatus("En cours", 3)
+        // );
+
+        $allLastDecisions = $decisionRepository->findLastUpdatedByStatus('en cours', 3);
+
+        // $myLastDrafts = $decisionRepository->findByHistory(
+        //     $historyRepository->findLastUpdatedByStatus("Brouillon", 3),
+        //     $owner
+        // );
+
+        $myLastDrafts = $decisionRepository->findLastUpdatedByStatus('brouillon', 3, $owner);
+        // $allLastAccomplished = $decisionRepository->findByHistory(
+        //     $historyRepository->findLastUpdatedByStatus("Aboutie", 3)
+        // );
+        $allLastAccomplished = $decisionRepository->findLastUpdatedByStatus('aboutie', 3);
+
+        // // dd($allLastDecisions);
+        // dd($opinionLike->calculateAllOpinion($allLastDecisions));
 
         return $this->render(
             'home/index.html.twig',

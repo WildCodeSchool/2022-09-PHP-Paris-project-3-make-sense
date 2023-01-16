@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Decision;
-use App\Entity\History;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -40,16 +40,14 @@ class DecisionRepository extends ServiceEntityRepository
         }
     }
 
-    public function findLastUpdatedByStatus(string $status, int $maxresult = 0): mixed
+    public function findLastUpdatedByStatus(string $status, int $maxres = 0, ?int $ownerId = null): mixed
     {
         // $conn = $this->entityManager->getConnection();
 
         $queryBuilder = $this->createQueryBuilder('d')
-                             ->where('d.status = :status')
-                             ->orderBy('d.createdAt')
-                             ->setParameter('status', $status);
-
-
+            ->where('d.status = :status')
+            ->orderBy('d.createdAt', 'DESC')
+            ->setParameter('status', $status);
         // $sqlmax = 'SELECT MAX(updated_at) AS max, decision_id  FROM history GROUP BY decision_id';
         // $sql = 'SELECT h.decision_id, h.status, h.updated_at from history h INNER JOIN (' . $sqlmax . ') ';
         // $sql .= 'ms ON ms.decision_id = h.decision_id and max = h.updated_at and h.status = :status ';
@@ -58,8 +56,13 @@ class DecisionRepository extends ServiceEntityRepository
         //     $sql .= ' LIMIT ' . $maxresult;
         // }
 
-        if ($maxresult) {
-            $queryBuilder = $queryBuilder->setMaxResults($maxresult); 
+        if ($maxres) {
+            $queryBuilder = $queryBuilder->setMaxResults($maxres);
+        }
+
+        if ($ownerId) {
+            $queryBuilder = $queryBuilder->andWhere('d.owner = :ownerId');
+            $queryBuilder = $queryBuilder->setParameter('ownerId', $ownerId);
         }
 
         $queryBuilder = $queryBuilder->getQuery();
@@ -69,7 +72,6 @@ class DecisionRepository extends ServiceEntityRepository
 
         // return ($resultSet->fetchAllAssociative());
         return $queryBuilder->getResult();
-
     }
 
 

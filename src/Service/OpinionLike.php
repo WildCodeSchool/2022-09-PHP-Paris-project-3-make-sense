@@ -20,9 +20,11 @@ class OpinionLike
     {
         $like = 0;
         $dislike = 0;
+
         foreach ($decision->getOpinions() as $opinion) {
             $opinion->isIsLike() ? $like++ : $dislike++;
         }
+
 
         return ['like' => $like, 'dislike' => $dislike];
     }
