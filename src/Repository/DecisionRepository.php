@@ -43,15 +43,23 @@ class DecisionRepository extends ServiceEntityRepository
         }
     }
 
-    public function search(string $title): array
+    public function search(string $title, string $status, ?string $domaines = null): array
     {
-        return $this->createQueryBuilder('d')
-                    ->join('d.departments', 'dp')
-                    ->select('d', 'dp')
-                    ->where('d.title LIKE :title')
-                    ->setParameter('title', '%' . $title . '%')
-                    ->orderBy('d.title', 'ASC')
-                    ->getQuery()
-                    ->getResult();
+        $querybuilder = $this->createQueryBuilder('d')
+            ->join('d.departments', 'dp')
+            ->select('d', 'dp')
+            ->where('d.title LIKE :title')
+            ->andWhere('d.status LIKE :status');
+        if ($domaines !== null) {
+            $querybuilder = $querybuilder->andWhere('dp.name LIKE :name');
+        }
+            $querybuilder = $querybuilder->setParameter('title', '%' . $title . '%')
+            ->setParameter('status', '%' . $status . '%');
+        if ($domaines !== null) {
+            $querybuilder = $querybuilder->setParameter('name', '%' . $domaines . '%');
+        }
+            $querybuilder = $querybuilder->orderBy('d.title', 'ASC')
+            ->getQuery();
+            return $querybuilder->getResult();
     }
 }

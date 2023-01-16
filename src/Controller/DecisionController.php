@@ -11,6 +11,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+/**
+ * This will suppress all the PMD warnings in
+ * this class.
+ *
+ * @SuppressWarnings(PHPMD)
+ */
 #[Route('/decision', name: 'decision_')]
 class DecisionController extends AbstractController
 {
@@ -28,22 +34,19 @@ class DecisionController extends AbstractController
         $form = $this->createForm(SearchDecisionType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // dd($decisionRepository->findAll());
-             $title = $form->getData()['search'];
-            // $domaines = $form->getData()['domaines'][0]->getName();
-            // $status = $form->getData()['Status'];
-            $decisions = $decisionRepository->search($title);
-            // dd($decisionRepository->search($title));
-            //   dd($decisions);
-            // dd($opinion->calculateAllOpinion($decisions));
+            $title = $form->getData()['search'];
+            if ($domaines = $form->getData()['domaines'][0] !== null) {
+                $domaines = $form->getData()['domaines'][0]->getName();
+            } else {
+                $domaines = null;
+            }
+            $status = $form->getData()['Status'];
+            $decisions = $decisionRepository->search($title, $status, $domaines);
         } else {
             $decisions = $decisionRepository->findAll();
         }
         return $this->render('decision/show_all.html.twig', [
             'decisions' => $decisions,
-            // 'opinions' => $opinion->calculateAllOpinion($decisions),
-            // 'decisonsByDomain' => $decisonsByDomain,
-            // 'decisonsByStatus' => $decisonsByStatus,
             'form' => $form->createView()
         ]);
     }

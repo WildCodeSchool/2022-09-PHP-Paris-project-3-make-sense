@@ -2,8 +2,8 @@
 
 namespace App\Form;
 
+use App\Entity\Decision;
 use App\Entity\Department;
-use App\Entity\History;
 use App\Repository\DepartmentRepository;
 use App\Repository\HistoryRepository;
 use Symfony\Component\Form\AbstractType;
@@ -43,12 +43,12 @@ class SearchDecisionType extends AbstractType
                     'class' => 'form-check mt-3 '
                 ],
                 'choices' => [
-                History::STATUS[0] => History::STATUS[0],
-                History::STATUS[1] => History::STATUS[1],
-                History::STATUS[2] => History::STATUS[2],
-                History::STATUS[3] => History::STATUS[3],
-                History::STATUS[4] => History::STATUS[4],
-                History::STATUS[5] => History::STATUS[5],
+                Decision::STATUS[0] => Decision::STATUS[0],
+                Decision::STATUS[1] => Decision::STATUS[1],
+                Decision::STATUS[2] => Decision::STATUS[2],
+                Decision::STATUS[3] => Decision::STATUS[3],
+                Decision::STATUS[4] => Decision::STATUS[4],
+                Decision::STATUS[5] => Decision::STATUS[5],
                 ],
             ]);
     }
