@@ -6,17 +6,23 @@
 
 <div class="mt-2 mb-2"> 
 
+		<div class="col-15 d-flex justify-content-center m-0 p-0">
 
-<h1>{{ decision.title }}</h1>
-{{ decision.owner.picture ~ ' par ' }} <strong> {{ decision.owner.firstname ~ ' ' ~ decision.owner.lastname }} </strong> {{ ' le ' ~ decision.createdAt | date("m/d/Y")}}
-{{ decision.impacts }}
+			<div class="card border-dark mb-3" style="width: 60rem;">
+				<div class="card-header fs-3 text-center card-bg-color text-white">{{ decision.status }}
+          <img class="like" src="{{ asset('build/images/thumbs-up-regular.png') }}">
+          <a>{{ opinionLike.like }}</a>
+          <img class="like ms-2" src="{{ asset('build/images/thumbs-down-regular.png') }}">
+          <a>{{ opinionLike.dislike }}</a>
+        </div>
+			<div class="card-body m-0 p-0">
 
-  
-  <img class="like" src="{{ asset('build/images/thumbs-up-regular.png') }}">
-    <a>{{ opinionLike.like }}</a>
-    <img class="like ms-2" src="{{ asset('build/images/thumbs-down-regular.png') }}">
-    <a>{{ opinionLike.dislike }}</a>
-  </div>
+      <div class="title">
+      {{ decision.title }} </br>
+      {{ decision.owner.imagename ~ ' par ' }} <strong> {{ decision.owner.firstname ~ ' ' ~ decision.owner.lastname }} </strong> {{ ' le ' ~ decision.createdAt | date("m/d/Y")}}
+      {{ decision.impacts }}
+      </div>
+
 
 <div class="accordion" id="accordionExample">
   <div class="accordion-item">
@@ -57,7 +63,7 @@
   </div>
     <div class="accordion-item">
     <h2 class="accordion-header" id="headingFour">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseOne">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
         Risques potentiels
       </button>
     </h2>
@@ -93,11 +99,8 @@
   </div>
 </div>
 
-  <div class= "flex d-flex justify-content-center">
-  <button type="button" class="mt-2 mb-2 rounded-5 col-2 card-bg-color text-white">Donner son avis</button>
-  </div>
-
-
-
+<div class= "flex d-flex justify-content-center">
+  <button type="button" class="mt-2 mb-2 rounded-5 col-2 card-bg-color text-white"  href="{{ path('decision_show', {'decision' : decision.id } ) }}">Donner son avis</button>
+</div>
 
 {% endblock %}
