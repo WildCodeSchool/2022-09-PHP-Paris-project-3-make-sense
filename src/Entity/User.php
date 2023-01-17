@@ -12,10 +12,13 @@ use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
+use Vich\UploadableField;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /** @SuppressWarnings(PHPMD.TooManyPublicMethods)
  *   @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
@@ -41,7 +44,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?File $imageFile = null;
 
     #[ORM\Column(type: 'string')]
-    private ?string $imageName = null;
+    private ?string $imagename = null;
 
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\Length(min: 1, max: 180)]
@@ -122,14 +125,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->imageFile;
     }
 
-    public function setImageName(?string $imageName): void
+    public function setImageName(?string $imagename): void
     {
-        $this->imageName = $imageName;
+        $this->imagename = $imagename;
     }
 
     public function getImageName(): ?string
     {
-        return $this->imageName;
+        return $this->imagename;
     }
 
     public function getId(): ?int

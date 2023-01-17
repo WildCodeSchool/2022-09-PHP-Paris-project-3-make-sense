@@ -25,6 +25,7 @@
 				</th>
 				<th>Domaine</th>
 				<th>Date de fin:</th>
+				<th>Status</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -38,6 +39,7 @@
 					<td>{{ decision.like_threshold|number_format }}</td>
 					<td>{{ decision.name|raw}}</td>
 					<td>{{ decision.end_at|raw}}</td>
+					<td>{{ decision.status|raw}}</td>
 				</tr>
 
 			{% endfor %}

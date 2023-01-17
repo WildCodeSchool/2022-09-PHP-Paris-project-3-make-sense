@@ -4,18 +4,20 @@ namespace App\Form;
 
 use App\Entity\Department;
 use App\Entity\Decision;
+use DateTimeImmutable;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\PercentType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 
 class DecisionType extends AbstractType
 {
@@ -45,7 +47,7 @@ class DecisionType extends AbstractType
                     'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3'
                 ]
             ])
-            ->add('end_at', DateType::class, [
+            ->add('end_at', DateTimeType::class, [
                 'constraints' => new NotBlank(),
                 'required' => false,
                 'widget' => 'single_text',
@@ -120,10 +122,18 @@ class DecisionType extends AbstractType
                 ],
 
             ])
-            ->add('submit', SubmitType::class, [
+            ->add('status', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-secondary card-bg-color'
-                ]
+                ],
+                'label' => 'Enregistrer en tant que brouillon',
+            ])
+
+            ->add('submit', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-secondary card-bg-color',
+                ],
+                'label' => 'Soumettre',
             ]);
         ;
         

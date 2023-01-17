@@ -15,8 +15,11 @@ use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use App\Form\DecisionType;
+use Symfony\Component\Form\ClickableInterface;
 
-class DecisionController extends AbstractController
+
+
+class DecisionController extends AbstractController 
 {
 
 
@@ -41,6 +44,24 @@ class DecisionController extends AbstractController
         $form = $this->createForm(DecisionType::class, $decision);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+
+             /** @var ClickableInterface $button  */
+
+             $button = $form->get('status');
+             $button->isClicked();
+    
+            if($button->isClicked()){
+                $decision->setStatus('brouillon');
+            }
+            
+            /** @var ClickableInterface $btn  */
+            $btn = $form->get('submit');
+            $btn->isClicked();
+
+            if($btn->isClicked()){
+                $decision->setStatus('en cours');
+            }
+           
             $decisionRepository->save($decision, true);
             $this->addFlash('success', 'Decision sucessfully created !');
             return $this->redirectToRoute('app_decision');

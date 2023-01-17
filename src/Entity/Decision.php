@@ -39,6 +39,7 @@ class Decision
     #[ORM\Column(length: 255)]
     #[Assert\Length(min: 1, max: 255)]
     #[Assert\NotBlank]
+    #[Assert\NotNull()]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -89,7 +90,7 @@ class Decision
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\Type("\DateTimeInterface")]
-    private ?\DateTimeInterface $endAt = null;
+    private ?DateTimeInterface $endAt = null;
 
     #[ORM\ManyToMany(targetEntity: Department::class, inversedBy: 'decisions')]
     private Collection $departments;
@@ -105,6 +106,7 @@ class Decision
         $this->createdAt =  new DateTime('now');
         $this->updatedAt =  new DateTime('now');
         $this->departments = new ArrayCollection();
+        $this->endAt = new DateTime('now');
     }
 
     public function getId(): ?int
@@ -315,13 +317,6 @@ class Decision
     {
         return $this->getTitle();
     }
-    
-
-    
-
-    
-    
-
     /**
      * @return Collection<int, Department>
      */

@@ -13,14 +13,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Department
 {
     public const departments = [
-        'Ressources Humaines',
-        'Commercial',
-        'Comptabilité',
-        'Informatique',
-        'Marketing',
-        'Finance',
-        'Achats',
-        'Juridique',
+        'ressources humaines',
+        'commercial',
+        'comptabilité',
+        'informatique',
+        'marketing',
+        'finance',
+        'achats',
+        'juridique',
     ];
 
     #[ORM\Id]
@@ -35,7 +35,6 @@ class Department
     #[ORM\OneToMany(mappedBy: 'department', targetEntity: Expertise::class)]
     private Collection $expertises;
 
-    #[ORM\ManyToMany(targetEntity: Decision::class, mappedBy: 'departments')]
     #[ORM\ManyToMany(targetEntity: Decision::class, mappedBy: 'departments')]
     private Collection $decisions;
 
