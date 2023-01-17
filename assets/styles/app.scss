@@ -1,2 +1,21 @@
-//start coding by removing this file and adding yours ;)
-@import "wcs";
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --cerise-dark-color: rgb(155, 8, 79);
+}
+
+.card-bg-color {
+    background-color: var(--cerise-dark-color);
+}
+
+.logo {
+    width: 150px;
+    height: 30px;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+}
