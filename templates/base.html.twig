@@ -20,9 +20,7 @@
 		{% endblock %}
 	</head>
 	<body>
-		<header>
-			{% include 'partials/_navbar.html.twig' %}
-		</header>
+		{% block header %}{% endblock %}
 		{% block body %}{% endblock %}
 	</body>
 </html>
