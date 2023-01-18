@@ -21,12 +21,12 @@ use DateTimeInterface;
 class Decision
 {
     public const STATUS = [
-        'brouillon',
-        'en cours',
-        '1ère décision',
-        'conflit',
-        'aboutie',
-        'non aboutie'
+        'brouillon' => 'brouillon',
+        'en cours' => 'en cours',
+        '1ère décision' => '1ère décision',
+        'conflit' => 'conflit',
+        'aboutie' => 'aboutie',
+        'non aboutie' => 'non aboutie'
     ];
 
     #[ORM\Id]
