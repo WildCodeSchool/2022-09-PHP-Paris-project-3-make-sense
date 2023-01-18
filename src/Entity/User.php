@@ -6,7 +6,8 @@ use DateTimeImmutable;
 use App\Entity\Opinion;
 use App\Entity\Decision;
 use App\Entity\Expertise;
-use Vich\UploadableField;
+use App\Entity\Notification;
+use App\Entity\Validation;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
@@ -14,10 +15,10 @@ use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 
 /** @SuppressWarnings(PHPMD.TooManyPublicMethods)
  *   @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
@@ -29,9 +30,9 @@ use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 #[Vich\Uploadable]
 
 /** @SuppressWarnings(PHPMD.TooManyPublicMethods)
-*   @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
-*   @SuppressWarnings(PHPMD.ExcessivePublicCount)
-*/
+ *   @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
+ *   @SuppressWarnings(PHPMD.ExcessivePublicCount)
+ */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]

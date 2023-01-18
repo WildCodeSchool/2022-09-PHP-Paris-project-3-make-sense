@@ -25,7 +25,8 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
             $decision->setImpacts($faker->text(25));
             $decision->setBenefits($faker->text(25));
             $decision->setRisks($faker->text(25));
-            $decision->setStatus(Decision::STATUS[rand(0, 5)]);
+            $key = array_rand(DECISION::STATUSES);
+            $decision->setStatus($key);
             $decision->setLikeThreshold($faker->numberBetween(30, 70));
             $decision->setCreatedAt(new DateTimeImmutable('now'));
             $decision->setEndAt(new DateTimeImmutable('02/23/2023'));

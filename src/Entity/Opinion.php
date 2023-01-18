@@ -9,6 +9,7 @@ use App\Entity\Decision;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\OpinionRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: OpinionRepository::class)]
 class Opinion
@@ -20,7 +21,6 @@ class Opinion
 
     #[ORM\Column]
     private ?bool $isLike = null;
-
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $message = null;
