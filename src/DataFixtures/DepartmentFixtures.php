@@ -16,13 +16,10 @@ class DepartmentFixtures extends Fixture implements DependentFixtureInterface
         foreach (Department::DEPARTMENTS as $departments) {
             $department = new Department();
             $department->setName($departments);
-            // for ($i = 0; $i < 8; $i++) {
-                $department->addDecision($this->getReference('decision_' . $faker->numberBetween(1,8)));
-            // }
+            $department->addDecision($this->getReference('decision_' . $faker->numberBetween(1, 8)));
             $manager->persist($department);
             $this->addReference('department_' . $departments, $department);
         }
-
         $manager->flush();
     }
 
