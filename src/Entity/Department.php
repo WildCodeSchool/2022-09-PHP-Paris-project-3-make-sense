@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Department
 {
     public const DEPARTMENTS = [
-        'ressources Humaines',
+        'ressources humaines',
         'commercial',
         'comptabilité',
         'informatique',
