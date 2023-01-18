@@ -2,15 +2,17 @@
 
 namespace App\Entity;
 
+use DateTime;
+use App\Entity\User;
+use DateTimeImmutable;
+use DateTimeInterface;
+use App\Entity\History;
 use App\Repository\DecisionRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
-use App\Entity\Comment;
-use App\Entity\History;
-use DateTime;
 
 #[ORM\Entity(repositoryClass: DecisionRepository::class)]
 class Decision
@@ -50,27 +52,23 @@ class Decision
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\Type("\DateTimeInterface")]
-    private ?\DateTimeInterface $createdAt = null;
+    private ?DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\Type("\DateTimeInterface")]
-    private ?\DateTimeInterface $updatedAt = null;
+    private ?DateTimeInterface $updatedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'decisions')]
     private ?User $owner = null;
-
-    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Comment::class)]
-    private Collection $comments;
 
     #[ORM\ManyToMany(targetEntity: Department::class, inversedBy: 'decisions')]
     private Collection $departments;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $endAt = null;
+    private ?DateTimeImmutable $endAt = null;
 
     public function __construct()
     {
-        $this->comments = new ArrayCollection();
         $this->opinions = new ArrayCollection();
         $this->histories = new ArrayCollection();
         $this->validations = new ArrayCollection();
@@ -152,27 +150,6 @@ class Decision
     public function setLikeThreshold(int $likeThreshold): self
     {
         $this->likeThreshold = $likeThreshold;
-
-        return $this;
-    }
-
-    public function getComments(): Collection
-    {
-        return $this->comments;
-    }
-
-    public function addComment(Comment $comment): self
-    {
-        if (!$this->comments->contains($comment)) {
-            $this->comments->add($comment);
-        }
-
-        return $this;
-    }
-
-    public function removeComment(Comment $comment): self
-    {
-        $this->comments->removeElement($comment);
 
         return $this;
     }
@@ -267,24 +244,24 @@ class Decision
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    public function setUpdatedAt(DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
@@ -332,12 +309,12 @@ class Decision
         return $this;
     }
 
-    public function getEndAt(): ?\DateTimeImmutable
+    public function getEndAt(): ?DateTimeImmutable
     {
         return $this->endAt;
     }
 
-    public function setEndAt(\DateTimeImmutable $endAt): self
+    public function setEndAt(DateTimeImmutable $endAt): self
     {
         $this->endAt = $endAt;
 
