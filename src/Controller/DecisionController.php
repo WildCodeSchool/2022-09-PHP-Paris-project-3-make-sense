@@ -17,20 +17,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use App\Form\DecisionType;
 use Symfony\Component\Form\ClickableInterface;
 
-
-
 class DecisionController extends AbstractController 
 {
-
-
     #[Route('/decision', name: 'app_decision')]
     public function index(DecisionRepository $decisionRepository): Response
     {
-        
         $decisions = $decisionRepository->findDecisionDepartment();
-       
-        
-
         return $this->render('decision/index.html.twig', [
             'decisions' => $decisions,
             
@@ -57,7 +49,6 @@ class DecisionController extends AbstractController
             /** @var ClickableInterface $btn  */
             $btn = $form->get('submit');
             $btn->isClicked();
-
             if($btn->isClicked()){
                 $decision->setStatus('en cours');
             }

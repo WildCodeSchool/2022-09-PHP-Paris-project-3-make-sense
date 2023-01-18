@@ -109,14 +109,11 @@ class DecisionType extends AbstractType
                 'attr' => [
                     'required' => true,
                     'class' => 'form-check',
-                    
-
                 ],
                 'class' => Department::class,
                 'choice_label' => 'name',
                 'expanded' => true,
                 'multiple' => true,
-                
                 'label_attr' => [
                     'class' => 'form-label mt-4 h4'
                 ],
@@ -136,18 +133,14 @@ class DecisionType extends AbstractType
                 'label' => 'Soumettre',
             ]);
         ;
-        
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Decision::class,
-            
         ]);
     }
-
     /**
      */
-    
 }

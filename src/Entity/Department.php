@@ -37,31 +37,26 @@ class Department
 
     #[ORM\ManyToMany(targetEntity: Decision::class, mappedBy: 'departments')]
     private Collection $decisions;
-
     public function __construct()
     {
         $this->expertises = new ArrayCollection();
         $this->decisions = new ArrayCollection();
        
     }
-
     public function getId(): ?int
     {
         return $this->id;
     }
-
     public function getName(): ?string
     {
         return $this->name;
     }
-
     public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
-
     /**
      * @return Collection<int, Expertise>
      */
@@ -69,7 +64,6 @@ class Department
     {
         return $this->expertises;
     }
-
     public function addExpertise(Expertise $expertise): self
     {
         if (!$this->expertises->contains($expertise)) {
@@ -79,7 +73,6 @@ class Department
 
         return $this;
     }
-
     public function removeExpertise(Expertise $expertise): self
     {
         if ($this->expertises->removeElement($expertise)) {
@@ -91,7 +84,6 @@ class Department
 
         return $this;
     }
-
     public function __toString()
     {
         return $this->getName();
@@ -104,7 +96,6 @@ class Department
     {
         return $this->decisions;
     }
-
     public function addDecision(Decision $decision): self
     {
         if (!$this->decisions->contains($decision)) {
@@ -114,15 +105,11 @@ class Department
 
         return $this;
     }
-
     public function removeDecision(Decision $decision): self
     {
         if ($this->decisions->removeElement($decision)) {
             $decision->removeDepartment($this);
         }
-
         return $this;
-    }
-
-   
+    }  
 }

@@ -12,12 +12,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use DateTimeImmutable;
 use DateTimeInterface;
-
+use App\Entity\Comment;
 /** @SuppressWarnings(PHPMD.TooManyPublicMethods)
  *   @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
-use App\Entity\Comment;
-
 
 #[ORM\Entity(repositoryClass: DecisionRepository::class)]
 class Decision
