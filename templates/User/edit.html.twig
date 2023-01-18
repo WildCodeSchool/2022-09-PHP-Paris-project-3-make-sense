@@ -4,7 +4,7 @@
 
     <div class="card container d-flex justify-content-center" style="max-width: 40rem;">
     <div class="card-header text-center text-bg-danger">
-   <h3 class="mt-4">Ajouter un utilisateur</h3>
+   <h3 class="mt-4">Modifier un utilisateur</h3>
   </div>
    <div class="card-body">
         {{ form_start(form) }}
@@ -44,12 +44,14 @@
             <div class = "form-group">
             {# {% set abc =0 %} #}
             {# {% set abc = 'form.expert0' %} #}
-               {# {% for i in range(0, 7)  %}  #}
-               {# {{ abc }} #}
-                {# {{ form_label({{expert ~ i}}) }}   #}
-                {# {{ form_label(form.expert | i) }}  #}
-                {# {{ form_widget(form.expert  ~ {i}) }} #}
-               {# {% endfor %} #}
+            {# {{ form_row(form.experts) }} #}
+
+            {% for department in form.departments %}
+                {{ form_label(department)}}
+                {{ form_widget(department)}}
+                <br>
+            {% endfor %}
+
             </div>   
 
                 {# {{ form_widget(form.submit, { 'label': 'Enregistrer' }) }}  #}

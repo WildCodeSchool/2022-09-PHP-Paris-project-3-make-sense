@@ -11,15 +11,23 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: DepartmentRepository::class)]
 class Department
 {
+    public const DEPARTMENT_HUMAN_RESSOURCES = 'human_ressources';
+    public const DEPARTMENT_SALES = 'sales';
+    public const DEPARTMENT_ACCOUNTING = 'accounting';
+    public const DEPARTMENT_COMPUTER_SCIENCE = 'computer_science';
+    public const DEPARTMENT_MARKETING = 'marketing';
+    public const DEPARTMENT_FINANCE = 'finance';
+    public const DEPARTMENT_BUYER = 'buyer';
+    public const DEPARTMENT_LEGAL = 'legal';
     public const DEPARTMENTS = [
-        'ressources Humaines',
-        'commercial',
-        'comptabilité',
-        'informatique',
-        'marketing',
-        'finance',
-        'achats',
-        'juridique',
+        self::DEPARTMENT_HUMAN_RESSOURCES =>  'Ressources Humaines',
+        self::DEPARTMENT_SALES => 'Commercial',
+        self::DEPARTMENT_ACCOUNTING => 'Comptabilité',
+        self::DEPARTMENT_COMPUTER_SCIENCE => 'Informatique',
+        self::DEPARTMENT_MARKETING => 'Marketing',
+        self::DEPARTMENT_FINANCE => 'Finance',
+        self::DEPARTMENT_BUYER => 'Achats',
+        self::DEPARTMENT_LEGAL => 'Juridique',
     ];
 
     #[ORM\Id]
