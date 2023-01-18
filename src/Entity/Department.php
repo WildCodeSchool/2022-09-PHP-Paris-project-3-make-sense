@@ -50,7 +50,6 @@ class Department
     {
         $this->expertises = new ArrayCollection();
         $this->decisions = new ArrayCollection();
-       
     }
     public function getId(): ?int
     {
@@ -120,5 +119,5 @@ class Department
             $decision->removeDepartment($this);
         }
         return $this;
-    }  
+    }
 }

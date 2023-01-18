@@ -39,7 +39,6 @@ class DepartmentRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-   
 //    /**
 //     * @return Department[] Returns an array of Department objects
 //     */
