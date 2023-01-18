@@ -20,7 +20,6 @@ class DepartmentFixtures extends Fixture implements DependentFixtureInterface
              $manager->persist($dept);
              $this->addReference('department_' . $department, $dept);
          }
-
          $manager->flush();
     }
 
