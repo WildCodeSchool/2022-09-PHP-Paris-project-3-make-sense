@@ -38,13 +38,13 @@ class DecisionController extends AbstractController
              /** @var ClickableInterface $button  */
              $button = $form->get('status');
              $button->isClicked();
-            if ($button->isClicked()){
+            if ($button->isClicked()) {
                 $decision->setStatus('brouillon');
             }
             /** @var ClickableInterface $btn  */
             $btn = $form->get('submit');
             $btn->isClicked();
-            if ($btn->isClicked()){
+            if ($btn->isClicked()) {
                 $decision->setStatus('en cours');
             }
             $decisionRepository->save($decision, true);

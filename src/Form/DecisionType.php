@@ -90,7 +90,7 @@ class DecisionType extends AbstractType
                 ]
             ])
             ->add('like_threshold', PercentType::class, [
-                'type' => 'integer', 
+                'type' => 'integer',
                 'attr' => [
                     'required' => true,
                     'class' => 'col-sm-4',
