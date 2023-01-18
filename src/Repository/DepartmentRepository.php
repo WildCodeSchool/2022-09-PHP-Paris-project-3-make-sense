@@ -22,6 +22,7 @@ class DepartmentRepository extends ServiceEntityRepository
         parent::__construct($registry, Department::class);
 
     }
+    
     public function save(Department $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
