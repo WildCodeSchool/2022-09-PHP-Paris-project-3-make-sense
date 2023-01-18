@@ -21,9 +21,10 @@ use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 
 class DecisionType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, 
-    array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+        ): void {
         $builder
             ->add('title', TextType::class, [
                 'constraints' => new NotBlank(),
