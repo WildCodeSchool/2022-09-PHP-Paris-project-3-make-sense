@@ -20,20 +20,20 @@ use DateTimeInterface;
 #[ORM\Entity(repositoryClass: DecisionRepository::class)]
 class Decision
 {
-    public const BROUILLON = 'brouillon';
-    public const ENCOURS = 'en cours';
-    public const FIRST_DECISION = '1ère décision';
-    public const CONFLIT = 'conflit';
-    public const ABOUTIE = 'aboutie';
-    public const NON_ABOUTIE = 'non aboutie';
+    public const STATUS_DRAFT = 'draft';
+    public const STATUS_CURRENT = 'current';
+    public const STATUS_FIRST_DECISION = 'first_decision';
+    public const STATUS_CONFLICT = 'conflict';
+    public const STATUS_DONE = 'done';
+    public const STATUS_UNDONE = 'undone';
 
-    public const STATUS = [
-        self::BROUILLON,
-        self::ENCOURS,
-        self::FIRST_DECISION,
-        self::CONFLIT,
-        self::ABOUTIE,
-        self::NON_ABOUTIE,
+    public const STATUSES = [
+        self::STATUS_DRAFT => 'Brouillon',
+        self::STATUS_CURRENT => 'En cours',
+        self::STATUS_FIRST_DECISION => 'Première décision',
+        self::STATUS_CONFLICT => 'Conflit',
+        self::STATUS_DONE => 'Aboutie',
+        self::STATUS_UNDONE => 'Non aboutie',
     ];
 
     #[ORM\Id]
