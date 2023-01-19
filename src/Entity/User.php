@@ -6,7 +6,6 @@ use DateTimeImmutable;
 use App\Entity\Opinion;
 use App\Entity\Decision;
 use App\Entity\Expertise;
-use Vich\UploadableField;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
@@ -18,6 +17,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
+/** @SuppressWarnings(PHPMD.TooManyPublicMethods)
+ *   @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
+ */
 
 #[UniqueEntity('email')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -25,9 +27,9 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 #[Vich\Uploadable]
 
 /** @SuppressWarnings(PHPMD.TooManyPublicMethods)
-*   @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
-*   @SuppressWarnings(PHPMD.ExcessivePublicCount)
-*/
+ *   @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
+ *   @SuppressWarnings(PHPMD.ExcessivePublicCount)
+ */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -67,7 +69,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank]
     #[Assert\Length(min: 1, max: 80)]
     private ?string $lastname = null;
-
 
     #[ORM\Column]
     #[Assert\Positive]

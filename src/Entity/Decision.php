@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use DateTime;
-use App\Entity\Comment;
 use App\Entity\History;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,6 +20,22 @@ use DateTimeInterface;
 #[ORM\Entity(repositoryClass: DecisionRepository::class)]
 class Decision
 {
+    public const STATUS_DRAFT = 'draft';
+    public const STATUS_CURRENT = 'current';
+    public const STATUS_FIRST_DECISION = 'first_decision';
+    public const STATUS_CONFLICT = 'conflict';
+    public const STATUS_DONE = 'done';
+    public const STATUS_UNDONE = 'undone';
+
+    public const STATUSES = [
+        self::STATUS_DRAFT => 'Brouillon',
+        self::STATUS_CURRENT => 'En cours',
+        self::STATUS_FIRST_DECISION => 'Première décision',
+        self::STATUS_CONFLICT => 'Conflit',
+        self::STATUS_DONE => 'Aboutie',
+        self::STATUS_UNDONE => 'Non aboutie',
+    ];
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -73,6 +88,7 @@ class Decision
 
     #[ORM\Column(length: 50)]
     private ?string $status = null;
+
 
     public function __construct()
     {
