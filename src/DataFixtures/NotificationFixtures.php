@@ -24,6 +24,8 @@ class NotificationFixtures extends Fixture implements DependentFixtureInterface
                 for ($notificationId = 0; $notificationId < self::NB_NOTIFICATION; $notificationId++) {
                     $notification = new Notification();
                     $notification->setUser($this->getReference('user_' . $faker->numberBetween(0, 4)));
+                    $notification->setHistory($this->getReference('history_' .
+                        $faker->numberBetween(1, self::NB_USER * self::NB_DECISION)));
                     $manager->persist($notification);
                 }
             }
