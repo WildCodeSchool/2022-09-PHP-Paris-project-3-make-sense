@@ -15,6 +15,7 @@ class DecisionController extends AbstractController
     #[Route('/{decision}', name: 'show')]
     public function show(Decision $decision, OpinionLike $opinionLike): Response
     {
+        
         return $this->render('decision/decision.html.twig', [
             'decision' => $decision, 'opinionLike' => $opinionLike->calculateOpinion($decision)
         ]);

@@ -2,14 +2,14 @@
 
 {% block body %}
 
- 
-
+{{ dump(decision) }}
 <div class="mt-2 mb-2"> 
 
 		<div class="col-15 d-flex justify-content-center m-0 p-0">
 
 			<div class="card border-dark mb-3" style="width: 60rem;">
-				<div class="card-header fs-3 text-center card-bg-color text-white">{{ decision.status }}
+				<div class="card-header fs-3 text-center card-bg-color text-white">
+         {{ decision.status }}
           <img class="like" src="{{ asset('build/images/thumbs-up-regular.png') }}">
           <a>{{ opinionLike.like }}</a>
           <img class="like ms-2" src="{{ asset('build/images/thumbs-down-regular.png') }}">
@@ -19,10 +19,10 @@
 
       <div class="title">
       {{ decision.title }} </br>
-      {{ decision.owner.imagename ~ ' par ' }} <strong> {{ decision.owner.firstname ~ ' ' ~ decision.owner.lastname }} </strong> {{ ' le ' ~ decision.createdAt | date("m/d/Y")}}
+          <img class="like ms-2" src="{{ asset('build/images/user.jpg') }}">
+      {{ decision.owner.imagefile ~ ' par ' }} <strong> {{ decision.owner.firstname ~ ' ' ~ decision.owner.lastname }} </strong> {{ ' le ' ~ decision.createdAt | date("m/d/Y")}}
       {{ decision.impacts }}
       </div>
-
 
 <div class="accordion" id="accordionExample">
   <div class="accordion-item">
@@ -81,7 +81,17 @@
     </h2>
     <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample" style="">
       <div class="accordion-body">
-         {{ decision.description }}
+
+    {% for opinion in decision.opinions %}
+
+
+    </br> <img class="like ms-2" src="{{ asset('build/images/user.jpg') }}">
+    {{ opinion.user.firstname ~ " " ~ opinion.user.lastname }} </br> 
+
+      {{ opinion.message }}
+
+      {% endfor %}
+
       </div>
     </div>
   </div>
