@@ -29,9 +29,9 @@ class DecisionController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $title = $form->getData()['search'];
-            $domaines = $form->getData()['domaines'][0];
-            if ($domaines !== null) {
-                $domaines = $form->getData()['domaines'][0]->getName();
+            $domaines = $form->getData()['domaines'];
+            if (!empty($domaines)) {
+                $domaines = $form->getData()['domaines'][0];
             } else {
                 $domaines = null;
             }

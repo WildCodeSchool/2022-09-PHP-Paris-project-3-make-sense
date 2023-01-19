@@ -15,11 +15,16 @@ use Symfony\Component\Form\Extension\Core\Type\SearchType;
 
 class SearchDecisionType extends AbstractType
 {
-    public function __construct()
-    {
-    }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $choicesDepartment = [];
+        $choicesStatus = [];
+        foreach (Department::DEPARTMENTS as $deparments => $departmentValue) {
+            $choicesDepartment[$departmentValue] = $deparments;
+        }
+        foreach (Decision::STATUSES as $status => $statusValue) {
+            $choicesStatus[$statusValue] = $status;
+        }
         $builder
             ->add('search', SearchType::class, [
                 'attr' => [
@@ -30,11 +35,13 @@ class SearchDecisionType extends AbstractType
                     'class' => 'form-label mt-5'
                 ],
             ])
-            ->add('domaines', EntityType::class, [
+            ->add('domaines', ChoiceType::class, [
                 'attr' => [
                     'class' => 'form-check mt-3 mb-3 d-flex justify-content-around '
                 ],
-                'class'    => Department::class,
+                'choices' => [
+                    $choicesDepartment,
+                ],
                 'expanded' => true,
                 'multiple' => true,
             ])
@@ -43,12 +50,7 @@ class SearchDecisionType extends AbstractType
                     'class' => 'form-check mt-3 '
                 ],
                 'choices' => [
-                Decision::STATUS[0] => Decision::STATUS[0],
-                Decision::STATUS[1] => Decision::STATUS[1],
-                Decision::STATUS[2] => Decision::STATUS[2],
-                Decision::STATUS[3] => Decision::STATUS[3],
-                Decision::STATUS[4] => Decision::STATUS[4],
-                Decision::STATUS[5] => Decision::STATUS[5],
+                    $choicesStatus
                 ],
             ]);
     }
