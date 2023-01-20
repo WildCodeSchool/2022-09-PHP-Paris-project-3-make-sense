@@ -100,7 +100,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Validation::class)]
     private Collection $validations;
 
-
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
