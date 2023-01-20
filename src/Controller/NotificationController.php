@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Notification;
 use App\Repository\UserRepository;
 use App\Repository\ExpertiseRepository;
 use App\Repository\NotificationRepository;
@@ -13,24 +14,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class NotificationController extends AbstractController
 {
-    public const NOTIFICATIONS_MESSAGE =
-    [
-        "En cours" => "veuillez donner votre avis sur cette décision",
-        "1ère décision" => "cette décision est en attente de la décision finale",
-        "Conflit" => "cette décision est en attente de la décision des experts",
-        "Aboutie" => "La décision a été prise",
-        "Non Aboutie" => "La décision a été prise",
-    ];
-
-    public const NOTIFICATIONS_BUTTON =
-    [
-        "En cours" => "Donner son avis",
-        "1ère décision" => "Compte-rendu",
-        "Conflit" => "Accord ou refus",
-        "Aboutie" => "",
-        "Non Aboutie" => "",
-    ];
-
     #[Route('/notification', name: 'app_notification')]
     public function index(
         NotificationRepository $notificationRepository,
@@ -40,26 +23,27 @@ class NotificationController extends AbstractController
         Request $request
     ): Response {
 
-        $userId = 200;
+        $userId = 51;
 
         $user = $userRepository->findOneBy(['id' => $userId]);
-        // dd($user);
-        // dd($expertiseRepository->countExpertiseByDecision($userId));
-        // dd($notificationRepository->findAllNotification($userId));
 
+        // dd($notificationRepository->findAllNotification($userId));
         $notifications = $paginator->paginate(
-            $notificationRepository->findAllNotification($userId), /* query NOT result */
-            $request->query->getInt('page', 1), /*page number*/
-            2 /*limit per page*/
+            $notificationRepository->findAllNotification($userId),
+            $request->query->getInt('page', 1),
+            2
         );
+
+        // dd($notifications);
+
 
         return $this->render(
             'notification/index.html.twig',
             [
                 'notifications' => $notifications,
                 'experts' => $expertiseRepository->countExpertiseByDecision($userId),
-                'messages' => self::NOTIFICATIONS_MESSAGE,
-                'buttons' => self::NOTIFICATIONS_BUTTON,
+                // 'messages' => Notification::NOTIFICATIONS_MESSAGE,
+                // 'buttons' => Notification::NOTIFICATIONS_BUTTON,
                 'user' => $user
             ]
         );

@@ -1,24 +1,26 @@
-
-{% if notification.status == "Conflit" %}
+{# {% if notification.status == "Conflit" %} #}
+{% if notification.status == constant('App\\Entity\\Decision::STATUS_CONFLICT') %}
 	{% if isNotificationDecisionExpert(notification.decisionid, experts) %}
+	<p>ee2</p> 
 		<td class="text-center">
-			<button class="rounded-5 col-8 card-bg-color text-white">{{ buttons[notification.status]}}</button>
+		   <p>ee3</p> 
+			<button class="rounded-5 col-8 card-bg-color text-white">{{ constant('App\\Entity\\Notification::NOTIFICATIONS_BUTTON')[notification.status] }}</button>
 		</td>
 	{% else %}
 		<td class="col-1"></td>
 	{% endif %}
 {% else %}
-	{% if notification.status == "1ère décision" %}
+	{% if notification.status == constant('App\\Entity\\Decision::STATUS_FIRST_DECISION') %}
 		{% if notification.owner == user.id %}
 			<td class="text-center">
-				<button class="rounded-5 col-8 card-bg-color text-white">{{ buttons[notification.status]}}</button>
+				<button class="rounded-5 col-8 card-bg-color text-white">{{ constant('App\\Entity\\Notification::NOTIFICATIONS_BUTTON')[notification.status]}}</button>
 			</td>
 		{% else %}
 			<td class="col-1"></td>
 		{% endif %}
 	{% else %}
 		<td class="text-center">
-			<button class="rounded-5 col-8 card-bg-color text-white">{{ buttons[notification.status]}}</button>
+			<button class="rounded-5 col-8 card-bg-color text-white">{{ constant('App\\Entity\\Notification::NOTIFICATIONS_BUTTON')[notification.status]}}</button>
 		</td>
 	{% endif %}
 {% endif %}

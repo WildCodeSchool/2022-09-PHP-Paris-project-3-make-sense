@@ -3,14 +3,35 @@
 namespace App\Entity;
 
 use App\Repository\NotificationRepository;
-use Doctrine\DBAL\Types\Types;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\User;
+use App\Entity\Decision;
 
 #[ORM\Entity(repositoryClass: NotificationRepository::class)]
 class Notification
 {
+    public const NOTIFICATIONS_MESSAGE =
+    [
+        Decision::STATUS_DRAFT  => "Erreur",
+        Decision::STATUS_CURRENT  => "Veuillez donner votre avis sur cette décision",
+        Decision::STATUS_FIRST_DECISION => "Cette décision est en attente de la décision finale",
+        Decision::STATUS_CONFLICT => "Cette décision est en attente de la décision des experts",
+        Decision::STATUS_DONE => "La décision a été prise",
+        Decision::STATUS_UNDONE => "La décision a été prise",
+    ];
+
+    public const NOTIFICATIONS_BUTTON =
+    [
+        Decision::STATUS_DRAFT  => "Erreur",
+        Decision::STATUS_CURRENT => "Donner son avis",
+        Decision::STATUS_FIRST_DECISION => "Compte-rendu",
+        Decision::STATUS_CONFLICT => "Accord ou refus",
+        Decision::STATUS_DONE => "",
+        Decision::STATUS_UNDONE => "",
+    ];
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -20,7 +41,16 @@ class Notification
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'notifications')]
-    private ?History $history = null;
+    private ?Decision $decision = null;
+
+  
+    public function __construct()
+    {
+        
+    }
+
+    // #[ORM\ManyToOne(inversedBy: 'notifications')]
+    // private ?History $history = null;
 
     public function getId(): ?int
     {
@@ -39,14 +69,14 @@ class Notification
         return $this;
     }
 
-    public function getHistory(): ?History
+    public function getDecision(): ?Decision
     {
-        return $this->history;
+        return $this->decision;
     }
 
-    public function setHistory(?History $history): self
+    public function setDecision(?Decision $decision): self
     {
-        $this->history = $history;
+        $this->decision = $decision;
 
         return $this;
     }
