@@ -78,10 +78,7 @@ class Decision
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\Type("\DateTimeInterface")]
-    private ?\DateTimeInterface $updatedAt = null;
-
-    // #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Notification::class)]
-    // private Collection $notifications;
+    private ?DateTimeInterface $updatedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'decisions')]
     private ?User $owner = null;
@@ -90,7 +87,7 @@ class Decision
     private Collection $departments;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $endAt = null;
+    private ?DateTimeImmutable $endAt = null;
 
     #[ORM\Column(length: 50)]
     private ?string $status = null;
@@ -338,12 +335,12 @@ class Decision
         return $this;
     }
 
-    public function getEndAt(): ?\DateTimeImmutable
+    public function getEndAt(): ?DateTimeImmutable
     {
         return $this->endAt;
     }
 
-    public function setEndAt(\DateTimeImmutable $endAt): self
+    public function setEndAt(DateTimeImmutable $endAt): self
     {
         $this->endAt = $endAt;
 

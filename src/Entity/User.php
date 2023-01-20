@@ -71,7 +71,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $lastname = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length(min: 1, max: 180)]
+    #[Assert\Length(min: 1, max: 255)]
     private ?string $imagename = null;
 
     #[ORM\Column]
