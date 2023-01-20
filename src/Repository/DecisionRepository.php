@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Decision;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
@@ -53,13 +54,34 @@ class DecisionRepository extends ServiceEntityRepository
         if ($domaines !== null) {
             $querybuilder = $querybuilder->andWhere('dp.name LIKE :name');
         }
-            $querybuilder = $querybuilder->setParameter('title', '%' . $title . '%')
+        $querybuilder = $querybuilder->setParameter('title', '%' . $title . '%')
             ->setParameter('status', '%' . $status . '%');
         if ($domaines !== null) {
             $querybuilder = $querybuilder->setParameter('name', '%' . $domaines . '%');
         }
-            $querybuilder = $querybuilder->orderBy('d.title', 'ASC')
+        $querybuilder = $querybuilder->orderBy('d.title', 'ASC')
             ->getQuery();
-            return $querybuilder->getResult();
+        return $querybuilder->getResult();
+    }
+    public function findByStatus(string $status, int $maxres = 0, ?int $ownerId = null): mixed
+    {
+
+        $queryBuilder = $this->createQueryBuilder('d')
+            ->where('d.status = :status')
+            ->orderBy('d.createdAt', 'DESC')
+            ->setParameter('status', $status);
+
+        if ($maxres) {
+            $queryBuilder = $queryBuilder->setMaxResults($maxres);
+        }
+
+        if ($ownerId) {
+            $queryBuilder = $queryBuilder->andWhere('d.owner = :ownerId');
+            $queryBuilder = $queryBuilder->setParameter('ownerId', $ownerId);
+        }
+
+        $queryBuilder = $queryBuilder->getQuery();
+
+        return $queryBuilder->getResult();
     }
 }

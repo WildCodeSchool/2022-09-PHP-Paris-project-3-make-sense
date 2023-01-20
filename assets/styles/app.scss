@@ -13,12 +13,14 @@
 }
 
 .profil-photo {
+    height: 60px;
+    width: 60px;
     border-radius: 50%;
 }
 
 .like {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
 }
 
 .logo {
@@ -27,7 +29,6 @@
 }
 
 body {
-//     // var (--font-heading) : Raleway, Helvetica, Arial, sans-serif;
      font-family: "Raleway" , sans-serif;
      font-weight: 700;
  }
