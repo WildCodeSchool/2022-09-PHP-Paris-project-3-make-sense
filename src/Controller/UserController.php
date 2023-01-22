@@ -21,26 +21,26 @@ use Symfony\Component\BrowserKit\Response as BrowserKitResponse;
 
 class UserController extends AbstractController
 {
-    public const USERID = 2;
 
-    public function updateExpertise($form, $experts, ExpertiseRepository $expertiseRepository, USER $user, $departmentRepository): void
+    public function updateExpertise(
+        $form_results, 
+        $experts, 
+        ExpertiseRepository $expertiseRepository, 
+        USER $user, 
+        DepartmentRepository $departmentRepository): void
     {
-
-        // dd($experts);
-        // dd($form->getData());
-
-        // dd( $expertiseRepository->findOneById(110));
-
-    foreach ($experts as $key => $value) {
-            if ($value['exp_id'] == null) {
+    
+        foreach ($experts as $key => $expert) {
+            
+            if ($expert['exp_id'] == null) {
                 // dd($form['expert' . $key]->getData());
-                if ($form['expert' . $key]->getData()) {
+                if ($form_results[$expert['dep_name']]) {
                     $expertise = new Expertise();
                     $expertise->SetUser($user);
                     // if ($expert['isExpert'] == null)
                     // dd('1')  ;
-                    $expertise->setisExpert($form['expert' . $key]->getData()  == 'expert' ? true : false);
-                    $expertise->setDepartment($departmentRepository->findOneById($value['dep_id']));
+                    $expertise->setisExpert($form_results[$expert['dep_name']]  == 'expert' ? true : false);
+                    $expertise->setDepartment($departmentRepository->findOneById($expert['dep_id']));
                     // dd($expertise);
                     $expertiseRepository->save($expertise, true);
                 }
@@ -48,25 +48,18 @@ class UserController extends AbstractController
                     // a faire
                 }
             }
-            else {
-                    // dd($value['exp_id']);
-                    // dd($expertiseRepository->findOneById((int)($value['exp_id'])));
-
-                    // $expertise = $expertiseRepository->findOneById((int)$value['dep_id']);
-                    $expertise = $expertiseRepository->findOneById((int)($value['exp_id']));
-                    // dd($expertise);
-                    // if ($expert['isExpert'] == null)
-                    // dd($form['expert' . $key]->getData());
-                    if ($form['expert' . $key]->getData() == 'aucune') {
-                        // dd('remove ' .  $form['expert' . $key]->getData());
-                        // dd($expertise);
+            else {         
+                   
+                    $expertise = $expertiseRepository->findOneById((int)($expert['exp_id']));
+                  
+                    if ($form_results[$expert['dep_name']] == 'aucune') {
+                
                         $expertiseRepository->remove($expertise, true);
                     
                     }
                     else {
-                        $expertise->setisExpert($form['expert' . $key]->getData() == 'expert' ? true : false );
-                        // dd($expertise);
-                          // dd($form['expert0']->getData()
+                        $expertise->setisExpert($form_results[$expert['dep_name']] == 'expert' ? true : false );
+                       
                         $expertiseRepository->save($expertise, true);
                     }
                 }
@@ -74,59 +67,52 @@ class UserController extends AbstractController
     }
 
     #[Route('/user/edit/{id}', name: 'user_edit', methods: ['POST' , 'GET'])]
-    public function edit( UserRepository $userRepository, User $user, EntityManagerInterface $manager, Request $request, DepartmentRepository $departmentRepository, ExpertiseRepository $expertiseRepository): Response
+    public function edit( UserRepository $userRepository, User $user, Request $request, DepartmentRepository $departmentRepository, ExpertiseRepository $expertiseRepository): Response
     {
-        // $userId = 2;
 
-        // $experts = $departmentRepository->findAllExpertiseByDepartement($userId);
-
-        // $user = new User();
-
-        // dd($experts);
       $form = $this->createForm(UserType::class, $user);
-        
         $form->handleRequest($request);
         // $user->setUpdatedAt(new DateTimeImmutable('now'));
 
-    if ($form->isSubmitted()){
-            // dd($form['expert0']->getData());
-            // dd($form->getErrors());
+             if ($form->isSubmitted() && $form->isValid()) {
             // dd($form->isValid());
-            // dd($user->getExpertise()[0]);
             // dd( $expertiseRepository->findOneById(110));
-            $experts = $departmentRepository->findAllExpertiseByDepartement(self::USERID);
-            $this->updateExpertise($form, $experts, $expertiseRepository, $user, $departmentRepository);
-            // dd($form['expert0']->getData());
-            $userRepository->save($user, true);   
-            //  $user = $form->getData();
+            $form_results = $request->request->all()['user']['departments'];
+            $experts = $departmentRepository->findAllExpertiseByDepartement($user->getId());
 
-            //  $manager->persist($user);
-            //  $manager->flush();
-            dd('save done');
-            $this->redirectToRoute('security.login');
+            $this->updateExpertise($form_results, $experts, $expertiseRepository, $user, $departmentRepository);
+            $userRepository->save($user, true);   
+            
+            //   dd('save done');
+            return $this->redirectToRoute('user_new');
         }
 
         return $this->render('user/edit.html.twig', [
             'form' => $form->createView(),
-            //  'expertises' => $expertises,
         ]);
     }
 
     #[Route('/user/new', name: 'user_new', methods: ['POST' , 'GET'])]
-    public function new(Request $request, EntityManagerInterface $manager): Response
+    public function new(UserRepository $userRepository, Request $request, EntityManagerInterface $manager, DepartmentRepository $departmentRepository, ExpertiseRepository $expertiseRepository): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
-        if($form->isValid() && $form->isSubmitted())
-        {
-            $user = $form->getData();
-            
-            $manager->persist($user);
-            $manager->flush();
+        if ($form->isSubmitted() && $form->isValid()){
+            // dd($form->isSubmitted());
+            // $form_results = $request->request->all()['user']['departments'];
+            //  $experts = $departmentRepository->findAllExpertiseByDepartement($user->getId());
 
-           return $this->redirectToRoute('user.index');
+            // $this->updateExpertise($form_results, $experts, $expertiseRepository, $user, $departmentRepository);
+            // $userRepository->save($user, true);  
+            // dd('save done');
+             $user = $form->getData();
+             $user->setUpdatedAt(new DateTimeImmutable('now'));
+             $manager->persist($user);
+             $manager->flush();
+
+           return $this->redirectToRoute('user_new');
         }
 
         return $this->render('user/new.html.twig', [
@@ -145,7 +131,7 @@ class UserController extends AbstractController
 
         $this->addFlash(
             'success',
-            'l'
+            ' Un utilisateur a été supprimé avec succes'
         );
           return $this->redirect('user.index');
     }

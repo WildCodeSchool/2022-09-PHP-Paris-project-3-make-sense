@@ -18,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 
 class UserType extends AbstractType
@@ -55,6 +56,15 @@ class UserType extends AbstractType
                      'class' => 'form-label mt-4'
                  ],
              ])
+             ->add('password', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                ],
+                'label' => 'Mot de passe',
+                'label_attr' => [
+                    'class' => 'form-label mt-4'
+                ],
+            ])
              ->add('email', TextType::class, [
                  'attr' => [
                      'class' => 'form-control',

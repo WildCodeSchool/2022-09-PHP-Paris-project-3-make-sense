@@ -2,12 +2,11 @@
 
 namespace App\Entity;
 
-use DateTime;
 use DateTimeImmutable;
 use App\Entity\Opinion;
 use App\Entity\Decision;
 use App\Entity\Expertise;
-use Vich\UploadableField;
+use App\Entity\Notification;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
@@ -15,7 +14,6 @@ use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
-use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -24,6 +22,11 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\EntityListeners(['App\EntityListener\UserListener'])]
 #[Vich\Uploadable]
+
+/** @SuppressWarnings(PHPMD.TooManyPublicMethods)
+ *   @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
+ *   @SuppressWarnings(PHPMD.ExcessivePublicCount)
+ */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -32,10 +35,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
     
     #[Vich\UploadableField(mapping: 'poster_file', fileNameProperty: 'poster')]
-    private ?File $posterFile = null;
+    #[Assert\File(maxSize: '1024k', mimeTypes: ['jpg', 'png'])]
 
-    #[ORM\Column(type: 'string')]
-    private ?string $poster = null;
+          
+      /**
+        * @Vich\UploadableField(mapping="brands",fileNameProperty="poster")
+         */
+    public $posterFile;
+    private $poster = null;
+
+    // #[ORM\Column(type: 'string')]
+    // private ?string $poster = null;
 
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\Length(min: 1, max: 180)]
@@ -51,7 +61,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
-    #[Assert\NotBlank]
+    // #[Assert\NotBlank]
     private ?string $password = null;
 
     #[ORM\Column(length: 80)]
@@ -71,11 +81,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     #[Assert\NotNull]
     private ?DateTimeImmutable $createdAt = null;
-
     private ?string $plainPassword = null;
 
     #[ORM\Column]
-    #[Assert\NotNull]
+    // #[Assert\NotNull]
     private ?DateTimeImmutable $updatedAt = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Expertise::class)]
@@ -107,41 +116,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->id;
     }
-    public function setPosterFile(?File $image = null): User
+    public function setPosterFile($file):self
     {
-        $this->posterFile = $image;
-        if ($image) {
+        $this->posterFile = $file;
+        if ($file) {
             $this->updatedAt = new DateTimeImmutable('now');
           }
         return $this;
 
     }
+//    public function getPosterFile(): ?File
+//     {
+//         return $this->posterFile; 
+//     }
 
-    public function getPosterFile(): ?File
-    {
-        return $this->posterFile; 
-    }
-
-    public function getPoster(): ?File
+     public function getPoster(): ?File
     {
         return $this->poster;
     }
 
-     public function setPoster(?string $poster): void
-     {
-         $this->poster = $poster;
-     }
-
-    //  public function getImageName(): ?string
-    //  {
-    //      return $this->imageName;
-    //  }
+    public function setPoster(?string $poster): void
+    {
+          $this->poster = $poster;
+    }
 
     public function getEmail(): ?string
     {
         return $this->email;
     }
-
     public function setEmail(string $email): self
     {
         $this->email = $email;
