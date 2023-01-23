@@ -39,12 +39,12 @@ class History
     #[ORM\Column]
     private ?DateTimeImmutable $createdAt = null;
 
-    #[ORM\OneToMany(mappedBy: 'history', targetEntity: Notification::class)]
-    private Collection $notifications;
+    // #[ORM\OneToMany(mappedBy: 'history', targetEntity: Notification::class)]
+    // private Collection $notifications;
 
     public function __construct()
     {
-        $this->notifications = new ArrayCollection();
+        // $this->notifications = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -115,30 +115,30 @@ class History
     /**
      * @return Collection<int, Notification>
      */
-    public function getNotifications(): Collection
-    {
-        return $this->notifications;
-    }
+    // public function getNotifications(): Collection
+    // {
+    //     return $this->notifications;
+    // }
 
-    public function addNotification(Notification $notification): self
-    {
-        if (!$this->notifications->contains($notification)) {
-            $this->notifications->add($notification);
-            $notification->setHistory($this);
-        }
+    // public function addNotification(Notification $notification): self
+    // {
+    //     if (!$this->notifications->contains($notification)) {
+    //         $this->notifications->add($notification);
+    //         $notification->setHistory($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function removeNotification(Notification $notification): self
-    {
-        if ($this->notifications->removeElement($notification)) {
-            // set the owning side to null (unless already changed)
-            if ($notification->getHistory() === $this) {
-                $notification->setHistory(null);
-            }
-        }
+    // public function removeNotification(Notification $notification): self
+    // {
+    //     if ($this->notifications->removeElement($notification)) {
+    //         // set the owning side to null (unless already changed)
+    //         if ($notification->getHistory() === $this) {
+    //             $notification->setHistory(null);
+    //         }
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 }
