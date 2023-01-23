@@ -111,34 +111,4 @@ class History
 
         return $this;
     }
-
-    /**
-     * @return Collection<int, Notification>
-     */
-    // public function getNotifications(): Collection
-    // {
-    //     return $this->notifications;
-    // }
-
-    // public function addNotification(Notification $notification): self
-    // {
-    //     if (!$this->notifications->contains($notification)) {
-    //         $this->notifications->add($notification);
-    //         $notification->setHistory($this);
-    //     }
-
-    //     return $this;
-    // }
-
-    // public function removeNotification(Notification $notification): self
-    // {
-    //     if ($this->notifications->removeElement($notification)) {
-    //         // set the owning side to null (unless already changed)
-    //         if ($notification->getHistory() === $this) {
-    //             $notification->setHistory(null);
-    //         }
-    //     }
-
-    //     return $this;
-    // }
 }
