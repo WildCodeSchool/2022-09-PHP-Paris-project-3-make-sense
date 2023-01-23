@@ -44,7 +44,6 @@ class NotificationRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('n');
         $queryBuilder
-            // ->select('d.id', 'IDENTITY(d.owner) as owner', 'd.status', 'd.title', 'sum(exp.isExpert) as isExpert')
             ->select('d.id', 'IDENTITY(d.owner) as owner', 'd.status', 'd.title', 'sum(exp.isExpert) as isExpert')
             ->join('\App\Entity\Decision', 'd', 'WITH', 'd.id = n.decision')
             ->join('d.departments', 'dep_dec')
