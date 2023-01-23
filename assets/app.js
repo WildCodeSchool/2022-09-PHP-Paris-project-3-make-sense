@@ -9,9 +9,12 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 
+import './styles/app.scss';
+
 // start the Stimulus application
 import './bootstrap';
 
 import '@fontsource/raleway/700.css'
+import "@fontsource/raleway";
 
 import './styles/app.scss';
