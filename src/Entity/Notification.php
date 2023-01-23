@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\NotificationRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\User;
 use App\Entity\Decision;
@@ -42,15 +40,6 @@ class Notification
 
     #[ORM\ManyToOne(inversedBy: 'notifications')]
     private ?Decision $decision = null;
-
-  
-    public function __construct()
-    {
-        
-    }
-
-    // #[ORM\ManyToOne(inversedBy: 'notifications')]
-    // private ?History $history = null;
 
     public function getId(): ?int
     {
