@@ -1,4 +1,3 @@
-{# {% if notification.status == "Conflit" %} #}
 {% if notification.status == constant('App\\Entity\\Decision::STATUS_CONFLICT') %}
 	{% if notification.isExpert == '1' %}
 		<td class="text-center">
