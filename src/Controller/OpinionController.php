@@ -29,12 +29,7 @@ class OpinionController extends AbstractController
         Request $request
     ): Response {
 
-        // dd($decision);
-        // $decision = $decisionRepository->findOneBy(['id' => $decisionId]);
-
-        $userId = 202;
-
-        // dd($decisionRepository->test());
+        $userId = 54;
 
         $opinion = $opinionRepository->findOneBy(['user' => $userId, 'decision' => $decision->getId()]);
 
@@ -50,29 +45,22 @@ class OpinionController extends AbstractController
             }
         }
 
-        // if ($opinion_ == "like") {
-        //     $opinion->setIsLike(true);
-        // } else {
-        //     $opinion->setIsLike(false);
-        // }
-
         $form = $this->createForm(OpinionType::class, $opinion);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // dd($form->getData());
             $opinionRepository->save($opinion, true);
 
             // completer la route vers decision_dashboard
-            return $this->redirectToRoute('/');
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->renderForm(
             'opinion/index.html.twig',
             [
                 'form' => $form,
-                'decision' => $decisionRepository->findLastStatus($decision->getId()),
+                'decision' => $decisionRepository->findOneBy(['id' => $decision->getId()]),
                 'opinion' => $opinion,
                 'opinionLike' => $opinionLike->calculateOpinion($decision),
                 'user' => $userRepository->findOneBy(['id' => $decision->getOwner()])

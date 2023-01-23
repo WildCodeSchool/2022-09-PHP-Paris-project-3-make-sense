@@ -7,8 +7,8 @@
 						<div class="mt-2">
 							Status :
 							{{ decision.status }}
-							<p class="fs-6">deadline :
-								{{ decision.end_at | date("d/m/Y") }}</p>
+						{# <p class="fs-6">deadline : #}
+							{# {{ decision.end_at | date("d/m/Y") }}</p> #}
 						</div>
 
 						<div>
@@ -35,8 +35,8 @@
 										par
 										{{ user.firstname }}
 										{{ user.lastname }}
-										le
-										{{ decision.created_at | date("d/m/Y") }}
+									
+										{# {{ decision.created_at | date("d/m/Y") }} #}
 									</span>
 								</div>
 							</div>
@@ -44,7 +44,7 @@
 							<div class="d-flex flex-column justify-content-end col-4 align-items-end">
 								<p class="me-4">Votre avis</p>
 								<img id="likeLogoId" class="ms-3 like me-5" src=" {{ opinion.isIslike() ? asset('build/images/thumbs-up-regular.png')
-																				: asset('build/images/thumbs-down-regular.png') }}">
+																												: asset('build/images/thumbs-down-regular.png') }}">
 							</div>
 						</div>
 						<div class="col-12 d-flex justify-content-center">
