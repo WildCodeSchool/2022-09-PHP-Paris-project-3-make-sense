@@ -2,10 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Notification;
 use App\Repository\UserRepository;
-use App\Repository\ExpertiseRepository;
-use App\Repository\DepartmentRepository;
 use App\Repository\NotificationRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,24 +31,17 @@ class NotificationController extends AbstractController
     public function index(
         NotificationRepository $notificationRepository,
         UserRepository $userRepository,
-        ExpertiseRepository $expertiseRepository,
-        DepartmentRepository $departmentRepository,
         PaginatorInterface $paginator,
         Request $request
     ): Response {
 
         $user = $userRepository->findOneBy(['id' => self::USERID]);
 
-        // dd($departmentRepository->findNotification(self::USERID));
-
-        // dd($notificationRepository->findNotification(self::USERID));
         $notifications = $paginator->paginate(
             $notificationRepository->findNotification(self::USERID),
             $request->query->getInt('page', 1),
             5
         );
-
-        // dd($notifications);
 
         return $this->render(
             'notification/index.html.twig',
