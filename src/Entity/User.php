@@ -33,19 +33,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-    
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $poster = null;
+
     #[Vich\UploadableField(mapping: 'poster_file', fileNameProperty: 'poster')]
-    #[Assert\File(maxSize: '1024k', mimeTypes: ['jpg', 'png'])]
-
-          
-      /**
-        * @Vich\UploadableField(mapping="brands",fileNameProperty="poster")
-         */
-    public $posterFile;
-    private $poster = null;
-
-    // #[ORM\Column(type: 'string')]
-    // private ?string $poster = null;
+    #[Assert\File(
+        maxSize: '1M',
+        mimeTypes: ['image/jpeg', 'image/png', 'image/webp']
+    )]
+    private ?File $posterFile = null;
 
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\Length(min: 1, max: 180)]
@@ -53,7 +50,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     private ?string $email = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: "json")]
     #[Assert\NotNull]
     private array $roles = [];
 
@@ -61,7 +58,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
-    // #[Assert\NotBlank]
+    #[Assert\NotBlank]
     private ?string $password = null;
 
     #[ORM\Column(length: 80)]
@@ -111,33 +108,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->decisions = new ArrayCollection();
         $this->opinions = new ArrayCollection();
     }
- 
-    public function getId() : ?int
+
+    public function getId(): ?int
     {
         return $this->id;
     }
-    public function setPosterFile($file):self
+
+    public function setPosterFile(?File $file): self
     {
         $this->posterFile = $file;
         if ($file) {
             $this->updatedAt = new DateTimeImmutable('now');
-          }
+        }
         return $this;
-
     }
-//    public function getPosterFile(): ?File
-//     {
-//         return $this->posterFile; 
-//     }
 
-     public function getPoster(): ?File
+    public function getPosterFile(): ?File
+    {
+        return $this->posterFile;
+    }
+
+    public function getPoster(): ?string
     {
         return $this->poster;
     }
 
     public function setPoster(?string $poster): void
     {
-          $this->poster = $poster;
+        $this->poster = $poster;
     }
 
     public function getEmail(): ?string
@@ -282,7 +280,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-     /**
+    /**
      * @return Collection<int, Decision>
      */
     public function getExpertise(): Collection

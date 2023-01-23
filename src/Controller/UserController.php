@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use DateTimeImmutable;
 use App\Entity\Expertise;
+use App\Entity\Department;
 use App\Repository\UserRepository;
 use App\Repository\ExpertiseRepository;
 use App\Repository\DepartmentRepository;
@@ -14,137 +15,151 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\BrowserKit\Response as BrowserKitResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserController extends AbstractController
 {
+    private ExpertiseRepository $expertiseRepository;
+    private DepartmentRepository $departmentRepository;
+    private UserPasswordHasherInterface $passwordHasher;
+
+    public function __construct(
+        ExpertiseRepository $expertiseRepository,
+        DepartmentRepository $departmentRepository,
+        UserPasswordHasherInterface $passwordHasher
+    ) {
+        $this->expertiseRepository = $expertiseRepository;
+        $this->departmentRepository = $departmentRepository;
+        $this->passwordHasher = $passwordHasher;
+    }
 
     public function updateExpertise(
-        $form_results, 
-        $experts, 
-        ExpertiseRepository $expertiseRepository, 
-        USER $user, 
-        DepartmentRepository $departmentRepository): void
-    {
-    
-        foreach ($experts as $key => $expert) {
-            
-            if ($expert['exp_id'] == null) {
-                // dd($form['expert' . $key]->getData());
-                if ($form_results[$expert['dep_name']]) {
-                    $expertise = new Expertise();
-                    $expertise->SetUser($user);
-                    // if ($expert['isExpert'] == null)
-                    // dd('1')  ;
-                    $expertise->setisExpert($form_results[$expert['dep_name']]  == 'expert' ? true : false);
-                    $expertise->setDepartment($departmentRepository->findOneById($expert['dep_id']));
-                    // dd($expertise);
-                    $expertiseRepository->save($expertise, true);
-                }
-                else {
-                    // a faire
-                }
+        array $formDepartments,
+        USER $user,
+    ): void {
+
+        foreach ($formDepartments as $key => $department) {
+            $dept = $this->departmentRepository->findOneBy(['name' => $key]);
+            $expertise = $this->expertiseRepository->findOneBy([
+                'user' => $user,
+                'department' => $dept
+            ]);
+
+            if (empty($expertise)) {
+                $expertise = new Expertise();
+                $expertise->setUser($user);
+                $expertise->setDepartment($dept);
             }
-            else {         
-                   
-                    $expertise = $expertiseRepository->findOneById((int)($expert['exp_id']));
-                  
-                    if ($form_results[$expert['dep_name']] == 'aucune') {
-                
-                        $expertiseRepository->remove($expertise, true);
-                    
+
+            switch ($department) {
+                case 'interet':
+                    $expertise->setIsExpert(false);
+                    $this->expertiseRepository->save($expertise, true);
+                    // dd($expertise);
+                    break;
+                case 'expert':
+                    $expertise->setIsExpert(true);
+                    $this->expertiseRepository->save($expertise, true);
+                    break;
+                case 'aucune':
+                    if ($expertise->getId() != null) {
+                        $this->expertiseRepository->remove($expertise, true);
                     }
-                    else {
-                        $expertise->setisExpert($form_results[$expert['dep_name']] == 'expert' ? true : false );
-                       
-                        $expertiseRepository->save($expertise, true);
-                    }
-                }
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
-    #[Route('/user/edit/{id}', name: 'user_edit', methods: ['POST' , 'GET'])]
-    public function edit( UserRepository $userRepository, User $user, Request $request, DepartmentRepository $departmentRepository, ExpertiseRepository $expertiseRepository): Response
+
+    #[Route('/user/edit/{id}', name: 'user_edit', methods: ['POST', 'GET'])]
+    public function edit(UserRepository $userRepository, User $user, Request $request): Response
     {
 
-      $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-        // $user->setUpdatedAt(new DateTimeImmutable('now'));
 
-             if ($form->isSubmitted() && $form->isValid()) {
-            // dd($form->isValid());
-            // dd( $expertiseRepository->findOneById(110));
-            $form_results = $request->request->all()['user']['departments'];
-            $experts = $departmentRepository->findAllExpertiseByDepartement($user->getId());
-
-            $this->updateExpertise($form_results, $experts, $expertiseRepository, $user, $departmentRepository);
-            $userRepository->save($user, true);   
-            
-            //   dd('save done');
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->updateExpertise($request->request->all()['user']['departments'], $user);
+            $userRepository->save($user, true);
+            dd('save done');
             return $this->redirectToRoute('user');
         }
 
-        return $this->render('user/edit.html.twig', [
-            'form' => $form->createView(),
+        return $this->render('User/edit.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 
-    #[Route('/user/new', name: 'user_new', methods: ['POST' , 'GET'])]
-    public function new(UserRepository $userRepository, Request $request, EntityManagerInterface $manager, DepartmentRepository $departmentRepository, ExpertiseRepository $expertiseRepository): Response
-    {
+    #[Route('/user/new', name: 'user_new', methods: ['POST', 'GET'])]
+    public function new(
+        Request $request,
+        EntityManagerInterface $manager,
+        // DepartmentRepository $departmentRepository,
+        // ExpertiseRepository $expertiseRepository,
+        // UserPasswordHasherInterface $passwordHasher
+    ): Response {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
-            // dd($form->isSubmitted());
-            // $form_results = $request->request->all()['user']['departments'];
-            //  $experts = $departmentRepository->findAllExpertiseByDepartement($user->getId());
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $form->getData();
+            // dd($request->request->all());
+            $user->setUpdatedAt(new DateTimeImmutable('now'));
+            $user->setPoster('aaa');
 
-            // $this->updateExpertise($form_results, $experts, $expertiseRepository, $user, $departmentRepository);
-            // $userRepository->save($user, true);  
-            // dd('save done');
-             $user = $form->getData();
-             $user->setUpdatedAt(new DateTimeImmutable('now'));
-             $manager->persist($user);
-             $manager->flush();
+            $user->setRoles($user->getRoles());
 
-           return $this->redirectToRoute('user');
+            $user->setPassword(
+                $this->passwordHasher->hashPassword(
+                    $user,
+                    $form->get('password')->getData()
+                )
+            );
+
+            $manager->persist($user);
+            $manager->flush();
+
+            $this->updateExpertise(
+                $request->request->all()['user']['departments'],
+                $user
+            );
+
+            dd('end');
+            return $this->redirectToRoute('user');
         }
 
-        return $this->render('user/new.html.twig', [
+        return $this->render('User/new.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
     #[Route('/user/delete/{id}', name: 'user_delete', methods: ['GET'])]
-    public function delete(EntityManagerInterface $manager, User $user): Response
-    {     
-        if (!$user){
+    public function delete(EntityManagerInterface $manager, ?User $user): Response
+    {
+        if (!$user) {
             return $this->redirect('user.index');
         }
-          $manager->remove($user);
-          $manager->flush();
+        $manager->remove($user);
+        $manager->flush();
 
         $this->addFlash(
             'success',
             ' Un utilisateur a été supprimé avec succes'
         );
-          return $this->redirect('user.index');
+        return $this->redirect('user.index');
     }
 
     #[Route('/user', name: 'user')]
     public function read(UserRepository $userRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        // $user = $userRepository->findAll();
 
         $users = $paginator->paginate(
             $userRepository->findAll(),
-            $request->query->getInt('page', 1), 
+            $request->query->getInt('page', 1),
             7 /*limit per page*/
         );
 
