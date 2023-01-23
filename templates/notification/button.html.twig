@@ -1,9 +1,7 @@
 {# {% if notification.status == "Conflit" %} #}
 {% if notification.status == constant('App\\Entity\\Decision::STATUS_CONFLICT') %}
-	{% if isNotificationDecisionExpert(notification.decisionid, experts) %}
-	<p>ee2</p> 
+	{% if notification.isExpert == '1' %}
 		<td class="text-center">
-		   <p>ee3</p> 
 			<button class="rounded-5 col-8 card-bg-color text-white">{{ constant('App\\Entity\\Notification::NOTIFICATIONS_BUTTON')[notification.status] }}</button>
 		</td>
 	{% else %}

@@ -14,6 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Notification[]    findAll()
  * @method Notification[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
+
 class NotificationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -39,13 +40,17 @@ class NotificationRepository extends ServiceEntityRepository
         }
     }
 
-    public function findAllNotification(?int $userId = null): array
+    public function findNotification(?int $userId = null): array
     {
-        $queryBuilder = $this->createQueryBuilder('n')
-            ->select('d.title', 'd.status', 'd.id as decisionid', 'identity(d.owner) as owner')
-            // ->join('App\Entity\History', 'h', 'WITH', 'n.history = h.id')
-            // ->join('App\Entity\Decision', 'd', 'WITH', 'h.decision = d.id and n.user = :user_id')
-            ->join('App\Entity\Decision', 'd', 'WITH', 'n.decision = d.id and n.user = :user_id')
+        $queryBuilder = $this->createQueryBuilder('n');
+        $queryBuilder
+            // ->select('d.id', 'IDENTITY(d.owner) as owner', 'd.status', 'd.title', 'sum(exp.isExpert) as isExpert')
+            ->select('d.id', 'IDENTITY(d.owner) as owner', 'd.status', 'd.title', 'sum(exp.isExpert) as isExpert')
+            ->join('\App\Entity\Decision', 'd', 'WITH', 'd.id = n.decision')
+            ->join('d.departments', 'dep_dec')
+            ->leftjoin('App\Entity\Expertise', 'exp', 'WITH', 'exp.department = dep_dec and exp.user = :user_id')
+            ->groupBy('d.id')
+            ->where('n.user = :user_id')
             ->setParameter('user_id', $userId);
 
         $queryBuilder = $queryBuilder->getQuery();
