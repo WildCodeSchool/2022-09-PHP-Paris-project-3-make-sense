@@ -3,21 +3,22 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Entity\Expertise;
 use App\Form\UserType;
 use DateTimeImmutable;
+use App\Entity\Expertise;
 use App\Repository\UserRepository;
 use App\Repository\ExpertiseRepository;
 use App\Repository\DepartmentRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\BrowserKit\Response as BrowserKitResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UserController extends AbstractController
 {
@@ -84,7 +85,7 @@ class UserController extends AbstractController
             $userRepository->save($user, true);   
             
             //   dd('save done');
-            return $this->redirectToRoute('user_new');
+            return $this->redirectToRoute('user');
         }
 
         return $this->render('user/edit.html.twig', [
@@ -112,7 +113,7 @@ class UserController extends AbstractController
              $manager->persist($user);
              $manager->flush();
 
-           return $this->redirectToRoute('user_new');
+           return $this->redirectToRoute('user');
         }
 
         return $this->render('user/new.html.twig', [
@@ -120,7 +121,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/user/delete/{id}', name: 'user_delete', methods: ['POST'])]
+    #[Route('/user/delete/{id}', name: 'user_delete', methods: ['GET'])]
     public function delete(EntityManagerInterface $manager, User $user): Response
     {     
         if (!$user){
@@ -134,5 +135,21 @@ class UserController extends AbstractController
             ' Un utilisateur a été supprimé avec succes'
         );
           return $this->redirect('user.index');
+    }
+
+    #[Route('/user', name: 'user')]
+    public function read(UserRepository $userRepository, PaginatorInterface $paginator, Request $request): Response
+    {
+        // $user = $userRepository->findAll();
+
+        $users = $paginator->paginate(
+            $userRepository->findAll(),
+            $request->query->getInt('page', 1), 
+            7 /*limit per page*/
+        );
+
+        return $this->render('user/index.html.twig', [
+            'users' => $users
+        ]);
     }
 }

@@ -31,7 +31,7 @@ class ExpertisesType extends AbstractType
         $user = $options['user'];
 
         $experts = $this->departmentRepository->findAllExpertiseByDepartement($user->getId());
-        //  dd($options);
+      
    
         foreach ($experts as $key => $expert) {
                  $choice_value = 'aucune';
