@@ -47,7 +47,6 @@ class NotificationController extends AbstractController
             'notification/index.html.twig',
             [
                 'notifications' => $notifications,
-                // 'experts' => $expertiseRepository->countExpertiseByDecision(self::USERID),
                 'user' => $user
             ]
         );

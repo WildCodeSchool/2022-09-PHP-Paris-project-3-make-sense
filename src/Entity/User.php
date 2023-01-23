@@ -26,10 +26,6 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 #[ORM\EntityListeners(['App\EntityListener\UserListener'])]
 #[Vich\Uploadable]
 
-/** @SuppressWarnings(PHPMD.TooManyPublicMethods)
- *   @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
- *   @SuppressWarnings(PHPMD.ExcessivePublicCount)
- */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]

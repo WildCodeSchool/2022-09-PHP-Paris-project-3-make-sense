@@ -3,8 +3,11 @@
 {% block title %}Accueil
 {% endblock %}
 
-{% block header %}
-	{% include 'partials/_navbar.html.twig' %}
+
+{% block body %}
+   {% include 'partials/_navbar.html.twig' %}
+    {% include 'decision/dashboard.html.twig' %}
+
 {% endblock %}
 
 {% block body %}{% endblock %}
