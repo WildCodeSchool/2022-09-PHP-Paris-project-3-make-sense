@@ -8,7 +8,7 @@ use App\Repository\NotificationRepository;
 
 class NotificationController extends AbstractController
 {
-    public const USERID = 200;
+    public const USERID = 51;
 
     public function notificationSum(NotificationRepository $notificationRep): Response
     {

@@ -38,13 +38,7 @@
 					<div class="card-body m-0 p-0">
 
 						{% for i in range(0, min(2, allLastDecisions|length-1)) %}
-							<div
-								class="d-flex justify-content-between align-items-center border-2 border-bottom">
-								{# <div class="mt-2 mb-2">
-																																									<img class="ms-2 profil-photo" src="{{ asset('build/images/user.jpg') }}">
-																																									<a class="ms-2 text-decoration-none" href="#">{{ allLastDecisions[i].title|u.truncate(50) }}</a>
-																																								</div> #}
-
+							<div class="d-flex justify-content-between align-items-center border-2 border-bottom">
 								<div class="d-flex align-items-center mt-2 mb-2 w-75">
 									<div>
 										<img class="ms-2 profil-photo" src="{{ asset('build/images/user.jpg') }}">
@@ -86,13 +80,6 @@
 											{{ myLastDrafts[i].id }}</a>
 									</div>
 								</div>
-
-								{# <div class="mt-2 mb-2">
-																																		<img class="like" src="{{ asset('build/images/thumbs-up-regular.png') }}">
-																																			<a>({{ myLastDraftsOpinion[i].like }})</a>
-																																			<img class="like ms-2" src="{{ asset('build/images/thumbs-down-regular.png') }}">
-																																			<a class="text-decoration-none me-2">({{ myLastDraftsOpinion[i].dislike }})</a>
-																																				</div> #}
 							</div>
 						{% endfor %}
 
@@ -109,15 +96,7 @@
 
 
 						{% for i in range(0, min(2, AllLastAccomplished|length-1)) %}
-							<div
-								class="d-flex justify-content-between align-items-center border-2 border-bottom">
-								{# <div class="mt-2 mb-2">
-																																	<img class="ms-2 profil-photo" src="{{ asset('build/images/user.jpg') }}">
-																																	<a class="ms-2 text-decoration-none" href="#">
-																																		{{ AllLastAccomplished[i].title|u.truncate(50) }}
-																																	</a>
-																																</div> #}
-
+							<div class="d-flex justify-content-between align-items-center border-2 border-bottom">
 								<div class="d-flex align-items-center mt-2 mb-2 w-75">
 									<div>
 										<img class="ms-2 profil-photo" src="{{ asset('build/images/user.jpg') }}">
