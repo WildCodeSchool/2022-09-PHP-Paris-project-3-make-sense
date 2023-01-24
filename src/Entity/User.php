@@ -2,11 +2,9 @@
 
 namespace App\Entity;
 
-use DateTimeImmutable;
 use App\Entity\Opinion;
 use App\Entity\Decision;
 use App\Entity\Expertise;
-use Vich\UploadableField;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
@@ -16,18 +14,18 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use DateTimeImmutable;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
+
+/** @SuppressWarnings(PHPMD.TooManyPublicMethods)
+ *   @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
+ */
 
 #[UniqueEntity('email')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\EntityListeners(['App\EntityListener\UserListener'])]
 #[Vich\Uploadable]
 
-/** @SuppressWarnings(PHPMD.TooManyPublicMethods)
-*   @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
-*   @SuppressWarnings(PHPMD.ExcessivePublicCount)
-*/
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -68,7 +66,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Length(min: 1, max: 80)]
     private ?string $lastname = null;
 
-
     #[ORM\Column]
     #[Assert\Positive]
     #[Assert\LessThan(12)]
@@ -99,9 +96,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Validation::class)]
     private Collection $validations;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class)]
-    private Collection $comments;
-
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
@@ -110,7 +104,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->expertises = new ArrayCollection();
         $this->decisions = new ArrayCollection();
         $this->opinions = new ArrayCollection();
-        $this->comments = new ArrayCollection();
     }
 
     public function setImageFile(?File $imageFile = null): string
@@ -369,32 +362,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getComments(): Collection
-    {
-        return $this->comments;
-    }
-
-    public function addComment(Comment $comment): self
-    {
-        if (!$this->comments->contains($comment)) {
-            $this->comments->add($comment);
-            $comment->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeComment(Comment $comment): self
-    {
-        if ($this->comments->removeElement($comment)) {
-            // set the owning side to null (unless already changed)
-            if ($comment->getUser() === $this) {
-                $comment->setUser(null);
-            }
-        }
-
-        return $this;
-    }
     public function getValidations(): Collection
     {
         return $this->validations;
