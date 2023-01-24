@@ -14,17 +14,13 @@ class OpinionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        if ($options['data']->isIsLike() == null) {
-            $builder
-                ->add('isLike', HiddenType::class, [
-                    'attr' => ['class' => 'likeCheck', 'value' => "0"]
-                ]);
-        } else {
-            $builder
-                ->add('isLike', HiddenType::class, [
-                    'attr' => ['class' => 'likeCheck']
-                ]);
-        }
+        $builder
+            ->add('isLike', HiddenType::class, [
+                'attr' => [
+                    'class' => 'hiddenLikeCheck',
+                    'value' => $options['data']->isIsLike() == "true" ? "1" : "0"
+                ]
+            ]);
 
         $builder->add('message', CKEditorType::class, [
             'label' => false,

@@ -19,6 +19,13 @@
 .like {
     width: 20px;
     height: 20px;
+    content: url("/public/build/images/thumbs-up-regular.png");
+}
+
+.dislike {
+    width: 20px;
+    height: 20px;
+    content: url("/public/build/images/thumbs-down-regular.png");
 }
 
 .logo {
@@ -27,7 +34,6 @@
 }
 
 body {
-    // var (--font-heading): Raleway, Helvetica, Arial, sans-serif;
     font-family: 'Raleway', sans-serif;
     font-weight: 700;
 }

@@ -6,9 +6,3 @@ fos_ck_editor:
     configs:
         main_config: 
             toolbar: standard
-
-    # toolbars:
-    #     configs:
-    #         my_toolbar_1: [ "@document"]
-    #     items:
-    #         document: [ "Bold", "Underline", "Font", "Cut", "Paste" ]

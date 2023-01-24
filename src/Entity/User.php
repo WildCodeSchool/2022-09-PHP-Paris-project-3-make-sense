@@ -33,11 +33,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Vich\UploadableField(mapping: 'poster_file', fileNameProperty: 'imageName')]
-    private ?File $imageFile = null;
+    #[Vich\UploadableField(mapping: 'poster_file', fileNameProperty: 'poster')]
+    private ?File $posterFile = null;
 
     #[ORM\Column(type: 'string')]
-    private ?string $imageName = null;
+    private ?string $poster = null;
 
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\Length(min: 1, max: 180)]
@@ -106,25 +106,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->opinions = new ArrayCollection();
     }
 
-    public function setImageFile(?File $imageFile = null): string
+    public function setPosterFile(?File $posterFile = null): string
     {
-        $this->imageFile = $imageFile;
+        $this->posterFile = $posterFile;
         return $this;
     }
 
-    public function getImageFile(): ?File
+    public function getPosterFile(): ?File
     {
-        return $this->imageFile;
+        return $this->posterFile;
     }
 
-    public function setImageName(?string $imageName): void
+    public function setPoster(?string $poster): void
     {
-        $this->imageName = $imageName;
+        $this->poster = $poster;
     }
 
-    public function getImageName(): ?string
+    public function getPoster(): ?string
     {
-        return $this->imageName;
+        return $this->poster;
     }
 
     public function getId(): ?int

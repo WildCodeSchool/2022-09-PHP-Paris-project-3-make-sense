@@ -1669,26 +1669,23 @@
             ],
             "authors": [
                 {
-                    "name": "Johannes M. Schmitt",
-                    "email": "schmittjoh@gmail.com"
+                    "name": "Eric GELOEN",
+                    "email": "geloen.eric@gmail.com"
                 },
                 {
-                    "name": "Asmir Mustafic",
-                    "email": "goetas@gmail.com"
+                    "name": "FriendsOfSymfony Community",
+                    "homepage": "https://github.com/FriendsOfSymfony/FOSCKEditorBundle/graphs/contributors"
                 }
             ],
-            "description": "Class/method/property metadata management in PHP",
+            "description": "Provides a CKEditor integration for your Symfony project.",
             "keywords": [
-                "annotations",
-                "metadata",
-                "xml",
-                "yaml"
+                "CKEditor"
             ],
             "support": {
-                "issues": "https://github.com/schmittjoh/metadata/issues",
-                "source": "https://github.com/schmittjoh/metadata/tree/2.7.0"
+                "issues": "https://github.com/FriendsOfSymfony/FOSCKEditorBundle/issues",
+                "source": "https://github.com/FriendsOfSymfony/FOSCKEditorBundle/tree/2.4.0"
             },
-            "time": "2022-09-13T19:18:27+00:00"
+            "time": "2022-01-07T12:34:18+00:00"
         },
         {
             "name": "jms/metadata",

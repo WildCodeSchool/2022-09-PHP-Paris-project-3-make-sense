@@ -15,10 +15,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 
-class OpinionController extends AbstractController
+class DecisionController extends AbstractController
 {
-    #[Route('/opinion/{decision_id}/{opinionState}', name: 'app_opinion')]
-    #[Entity('decision', options: ['mapping' => ['decision_id' => 'id']])]
+    #[Route('/decision/{decisionId}/opinions/{opinionState}', name: 'app_opinion')]
+    #[Entity('decision', options: ['mapping' => ['decisionId' => 'id']])]
     public function index(
         Decision $decision,
         string $opinionState,
@@ -29,15 +29,12 @@ class OpinionController extends AbstractController
         Request $request
     ): Response {
 
-        $userId = 54;
-
-        $opinion = $opinionRepository->findOneBy(['user' => $userId, 'decision' => $decision->getId()]);
+        $opinion = $opinionRepository->findOneBy(['user' => HomeController::USERID, 'decision' => $decision->getId()]);
 
         if (!$opinion) {
             $opinion = new Opinion();
             $opinion->setDecision($decision);
-            $opinion->setUser($userRepository->findOneBy(['id' => $userId]));
-
+            $opinion->setUser($userRepository->findOneBy(['id' => HomeController::USERID]));
             if ($opinionState == "like") {
                 $opinion->setIsLike(true);
             } else {
