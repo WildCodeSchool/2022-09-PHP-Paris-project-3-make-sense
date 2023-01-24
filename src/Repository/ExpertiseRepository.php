@@ -38,4 +38,18 @@ class ExpertiseRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function countExpertiseByDecision(?int $userId = null): array
+    {
+        $queryBuilder = $this->createQueryBuilder('e')
+            ->select('d.id as decisionid', 'SUM(e.isExpert) as sum')
+            ->join('\App\Entity\Decision', 'd')
+            ->join('d.departments', 'dep', 'WITH', 'e.department = dep and e.user = :user_id and e.isExpert=1')
+            ->groupBy('d.id')
+            ->setParameter('user_id', $userId);
+
+        $queryBuilder = $queryBuilder->getQuery();
+
+        return $queryBuilder->getResult();
+    }
 }
