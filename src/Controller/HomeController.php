@@ -11,17 +11,17 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
+    public const USERID = 41;
+
     #[Route('/', name: 'app_home')]
     public function index(
         DecisionRepository $decisionRepository,
         OpinionLike $opinionLike
     ): Response {
 
-        $owner = 41;
-
-        $myLastDecisions = $decisionRepository->findByStatus(Decision::STATUS_CURRENT, 3, $owner);
+        $myLastDecisions = $decisionRepository->findByStatus(Decision::STATUS_CURRENT, 3, self::USERID);
         $allLastDecisions = $decisionRepository->findByStatus(Decision::STATUS_CURRENT, 3);
-        $myLastDrafts = $decisionRepository->findByStatus(Decision::STATUS_DRAFT, 3, $owner);
+        $myLastDrafts = $decisionRepository->findByStatus(Decision::STATUS_DRAFT, 3, self::USERID);
         $allLastAccomplished = $decisionRepository->findByStatus(Decision::STATUS_DONE, 3);
 
         return $this->render(
