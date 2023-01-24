@@ -119,7 +119,7 @@ class DecisionType extends AbstractType
             ->add('departments', ChoiceType::class, [
                 'attr' => [
                     'required' => true,
-                    'class' => 'form-check',],
+                    'class' => 'form-check'],
                 'choices' => $choiceDepartments,
                 'mapped' => false,
                 'expanded' => true,
