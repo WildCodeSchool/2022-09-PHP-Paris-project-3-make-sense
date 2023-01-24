@@ -17,13 +17,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class NotificationController extends AbstractController
 {
-    public const USERID = 51;
-
     public function notificationSum(NotificationRepository $notificationRep): Response
     {
         return $this->render(
             'partials/_notification.html.twig',
-            ['notifications' => $notificationRep->getTotalByUser(self::USERID)]
+            ['notifications' => $notificationRep->getTotalByUser(HomeController::USERID)]
         );
     }
 
@@ -35,10 +33,10 @@ class NotificationController extends AbstractController
         Request $request
     ): Response {
 
-        $user = $userRepository->findOneBy(['id' => self::USERID]);
+        $user = $userRepository->findOneBy(['id' => HomeController::USERID]);
 
         $notifications = $paginator->paginate(
-            $notificationRepository->findNotification(self::USERID),
+            $notificationRepository->findNotification(HomeController::USERID),
             $request->query->getInt('page', 1),
             5
         );
