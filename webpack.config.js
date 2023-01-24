@@ -35,7 +35,7 @@ Encore
      */
     .addEntry('app', './assets/app.js','datepicker', 
         './assets/js/datepicker.js' )
-
+    .addEntry('range', './assets/range.js')
     
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

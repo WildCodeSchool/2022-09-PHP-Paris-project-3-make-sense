@@ -65,8 +65,8 @@ class Decision
     private ?string $risks = null;
 
     #[ORM\Column]
-    #[Assert\NotBlank]
-    #[Assert\PositiveOrZero]
+    #[Assert\NotBlank()]
+    #[Assert\PositiveOrZero()]
     #[Assert\LessThan(
         value: 100
     )]
@@ -94,9 +94,8 @@ class Decision
     private ?User $owner = null;
 
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Assert\Type("\DateTimeInterface")]
-    private ?DateTimeInterface $endAt = null;
+    #[ORM\Column]
+    private ?\DateTimeImmutable $endAt = null;
 
     #[ORM\ManyToMany(targetEntity: Department::class, inversedBy: 'decisions')]
     private Collection $departments;
@@ -112,7 +111,6 @@ class Decision
         $this->createdAt =  new DateTime('now');
         $this->updatedAt =  new DateTime('now');
         $this->departments = new ArrayCollection();
-        $this->endAt = new DateTime('now');
     }
 
     public function getId(): ?int
@@ -347,12 +345,12 @@ class Decision
         return $this;
     }
 
-    public function getEndAt(): ?DateTimeInterface
+    public function getEndAt(): ?\DateTimeImmutable
     {
         return $this->endAt;
     }
 
-    public function setEndAt(DateTimeInterface $endAt): self
+    public function setEndAt(\DateTimeImmutable $endAt): self
     {
         $this->endAt = $endAt;
 

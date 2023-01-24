@@ -14,7 +14,10 @@
 		{% endblock %}
 	</head>
 	<body>
-		{% block header %}{% endblock %}
+		{% block header %}
+			{% include "partials/_navbar.html.twig" %}
+		{% endblock %}
+
 		{% block body %}{% endblock %}
 
 		{% block javascripts %}
@@ -22,6 +25,9 @@
 			<script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
 			<script src="//code.jquery.com/jquery.js"></script>
 		{% endblock %}
+
+		{{ encore_entry_script_tags('range') }}
+		<script src="{{ asset('/assets/range.js') }}"></script>
 		{{ include('@MercurySeriesFlashy/flashy.html.twig') }}
 	</body>
 </html>

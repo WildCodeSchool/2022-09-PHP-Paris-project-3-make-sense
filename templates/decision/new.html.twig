@@ -2,20 +2,22 @@
 {% block title %}Création d'une décision
 {% endblock %}
 
+
+{% block javascripts %}
+	<script src="{{ asset('/assets/range.js') }}"></script>
+{% endblock %}
 {% block body %}
 
 	{{ form_start(form) }}
 
 
 	<div class="container-fluid d-flex justify-content-center">
-		<div class="row col-8">
+		<div class="card mt-5">
+			<div class="card-header card-bg-color">
+				<h1 class="text-center text-white">Ajouter une annonce</h1>
+			</div>
 
-			<div class="card mt-5">
-				<div class="card-header card-bg-color">
-					<h1 class="text-center text-white">Ajouter une annonce</h1>
-				</div>
-				
-
+			<div class="row col-12">
 				<div class="card-body">
 					<div class="mb-5 d-flex justify-content-center">
 						<div class="col-10">
@@ -25,61 +27,65 @@
 
 					<div class="mb-3 d-flex justify-content-center">
 						<div class="col-10">
-							{{ form_label(form.departments, 'Domaine') }}
+							<h4>{{ form_label(form.departments, 'Domaine') }}</h4>
 						</div>
 					</div>
-					<div class="form-check mb-5 pr-3 d-flex justify-content-around">
+					<div class="form-check mb-5 d-flex justify-content-around">
 						{% for i in form.departments %}
-							{{ form_widget(i) }}{{ form_label(i) }}<br>
+							<div class="col-6">
+								{{ form_widget(i) }}
+								{{ form_label(i) }}<br>
+							</div>
 						{% endfor %}
 
-					</div>
 
-
-					<div class="mb-5 d-flex justify-content-center">
-						<div class="col-10">
-							{{ form_row(form.like_threshold) }}
+						<div class="mb-5 d-flex justify-content-center">
+							<div class="col-10">
+								{{ form_row(form.like_threshold) }}
+								<p>Value:
+									<span id="demo"></span>
+								</p>
+							</div>
 						</div>
-					</div>
 
-					<div id="datepicker" class="mb-5 d-flex justify-content-center">
-						<div class="col-10">
-							{{ form_row(form.end_at) }}
+						<div id="datepicker" class="mb-5 d-flex justify-content-center">
+							<div class="col-10">
+								{{ form_row(form.end_at) }}
+							</div>
 						</div>
-					</div>
 
-					<div class="mb-5 d-flex justify-content-center">
-						<div class="col-10">
-							{{ form_row(form.description) }}
+						<div class="mb-5 d-flex justify-content-center">
+							<div class="col-10">
+								{{ form_row(form.description) }}
+							</div>
 						</div>
-					</div>
 
 
-					<div class="mb-5 d-flex justify-content-center">
-						<div class="col-10">
-							{{ form_row(form.impacts) }}
+						<div class="mb-5 d-flex justify-content-center">
+							<div class="col-10">
+								{{ form_row(form.impacts) }}
+							</div>
 						</div>
-					</div>
 
 
-					<div class="mb-5 d-flex justify-content-center">
-						<div class="col-10">
-							{{ form_row(form.benefits) }}
+						<div class="mb-5 d-flex justify-content-center">
+							<div class="col-10">
+								{{ form_row(form.benefits) }}
+							</div>
 						</div>
-					</div>
 
 
-					<div class="mb-5 d-flex justify-content-center">
-						<div class="col-10">
-							{{ form_row(form.risks) }}
+						<div class="mb-5 d-flex justify-content-center">
+							<div class="col-10">
+								{{ form_row(form.risks) }}
+							</div>
 						</div>
-					</div>
 
-					<div class="d-flex justify-content-around">
-						{{ form_row(form.status) }}
-						{{ form_row(form.submit) }}
+						<div class="d-flex justify-content-around">
+							{{ form_row(form.status) }}
+							{{ form_row(form.submit) }}
+						</div>
 					</div>
 				</div>
-			</div>
-			{{form_end(form)}}
-		{% endblock %}
+				{{form_end(form)}}
+			{% endblock %}
