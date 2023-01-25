@@ -28,30 +28,28 @@ class SearchDecisionsType extends AbstractType
         $builder
             ->add('search', SearchType::class, [
                 'attr' => [
-                    'class' => 'form-control mb-4'
+                    'class' => 'form-control mb-4',
+                    'value' => $options['data']['title'],
                 ],
                 'label' => 'Chercher une décision',
                 'label_attr' => [
                     'class' => 'form-label mt-5'
                 ],
+                'required' => true,
             ])
-            ->add('domaines', ChoiceType::class, [
+            ->add('departements', ChoiceType::class, [
                 'attr' => [
                     'class' => 'form-check mt-3 mb-3 d-flex justify-content-around '
                 ],
-                'choices' => [
-                    $choicesDepartment,
-                ],
+                'choices' =>  $choicesDepartment,
                 'expanded' => true,
                 'multiple' => true,
-            ])
+                ])
             ->add('Status', ChoiceType::class, [
                 'attr' => [
                     'class' => 'form-check mt-3 '
                 ],
-                'choices' => [
-                    $choicesStatus
-                ],
+                'choices' => $choicesStatus
             ]);
     }
     public function configureOptions(OptionsResolver $resolver): void

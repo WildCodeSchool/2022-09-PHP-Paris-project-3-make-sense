@@ -56,7 +56,10 @@
             "composer/package-versions-deprecated": true,
             "symfony/flex": true,
             "symfony/runtime": true,
-            "phpro/grumphp": true
+            "phpro/grumphp": true,
+            "composer/installers": true,
+            "oomphinc/composer-installers-extender": false,
+            "robloach/component-installer": true
         },
         "optimize-autoloader": true,
         "preferred-install": {

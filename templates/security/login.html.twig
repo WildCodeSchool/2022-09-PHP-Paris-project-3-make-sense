@@ -24,9 +24,10 @@
                     <label for="Password" class="form-label">Mot de passe</label>
                     <input type="password" class="form-control" id="Password" name="_password" placeholder="********">
                 </div>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <input type="hidden" name="_target_path" value="/">
                 <button type="submit" class="btn btn-danger mt-5 offset-4 col-4">Se connecter</button>
             </form>
         </div>
     </div>
-
 {% endblock %}

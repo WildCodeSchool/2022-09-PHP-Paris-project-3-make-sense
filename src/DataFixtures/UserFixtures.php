@@ -3,10 +3,10 @@
 namespace App\DataFixtures;
 
 use Faker\Factory;
-use DateTimeImmutable;
 use App\Entity\User;
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use DateTimeImmutable;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 
 class UserFixtures extends Fixture
 {
