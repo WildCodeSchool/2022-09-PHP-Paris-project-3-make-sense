@@ -152,6 +152,7 @@
             "config/packages/fm_elfinder.yaml",
             "config/routes/fm_elfinder.yaml"
         ]
+    },
     "knplabs/knp-paginator-bundle": {
         "version": "v6.0.1"
     },
