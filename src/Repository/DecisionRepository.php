@@ -3,10 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Decision;
-use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @extends ServiceEntityRepository<Decision>
@@ -18,11 +16,8 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class DecisionRepository extends ServiceEntityRepository
 {
-    private EntityManagerInterface $entityManager;
-    
-    public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager)
+    public function __construct(ManagerRegistry $registry)
     {
-        $this->entityManager = $entityManager;
         parent::__construct($registry, Decision::class);
     }
 
