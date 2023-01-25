@@ -35,7 +35,7 @@ class DecisionController extends AbstractController
         Request $request,
         DecisionRepository $decisionRepository,
         UserRepository $userRepository
-        ): Response {
+    ): Response {
         $decision = new Decision();
         $user = $userRepository->findOneById('1');
         $decision->setOwner($user);
