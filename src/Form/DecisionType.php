@@ -31,7 +31,7 @@ class DecisionType extends AbstractType
         array $options
     ): void {
         $choiceDepartments = [];
-        foreach (Department::DEPARTMENTS as $departmentKey => $departmentValue) {
+        foreach (Department::DEPARTMENTS as $departmentValue) {
             $choiceDepartments[$departmentValue] = $departmentValue;
         }
         $builder
