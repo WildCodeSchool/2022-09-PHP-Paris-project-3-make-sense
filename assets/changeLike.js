@@ -12,7 +12,5 @@ function changeLike() {
             element[0].value = "1";
             document.getElementById('likeLogoId').src = "/build/images/thumbs-up-regular.png";
         }
-
-        // console.log(element[0]);
     }
 }
