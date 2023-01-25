@@ -31,7 +31,8 @@ class DecisionController extends AbstractController
     }
 
     #[Route('/decision/new/', name: 'decision_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, DecisionRepository $decisionRepository, UserRepository $userRepository): Response
+    public function new(Request $request, DecisionRepository $decisionRepository, 
+    UserRepository $userRepository): Response
     {
         $decision = new Decision();
         $user = $userRepository->findOneById('1');

@@ -32,7 +32,7 @@ class DecisionType extends AbstractType
     ): void {
         $choiceDepartments = [];
         foreach (Department::DEPARTMENTS as $departmentKey => $departmentValue) {
-            $choiceDepartments[$departmentValue]=$departmentValue;
+            $choiceDepartments[$departmentValue] = $departmentValue;
         }
         $builder
             ->add('title', TextType::class, [
@@ -95,7 +95,8 @@ class DecisionType extends AbstractType
                 'constraints' => new NotBlank(),
                 'attr' => [
                     'required' => true,
-                    'class' => 'form-control',],
+                    'class' => 'form-control',
+                ],
                 'label' => 'Les risques',
                 'label_attr' => [
                     'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3'
@@ -104,13 +105,15 @@ class DecisionType extends AbstractType
             ->add('like_threshold', RangeType::class, [
                 'attr' => [
                     'min' => '1',
-                    'max' => '100',
-                    'value'=> '50',
+                    'max'  => '100',
+                    'value' => '50',
                     'required' => false,
                     'class' => 'col-2 form-range slider',
-                    'id' => "myRange",],
+                    'id' => "myRange",
+                ],
                 'constraints' => [
-                    new Assert\PositiveOrZero(),],
+                    new Assert\PositiveOrZero(),
+                ],
                 'label' => 'Avis négatifs générant un conflit (%)',
                 'label_attr' => [
                     'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3'
@@ -119,7 +122,8 @@ class DecisionType extends AbstractType
             ->add('departments', ChoiceType::class, [
                 'attr' => [
                     'required' => true,
-                    'class' => 'form-check'],
+                    'class' => 'form-check'
+                ],
                 'choices' => $choiceDepartments,
                 'mapped' => false,
                 'expanded' => true,
@@ -127,13 +131,15 @@ class DecisionType extends AbstractType
             ])
             ->add('status', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-secondary card-bg-color'],
+                    'class' => 'btn btn-secondary card-bg-color'
+                ],
                 'label' => 'Enregistrer en tant que brouillon',
             ])
 
             ->add('submit', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-secondary card-bg-color',],
+                    'class' => 'btn btn-secondary card-bg-color',
+                ],
                 'label' => 'Soumettre',
             ]);
         ;
@@ -145,6 +151,4 @@ class DecisionType extends AbstractType
             'data_class' => Decision::class,
         ]);
     }
-    /**
-     */
 }
