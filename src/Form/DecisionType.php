@@ -40,24 +40,18 @@ class DecisionType extends AbstractType
                 'attr' => [
                     'required' => true,
                     'class' => 'form-control',
-                    'length' => '255',
-                ],
+                    'length' => '255',],
                 'label' => 'Titre',
                 'label_attr' => [
-                    'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3'
-                ]
-            ])
+                    'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3']])
             ->add('description', CKEditorType::class, [
                 'constraints' => new NotBlank(),
                 'attr' => [
                     'required' => true,
-                    'class' => 'form-control',
-                ],
+                    'class' => 'form-control',],
                 'label' => 'Description',
                 'label_attr' => [
-                    'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3'
-                ]
-            ])
+                    'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3']])
             ->add('end_at', DateTimeType::class, [
                 'input' => 'datetime_immutable',
                 'constraints' => new NotBlank(),
@@ -66,42 +60,31 @@ class DecisionType extends AbstractType
                 'attr' => ['class' => 'js-datepicker'],
                 'label' => 'Date de fin',
                 'label_attr' => [
-                    'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3'
-                ]
-            ])
+                    'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3']])
             ->add('impacts', CKEditorType::class, [
                 'constraints' => new NotBlank(),
                 'attr' => [
                     'required' => true,
-                    'class' => 'form-control',
-                ],
+                    'class' => 'form-control',],
                 'label' => 'Les impacts',
                 'label_attr' => [
-                    'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3'
-                ]
-            ])
+                    'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3']])
             ->add('benefits', CKEditorType::class, [
                 'constraints' => new NotBlank(),
                 'attr' => [
                     'required' => true,
-                    'class' => 'form-control',
-                ],
+                    'class' => 'form-control',],
                 'label' => 'Les bénéfices',
                 'label_attr' => [
-                    'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3'
-                ]
-            ])
+                    'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3']])
             ->add('risks', CKEditorType::class, [
                 'constraints' => new NotBlank(),
                 'attr' => [
                     'required' => true,
-                    'class' => 'form-control',
-                ],
+                    'class' => 'form-control',],
                 'label' => 'Les risques',
                 'label_attr' => [
-                    'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3'
-                ]
-            ])
+                    'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3']])
             ->add('like_threshold', RangeType::class, [
                 'attr' => [
                     'min' => '1',
@@ -109,39 +92,28 @@ class DecisionType extends AbstractType
                     'value' => '50',
                     'required' => false,
                     'class' => 'col-2 form-range slider',
-                    'id' => "myRange",
-                ],
+                    'id' => "myRange",],
                 'constraints' => [
-                    new Assert\PositiveOrZero(),
-                ],
+                    new Assert\PositiveOrZero(),],
                 'label' => 'Avis négatifs générant un conflit (%)',
                 'label_attr' => [
-                    'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3'
-                ],
-            ])
+                    'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3'],])
             ->add('departments', ChoiceType::class, [
                 'attr' => [
                     'required' => true,
-                    'class' => 'form-check'
-                ],
+                    'class' => 'form-check'],
                 'choices' => $choiceDepartments,
                 'mapped' => false,
                 'expanded' => true,
-                'multiple' => true,
-            ])
+                'multiple' => true,])
             ->add('status', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-secondary card-bg-color'
-                ],
-                'label' => 'Enregistrer en tant que brouillon',
-            ])
-
+                    'class' => 'btn btn-secondary card-bg-color'],
+                'label' => 'Enregistrer en tant que brouillon',])
             ->add('submit', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-secondary card-bg-color',
-                ],
-                'label' => 'Soumettre',
-            ]);
+                    'class' => 'btn btn-secondary card-bg-color',],
+                'label' => 'Soumettre',]);
         ;
     }
 
