@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use DateTimeImmutable;
 use App\Entity\Opinion;
 use App\Entity\Decision;
 use App\Entity\Expertise;
@@ -17,6 +16,7 @@ use Vich\UploadableField;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use DateTimeImmutable;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -29,10 +29,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 #[ORM\EntityListeners(['App\EntityListener\UserListener'])]
 #[Vich\Uploadable]
 
-/** @SuppressWarnings(PHPMD.TooManyPublicMethods)
- *   @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
- *   @SuppressWarnings(PHPMD.ExcessivePublicCount)
- */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -102,7 +98,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Validation::class)]
     private Collection $validations;
-
 
     public function __construct()
     {

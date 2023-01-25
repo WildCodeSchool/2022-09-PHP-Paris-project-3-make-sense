@@ -6,7 +6,6 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
 
@@ -16,3 +15,7 @@ import '@fontsource/raleway/700.css'
 // start the Stimulus application
 import './bootstrap';
 import './range.js';
+
+import "@fontsource/raleway";
+
+import './styles/app.scss';

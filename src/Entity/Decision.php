@@ -3,15 +3,16 @@
 namespace App\Entity;
 
 use DateTime;
+use App\Entity\User;
+use DateTimeInterface;
 use App\Entity\History;
+use App\Repository\DecisionRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\DecisionRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use DateTimeImmutable;
-use DateTimeInterface;
 use App\Entity\Comment;
 
 /** @SuppressWarnings(PHPMD.TooManyPublicMethods)
@@ -88,7 +89,7 @@ class Decision
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\Type("\DateTimeInterface")]
-    private ?DateTimeInterface $updatedAt = null;
+    private ?\DateTimeInterface $updatedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'decisions')]
     private ?User $owner = null;
@@ -103,6 +104,9 @@ class Decision
     #[ORM\Column(length: 50)]
     private ?string $status = null;
 
+    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Notification::class)]
+    private Collection $notifications;
+
     public function __construct()
     {
         $this->opinions = new ArrayCollection();
@@ -111,6 +115,7 @@ class Decision
         $this->createdAt =  new DateTime('now');
         $this->updatedAt =  new DateTime('now');
         $this->departments = new ArrayCollection();
+        $this->notifications = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -189,7 +194,6 @@ class Decision
 
         return $this;
     }
-
 
     /**
      * @return Collection<int, Opinion>
@@ -365,6 +369,36 @@ class Decision
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Notification>
+     */
+    public function getNotifications(): Collection
+    {
+        return $this->notifications;
+    }
+
+    public function addNotification(Notification $notification): self
+    {
+        if (!$this->notifications->contains($notification)) {
+            $this->notifications->add($notification);
+            $notification->setDecision($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotification(Notification $notification): self
+    {
+        if ($this->notifications->removeElement($notification)) {
+            // set the owning side to null (unless already changed)
+            if ($notification->getDecision() === $this) {
+                $notification->setDecision(null);
+            }
+        }
 
         return $this;
     }

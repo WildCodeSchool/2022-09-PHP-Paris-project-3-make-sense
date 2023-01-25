@@ -18,10 +18,9 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $faker = Faker\Factory::create('fr_FR');
-
         for ($j = 0; $j < self::DECISION; $j++) {
             $decision = new Decision();
-            $decision->setTitle($faker->words(25, true));
+            $decision->setTitle($faker->words(6, true));
             $decision->setDescription($faker->text(25));
             $decision->setImpacts($faker->text(25));
             $decision->setBenefits($faker->text(25));

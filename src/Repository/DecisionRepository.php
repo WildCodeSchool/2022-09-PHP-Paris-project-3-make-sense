@@ -76,4 +76,26 @@ class DecisionRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function findByStatus(string $status, int $maxres = 0, ?int $ownerId = null): mixed
+    {
+
+        $queryBuilder = $this->createQueryBuilder('d')
+            ->where('d.status = :status')
+            ->orderBy('d.createdAt', 'DESC')
+            ->setParameter('status', $status);
+
+        if ($maxres) {
+            $queryBuilder = $queryBuilder->setMaxResults($maxres);
+        }
+
+        if ($ownerId) {
+            $queryBuilder = $queryBuilder->andWhere('d.owner = :ownerId');
+            $queryBuilder = $queryBuilder->setParameter('ownerId', $ownerId);
+        }
+
+        $queryBuilder = $queryBuilder->getQuery();
+
+        return $queryBuilder->getResult();
+    }
 }
