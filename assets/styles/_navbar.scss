@@ -1,5 +1,12 @@
 .logo_search
 {
-    width : 20px;
-    height: 20px;
+    width : 30px;
+    height: 30px;
+    background-color:  rgb(155, 8, 79);
+    border-radius: 100%;
+}
+
+#form_search
+{
+    display: flex;
 }
