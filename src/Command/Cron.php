@@ -22,6 +22,13 @@ class Cron extends Command
         'output' => 'nooutput'
     ];
 
+    public function outputMessage(InputInterface $input, OutputInterface $output, string $message): void
+    {
+        if (!$input->getOption(self::OPTIONS['output'])) {
+            $output->writeln($message);
+        }
+    }
+
     private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
@@ -52,15 +59,20 @@ class Cron extends Command
             $decision->setStatus(Decision::STATUS_FIRST_DECISION);
             if ($input->getOption(self::OPTIONS['save'])) {
                 $decisionRepository->save($decision, true);
-                if (!$input->getOption(self::OPTIONS['output'])) {
-                    $output->writeln('Save decision : ' . $decision->getId()
-                        . ' status to : ' . $decision->getStatus());
-                }
+                $this->outputMessage($input, $output, 'Save decision : ' . $decision->getId()
+                    . ' status to : ' . $decision->getStatus());
+
+                // if (!$input->getOption(self::OPTIONS['output'])) {
+                //     $output->writeln('Save decision : ' . $decision->getId()
+                //         . ' status to : ' . $decision->getStatus());
             } else {
-                if (!$input->getOption(self::OPTIONS['output'])) {
-                    $output->writeln('Change decision : ' . $decision->getId()
+                // if (!$input->getOption(self::OPTIONS['output'])) {
+                    // $output->writeln('Change decision : ' . $decision->getId()
+                    //     . ' status to : ' . $decision->getStatus());
+
+                        $this->outputMessage($input, $output, 'Change decision : ' . $decision->getId()
                         . ' status to : ' . $decision->getStatus());
-                }
+                // }
             }
         }
 
@@ -77,15 +89,23 @@ class Cron extends Command
 
             if ($input->getOption('save')) {
                 $decisionRepository->save($decision[0], true);
-                if (!$input->getOption(self::OPTIONS['output'])) {
-                    $output->writeln('Save decision : ' . $decision[0]->getId() .
-                        ' status to : ' . $decision[0]->getStatus() . ' with pourcent : ' . $pourcentValidation . '%');
-                }
+                $this->outputMessage($input, $output, 'Save decision : ' . $decision[0]->getId() .
+                ' status to : ' . $decision[0]->getStatus() . ' with pourcent : ' . $pourcentValidation . '%');
+
+                // if (!$input->getOption(self::OPTIONS['output'])) {
+                //     $output->writeln('Save decision : ' . $decision[0]->getId() .
+                //         ' status to : ' . $decision[0]->getStatus() .
+                // ' with pourcent : ' . $pourcentValidation . '%');
+                // }
             } else {
-                if (!$input->getOption(self::OPTIONS['output'])) {
-                    $output->writeln('Change decision : ' . $decision[0]->getId() .
+                $this->outputMessage($input, $output, 'Change decision : ' . $decision[0]->getId() .
                         ' status to : ' . $decision[0]->getStatus() . ' with pourcent : ' . $pourcentValidation . '%');
-                }
+
+                // if (!$input->getOption(self::OPTIONS['output'])) {
+                //     $output->writeln('Change decision : ' . $decision[0]->getId() .
+                //         ' status to : ' . $decision[0]->getStatus() . ' with pourcent :
+                // ' . $pourcentValidation . '%');
+                // }
             }
         }
 
