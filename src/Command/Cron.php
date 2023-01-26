@@ -61,18 +61,9 @@ class Cron extends Command
                 $decisionRepository->save($decision, true);
                 $this->outputMessage($input, $output, 'Save decision : ' . $decision->getId()
                     . ' status to : ' . $decision->getStatus());
-
-                // if (!$input->getOption(self::OPTIONS['output'])) {
-                //     $output->writeln('Save decision : ' . $decision->getId()
-                //         . ' status to : ' . $decision->getStatus());
             } else {
-                // if (!$input->getOption(self::OPTIONS['output'])) {
-                    // $output->writeln('Change decision : ' . $decision->getId()
-                    //     . ' status to : ' . $decision->getStatus());
-
                         $this->outputMessage($input, $output, 'Change decision : ' . $decision->getId()
                         . ' status to : ' . $decision->getStatus());
-                // }
             }
         }
 
@@ -91,21 +82,9 @@ class Cron extends Command
                 $decisionRepository->save($decision[0], true);
                 $this->outputMessage($input, $output, 'Save decision : ' . $decision[0]->getId() .
                 ' status to : ' . $decision[0]->getStatus() . ' with pourcent : ' . $pourcentValidation . '%');
-
-                // if (!$input->getOption(self::OPTIONS['output'])) {
-                //     $output->writeln('Save decision : ' . $decision[0]->getId() .
-                //         ' status to : ' . $decision[0]->getStatus() .
-                // ' with pourcent : ' . $pourcentValidation . '%');
-                // }
             } else {
                 $this->outputMessage($input, $output, 'Change decision : ' . $decision[0]->getId() .
                         ' status to : ' . $decision[0]->getStatus() . ' with pourcent : ' . $pourcentValidation . '%');
-
-                // if (!$input->getOption(self::OPTIONS['output'])) {
-                //     $output->writeln('Change decision : ' . $decision[0]->getId() .
-                //         ' status to : ' . $decision[0]->getStatus() . ' with pourcent :
-                // ' . $pourcentValidation . '%');
-                // }
             }
         }
 
