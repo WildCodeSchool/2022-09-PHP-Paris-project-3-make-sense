@@ -14,6 +14,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
+    public const USERID = 51;
+
     #[Route('/', name: 'app_home')]
     public function index(
         DecisionRepository $decisionRepository,
@@ -26,10 +28,10 @@ class HomeController extends AbstractController
             $title = $form->getData()['search_title'];
             return $this->redirectToRoute('decision_index', ['title' => $title]);
         }
-        $owner = 201;
-        $myLastDecisions = $decisionRepository->findByStatus(Decision::STATUS_CURRENT, 3, $owner);
+
+        $myLastDecisions = $decisionRepository->findByStatus(Decision::STATUS_CURRENT, 3, self::USERID);
         $allLastDecisions = $decisionRepository->findByStatus(Decision::STATUS_CURRENT, 3);
-        $myLastDrafts = $decisionRepository->findByStatus(Decision::STATUS_DRAFT, 3, $owner);
+        $myLastDrafts = $decisionRepository->findByStatus(Decision::STATUS_DRAFT, 3, self::USERID);
         $allLastAccomplished = $decisionRepository->findByStatus(Decision::STATUS_DONE, 3);
 
         return $this->render(

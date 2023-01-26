@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\HistoryRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -38,14 +36,6 @@ class History
 
     #[ORM\Column]
     private ?DateTimeImmutable $createdAt = null;
-
-    #[ORM\OneToMany(mappedBy: 'history', targetEntity: Notification::class)]
-    private Collection $notifications;
-
-    public function __construct()
-    {
-        $this->notifications = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -108,36 +98,6 @@ class History
     public function setCreatedAt(DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Notification>
-     */
-    public function getNotifications(): Collection
-    {
-        return $this->notifications;
-    }
-
-    public function addNotification(Notification $notification): self
-    {
-        if (!$this->notifications->contains($notification)) {
-            $this->notifications->add($notification);
-            $notification->setHistory($this);
-        }
-
-        return $this;
-    }
-
-    public function removeNotification(Notification $notification): self
-    {
-        if ($this->notifications->removeElement($notification)) {
-            // set the owning side to null (unless already changed)
-            if ($notification->getHistory() === $this) {
-                $notification->setHistory(null);
-            }
-        }
 
         return $this;
     }

@@ -7,15 +7,17 @@
 
 // any CSS you import will output into a single css file (app.css in this case)
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 import './styles/app.scss';
 import '@fontsource/raleway/700.css';
 
-import "@fortawesome/fontawesome-free/js/all.js";
-import "@fortawesome/fontawesome-free/css/all.css";
+
 // start the Stimulus application
 import './bootstrap';
+
+import "@fortawesome/fontawesome-free/js/all.js";
+import "@fortawesome/fontawesome-free/css/all.css";
 
 
 
