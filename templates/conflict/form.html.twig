@@ -1,0 +1,71 @@
+<div class="container-fluid">
+	<div class="row mt-5">
+		<div class="d-flex justify-content-center m-0 p-0">
+			<div class="col-8">
+				<div class="card border-dark mb-3">
+					<div class="card-header fs-3 card-bg-color text-white d-flex justify-content-between">
+						<div class="mt-2">
+							Status :
+							{{ decision.status }}
+						</div>
+
+						<div>
+							<div>
+								<i class="fs-5 fa-regular fa-thumbs-up"></i>
+								<span class="fs-5">({{ opinionLike.like }})</span>
+							</div>
+							<div>
+								<i class="fs-5 fa-regular fa-thumbs-down"></i>
+								<span class="fs-5">({{ opinionLike.dislike }})</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="card-body m-0 p-0 mt-2">
+						<div class="d-flex justify-content-between align-items-center">
+
+							<div class="d-flex justify-content-between align-items-center w-100 ms-4 mt-2">
+								<div class="fs-3">
+									{{ decision.title}}
+								</div>
+								{% if conflict %}
+									<div class="me-5 text-white bg-danger pe-3 ps-3 rounded-5">
+										<small>conflit</small>
+									{% else %}
+										<div class="me-5 text-white bg-success pe-3 ps-3 rounded-5">
+											<small>aboutie</small>
+										{% endif %}
+									</div>
+								</div>
+							</div>
+
+							{{ form_start(form) }}
+
+							{% if conflict %}
+								<div class="d-flex fs-3 mt-5 mb-4 ms-4">
+									{{ form_label(form.endAt) }}
+									<div class="fs-3 ms-4">
+										{{ form_widget(form.endAt) }}
+									</div>
+								</div>
+							{% else %}
+								<div class="mt-4"></div>
+							{% endif %}
+
+							<div class="">
+								{{ form_row(form.report) }}
+							</div>
+
+							<div class="text-center mt-3 mb-2">
+								{{ form_widget(form.submit,  {'label': 'soumettre'}) }}
+							</div>
+
+							{{ form_end(form) }}
+							{# </div> #}
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
