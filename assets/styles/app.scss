@@ -37,3 +37,20 @@ body {
     font-family: 'Raleway', sans-serif;
     font-weight: 700;
 }
+
+body #home-login {
+    background-image: url('/assets/images/background-login.png');
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.login-center {
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
