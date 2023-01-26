@@ -31,7 +31,7 @@ class DecisionType extends AbstractType
         array $options
     ): void {
         $choiceDepartments = [];
-        foreach (Department::DEPARTMENTS as $departmentKey => $departmentValue) {
+        foreach (Department::DEPARTMENTS as $departmentValue) {
             $choiceDepartments[$departmentValue] = $departmentValue;
         }
         $builder
@@ -44,14 +44,27 @@ class DecisionType extends AbstractType
                 'label' => 'Titre',
                 'label_attr' => [
                     'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3']])
-            ->add('description', CKEditorType::class, [
-                'constraints' => new NotBlank(),
+            ->add('departments', ChoiceType::class, [
                 'attr' => [
                     'required' => true,
-                    'class' => 'form-control',],
-                'label' => 'Description',
+                    'class' => 'form-check'],
+                'choices' => $choiceDepartments,
+                'mapped' => false,
+                'expanded' => true,
+                'multiple' => true,])
+            ->add('like_threshold', RangeType::class, [
+                'attr' => [
+                    'min' => '1',
+                    'max'  => '100',
+                    'value' => '50',
+                    'required' => false,
+                    'class' => 'col-2 form-range slider',
+                    'id' => "myRange",],
+                'constraints' => [
+                    new Assert\PositiveOrZero(),],
+                'label' => 'Avis négatifs générant un conflit (%)',
                 'label_attr' => [
-                    'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3']])
+                    'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3'],])
             ->add('end_at', DateTimeType::class, [
                 'input' => 'datetime_immutable',
                 'constraints' => new NotBlank(),
@@ -59,6 +72,14 @@ class DecisionType extends AbstractType
                 'widget' => 'single_text',
                 'attr' => ['class' => 'js-datepicker'],
                 'label' => 'Date de fin',
+                'label_attr' => [
+                    'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3']])
+            ->add('description', CKEditorType::class, [
+                'constraints' => new NotBlank(),
+                'attr' => [
+                    'required' => true,
+                    'class' => 'form-control',],
+                'label' => 'Description',
                 'label_attr' => [
                     'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3']])
             ->add('impacts', CKEditorType::class, [
@@ -85,32 +106,11 @@ class DecisionType extends AbstractType
                 'label' => 'Les risques',
                 'label_attr' => [
                     'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3']])
-            ->add('like_threshold', RangeType::class, [
-                'attr' => [
-                    'min' => '1',
-                    'max'  => '100',
-                    'value' => '50',
-                    'required' => false,
-                    'class' => 'col-2 form-range slider',
-                    'id' => "myRange",],
-                'constraints' => [
-                    new Assert\PositiveOrZero(),],
-                'label' => 'Avis négatifs générant un conflit (%)',
-                'label_attr' => [
-                    'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3'],])
-            ->add('departments', ChoiceType::class, [
-                'attr' => [
-                    'required' => true,
-                    'class' => 'form-check'],
-                'choices' => $choiceDepartments,
-                'mapped' => false,
-                'expanded' => true,
-                'multiple' => true,])
-            ->add('status', SubmitType::class, [
+            ->add('saveAsDraft', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-secondary card-bg-color'],
                 'label' => 'Enregistrer en tant que brouillon',])
-            ->add('submit', SubmitType::class, [
+            ->add('save', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-secondary card-bg-color',],
                 'label' => 'Soumettre',]);

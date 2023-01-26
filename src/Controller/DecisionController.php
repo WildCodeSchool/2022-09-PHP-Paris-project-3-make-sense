@@ -19,44 +19,35 @@ use App\Form\DecisionType;
 use App\Repository\UserRepository;
 use Symfony\Component\Form\ClickableInterface;
 
+#[Route('/decision', name: 'decision_')]
 class DecisionController extends AbstractController
 {
-    #[Route('/decision', name: 'app_decision')]
-    public function index(DecisionRepository $decisionRepository): Response
-    {
-        $decisions = $decisionRepository->findDecisionDepartment();
-        return $this->render('decision/index.html.twig', [
-            'decisions' => $decisions,
-        ]);
-    }
-
-    #[Route('/decision/new/', name: 'decision_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
         DecisionRepository $decisionRepository,
         UserRepository $userRepository
     ): Response {
         $decision = new Decision();
-        $user = $userRepository->findOneById('1');
+        $user = $userRepository->findOneById([HomeController::USERID]);
         $decision->setOwner($user);
         $form = $this->createForm(DecisionType::class, $decision);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
              /** @var ClickableInterface $button  */
-             $button = $form->get('status');
+             $button = $form->get('saveAsDraft');
              $button->isClicked();
             if ($button->isClicked()) {
                 $decision->setStatus(Decision::STATUS_DRAFT);
             }
             /** @var ClickableInterface $btn  */
-            $btn = $form->get('submit');
-            $btn->isClicked();
+            $btn = $form->get('save');
             if ($btn->isClicked()) {
                 $decision->setStatus(Decision::STATUS_CURRENT);
             }
             $decisionRepository->save($decision, true);
             $this->addFlash('success', 'Decision sucessfully created !');
-            return $this->redirectToRoute('app_decision');
+            return $this->redirectToRoute('index_show');
         }
         return $this->renderForm('decision/new.html.twig', [
             'form' => $form,
