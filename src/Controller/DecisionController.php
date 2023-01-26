@@ -22,7 +22,7 @@ use Symfony\Component\Form\ClickableInterface;
 #[Route('/decision', name: 'decision_')]
 class DecisionController extends AbstractController
 {
-    public function index(): Response
+    public function index()
     {
     }
 
