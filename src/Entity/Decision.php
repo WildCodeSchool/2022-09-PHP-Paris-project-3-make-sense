@@ -201,7 +201,6 @@ class Decision
     public function removeOpinion(Opinion $opinion): self
     {
         if ($this->opinions->removeElement($opinion)) {
-            // set the owning side to null (unless already changed)
             if ($opinion->getDecision() === $this) {
                 $opinion->setDecision(null);
             }
@@ -231,7 +230,6 @@ class Decision
     public function removeHistory(History $history): self
     {
         if ($this->histories->removeElement($history)) {
-            // set the owning side to null (unless already changed)
             if ($history->getDecision() === $this) {
                 $history->setDecision(null);
             }
@@ -261,7 +259,6 @@ class Decision
     public function removeValidation(Validation $validation): self
     {
         if ($this->validations->removeElement($validation)) {
-            // set the owning side to null (unless already changed)
             if ($validation->getDecision() === $this) {
                 $validation->setDecision(null);
             }
