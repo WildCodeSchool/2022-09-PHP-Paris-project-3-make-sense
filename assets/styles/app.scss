@@ -1,9 +1,16 @@
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts'; 
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+
 * {
     box-sizing: border-box;
 }
+
 :root {
     --cerise-dark-color: rgb(155, 8, 79);
 }
+
 .card-bg-color {
     background-color: var(--cerise-dark-color);
 }
@@ -23,8 +30,25 @@
     width: 150px;
     height: 30px;
 }
+
 body {
-    // var (--font-heading): Raleway, Helvetica, Arial, sans-serif;
     font-family: Raleway;
     font-weight: 700;
+}
+
+body #home-login {
+    background-image: url('/assets/images/background-login.png');
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.login-center {
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }
