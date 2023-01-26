@@ -22,10 +22,6 @@ use Symfony\Component\Form\ClickableInterface;
 #[Route('/decision', name: 'decision_')]
 class DecisionController extends AbstractController
 {
-    public function index()
-    {
-    }
-
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,

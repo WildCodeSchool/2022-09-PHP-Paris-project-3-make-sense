@@ -6,9 +6,11 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 * {
     box-sizing: border-box;
 }
+
 :root {
     --cerise-dark-color: rgb(155, 8, 79);
 }
+
 .card-bg-color {
     background-color: var(--cerise-dark-color);
 }
@@ -28,8 +30,8 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
     width: 150px;
     height: 30px;
 }
+
 body {
-    // var (--font-heading): Raleway, Helvetica, Arial, sans-serif;
     font-family: Raleway;
     font-weight: 700;
 }
