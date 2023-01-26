@@ -15,10 +15,10 @@ class UpdateHistory
         $this->historyRepository = $historyRepository;
     }
 
-    public function updateHistory(Decision $decision, string $status): void
+    public function updateHistory(Decision $decision): void
     {
         $history = new History();
-        $history->setStatus($status);
+        $history->setStatus($decision->getStatus());
         $history->setStartedAt($decision->getCreatedAt());
         $history->setEndedAt($decision->getEndAt());
         $history->setDecision($decision);
