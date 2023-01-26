@@ -49,7 +49,7 @@ class DecisionController extends AbstractController
                 $decision->setStatus(Decision::STATUS_DONE);
             }
 
-            $this->updateHistory->update($decision, "");
+            $this->updateHistory->update($decision);
             $decisionRepository->save($decision, true);
 
             return $this->redirectToRoute('app_home');
