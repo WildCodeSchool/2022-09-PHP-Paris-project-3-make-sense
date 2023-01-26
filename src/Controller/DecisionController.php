@@ -19,7 +19,7 @@ class DecisionController extends AbstractController
 {
     #[Route('/decision/{decisionId}/opinions/{opinionState}', name: 'app_opinion')]
     #[Entity('decision', options: ['mapping' => ['decisionId' => 'id']])]
-    public function index(
+    public function giveOpinion(
         Decision $decision,
         string $opinionState,
         DecisionRepository $decisionRepository,
