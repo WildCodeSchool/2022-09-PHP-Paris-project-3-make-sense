@@ -151,8 +151,9 @@ class UserController extends AbstractController
             6 /*limit per page*/
         );
 
+
         return $this->render('user/index.html.twig', [
-            'users' => $users
+            'users' => $users,
         ]);
     }
 }
