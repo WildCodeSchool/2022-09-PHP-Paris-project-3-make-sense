@@ -53,7 +53,7 @@ class Cron extends Command
         $entityManager = $this->entityManager;
         $decisionRepository = $entityManager->getRepository(Decision::class);
 
-        $decisions = $decisionRepository->findByStatusEndAt();
+        $decisions = $decisionRepository->findCurrentEndBefore();
 
         foreach ($decisions as $decision) {
             $decision->setStatus(Decision::STATUS_FIRST_DECISION);
@@ -67,7 +67,7 @@ class Cron extends Command
             }
         }
 
-        $decisions = $decisionRepository->findByConflict();
+        $decisions = $decisionRepository->findConflict();
 
         foreach ($decisions as $decision) {
             $pourcentValidation = (int)(($decision['sumApproved'] / $decision['countApproved']) * 100);

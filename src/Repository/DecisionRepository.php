@@ -67,7 +67,7 @@ class DecisionRepository extends ServiceEntityRepository
     WHERE d.end_at <= NOW() and d.status="current";
     */
 
-    public function findByStatusEndAt(): mixed
+    public function findCurrentEndBefore(): mixed
     {
         $queryBuilder = $this->createQueryBuilder('d')
             ->select('d')
@@ -87,7 +87,7 @@ class DecisionRepository extends ServiceEntityRepository
     HAVING d.status="conflict";
     */
 
-    public function findByConflict(): mixed
+    public function findConflict(): mixed
     {
         $queryBuilder = $this->createQueryBuilder('d')
             ->select('d', 'sum(v.isApproved) as sumApproved', 'count(v.isApproved) as countApproved')
