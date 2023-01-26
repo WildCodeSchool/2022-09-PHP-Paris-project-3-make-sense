@@ -106,11 +106,11 @@ class DecisionType extends AbstractType
                 'mapped' => false,
                 'expanded' => true,
                 'multiple' => true,])
-            ->add('status', SubmitType::class, [
+            ->add('saveAsDraft', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-secondary card-bg-color'],
                 'label' => 'Enregistrer en tant que brouillon',])
-            ->add('submit', SubmitType::class, [
+            ->add('save', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-secondary card-bg-color',],
                 'label' => 'Soumettre',]);
