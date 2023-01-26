@@ -26,7 +26,7 @@ class DecisionController extends AbstractController
     ): Response {
 
         $decisionLike = $decisionRepository->findFirstDecisionLike($decision->getId());
-   
+
         $conflict = (($decisionLike['sumLike'] / $decisionLike['countLike']) * 100)
             < $decisionLike['likeThreshold'];
 
@@ -37,8 +37,7 @@ class DecisionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if ($conflict) {
                 $decision->setStatus(Decision::STATUS_CONFLICT);
-            }
-            else {
+            } else {
                 $decision->setStatus(Decision::STATUS_DONE);
             }
 
