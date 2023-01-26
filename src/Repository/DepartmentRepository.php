@@ -38,15 +38,13 @@ class DepartmentRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
-    public function findAllExpertiseByDepartement(?int $userId = null)
+    public function findAllExpertiseByDepartement(?int $userId = null): mixed
     {
         $queryBuilder = $this->createQueryBuilder('d')
-        ->select('e.isExpert', 'd.name as dep_name', 'e.id as exp_id', 'd.id as dep_id')
-        ->leftjoin('App\Entity\Expertise', 'e', 'WITH', 'e.department = d.id and e.user = :user_id')
-        ->setParameter('user_id', $userId);
-    $queryBuilder = $queryBuilder->getQuery();
-
-    return $queryBuilder->getResult();
-}
+            ->select('e.isExpert', 'd.name as dep_name', 'e.id as exp_id', 'd.id as dep_id')
+            ->leftjoin('App\Entity\Expertise', 'e', 'WITH', 'e.department = d.id and e.user = :user_id')
+            ->setParameter('user_id', $userId);
+        $queryBuilder = $queryBuilder->getQuery();
+        return $queryBuilder->getResult();
+    }
 }

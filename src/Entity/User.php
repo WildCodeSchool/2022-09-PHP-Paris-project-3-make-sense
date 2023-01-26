@@ -81,7 +81,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $plainPassword = null;
 
     #[ORM\Column]
-    // #[Assert\NotNull]
     private ?DateTimeImmutable $updatedAt = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Expertise::class)]
@@ -283,7 +282,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, Decision>
      */
-    public function getExpertise(): Collection
+    public function getExpertises(): Collection
     {
         return $this->expertises;
     }
@@ -399,11 +398,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-    public function getNotification(): Collection
-    {
-        return $this->notifications;
-    }
-
     public function addNotification(Notification $notification): self
     {
         if (!$this->notifications->contains($notification)) {

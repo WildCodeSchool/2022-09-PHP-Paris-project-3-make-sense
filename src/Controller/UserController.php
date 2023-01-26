@@ -56,7 +56,6 @@ class UserController extends AbstractController
                 case 'interet':
                     $expertise->setIsExpert(false);
                     $this->expertiseRepository->save($expertise, true);
-                    // dd($expertise);
                     break;
                 case 'expert':
                     $expertise->setIsExpert(true);
@@ -80,11 +79,9 @@ class UserController extends AbstractController
 
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->updateExpertise($request->request->all()['user']['departments'], $user);
             $userRepository->save($user, true);
-            dd('save done');
             return $this->redirectToRoute('user');
         }
 
@@ -97,9 +94,6 @@ class UserController extends AbstractController
     public function new(
         Request $request,
         EntityManagerInterface $manager,
-        // DepartmentRepository $departmentRepository,
-        // ExpertiseRepository $expertiseRepository,
-        // UserPasswordHasherInterface $passwordHasher
     ): Response {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -107,12 +101,8 @@ class UserController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
-            // dd($request->request->all());
             $user->setUpdatedAt(new DateTimeImmutable('now'));
-            $user->setPoster('aaa');
-
             $user->setRoles($user->getRoles());
-
             $user->setPassword(
                 $this->passwordHasher->hashPassword(
                     $user,
@@ -128,12 +118,11 @@ class UserController extends AbstractController
                 $user
             );
 
-            dd('end');
             return $this->redirectToRoute('user');
         }
 
         return $this->render('User/new.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -156,11 +145,10 @@ class UserController extends AbstractController
     #[Route('/user', name: 'user')]
     public function read(UserRepository $userRepository, PaginatorInterface $paginator, Request $request): Response
     {
-
         $users = $paginator->paginate(
             $userRepository->findAll(),
             $request->query->getInt('page', 1),
-            7 /*limit per page*/
+            6 /*limit per page*/
         );
 
         return $this->render('user/index.html.twig', [
