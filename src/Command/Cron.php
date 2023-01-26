@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Entity\Decision;
+use App\Service\UpdateHistory;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -22,19 +23,22 @@ class Cron extends Command
         'output' => 'nooutput'
     ];
 
+    private UpdateHistory $updateHistory;
+    private EntityManagerInterface $entityManager;
+
+
+    public function __construct(EntityManagerInterface $entityManager, UpdateHistory $updateHistory)
+    {
+        $this->entityManager = $entityManager;
+        $this->updateHistory = $updateHistory;
+        parent::__construct();
+    }
+
     public function outputMessage(InputInterface $input, OutputInterface $output, string $message): void
     {
         if (!$input->getOption(self::OPTIONS['output'])) {
             $output->writeln($message);
         }
-    }
-
-    private EntityManagerInterface $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->entityManager = $entityManager;
-        parent::__construct();
     }
 
     protected function configure(): void
@@ -59,11 +63,13 @@ class Cron extends Command
             $decision->setStatus(Decision::STATUS_FIRST_DECISION);
             if ($input->getOption(self::OPTIONS['save'])) {
                 $decisionRepository->save($decision, true);
+                $this->updateHistory->update($decision);
+
                 $this->outputMessage($input, $output, 'Save decision : ' . $decision->getId()
                     . ' status to : ' . $decision->getStatus());
             } else {
-                        $this->outputMessage($input, $output, 'Change decision : ' . $decision->getId()
-                        . ' status to : ' . $decision->getStatus());
+                $this->outputMessage($input, $output, 'Change decision : ' . $decision->getId()
+                    . ' status to : ' . $decision->getStatus());
             }
         }
 
@@ -80,11 +86,13 @@ class Cron extends Command
 
             if ($input->getOption('save')) {
                 $decisionRepository->save($decision[0], true);
+                $this->updateHistory->update($decision);
+
                 $this->outputMessage($input, $output, 'Save decision : ' . $decision[0]->getId() .
-                ' status to : ' . $decision[0]->getStatus() . ' with pourcent : ' . $pourcentValidation . '%');
+                    ' status to : ' . $decision[0]->getStatus() . ' with pourcent : ' . $pourcentValidation . '%');
             } else {
                 $this->outputMessage($input, $output, 'Change decision : ' . $decision[0]->getId() .
-                        ' status to : ' . $decision[0]->getStatus() . ' with pourcent : ' . $pourcentValidation . '%');
+                    ' status to : ' . $decision[0]->getStatus() . ' with pourcent : ' . $pourcentValidation . '%');
             }
         }
 
