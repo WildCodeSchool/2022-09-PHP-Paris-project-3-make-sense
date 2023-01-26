@@ -15,7 +15,7 @@ class UpdateHistory
         $this->historyRepository = $historyRepository;
     }
 
-    public function updateHistory(Decision $decision): void
+    public function update(Decision $decision): void
     {
         $history = new History();
         $history->setStatus($decision->getStatus());
