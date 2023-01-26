@@ -34,7 +34,6 @@ class DecisionController extends AbstractController
     ): Response {
         $decision = new Decision();
         $user = $userRepository->findOneById([HomeController::USERID]);
-        dd($userRepository->findOneById([HomeController::USERID]));
         $decision->setOwner($user);
         $form = $this->createForm(DecisionType::class, $decision);
         $form->handleRequest($request);
