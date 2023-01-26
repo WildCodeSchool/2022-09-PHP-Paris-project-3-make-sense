@@ -21,16 +21,9 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
     border-radius: 50%;
 }
 
-.like {
+.like, .dislike {
     width: 20px;
     height: 20px;
-    content: url("/public/build/images/thumbs-up-regular.png");
-}
-
-.dislike {
-    width: 20px;
-    height: 20px;
-    content: url("/public/build/images/thumbs-down-regular.png");
 }
 
 .logo {

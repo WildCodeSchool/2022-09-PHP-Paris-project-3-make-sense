@@ -39,10 +39,15 @@
 
 							<div class="d-flex flex-column justify-content-end col-4 align-items-end">
 								<p class="me-4">Votre avis</p>
-								{# <img id="likeLogoId" class="ms-3 like me-5" 
-									src=" {{ opinion.isIslike() ? asset('build/images/thumbs-up-regular.png')
-										: asset('build/images/thumbs-down-regular.png') }}"> #}
-								<img id="likeLogoId" class="ms-3 {{ opinion.isIslike() == "true" ? "like" : "dislike" }} me-5"> 
+								{% if opinion.isIslike() == "true" %}
+									<i id="likeLogoId" class="me-5 fa-regular fa-thumbs-up like"></i>
+								{% else %}
+								   <i id="likeLogoId" class="me-5 fa-regular fa-thumbs-down dislike"></i>
+								{% endif %}
+
+{# 
+								<img id="likeLogoId" class="ms-3 
+									{{ opinion.isIslike() == "true" ? "like" : "dislike" }} me-5">  #}
 							</div>
 						</div>
 						<div class="col-12 d-flex justify-content-center">
