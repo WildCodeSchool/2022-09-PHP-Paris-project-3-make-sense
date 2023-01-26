@@ -162,9 +162,6 @@
     "laravel/serializable-closure": {
         "version": "v1.1.1"
     },
-    "mercuryseries/flashy-bundle": {
-        "version": "v5.1.0"
-    },
     "monolog/monolog": {
         "version": "2.5.0"
     },
