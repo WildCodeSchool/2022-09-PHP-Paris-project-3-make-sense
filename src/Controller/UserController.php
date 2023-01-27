@@ -126,22 +126,6 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/user/delete/{id}', name: 'user_delete', methods: ['GET'])]
-    public function delete(EntityManagerInterface $manager, ?User $user): Response
-    {
-        if (!$user) {
-            return $this->redirect('user.index');
-        }
-        $manager->remove($user);
-        $manager->flush();
-
-        $this->addFlash(
-            'success',
-            ' Un utilisateur a été supprimé avec succes'
-        );
-        return $this->redirect('user.index');
-    }
-
     #[Route('/user', name: 'user')]
     public function read(UserRepository $userRepository, PaginatorInterface $paginator, Request $request): Response
     {
@@ -150,6 +134,7 @@ class UserController extends AbstractController
             $request->query->getInt('page', 1),
             6 /*limit per page*/
         );
+
 
 
         return $this->render('user/index.html.twig', [

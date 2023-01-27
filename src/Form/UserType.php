@@ -25,7 +25,7 @@ class UserType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                 ],
-                'label' => 'noms',
+                'label' => 'Nom',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
@@ -34,7 +34,7 @@ class UserType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                 ],
-                'label' => 'Prénoms',
+                'label' => 'Prénom',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],

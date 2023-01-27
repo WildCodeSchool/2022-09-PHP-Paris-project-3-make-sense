@@ -28,7 +28,6 @@
                     <th scope="col">Centre d'intérêt</th>
                     <th scope="col">Rôle</th>
                     <th scope="col">Edition</th>
-                    <th scope="col">Suppréssion</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -64,9 +63,6 @@
                         </td>
                         <td>
                           <a href="{{ path('user_edit', { id: user.id}) }}" class="btn btn-info rounded-5">Modifier</a>
-                        </td>
-                        <td>
-                          <a href="{{ path('user_delete', { id: user.id}) }}" class="btn btn-danger rounded-5">Supprimer</a>
                         </td>
                     </tr>
                 {% endfor %}
