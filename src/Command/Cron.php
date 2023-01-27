@@ -3,7 +3,7 @@
 namespace App\Command;
 
 use App\Entity\Decision;
-use App\Service\UpdateHistory;
+use App\Service\Workflow;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -23,14 +23,13 @@ class Cron extends Command
         'output' => 'nooutput'
     ];
 
-    private UpdateHistory $updateHistory;
+    private Workflow $workflow;
     private EntityManagerInterface $entityManager;
 
-
-    public function __construct(EntityManagerInterface $entityManager, UpdateHistory $updateHistory)
+    public function __construct(EntityManagerInterface $entityManager, Workflow $workflow)
     {
         $this->entityManager = $entityManager;
-        $this->updateHistory = $updateHistory;
+        $this->workflow = $workflow;
         parent::__construct();
     }
 
@@ -63,7 +62,7 @@ class Cron extends Command
             $decision->setStatus(Decision::STATUS_FIRST_DECISION);
             if ($input->getOption(self::OPTIONS['save'])) {
                 $decisionRepository->save($decision, true);
-                $this->updateHistory->update($decision);
+                $this->workflow->addHistory($decision);
 
                 $this->outputMessage($input, $output, 'Save decision : ' . $decision->getId()
                     . ' status to : ' . $decision->getStatus());
@@ -86,7 +85,7 @@ class Cron extends Command
 
             if ($input->getOption('save')) {
                 $decisionRepository->save($decision[0], true);
-                $this->updateHistory->update($decision);
+                $this->workflow->addHistory($decision);
 
                 $this->outputMessage($input, $output, 'Save decision : ' . $decision[0]->getId() .
                     ' status to : ' . $decision[0]->getStatus() . ' with pourcent : ' . $pourcentValidation . '%');
