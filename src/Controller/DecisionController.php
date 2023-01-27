@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Service\UpdateHistory;
+use App\Service\Workflow;
 use App\Entity\Decision;
 use App\Form\FirstDecisionType;
 use App\Service\OpinionLike;
@@ -16,11 +16,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 
 class DecisionController extends AbstractController
 {
-    private UpdateHistory $updateHistory;
+    private Workflow $workflow;
 
-    public function __construct(UpdateHistory $updateHistory)
+    public function __construct(Workflow $workflow)
     {
-        $this->updateHistory = $updateHistory;
+        $this->workflow = $workflow;
     }
 
     #[Route('/decision/{decisionId}/firstdecision', name: 'app_conflict')]
@@ -47,10 +47,11 @@ class DecisionController extends AbstractController
                 $decision->setStatus(Decision::STATUS_CONFLICT);
             } else {
                 $decision->setStatus(Decision::STATUS_DONE);
+                $this->workflow->addNotifications($decision);
             }
 
-            $this->updateHistory->update($decision);
             $decisionRepository->save($decision, true);
+            $this->workflow->addHistory($decision);
 
             return $this->redirectToRoute('app_home');
         }
