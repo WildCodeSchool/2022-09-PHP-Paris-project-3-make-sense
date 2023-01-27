@@ -53,7 +53,7 @@ class DecisionController extends AbstractController
             }
 
             $decisionRepository->save($decision, true);
-  
+
             $this->addFlash('success', 'Decision sucessfully created !');
 
             return $this->redirectToRoute('index_show');
