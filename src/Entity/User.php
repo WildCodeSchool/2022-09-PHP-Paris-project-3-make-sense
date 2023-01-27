@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use DateTimeImmutable;
 use App\Entity\Opinion;
 use App\Entity\Decision;
 use App\Entity\Expertise;
@@ -16,6 +15,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use DateTimeImmutable;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[UniqueEntity('email')]
@@ -23,10 +23,6 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 #[ORM\EntityListeners(['App\EntityListener\UserListener'])]
 #[Vich\Uploadable]
 
-/** @SuppressWarnings(PHPMD.TooManyPublicMethods)
- *   @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
- *   @SuppressWarnings(PHPMD.ExcessivePublicCount)
- */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
