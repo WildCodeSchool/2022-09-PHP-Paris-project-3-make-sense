@@ -63,6 +63,7 @@ class Cron extends Command
             if ($input->getOption(self::OPTIONS['save'])) {
                 $decisionRepository->save($decision, true);
                 $this->workflow->addHistory($decision);
+                $this->workflow->addNotifications($decision);
 
                 $this->outputMessage($input, $output, 'Save decision : ' . $decision->getId()
                     . ' status to : ' . $decision->getStatus());
@@ -86,6 +87,7 @@ class Cron extends Command
             if ($input->getOption('save')) {
                 $decisionRepository->save($decision[0], true);
                 $this->workflow->addHistory($decision);
+                $this->workflow->addNotifications($decision);
 
                 $this->outputMessage($input, $output, 'Save decision : ' . $decision[0]->getId() .
                     ' status to : ' . $decision[0]->getStatus() . ' with pourcent : ' . $pourcentValidation . '%');
