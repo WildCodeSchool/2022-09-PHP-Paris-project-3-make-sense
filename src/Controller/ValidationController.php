@@ -47,7 +47,6 @@ class ValidationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             /** @var ClickableInterface $button  */
-            // dd($request->getRequest());
             $button = $form->get('avispositif');
             $button->isClicked() ? $validation->setIsApproved(true) : $validation->setIsApproved(false);
 
