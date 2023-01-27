@@ -13,6 +13,7 @@ Encore
     .setPublicPath('/build')
     // only needed for CDN's or sub-directory deploy
     // .setManifestKeyPrefix('build/')
+
     .copyFiles({
         from: './assets/images',
 
@@ -25,6 +26,7 @@ Encore
         // only copy files matching this pattern
         // pattern: /\.(png|jpg|jpeg)$/
     })
+
     /*
      * ENTRY CONFIG
      *
@@ -65,8 +67,9 @@ Encore
         config.useBuiltIns = 'usage';
         config.corejs = 3;
     })
-    // uncomment if you use TypeScript
-    // .enableTypeScriptLoader()
+
+// uncomment if you use TypeScript
+// .enableTypeScriptLoader()
 
 // uncomment if you use React
 // .enableReactPreset()
@@ -92,4 +95,5 @@ fullConfig.devServer = {
         paths: ['templates/**/*.html.twig']
     }
 };
+
 module.exports = fullConfig;

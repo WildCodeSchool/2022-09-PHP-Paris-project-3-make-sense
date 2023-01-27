@@ -2,26 +2,17 @@
 
 namespace App\Entity;
 
-use DateTimeImmutable;
-use DateTimeInterface;
-use App\Entity\Decision;
+use App\Repository\HistoryRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\HistoryRepository;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Entity\Decision;
+use DateTimeImmutable;
+use DateTimeInterface;
 
 #[ORM\Entity(repositoryClass: HistoryRepository::class)]
 class History
 {
-    public const STATUS = [
-        'Brouillon',
-        'En cours',
-        '1ère décision',
-        'Conflit',
-        'Aboutie',
-        'Non aboutie'
-    ];
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -45,9 +36,6 @@ class History
 
     #[ORM\Column]
     private ?DateTimeImmutable $createdAt = null;
-
-    #[ORM\Column]
-    private ?DateTimeImmutable $updatedAt = null;
 
     public function getId(): ?int
     {
@@ -110,18 +98,6 @@ class History
     public function setCreatedAt(DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(DateTimeImmutable $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
 
         return $this;
     }

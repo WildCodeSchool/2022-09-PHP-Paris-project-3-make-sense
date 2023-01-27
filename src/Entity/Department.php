@@ -11,15 +11,24 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: DepartmentRepository::class)]
 class Department
 {
+    public const DEPARTMENT_HUMAN_RESSOURCES = 'human_ressources';
+    public const DEPARTMENT_SALES = 'sales';
+    public const DEPARTMENT_ACCOUNTING = 'accounting';
+    public const DEPARTMENT_COMPUTER_SCIENCE = 'computer_science';
+    public const DEPARTMENT_MARKETING = 'marketing';
+    public const DEPARTMENT_FINANCE = 'finance';
+    public const DEPARTMENT_BUYER = 'buyer';
+    public const DEPARTMENT_LEGAL = 'legal';
+
     public const DEPARTMENTS = [
-        'Ressources Humaines',
-        'Commercial',
-        'Comptabilité',
-        'Informatique',
-        'Marketing',
-        'Finance',
-        'Achats',
-        'Juridique',
+        self::DEPARTMENT_HUMAN_RESSOURCES =>  'Ressources Humaines',
+        self::DEPARTMENT_SALES => 'Commercial',
+        self::DEPARTMENT_ACCOUNTING => 'Comptabilité',
+        self::DEPARTMENT_COMPUTER_SCIENCE => 'Informatique',
+        self::DEPARTMENT_MARKETING => 'Marketing',
+        self::DEPARTMENT_FINANCE => 'Finance',
+        self::DEPARTMENT_BUYER => 'Achats',
+        self::DEPARTMENT_LEGAL => 'Juridique',
     ];
 
     #[ORM\Id]
@@ -34,9 +43,8 @@ class Department
     #[ORM\OneToMany(mappedBy: 'department', targetEntity: Expertise::class)]
     private Collection $expertises;
 
-    #[ORM\ManyToMany(targetEntity: Decision::class, mappedBy: 'department')]
+    #[ORM\ManyToMany(targetEntity: Decision::class, mappedBy: 'departments')]
     private Collection $decisions;
-
 
     public function __construct()
     {

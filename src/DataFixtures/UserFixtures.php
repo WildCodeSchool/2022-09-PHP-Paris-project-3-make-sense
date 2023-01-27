@@ -3,10 +3,10 @@
 namespace App\DataFixtures;
 
 use Faker\Factory;
-use App\Entity\User;
 use DateTimeImmutable;
-use Doctrine\Persistence\ObjectManager;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
 
 class UserFixtures extends Fixture
 {
@@ -21,13 +21,14 @@ class UserFixtures extends Fixture
             $user->setFirstname($faker->firstName());
             $user->setLastname($faker->lastName());
             $user->setPassword('12345678');
-            $user->setPicture('photo.jpg');
+            $user->setImagename('photo.jpg');
             $user->setPhone(0654454545);
             $user->setRoles(['ROLE_USER']);
             $user->setemail($faker->email());
             $user->setCreatedAt(new DateTimeImmutable('now'));
             $user->setUpdatedAt(new DateTimeImmutable('now'));
             $this->addReference('user_' . $userId, $user);
+            $user->setPlainPassword('password');
             $manager->persist($user);
         }
         $manager->flush();

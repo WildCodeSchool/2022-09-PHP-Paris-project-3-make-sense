@@ -23,13 +23,12 @@ class ExpertiseFixtures extends Fixture implements DependentFixtureInterface
             for ($decisionId = 0; $decisionId < self::NB_DECISION; $decisionId++) {
                 for ($opinionId = 0; $opinionId < self::NB_EXPERTISE; $opinionId++) {
                     $expertise = new Expertise();
-
                     $expertise->setIsExpert($faker->boolean());
                     $expertise->setUser($this->getReference('user_' . $faker->numberBetween(0, 4)));
-                    $expertise->setDepartment($this->getReference('department_' . Department::DEPARTMENTS[rand(0, 7)]));
+                    $key = array_rand(Department::DEPARTMENTS);
+                    $expertise->setDepartment($this->getReference('department_' . $key));
                     $manager->persist($expertise);
                 }
-
                 $manager->flush();
             }
         }
@@ -38,9 +37,9 @@ class ExpertiseFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
-           UserFixtures::class,
-           DecisionFixtures::class,
+            UserFixtures::class,
+            DecisionFixtures::class,
 
-         ];
+        ];
     }
 }

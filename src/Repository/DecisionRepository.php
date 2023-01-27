@@ -39,28 +39,25 @@ class DecisionRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Decision[] Returns an array of Decision objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('d')
-//            ->andWhere('d.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('d.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findByStatus(string $status, int $maxres = 0, ?int $ownerId = null): mixed
+    {
 
-//    public function findOneBySomeField($value): ?Decision
-//    {
-//        return $this->createQueryBuilder('d')
-//            ->andWhere('d.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        $queryBuilder = $this->createQueryBuilder('d')
+            ->where('d.status = :status')
+            ->orderBy('d.createdAt', 'DESC')
+            ->setParameter('status', $status);
+
+        if ($maxres) {
+            $queryBuilder = $queryBuilder->setMaxResults($maxres);
+        }
+
+        if ($ownerId) {
+            $queryBuilder = $queryBuilder->andWhere('d.owner = :ownerId');
+            $queryBuilder = $queryBuilder->setParameter('ownerId', $ownerId);
+        }
+
+        $queryBuilder = $queryBuilder->getQuery();
+
+        return $queryBuilder->getResult();
+    }
 }

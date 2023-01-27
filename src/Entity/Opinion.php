@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Decision;
+use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: OpinionRepository::class)]
 class Opinion
@@ -19,9 +20,8 @@ class Opinion
     #[ORM\Column]
     private ?bool $isLike = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Assert\Type("\DateTimeInterface")]
-    private ?\DateTimeInterface $createdAt = null;
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $message = null;
 
     #[ORM\ManyToOne(inversedBy: 'opinions')]
     #[ORM\JoinColumn(nullable: false)]
@@ -29,6 +29,11 @@ class Opinion
 
     #[ORM\ManyToOne(inversedBy: 'opinions')]
     private ?User $user = null;
+
+    public function __construct()
+    {
+        $this->message = "";
+    }
 
     public function getId(): ?int
     {
@@ -43,18 +48,6 @@ class Opinion
     public function setIsLike(bool $isLike): self
     {
         $this->isLike = $isLike;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
 
         return $this;
     }
@@ -80,6 +73,16 @@ class Opinion
     {
         $this->user = $user;
 
+        return $this;
+    }
+
+    public function getMessage(): ?string
+    {
+        return $this->message;
+    }
+    public function setMessage(string $message): self
+    {
+        $this->message = $message;
         return $this;
     }
 }
