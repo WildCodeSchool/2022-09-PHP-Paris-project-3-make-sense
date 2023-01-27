@@ -38,14 +38,14 @@ class DecisionController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-             /** @var ClickableInterface $button  */
-             $saveAsDraft = $form->get('saveAsDraft');
+             /** @var ClickableInterface $saveAsDraft  */
+            $saveAsDraft = $form->get('saveAsDraft');
 
             if ($saveAsDraft->isClicked()) {
                 $decision->setStatus(Decision::STATUS_DRAFT);
             }
 
-            /** @var ClickableInterface $btn  */
+            /** @var ClickableInterface $save  */
             $save = $form->get('save');
 
             if ($save->isClicked()) {
