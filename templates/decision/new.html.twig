@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+{% block title %}Création d'une décision
+{% endblock %}
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('range') }}
+{% endblock %}
+
+{% block body %}
+
+	{{ form_start(form) }}
+
+
+	<div class="container-fluid d-flex justify-content-center">
+		<div class="card mt-5">
+			<div class="card-header card-bg-color">
+				<h1 class="text-center text-white">Ajouter une décision</h1>
+			</div>
+
+			<div class="row col-12">
+				<div class="card-body">
+					<div class="mb-5 d-flex justify-content-center">
+						<div class="col-10">
+							{{ form_row(form.title) }}
+						</div>
+					</div>
+
+					<div class="mb-3 d-flex justify-content-center">
+						<div class="col-10">
+							<h4>{{ form_label(form.departments, 'Domaine') }}</h4>
+						</div>
+					</div>
+					<div class="form-check mb-5 d-flex justify-content-around">
+						<div class="col-10">
+							{% for i in form.departments %}
+								{{ form_widget(i) }}
+								{{ form_label(i) }}<br>
+							{% endfor %}
+						</div>
+					</div>
+
+					<div class="mb-5 d-flex justify-content-center">
+						<div class="col-10">
+							{{ form_row(form.like_threshold) }}
+							<p>Value:
+								<span id="demo"></span>
+							</p>
+						</div>
+					</div>
+
+					<div id="datepicker" class="mb-5 d-flex justify-content-center">
+						<div class="col-10">
+							{{ form_row(form.end_at) }}
+						</div>
+					</div>
+
+					<div class="mb-5 d-flex justify-content-center">
+						<div class="col-10">
+							{{ form_row(form.description) }}
+						</div>
+					</div>
+
+
+					<div class="mb-5 d-flex justify-content-center">
+						<div class="col-10">
+							{{ form_row(form.impacts) }}
+						</div>
+					</div>
+
+
+					<div class="mb-5 d-flex justify-content-center">
+						<div class="col-10">
+							{{ form_row(form.benefits) }}
+						</div>
+					</div>
+
+
+					<div class="mb-5 d-flex justify-content-center">
+						<div class="col-10">
+							{{ form_row(form.risks) }}
+						</div>
+					</div>
+
+					<div class="d-flex justify-content-around">
+						{{ form_row(form.saveAsDraft) }}
+						{{ form_row(form.save) }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{{form_end(form)}}
+{% endblock %}

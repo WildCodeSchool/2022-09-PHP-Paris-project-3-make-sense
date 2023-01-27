@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use DateTimeImmutable;
+use App\Entity\Comment;
 
 /** @SuppressWarnings(PHPMD.TooManyPublicMethods)
  *   @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
@@ -43,21 +45,32 @@ class Decision
 
     #[ORM\Column(length: 255)]
     #[Assert\Length(min: 1, max: 255)]
+    #[Assert\NotBlank]
+    #[Assert\NotNull()]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\NotBlank]
     private ?string $impacts = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank]
     private ?string $benefits = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\NotBlank]
     private ?string $risks = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank()]
+    #[Assert\PositiveOrZero()]
+    #[Assert\LessThan(
+        value: 100
+    )]
     private ?int $likeThreshold = null;
 
     #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Opinion::class, orphanRemoval: true)]
@@ -70,6 +83,7 @@ class Decision
     private Collection $validations;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\NotBlank]
     #[Assert\Type("\DateTimeInterface")]
     private ?DateTimeInterface $createdAt = null;
 
@@ -308,13 +322,12 @@ class Decision
 
     public function __toString()
     {
-        return $this->title;
+        return $this->getTitle();
     }
-
     /**
      * @return Collection<int, Department>
      */
-    public function getDepartment(): Collection
+    public function getDepartments(): Collection
     {
         return $this->departments;
     }
