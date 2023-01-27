@@ -1,6 +1,7 @@
 document.getElementById('likeLogoId').addEventListener('click', changeLike);
 
 function changeLike() {
+
     if (document.getElementById('likeLogoId').classList.contains('like')) {
         document.getElementById('likeLogoId').classList.remove('like');
         document.getElementById('likeLogoId').classList.remove('fa-thumbs-up');
@@ -14,7 +15,7 @@ function changeLike() {
         document.getElementById('likeLogoId').classList.add('fa-thumbs-up');
     }
 
-    let element = document.getElementsByClassName('hiddenLikeCheck');
+    let element = document.getElementsByClassName('hiddenlikecheck');
     if (element) {
         if (element[0].value == "1") {
             element[0].value = "0";

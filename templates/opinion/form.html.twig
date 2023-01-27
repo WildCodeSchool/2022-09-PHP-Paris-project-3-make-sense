@@ -8,27 +8,29 @@
 							Status :
 							{{ decision.status }}
 						</div>
-
 						<div>
 							<div>
-								<img class="like" src="{{ asset('build/images/thumbs-up-regular.png') }}">
+								<i class="fs-5 fa-regular fa-thumbs-up"></i>
 								<span class="fs-5">({{ opinionLike.like }})</span>
 							</div>
 							<div>
-								<img class="like" src="{{ asset('build/images/thumbs-down-regular.png') }}">
+								<i class="fs-5 fa-regular fa-thumbs-down"></i>
 								<span class="fs-5">({{ opinionLike.dislike }})</span>
 							</div>
 						</div>
 					</div>
 					<div class="card-body m-0 p-0 mt-2">
 						<div class="d-flex justify-content-between align-items-center">
-
 							<div class="col-8">
 								<div class="ms-4 mt-2 fs-3">
 									{{ decision.title}}
 								</div>
 								<div class="ms-4 mt-2 fs-3">
-									<img class="ms-2 profil-photo" src="{{ asset('build/images/user.jpg') }}">
+									{% if user.poster is not empty %}
+										<img class="ms-2 profil-photo" src="{{ user.poster }}" alt="">
+									{% else %}
+										<i class="fs-5 p-2 rounded-5 bg-secondary fa-regular fa-user"></i>
+									{% endif %}
 									<span class="fs-6 ms-3">
 										par
 										{{ user.firstname }}
@@ -36,33 +38,28 @@
 									</span>
 								</div>
 							</div>
-
 							<div class="d-flex flex-column justify-content-end col-4 align-items-end">
 								<p class="me-4">Votre avis</p>
 								{% if opinion.isIslike() == "true" %}
-									<i id="likeLogoId" class="me-5 fa-regular fa-thumbs-up like"></i>
+									<div id="likeLogoId" class="me-5 fa-regular fa-thumbs-up like"></div>
 								{% else %}
-								   <i id="likeLogoId" class="me-5 fa-regular fa-thumbs-down dislike"></i>
+									<div id="likeLogoId" class="me-5 fa-regular fa-thumbs-down dislike"></div>
 								{% endif %}
-
-{# 
-								<img id="likeLogoId" class="ms-3 
-									{{ opinion.isIslike() == "true" ? "like" : "dislike" }} me-5">  #}
 							</div>
 						</div>
 						<div class="col-12 d-flex justify-content-center">
 							<h1 class="mt-5 mb-5">Donner votre avis</h1>
 						</div>
-
 						<div>
-
 							{{ form_start(form) }}
 
-							{{ form_widget(form) }}
-
+							{{ form_row(form.isLike) }}
+							{{ form_row(form.message) }}
+							<div class="text-center">
+								{{ form_widget(form.submit, { 'label' : 'Soumettre'}) }}
+							</div>
 							{{ form_end(form) }}
 						</div>
-
 					</div>
 				</div>
 			</div>

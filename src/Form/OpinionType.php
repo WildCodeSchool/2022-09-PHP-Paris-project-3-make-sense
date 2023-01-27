@@ -17,7 +17,7 @@ class OpinionType extends AbstractType
         $builder
             ->add('isLike', HiddenType::class, [
                 'attr' => [
-                    'class' => 'hiddenLikeCheck',
+                    'class' => 'hiddenlikecheck',
                     'value' => $options['data']->isIsLike() == "true" ? "1" : "0"
                 ]
             ]);
