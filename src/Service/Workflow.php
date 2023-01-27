@@ -8,6 +8,7 @@ use App\Entity\Decision;
 use App\Entity\Notification;
 use App\Repository\HistoryRepository;
 use App\Repository\NotificationRepository;
+use App\Repository\UserRepository;
 
 /**
  * @SuppressWarnings(PHPMD.LongVariable)
@@ -17,13 +18,16 @@ class Workflow
 {
     private HistoryRepository $historyRepository;
     private NotificationRepository $notificationRepository;
+    private UserRepository $userRepository;
 
     public function __construct(
         HistoryRepository $historyRepository,
-        NotificationRepository $notificationRepository
+        NotificationRepository $notificationRepository,
+        UserRepository $userRepository
     ) {
         $this->historyRepository = $historyRepository;
         $this->notificationRepository = $notificationRepository;
+        $this->userRepository = $userRepository;
     }
 
     public function addHistory(Decision $decision): void
@@ -37,7 +41,7 @@ class Workflow
         $this->historyRepository->save($history, true);
     }
 
-    public function addNotification(Decision $decision, User $user): void
+    public function addOneNotification(Decision $decision, User $user): void
     {
         $notification = $this->notificationRepository->findOneBy(
             [
@@ -51,6 +55,15 @@ class Workflow
             $notification->setUser($user);
             $notification->setDecision($decision);
             $this->notificationRepository->save($notification, true);
+        }
+    }
+
+    public function addNotifications(Decision $decision): void
+    {
+        $users = $this->userRepository->findAll();
+
+        foreach ($users as $user) {
+            $this->addOneNotification($decision, $user);
         }
     }
 }
