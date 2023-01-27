@@ -31,12 +31,12 @@ class DecisionController extends AbstractController
         $decision = new Decision();
 
         $user = $userRepository->findOneById([HomeController::USERID]);
-        
+
         $decision->setOwner($user);
-        
+
         $form = $this->createForm(DecisionType::class, $decision);
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
              /** @var ClickableInterface $button  */
              $saveAsDraft = $form->get('saveAsDraft');
@@ -51,14 +51,14 @@ class DecisionController extends AbstractController
             if ($save->isClicked()) {
                 $decision->setStatus(Decision::STATUS_CURRENT);
             }
-            
+
             $decisionRepository->save($decision, true);
-            
+  
             $this->addFlash('success', 'Decision sucessfully created !');
-            
+
             return $this->redirectToRoute('index_show');
         }
-        
+
         return $this->renderForm('decision/new.html.twig', [
             'form' => $form,
         ]);

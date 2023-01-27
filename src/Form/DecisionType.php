@@ -35,7 +35,7 @@ class DecisionType extends AbstractType
         foreach (Department::DEPARTMENTS as $departmentValue) {
             $choiceDepartments[$departmentValue] = $departmentValue;
         }
-        
+
         $builder
             ->add('title', TextType::class, [
                 'constraints' => new NotBlank(),
