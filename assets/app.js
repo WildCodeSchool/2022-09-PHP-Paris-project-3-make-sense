@@ -13,11 +13,10 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import '@fontsource/raleway/700.css'
 
 // start the Stimulus application
-import './bootstrap';
+import './bootstrap.js';
 
 import "@fortawesome/fontawesome-free/js/all.js";
 import "@fortawesome/fontawesome-free/css/all.css";
 
 import './styles/app.scss';
-
 
