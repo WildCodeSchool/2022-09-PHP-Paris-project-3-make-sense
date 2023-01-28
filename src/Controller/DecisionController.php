@@ -38,20 +38,20 @@ class DecisionController extends AbstractController
         $conflict = (($decisionLike['sumLike'] / $decisionLike['countLike']) * 100)
             < $decisionLike['likeThreshold'];
 
-        $form = $this->createForm(FirstDecisionType::class, $decision, ['attr' => ['conflict' => $conflict]]);
+        if ($conflict) {
+            $decision->setStatus(Decision::STATUS_CONFLICT);
+        } else {
+            $decision->setStatus(Decision::STATUS_DONE);
+        }
+
+        $form = $this->createForm(FirstDecisionType::class, $decision);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($conflict) {
-                $decision->setStatus(Decision::STATUS_CONFLICT);
-            } else {
-                $decision->setStatus(Decision::STATUS_DONE);
-                $this->workflow->addNotifications($decision);
-            }
-
             $decisionRepository->save($decision, true);
             $this->workflow->addHistory($decision);
+            $this->workflow->addNotifications($decision);
 
             return $this->redirectToRoute('app_home');
         }
@@ -61,8 +61,6 @@ class DecisionController extends AbstractController
             [
                 'form' => $form,
                 'decision' => $decision,
-                'conflict' => ((($decisionLike['sumLike'] / $decisionLike['countLike']) * 100)
-                    < $decisionLike['likeThreshold']),
                 'opinionLike' => $opinionLike->calculateOpinion($decision),
                 'user' => $userRepository->findOneBy(['id' => $decision->getOwner()])
             ]

@@ -10,13 +10,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-
 class FirstDecisionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-
-        if ($options['attr']['conflict']) {
+        if ($options['data']->getStatus() == Decision::STATUS_CONFLICT) {
             $builder
                 ->add('endAt', DateType::class, [
                     'label' => 'Veuillez indiquer la nouvelle deadline',
