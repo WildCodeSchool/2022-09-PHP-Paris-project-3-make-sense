@@ -31,10 +31,10 @@
     "dependencies": {
         "@fontsource/raleway": "^4.5.11",
         "@makesenseorg/design-system": "^1.8.0",
-        "ckeditor4": "^4.13.0",
-        "install": "^0.13.0",
-        "Hinclude": "^1.2.0",
+        "ckeditor4": "^4.20.1",
         "h-include": "^4.4.0",
-        "import": "^0.0.6"
+        "Hinclude": "^1.2.0",
+        "import": "^0.0.6",
+        "install": "^0.13.0"
     }
 }
