@@ -39,20 +39,25 @@ class DecisionRepository extends ServiceEntityRepository
         }
     }
 
-    public function findLastStatus(int $decisionId): array
+    public function findByStatus(string $status, int $maxres = 0, ?int $ownerId = null): mixed
     {
-        $conn = $this->entityManager->getConnection();
-        $sql1 = 'SELECT MAX(updated_at) AS max, decision_id as dec_id FROM history h WHERE h.decision_id = :decision_id';
-        $sql = 'SELECT * From decision d INNER JOIN history h1 ON h1.decision_id = d.id ';
-        $sql .= 'INNER JOIN (' . $sql1 . ') ';
-        $sql .= 'ms ON dec_id = h1.decision_id and max = h1.updated_at ';
-        $stmt = $conn->prepare($sql);
-        $resultSet = $stmt->executeQuery(['decision_id' => $decisionId]);
-        return ($resultSet->fetchAssociative());
-    }
 
-    public function isLike(int $like)
-    {
-        $like = 'SELECT * decision, COUNT(*) AS ';
+        $queryBuilder = $this->createQueryBuilder('d')
+            ->where('d.status = :status')
+            ->orderBy('d.createdAt', 'DESC')
+            ->setParameter('status', $status);
+
+        if ($maxres) {
+            $queryBuilder = $queryBuilder->setMaxResults($maxres);
+        }
+
+        if ($ownerId) {
+            $queryBuilder = $queryBuilder->andWhere('d.owner = :ownerId');
+            $queryBuilder = $queryBuilder->setParameter('ownerId', $ownerId);
+        }
+
+        $queryBuilder = $queryBuilder->getQuery();
+
+        return $queryBuilder->getResult();
     }
 }

@@ -4,11 +4,11 @@
 @import "my_decision";
 
 * {
-    box-sizing: border-box;
+     box-sizing: border-box;
 }
 
 :root {
-    --cerise-dark-color: rgb(155, 8, 79);
+    --cerise-dark-color: #8a095d;
 }
 
 .card-bg-color {
@@ -22,6 +22,164 @@
 
 body {
     font-family: 'Raleway', sans-serif;
-    font-weight: 700;
 }
 
+.contener {
+    display: flex;
+    justify-content: space-around;
+}
+
+ .bord {
+    display: flex;
+    justify-content: flex-end;
+    margin-left: 20px;
+    padding-right: 2rem;
+
+ }
+
+ .button-avis {
+    background-color: #0d3944;
+ }
+
+ .essaie {
+    padding-right: 6rem;
+ }
+
+.button {
+    width: 15rem;
+}
+
+.like {
+    border-radius: 100px;
+    width: 50px;
+    height: 50px;
+}
+
+.accordion-button:not(.collapsed) {
+    color: #8a095d;
+    background-color: #fff;
+}
+
+.accordion {
+    margin-top: 1.5rem;
+}
+
+.title {
+    font-weight: bold;
+}
+
+.bord .test{
+    display: flex;
+    flex-direction: column;
+    margin-left: 8rem;
+    display: flex;
+    justify-content: center;
+    max-height:37.775rem;
+}
+
+.historical {
+     display: flex;
+     justify-content: center;
+     margin-bottom: 20px;
+}
+
+.button {
+     display: flex;
+     justify-content: center;
+}
+
+.date {
+     display: flex;
+     flex-direction: column;
+     justify-content: space-between;
+}
+
+.avis {
+    padding-left: 2.5rem;
+}
+
+.expert {
+    padding-left: 2.5rem;
+
+}
+
+.image {
+    border-radius: 100px;
+    width: 35px;
+    height: 35px;
+
+}
+
+.brouillon {
+    background-color: #8a095d;
+
+}
+
+.status {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.select {
+    display: flex;
+    flex-direction: column;
+}
+
+.title2 {
+    display:flex;
+    justify-content: center;
+    padding-right: 1.5rem;
+}
+
+.icon {
+    width: 25px;
+    margin-left: 3px;
+}
+
+@media screen and (min-width: 320px)and (max-width: 1100px)
+{
+    
+    .title {
+        width: 3rem;
+    }
+
+    .like {
+        border-radius: 100px;
+        width: 30px;
+        height: 30px;
+    }
+
+    .historical {
+        display: none;
+    }
+
+   .accordion {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 15px;
+    }
+
+    .title2 {
+    display: none;
+    }
+
+    .bord {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .bord .test {
+        display: flex;
+        justify-content: start;
+        margin-top: 3rem;
+    }
+
+    .ticket {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        width: 200px;
+    }
+}
