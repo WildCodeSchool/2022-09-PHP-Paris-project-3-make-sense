@@ -11,8 +11,6 @@ use App\Entity\Department as Department;
 
 class ExpertiseFixtures extends Fixture implements DependentFixtureInterface
 {
-    // public const NB_DECISION = 5;
-    // public const NB_USER = 5;
     public const NB_EXPERTISE = 5;
 
     public function load(ObjectManager $manager): void
@@ -23,7 +21,6 @@ class ExpertiseFixtures extends Fixture implements DependentFixtureInterface
 
         for ($userId = 0; $userId < UserFixtures::NB_USER; $userId++) {
             for ($depId = 0; $depId < 8; $depId++) {
-                // for ($opinionId = 0; $opinionId < self::NB_EXPERTISE; $opinionId++) {
                     $expertise = new Expertise();
                     $expertise->setIsExpert($faker->boolean());
                     $expertise->setUser($this->getReference('user_' . $userId));

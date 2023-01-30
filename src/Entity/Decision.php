@@ -233,7 +233,6 @@ class Decision
     public function removeHistory(History $history): self
     {
         if ($this->histories->removeElement($history)) {
-            // set the owning side to null (unless already changed)
             if ($history->getDecision() === $this) {
                 $history->setDecision(null);
             }

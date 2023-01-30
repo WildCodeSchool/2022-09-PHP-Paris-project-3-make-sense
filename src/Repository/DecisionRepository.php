@@ -77,4 +77,43 @@ class DecisionRepository extends ServiceEntityRepository
 
         return $queryBuilder->getOneOrNullResult();
     }
+
+    // #SQL
+    // SELECT d FROM `decision` as d
+    // WHERE d.end_at <= NOW() and d.status="current";
+
+    public function findCurrentEndBefore(): mixed
+    {
+        $queryBuilder = $this->createQueryBuilder('d')
+            ->select('d')
+            ->where('d.status = :status and d.endAt <= :today')
+            ->setParameter(':today', date('Y-m-d h:i:s'))
+            ->setParameter(':status', Decision::STATUS_CURRENT);
+
+        $queryBuilder = $queryBuilder->getQuery();
+
+        return $queryBuilder->getResult();
+    }
+
+    /*
+    SELECT d.id, d.like_threshold, d.status, sum(v.is_approved), count(v.is_approved)  FROM `decision` as d
+    INNER JOIN validation as v ON v.decision_id = d.id and d.end_at <= NOW()
+    GROUP BY d.id
+    HAVING d.status="conflict";
+    */
+
+    public function findConflict(): mixed
+    {
+        $queryBuilder = $this->createQueryBuilder('d')
+            ->select('d', 'sum(v.isApproved) as sumApproved', 'count(v.isApproved) as countApproved')
+            ->join('App\Entity\Validation', 'v', 'WITH', 'v.decision = d.id and d.endAt <= :today')
+            ->groupBy('d.id')
+            ->having('d.status = :status')
+            ->setParameter(':today', date('Y-m-d h:i:s'))
+            ->setParameter(':status', Decision::STATUS_CONFLICT);
+
+        $queryBuilder = $queryBuilder->getQuery();
+
+        return $queryBuilder->getResult();
+    }
 }
