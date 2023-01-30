@@ -41,10 +41,12 @@ public function __construct(UserPasswordHasherInterface $passwordHasher)
         $manager->flush();
 
 
-        for ($userId = 1; $userId < self::NB_USER; $userId++) {
+        for ($userId = 0; $userId < self::NB_USER; $userId++) {
             $user = new User();
-            $user->setFirstname($faker->firstName());
-            $user->setLastname($faker->lastName());
+            $firstname = $faker->firstName();
+            $lastname = $faker->lastName();
+            $user->setFirstname($firstname);
+            $user->setLastname($lastname);
             
             $hashedPassword = $this->passwordHasher->hashPassword(
                 $user,
@@ -60,7 +62,7 @@ public function __construct(UserPasswordHasherInterface $passwordHasher)
                 $user->setRoles(['ROLE_ADMIN']);
             }
             else {
-                $user->setemail('user' . $userId . '@gmail.com');
+                $user->setemail($firstname . '.' . $lastname . '@gmail.com');
                 $user->setRoles(['ROLE_USER']);
             }
             $user->setCreatedAt(new DateTimeImmutable('now'));
