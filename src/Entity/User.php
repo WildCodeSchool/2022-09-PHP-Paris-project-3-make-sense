@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
+use DateTimeImmutable;
 use App\Entity\Opinion;
 use App\Entity\Decision;
 use App\Entity\Expertise;
 use App\Entity\Notification;
-use App\Entity\Validation;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
@@ -17,18 +17,17 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use DateTimeImmutable;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-
-/** @SuppressWarnings(PHPMD.TooManyPublicMethods)
- *   @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
- */
 
 #[UniqueEntity('email')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\EntityListeners(['App\EntityListener\UserListener'])]
 #[Vich\Uploadable]
 
+/** @SuppressWarnings(PHPMD.TooManyPublicMethods)
+ *   @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
+ *   @SuppressWarnings(PHPMD.ExcessivePublicCount)
+ */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -36,8 +35,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Vich\UploadableField(mapping: 'poster_file', fileNameProperty: 'imageName')]
-    private ?File $imageFile = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $poster = null;
+
+    #[Vich\UploadableField(mapping: 'poster_file', fileNameProperty: 'poster')]
+    #[Assert\File(
+        maxSize: '1M',
+        mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
+    )]
+    private ?File $posterFile = null;
 
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\Length(min: 1, max: 180)]
@@ -45,7 +51,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     private ?string $email = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: "json")]
     #[Assert\NotNull]
     private array $roles = [];
 
@@ -72,17 +78,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     #[Assert\Positive]
-    #[Assert\LessThan(12)]
     private ?int $phone = null;
 
     #[ORM\Column]
     #[Assert\NotNull]
     private ?DateTimeImmutable $createdAt = null;
-
     private ?string $plainPassword = null;
 
     #[ORM\Column]
-    #[Assert\NotNull]
+    // #[Assert\NotNull]
     private ?DateTimeImmutable $updatedAt = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Expertise::class)]
@@ -102,7 +106,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
-        $this->createdAt = new DateTimeImmutable();
+        $this->createdAt = new DateTimeImmutable('now');
         $this->validations = new ArrayCollection();
         $this->notifications = new ArrayCollection();
         $this->expertises = new ArrayCollection();
@@ -110,26 +114,39 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->opinions = new ArrayCollection();
     }
 
-    public function setImageFile(?File $imageFile = null): string
-    {
-        $this->imageFile = $imageFile;
-        return $this;
-    }
-
-    public function getImageFile(): ?File
-    {
-        return $this->imageFile;
-    }
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setPosterFile(?File $file): self
+    {
+        $this->posterFile = $file;
+        if ($file) {
+            $this->updatedAt = new DateTimeImmutable('now');
+        }
+        return $this;
+    }
+
+    public function getPosterFile(): ?File
+    {
+        return $this->posterFile;
+    }
+
+    public function getPoster(): ?string
+    {
+        return $this->poster;
+    }
+
+    public function setPoster(?string $poster): void
+    {
+        $this->poster = $poster;
     }
 
     public function getEmail(): ?string
     {
         return $this->email;
     }
-
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -186,8 +203,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function eraseCredentials(): void
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
     }
 
     public function getFirstname(): ?string
@@ -280,6 +295,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * @return Collection<int, Decision>
+     */
+    public function getExpertise(): Collection
+    {
+        return $this->expertises;
+    }
     public function addExpertise(Expertise $expertise): self
     {
         if (!$this->expertises->contains($expertise)) {
@@ -358,7 +380,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeOpinion(Opinion $opinion): self
     {
         if ($this->opinions->removeElement($opinion)) {
-            // set the owning side to null (unless already changed)
             if ($opinion->getUser() === $this) {
                 $opinion->setUser(null);
             }
@@ -366,34 +387,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-    public function getValidations(): Collection
-    {
-        return $this->validations;
-    }
-
-    public function addValidation(Validation $validation): self
-    {
-        if (!$this->validations->contains($validation)) {
-            $this->validations->add($validation);
-            $validation->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeValidation(Validation $validation): self
-    {
-        if ($this->validations->removeElement($validation)) {
-            // set the owning side to null (unless already changed)
-            if ($validation->getUser() === $this) {
-                $validation->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-    public function getNotification(): Collection
+    public function getNotifications(): Collection
     {
         return $this->notifications;
     }
@@ -418,10 +412,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
-    }
-
-    public function getNotifications(): Collection
-    {
-        return $this->notifications;
     }
 }
