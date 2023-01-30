@@ -2,13 +2,14 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Persistence\ObjectManager;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use App\Entity\Decision;
-use App\Entity\Department;
 use Faker;
 use DateTimeImmutable;
+use App\Entity\Decision;
+use App\Entity\Department;
+use App\DataFixtures\UserFixtures;
+use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class DecisionFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -27,17 +28,20 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
             $keys = array_keys(DECISION::STATUSES);
             $decision->setStatus($keys[$j % 6]);
             $decision->setLikeThreshold($faker->numberBetween(30, 70));
+
             $decision->setCreatedAt(new DateTimeImmutable('now'));
-            $decision->setEndAt(new DateTimeImmutable('02/23/2023'));
-            $decision->setOwner($this->getReference('user_' . (UserFixtures::NB_USER % 5)));
+            $decision->setEndAt(new DateTimeImmutable('03/23/2023'));
+
+            $decision->setOwner($this->getReference('user_' . ($j % UserFixtures::NB_USER)));
+
             $this->addReference('decision_' . $j, $decision);
 
             $keys = array_keys(Department::DEPARTMENTS);
-            $decision->addDepartment($this->getReference('department_' . $keys[0]));
+            $decision->addDepartment($this->getReference('department_' . $keys[rand(0, 7)]));
 
-            $decision->addDepartment($this->getReference('department_' . $keys[1]));
+            $decision->addDepartment($this->getReference('department_' . $keys[rand(0, 7)]));
 
-            $decision->addDepartment($this->getReference('department_' . $keys[2]));
+            $decision->addDepartment($this->getReference('department_' . $keys[rand(0, 7)]));
 
             $manager->persist($decision);
         }
@@ -47,6 +51,9 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
 
     public function getDependencies()
     {
-        return [UserFixtures::class];
+        return [
+            UserFixtures::class,
+            DepartmentFixtures::class
+        ];
     }
 }

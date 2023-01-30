@@ -10,24 +10,22 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class NotificationFixtures extends Fixture implements DependentFixtureInterface
 {
-    public const NB_NOTIFICATION = 2;
-    public const NB_USER = 5;
-    public const NB_DECISION = 5;
-
     public function load(ObjectManager $manager): void
     {
-        $faker = Factory::create();
+        // $faker = Factory::create();
 
-        for ($userId = 0; $userId < self::NB_USER; $userId++) {
-            for ($decisionId = 0; $decisionId < self::NB_DECISION; $decisionId++) {
-                for ($notificationId = 0; $notificationId < self::NB_NOTIFICATION; $notificationId++) {
+        for ($userId = 0; $userId < UserFixtures::NB_USER; $userId++) {
+            for ($decisionId = 1; $decisionId < DecisionFixtures::NB_DECISION; $decisionId++) {
+                // for ($notificationId = 0; $notificationId < self::NB_NOTIFICATION; $notificationId++) {
+                if ($decisionId % 6) {
                     $notification = new Notification();
-                    $notification->setUser($this->getReference('user_' . $faker->numberBetween(0, 4)));
-                    $notification->setDecision($this->getReference('decision_' .
-                        $faker->numberBetween(1, self::NB_USER * self::NB_DECISION)));
+                    $notification->setUser($this->getReference('user_' . $userId));
+                    $notification->setDecision($this->getReference('decision_' . $decisionId));
+                    $notification->setUserRead(false);
                     $manager->persist($notification);
                 }
             }
+            // }
         }
 
         $manager->flush();
