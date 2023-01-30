@@ -5,9 +5,8 @@ namespace App\DataFixtures;
 use App\Entity\Department as Department;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class DepartmentFixtures extends Fixture implements DependentFixtureInterface
+class DepartmentFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
@@ -19,18 +18,5 @@ class DepartmentFixtures extends Fixture implements DependentFixtureInterface
             $manager->persist($department);
             $manager->flush();
         }
-    }
-
-    /**
-     * This method must return an array of fixtures classes
-     * on which the implementing class depends on
-     * @return array<string>
-     */
-
-    public function getDependencies()
-    {
-        return [
-            DecisionFixtures::class,
-        ];
     }
 }

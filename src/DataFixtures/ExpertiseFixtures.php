@@ -17,13 +17,14 @@ class ExpertiseFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Factory::create();
 
-        $keys = array_keys(Department::DEPARTMENTS);
+        // $keys = array_keys(Department::DEPARTMENTS);
 
         for ($userId = 0; $userId < UserFixtures::NB_USER; $userId++) {
             for ($depId = 0; $depId < 8; $depId++) {
                     $expertise = new Expertise();
                     $expertise->setIsExpert($faker->boolean());
                     $expertise->setUser($this->getReference('user_' . $userId));
+                    $keys = array_keys(Department::DEPARTMENTS);
                     $expertise->setDepartment($this->getReference('department_' . $keys[$depId]));
                     $manager->persist($expertise);
                 // }
@@ -36,8 +37,7 @@ class ExpertiseFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             UserFixtures::class,
-            DecisionFixtures::class,
-
+            DepartmentFixtures::class,
         ];
     }
 }
