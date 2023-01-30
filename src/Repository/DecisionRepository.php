@@ -43,24 +43,22 @@ class DecisionRepository extends ServiceEntityRepository
         }
     }
 
-    public function search(string $title, ?string $status = null, ?string $domaines = null): array
+    public function search(?string $title, ?string $status, ?array $departements = null): array
     {
         $querybuilder = $this->createQueryBuilder('d')
-            ->join('d.departments', 'dp')
             ->select('d', 'dp')
-            ->where('d.title LIKE :title');
-        if ($domaines !== null) {
-            $querybuilder = $querybuilder->andWhere('dp.name LIKE :name');
+            ->join('d.departments', 'dp');
+        if ($title !== null) {
+            $querybuilder->where('d.title LIKE :title')
+            ->setParameter('title', '%' . $title . '%');
         }
-        if ($status !== null) {
-            $querybuilder = $querybuilder->andWhere('d.status LIKE :status');
+        if ($departements !== null) {
+            $querybuilder = $querybuilder->orWhere('dp.name IN (:name)')
+            ->setParameter('name', $departements);
         }
-            $querybuilder = $querybuilder->setParameter('title', '%' . $title . '%');
-        if ($status !== null) {
-            $querybuilder = $querybuilder->setParameter('status', '%' . $status . '%');
-        }
-        if ($domaines !== null) {
-            $querybuilder = $querybuilder->setParameter('name', '%' . $domaines . '%');
+        if ($status !== Decision::STATUS_ALL) {
+            $querybuilder = $querybuilder->orWhere('d.status = :status')
+            ->setParameter('status', $status);
         }
         $querybuilder = $querybuilder->orderBy('d.title', 'ASC')
             ->getQuery();

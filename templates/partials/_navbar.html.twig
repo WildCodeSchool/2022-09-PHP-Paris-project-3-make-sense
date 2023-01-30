@@ -6,7 +6,7 @@
 			</a>
 		</div>
 		<div class="col-8 nav justify-content-end align-items-center">
-		{% if app.request.attributes.get('_route') != 'decision_index' %}
+		{% if app.request.attributes.get('_route') != 'decision_search' %}
 			<li class="nav-item  col-3">
 				<div class="row offset-1 form ">
 					{{ form_start(form, {'attr': {'id': 'form_search'}}) }}
@@ -21,7 +21,7 @@
 			</li>
 		{% endif %}
 			<li class="nav-item offset-1">
-				<a href="#" class="fs-4 me-5 btn" type="button">
+				<a href="{{ path('decision_search') }}" class="fs-4 me-5 btn" type="button">
 					Décisions
 				</a>
 			</li>

@@ -18,6 +18,7 @@ class SearchTitleType extends AbstractType
                     'class' => 'form-control mt-2 col-3'
                 ],
                 'label' => false,
+                'required' => false
             ]);
     }
 

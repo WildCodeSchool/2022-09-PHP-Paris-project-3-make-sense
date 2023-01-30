@@ -16,8 +16,9 @@ class HomeController extends AbstractController
 {
     public const USERID = 51;
 
+
     #[Route('/', name: 'app_home')]
-    public function index(
+    public function dashboard(
         DecisionRepository $decisionRepository,
         OpinionLike $opinionLike,
         Request $request,
@@ -26,9 +27,8 @@ class HomeController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $title = $form->getData()['search_title'];
-            return $this->redirectToRoute('decision_index', ['title' => $title]);
+            return $this->redirectToRoute('decision_search', ['title' => $title]);
         }
-
         $myLastDecisions = $decisionRepository->findByStatus(Decision::STATUS_CURRENT, 3, self::USERID);
         $allLastDecisions = $decisionRepository->findByStatus(Decision::STATUS_CURRENT, 3);
         $myLastDrafts = $decisionRepository->findByStatus(Decision::STATUS_DRAFT, 3, self::USERID);
@@ -39,16 +39,12 @@ class HomeController extends AbstractController
             [
                 'myLastDecisions' => $myLastDecisions,
                 'myLastDecisionsOpinion' => $opinionLike->calculateAllOpinion($myLastDecisions),
-
                 'allLastDecisions' => $allLastDecisions,
                 'allLastDecisionsOpinion' => $opinionLike->calculateAllOpinion($allLastDecisions),
-
                 'myLastDrafts' => $myLastDrafts,
                 'myLastDraftsOpinion' => $opinionLike->calculateAllOpinion($myLastDrafts),
-
                 'AllLastAccomplished' => $allLastAccomplished,
                 'AllLastAccomplishedOpinion' => $opinionLike->calculateAllOpinion($allLastAccomplished),
-
                 'form' => $form->createView(),
             ]
         );

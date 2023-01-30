@@ -35,20 +35,24 @@ class SearchDecisionsType extends AbstractType
                 'label_attr' => [
                     'class' => 'form-label mt-5'
                 ],
-                'required' => true,
+                'required' => false,
             ])
             ->add('departements', ChoiceType::class, [
                 'attr' => [
                     'class' => 'form-check mt-3 mb-3 d-flex justify-content-around '
                 ],
                 'choices' =>  $choicesDepartment,
-                'expanded' => true,
-                'multiple' => true,
+                'expanded' => 'checked',
+                'multiple' => 'checked',
+                'data' => [true],
+                'label' => 'departements',
+                'label_attr' => ['switch_custom'],
                 ])
-            ->add('Status', ChoiceType::class, [
+            ->add('status', ChoiceType::class, [
                 'attr' => [
                     'class' => 'form-check mt-3 '
                 ],
+                'required' => 'checked',
                 'choices' => $choicesStatus
             ]);
     }
