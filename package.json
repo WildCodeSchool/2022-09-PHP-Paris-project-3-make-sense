@@ -28,6 +28,7 @@
     },
     "dependencies": {
         "@fontsource/raleway": "^4.5.11",
+        "@fortawesome/fontawesome-free": "^6.2.1",
         "@makesenseorg/design-system": "^1.8.0",
         "Hinclude": "^1.2.0",
         "h-include": "^4.4.0",

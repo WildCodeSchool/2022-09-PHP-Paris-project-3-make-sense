@@ -15,6 +15,9 @@ import '@fontsource/raleway/700.css'
 // start the Stimulus application
 import './bootstrap';
 
-import "@fontsource/raleway";
+
+import "@fortawesome/fontawesome-free/js/all.js";
+import "@fortawesome/fontawesome-free/css/all.css";
 
 import './styles/app.scss';
+
