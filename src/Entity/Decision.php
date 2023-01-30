@@ -92,6 +92,9 @@ class Decision
     #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Notification::class)]
     private Collection $notifications;
 
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $report = null;
+
     public function __construct()
     {
         $this->opinions = new ArrayCollection();
@@ -382,6 +385,18 @@ class Decision
                 $notification->setDecision(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getReport(): ?string
+    {
+        return $this->report;
+    }
+
+    public function setReport(string $report): self
+    {
+        $this->report = $report;
 
         return $this;
     }
