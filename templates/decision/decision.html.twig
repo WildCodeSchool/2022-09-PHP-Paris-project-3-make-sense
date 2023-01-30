@@ -8,7 +8,7 @@
     <h1><section class="title"> {{ decision.title }} </section></h1>
 			<div class="card-body m-0 p-0">
         <img class="like ms-2" src="{{ asset('build/images/user.jpg') }}">
-        {{ decision.owner.imagefile ~ ' par ' }} <strong> {{ decision.owner.firstname ~ ' ' ~ decision.owner.lastname }} </strong> {{ 'status : ' }} <strong> {{ decision.status }} </strong>
+        {{ decision.owner.poster ~ ' par ' }} <strong> {{ decision.owner.firstname ~ ' ' ~ decision.owner.lastname }} </strong> {{ 'status : ' }} <strong> {{ decision.status }} </strong>
     <div class="accordion" id="accordionExample">
       <div class="accordion-item">
         <h2 class="accordion-header" id="headingOne">
@@ -68,7 +68,7 @@
       <div class="accordion-body">
       {% for opinion in decision.opinions %}
       </br> 
-    <img class="image" src="{{ asset('build/images/user.jpg') }}">
+    {<img class="image" src="{{ asset('build/images/user.jpg') }}">}
         {{ opinion.user.firstname }} {{" " ~ opinion.user.lastname }} </br>
        <section class="avis"> {{ opinion.message }} </section>
         {% endfor %}

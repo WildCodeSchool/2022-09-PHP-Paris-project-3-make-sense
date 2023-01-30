@@ -18,7 +18,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 #[Route('/decision', methods: ['GET'], name: 'decision_')]
 class DecisionController extends AbstractController
 {
-
     #[Route('/{decision}', name: 'show')]
     public function show(Decision $decision, OpinionLike $opinionLike): Response
     {
