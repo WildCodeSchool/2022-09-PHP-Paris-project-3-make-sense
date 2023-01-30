@@ -19,15 +19,15 @@ class Opinion
     #[ORM\Column]
     private ?bool $isLike = null;
 
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $message = null;
-
     #[ORM\ManyToOne(inversedBy: 'opinions')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Decision $decision = null;
 
     #[ORM\ManyToOne(inversedBy: 'opinions')]
     private ?User $user = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $message = null;
 
     public function __construct()
     {
@@ -79,6 +79,7 @@ class Opinion
     {
         return $this->message;
     }
+
     public function setMessage(string $message): self
     {
         $this->message = $message;

@@ -83,11 +83,11 @@ class Decision
     #[ORM\ManyToMany(targetEntity: Department::class, inversedBy: 'decisions')]
     private Collection $departments;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $endAt = null;
-
     #[ORM\Column(length: 50)]
     private ?string $status = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $endAt = null;
 
     #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Notification::class)]
     private Collection $notifications;
