@@ -298,7 +298,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeExpertise(Expertise $expertise): self
     {
         if ($this->expertises->removeElement($expertise)) {
-            // set the owning side to null (unless already changed)
             if ($expertise->getUser() === $this) {
                 $expertise->setUser(null);
             }
@@ -333,7 +332,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeDecision(Decision $decision): self
     {
         if ($this->decisions->removeElement($decision)) {
-            // set the owning side to null (unless already changed)
             if ($decision->getOwner() === $this) {
                 $decision->setOwner(null);
             }
@@ -370,6 +368,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    public function getValidations(): Collection
+    {
+        return $this->validations;
+    }
+
+    public function addValidation(Validation $validation): self
+    {
+        if (!$this->validations->contains($validation)) {
+            $this->validations->add($validation);
+            $validation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeValidation(Validation $validation): self
+    {
+        if ($this->validations->removeElement($validation)) {
+            if ($validation->getUser() === $this) {
+                $validation->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
     public function getNotifications(): Collection
     {
         return $this->notifications;
