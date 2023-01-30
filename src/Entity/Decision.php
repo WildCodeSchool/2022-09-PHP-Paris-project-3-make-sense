@@ -44,7 +44,7 @@ class Decision
     private ?int $id = null;
 
     #[ORM\Column()]
-    #[Assert\NotBlank(message: "Un titre est necessaire")]
+    #[Assert\NotBlank(message: "Un titre est nécessaire")]
     #[Assert\Length(min: 1, max: 80)]
     private ?string $title = null;
 
