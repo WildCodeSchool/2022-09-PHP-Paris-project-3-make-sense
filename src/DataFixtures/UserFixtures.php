@@ -15,31 +15,14 @@ class UserFixtures extends Fixture
 
     private UserPasswordHasherInterface $passwordHasher;
 
-public function __construct(UserPasswordHasherInterface $passwordHasher)
-{
-    $this->passwordHasher = $passwordHasher;
-}
+    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    {
+        $this->passwordHasher = $passwordHasher;
+    }
 
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
-
-        $user = new User();
-        $user->setFirstname('admin');
-        $user->setLastname('admin');
-        $user->setPassword('12345678');
-        $user->setPoster('user.jpg');
-        $user->setPhone(0654454545);
-        $user->setRoles(['ROLE_ADMIN']);
-        $user->setemail($faker->email());
-        $user->setCreatedAt(new DateTimeImmutable('now'));
-        $user->setUpdatedAt(new DateTimeImmutable('now'));
-        $this->addReference('user_' . 0, $user);
-        $user->setPlainPassword('password');
-        $manager->persist($user);
-
-        $manager->flush();
-
 
         for ($userId = 0; $userId < self::NB_USER; $userId++) {
             $user = new User();
@@ -47,7 +30,7 @@ public function __construct(UserPasswordHasherInterface $passwordHasher)
             $lastname = $faker->lastName();
             $user->setFirstname($firstname);
             $user->setLastname($lastname);
-            
+
             $hashedPassword = $this->passwordHasher->hashPassword(
                 $user,
                 '123456'
@@ -56,17 +39,18 @@ public function __construct(UserPasswordHasherInterface $passwordHasher)
 
             $user->setPoster('user.jpg');
             $user->setPhone(0654454545);
-            
+
             if (!$userId) {
                 $user->setemail('admin@gmail.com');
                 $user->setRoles(['ROLE_ADMIN']);
-            }
-            else {
+            } else {
                 $user->setemail($firstname . '.' . $lastname . '@gmail.com');
                 $user->setRoles(['ROLE_USER']);
             }
+
             $user->setCreatedAt(new DateTimeImmutable('now'));
             $user->setUpdatedAt(new DateTimeImmutable('now'));
+
             $this->addReference('user_' . $userId, $user);
             // $user->setPlainPassword('password');
             $manager->persist($user);
@@ -74,4 +58,3 @@ public function __construct(UserPasswordHasherInterface $passwordHasher)
         $manager->flush();
     }
 }
-
