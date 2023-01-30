@@ -73,7 +73,12 @@ class Notification
         return $this;
     }
 
-    public function isUserRead(): ?bool
+    public function getUserRead(): bool
+    {
+        return $this->userRead;
+    }
+
+    public function isUserRead(): bool
     {
         return $this->userRead;
     }
