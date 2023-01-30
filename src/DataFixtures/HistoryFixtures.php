@@ -6,14 +6,12 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\History;
 use App\Entity\Decision;
-use Faker\Factory;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use DateTimeImmutable;
 
 class HistoryFixtures extends Fixture implements DependentFixtureInterface
 {
     public const NB_HISTORY = 5;
-    public const NB_DECISION = 5;
 
     public function load(ObjectManager $manager): void
     {

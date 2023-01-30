@@ -20,6 +20,7 @@ class NotificationFixtures extends Fixture implements DependentFixtureInterface
                     $notification = new Notification();
                     $notification->setUser($this->getReference('user_' . $userId));
                     $notification->setDecision($this->getReference('decision_' . $decisionId));
+                    $notification->setRead($this->getReference('decision_' . $decisionId));
                     $manager->persist($notification);
                 }
             // }

@@ -14,11 +14,9 @@ class DepartmentFixtures extends Fixture
             $department = new Department();
             $departmentName = "";
             $department->setName($key);
-            // $department->addDecision($this->getReference('decision_' . $faker->numberBetween(1, 8)));
-            $manager->persist($department);
             $this->addReference('department_' . $key, $department);
+            $manager->persist($department);
+            $manager->flush();
         }
-
-        $manager->flush();
     }
 }

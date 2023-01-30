@@ -19,7 +19,7 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
         $faker = Faker\Factory::create('fr_FR');
         for ($j = 0; $j < self::NB_DECISION; $j++) {
             $decision = new Decision();
-            $decision->setTitle($faker->words(6, true));
+            $decision->setTitle('Decision' . $j);
             $decision->setDescription($faker->text(25));
             $decision->setImpacts($faker->text(25));
             $decision->setBenefits($faker->text(25));
@@ -29,12 +29,17 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
             $decision->setLikeThreshold($faker->numberBetween(30, 70));
             $decision->setCreatedAt(new DateTimeImmutable('now'));
             $decision->setEndAt(new DateTimeImmutable('02/23/2023'));
-            $decision->setOwner($this->getReference('user_' . rand(0, UserFixtures::NB_USER - 1)));
-            $keys = array_keys(Department::DEPARTMENTS);
-            $decision->addDepartment($this->getReference('department_', $keys[rand(0, 8)]));
-            $decision->addDepartment($this->getReference('department_', $keys[rand(0, 8)]));
-            $decision->addDepartment($this->getReference('department_', $keys[rand(0, 8)]));
+
+            $decision->setOwner($this->getReference('user_' . (UserFixtures::NB_USER % 5)));
             $this->addReference('decision_' . $j, $decision);
+
+            $keys = array_keys(Department::DEPARTMENTS);
+            $decision->addDepartment($this->getReference('department_' . $keys[rand(0, 7)]));
+
+            $decision->addDepartment($this->getReference('department_' . $keys[rand(0, 7)]));
+
+            $decision->addDepartment($this->getReference('department_' . $keys[rand(0, 7)]));
+
             $manager->persist($decision);
         }
 

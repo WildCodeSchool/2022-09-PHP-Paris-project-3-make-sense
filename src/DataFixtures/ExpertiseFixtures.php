@@ -11,23 +11,28 @@ use App\Entity\Department as Department;
 
 class ExpertiseFixtures extends Fixture implements DependentFixtureInterface
 {
+    // public const NB_DECISION = 5;
+    // public const NB_USER = 5;
+    public const NB_EXPERTISE = 5;
+
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
 
+        // $keys = array_keys(Department::DEPARTMENTS);
+
         for ($userId = 0; $userId < UserFixtures::NB_USER; $userId++) {
-            // for ($decisionId = 0; $decisionId < self::NB_DECISION; $decisionId++) {
+            for ($depId = 0; $depId < 8; $depId++) {
                 // for ($opinionId = 0; $opinionId < self::NB_EXPERTISE; $opinionId++) {
-                foreach (Department::DEPARTMENTS as $key => $departmentName) {
                     $expertise = new Expertise();
                     $expertise->setIsExpert($faker->boolean());
                     $expertise->setUser($this->getReference('user_' . $userId));
-                    // $key = array_rand(Department::DEPARTMENTS);
-                    $expertise->setDepartment($this->getReference('department_' . $key));
+                    $keys = array_keys(Department::DEPARTMENTS);
+                    $expertise->setDepartment($this->getReference('department_' . $keys[$depId]));
                     $manager->persist($expertise);
-                }
+                // }
                 $manager->flush();
-            // }
+            }
         }
     }
 
