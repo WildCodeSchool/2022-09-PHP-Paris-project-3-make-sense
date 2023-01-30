@@ -198,7 +198,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function eraseCredentials(): void
     {
-        // If you store any temporary, sensitive data on the user, clear it here
     }
 
     public function getFirstname(): ?string
@@ -364,7 +363,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeOpinion(Opinion $opinion): self
     {
         if ($this->opinions->removeElement($opinion)) {
-            // set the owning side to null (unless already changed)
             if ($opinion->getUser() === $this) {
                 $opinion->setUser(null);
             }
