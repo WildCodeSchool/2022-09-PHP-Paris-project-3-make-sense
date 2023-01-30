@@ -29,7 +29,7 @@ public function __construct(UserPasswordHasherInterface $passwordHasher)
             $user->setFirstname($faker->firstName());
             $user->setLastname($faker->lastName());
             $user->setPassword('12345678');
-            $user->setImagename('photo.jpg');
+            $user->setPoster('photo.jpg');
             
             $hashedPassword = $this->passwordHasher->hashPassword(
                 $user,
