@@ -18,10 +18,20 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use App\Form\DecisionType;
 use App\Repository\UserRepository;
 use Symfony\Component\Form\ClickableInterface;
+use App\Service\Workflow;
 
 #[Route('/decision', name: 'decision_')]
 class DecisionController extends AbstractController
 {
+    /**
+     * @var Workflow
+     */
+    private $workflow;
+
+    public function __construct(Workflow $workflow)
+    {
+        $this->workflow = $workflow;
+    }
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
@@ -37,6 +47,7 @@ class DecisionController extends AbstractController
         $form = $this->createForm(DecisionType::class, $decision);
         $form->handleRequest($request);
 
+        $errors = [];
         if ($form->isSubmitted() && $form->isValid()) {
              /** @var ClickableInterface $saveAsDraft  */
             $saveAsDraft = $form->get('saveAsDraft');
@@ -52,15 +63,22 @@ class DecisionController extends AbstractController
                 $decision->setStatus(Decision::STATUS_CURRENT);
             }
 
+            $this->workflow->addHistory($decision);
+
             $decisionRepository->save($decision, true);
 
             $this->addFlash('success', 'Decision sucessfully created !');
 
             return $this->redirectToRoute('index_show');
+        }else{
+            foreach ($form->getErrors(true) as $error) {
+                $errors[] = $error->getMessage();
+                }
         }
-
+     
         return $this->renderForm('decision/new.html.twig', [
             'form' => $form,
+            'errors' => $errors,
         ]);
     }
 }

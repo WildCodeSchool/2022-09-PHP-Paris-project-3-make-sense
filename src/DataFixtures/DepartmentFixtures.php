@@ -35,7 +35,7 @@ class DepartmentFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             DecisionFixtures::class,
-            DecisionFixtures::class,
+            
         ];
     }
 }

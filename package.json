@@ -31,8 +31,10 @@
     "dependencies": {
         "@fontsource/raleway": "^4.5.11",
         "@makesenseorg/design-system": "^1.8.0",
-        "Hinclude": "^1.2.0",
+        "bootstrap-datepicker": "^1.9.0",
+        "ckeditor4-plugin-exportpdf": "^1.0.6",
         "h-include": "^4.4.0",
+        "Hinclude": "^1.2.0",
         "import": "^0.0.6"
     }
 }
