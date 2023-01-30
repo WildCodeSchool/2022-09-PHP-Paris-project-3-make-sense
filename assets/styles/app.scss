@@ -1,7 +1,7 @@
-//start coding by removing this file and adding yours ;)
-// @import "wcs";
-
-@import "my_decision";
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts'; 
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/regular';
 
 * {
      box-sizing: border-box;
@@ -13,6 +13,17 @@
 
 .card-bg-color {
     background-color: var(--cerise-dark-color);
+}
+
+.profil-photo {
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+}
+
+.like, .dislike {
+    width: 20px;
+    height: 20px;
 }
 
 .logo {
@@ -182,4 +193,21 @@ body {
         flex-direction: column;
         width: 200px;
     }
+}
+
+body #home-login {
+    background-image: url('/assets/images/background-login.png');
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.login-center {
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }

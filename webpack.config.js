@@ -13,18 +13,28 @@ Encore
     .setPublicPath('/build')
     // only needed for CDN's or sub-directory deploy
     // .setManifestKeyPrefix('build/')
+
     .copyFiles({
         from: './assets/images',
 
         // optional target path, relative to the output dir
-        // to: 'images/[path][name].[ext]',
+        to: 'images/[path][name].[ext]',
 
         // if versioning is enabled, add the file hash too
-        to: 'images/[path][name].[hash:8].[ext]',
+        // to: 'images/[path][name].[hash:8].[ext]',
 
         // only copy files matching this pattern
         // pattern: /\.(png|jpg|jpeg)$/
     })
+
+    .copyFiles([
+        { from: './node_modules/ckeditor4/', to: 'ckeditor/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: false },
+        { from: './node_modules/ckeditor4/adapters', to: 'ckeditor/adapters/[path][name].[ext]' },
+        { from: './node_modules/ckeditor4/lang', to: 'ckeditor/lang/[path][name].[ext]' },
+        { from: './node_modules/ckeditor4/plugins', to: 'ckeditor/plugins/[path][name].[ext]' },
+        { from: './node_modules/ckeditor4/skins', to: 'ckeditor/skins/[path][name].[ext]' },
+        { from: './node_modules/ckeditor4/vendor', to: 'ckeditor/vendor/[path][name].[ext]' }
+    ])
 
     /*
      * ENTRY CONFIG
@@ -33,6 +43,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
+    .addEntry('changeLike', './assets/changeLike.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
@@ -94,4 +105,5 @@ fullConfig.devServer = {
         paths: ['templates/**/*.html.twig']
     }
 };
+
 module.exports = fullConfig;

@@ -6,19 +6,16 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
-
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 
-import './styles/app.scss';
 import '@fontsource/raleway/700.css'
 
 // start the Stimulus application
-import './bootstrap';
+import './bootstrap.js';
 
-// // const $ = require('jquery');
-// // this "modifies" the jquery module: adding behavior to it
-// // the bootstrap module doesn't export/return anything
-// require('bootstrap');
+import "@fortawesome/fontawesome-free/js/all.js";
+import "@fortawesome/fontawesome-free/css/all.css";
 
-import "@fontsource/raleway";
+import './styles/app.scss';
+

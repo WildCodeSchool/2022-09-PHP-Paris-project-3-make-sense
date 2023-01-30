@@ -1,0 +1,23 @@
+{% if notification.status == constant('App\\Entity\\Decision::STATUS_CONFLICT') %}
+	{% if notification.isExpert == '1' %}
+		<td class="text-center">
+			<button class="rounded-5 col-8 card-bg-color text-white">{{ constant('App\\Entity\\Notification::NOTIFICATIONS_BUTTON')[notification.status] }}</button>
+		</td>
+	{% else %}
+		<td class="col-1"></td>
+	{% endif %}
+{% else %}
+	{% if notification.status == constant('App\\Entity\\Decision::STATUS_FIRST_DECISION') %}
+		{% if notification.owner == user.id %}
+			<td class="text-center">
+				<button class="rounded-5 col-8 card-bg-color text-white">{{ constant('App\\Entity\\Notification::NOTIFICATIONS_BUTTON')[notification.status]}}</button>
+			</td>
+		{% else %}
+			<td class="col-1"></td>
+		{% endif %}
+	{% else %}
+		<td class="text-center">
+			<button class="rounded-5 col-8 card-bg-color text-white">{{ constant('App\\Entity\\Notification::NOTIFICATIONS_BUTTON')[notification.status]}}</button>
+		</td>
+	{% endif %}
+{% endif %}
