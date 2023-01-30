@@ -92,7 +92,7 @@ class Decision
     #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Notification::class)]
     private Collection $notifications;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $report = null;
 
     public function __construct()
@@ -394,7 +394,7 @@ class Decision
         return $this->report;
     }
 
-    public function setReport(string $report): self
+    public function setReport(?string $report): self
     {
         $this->report = $report;
 

@@ -392,7 +392,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
     public function getNotifications(): Collection
     {
         return $this->notifications;

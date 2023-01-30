@@ -62,10 +62,25 @@ class DecisionRepository extends ServiceEntityRepository
     }
 
     /*
-    #SQL
-    SELECT d FROM `decision` as d
-    WHERE d.end_at <= NOW() and d.status="current";
+    SELECT d.id, d.like_threshold, d.status, sum(o.is_like), count(o.is_like)  FROM `decision` as d
+    INNER JOIN opinion as o ON o.decision_id = d.id  and d.id=251
     */
+
+    public function findFirstDecisionLike(int $decisionId): mixed
+    {
+        $queryBuilder = $this->createQueryBuilder('d')
+            ->select('d.status', 'd.likeThreshold', 'sum(o.isLike) as sumLike', 'count(o.isLike) as countLike')
+            ->join('App\Entity\Opinion', 'o', 'WITH', 'o.decision = d.id and d.id = :decisionId')
+            ->setParameter(':decisionId', $decisionId);
+
+        $queryBuilder = $queryBuilder->getQuery();
+
+        return $queryBuilder->getOneOrNullResult();
+    }
+
+    // #SQL
+    // SELECT d FROM `decision` as d
+    // WHERE d.end_at <= NOW() and d.status="current";
 
     public function findCurrentEndBefore(): mixed
     {
