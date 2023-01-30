@@ -11,7 +11,6 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class ValidationFixtures extends Fixture implements DependentFixtureInterface
 {
-
     public function load(ObjectManager $manager): void
     {
         // $faker = Factory::create();
