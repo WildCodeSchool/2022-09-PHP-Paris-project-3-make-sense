@@ -2,18 +2,21 @@
 
 namespace App\Controller;
 
-use App\Service\Workflow;
 use App\Entity\Decision;
+use App\Repository\DecisionRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+use Symfony\Component\Form\ClickableInterface;
+use App\Service\Workflow;
 use App\Form\FirstDecisionType;
 use App\Form\DecisionType;
 use App\Service\OpinionLike;
 use App\Repository\UserRepository;
-use App\Repository\DecisionRepository;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+
+#[Route('/decision', name: 'decision_')]
 
 class DecisionController extends AbstractController
 {
@@ -23,56 +26,7 @@ class DecisionController extends AbstractController
     {
         $this->workflow = $workflow;
     }
-    #[Route('/decision/new', name: 'decision_new', methods: ['GET', 'POST'])]
-    public function new (
-        Request $request,
-        DecisionRepository $decisionRepository,
-        UserRepository $userRepository
-    ): Response
-    {
-        $decision = new Decision();
 
-        $user = $userRepository->findOneById([HomeController::USERID]);
-
-        $decision->setOwner($user);
-
-        $form = $this->createForm(DecisionType::class, $decision);
-        $form->handleRequest($request);
-
-        $errors = [];
-        if ($form->isSubmitted() && $form->isValid()) {
-            /** @var ClickableInterface $saveAsDraft  */
-            $saveAsDraft = $form->get('saveAsDraft');
-
-            if ($saveAsDraft->isClicked()) {
-                $decision->setStatus(Decision::STATUS_DRAFT);
-            }
-
-            /** @var ClickableInterface $save  */
-            $save = $form->get('save');
-
-            if ($save->isClicked()) {
-                $decision->setStatus(Decision::STATUS_CURRENT);
-            }
-
-            $this->workflow->addHistory($decision);
-
-            $decisionRepository->save($decision, true);
-
-            $this->addFlash('success', 'Decision sucessfully created !');
-
-            return $this->redirectToRoute('index_show');
-        } else {
-            foreach ($form->getErrors(true) as $error) {
-                $errors[] = $error->getMessage();
-            }
-        }
-
-        return $this->renderForm('decision/new.html.twig', [
-            'form' => $form,
-            'errors' => $errors,
-        ]);
-    }
     #[Route('/decision/{decisionId}/firstdecision', name: 'app_conflict')]
     #[Entity('decision', options: ['mapping' => ['decisionId' => 'id']])]
     public function firtDecision(
@@ -115,5 +69,43 @@ class DecisionController extends AbstractController
                 'user' => $userRepository->findOneBy(['id' => $decision->getOwner()])
             ]
         );
+    }
+
+    #[Route('/new', name: 'decision_new', methods: ['GET', 'POST'])]
+    public function new(
+        Request $request,
+        DecisionRepository $decisionRepository,
+        UserRepository $userRepository
+    ): Response {
+        $decision = new Decision();
+        $user = $userRepository->findOneById([HomeController::USERID]);
+        $decision->setOwner($user);
+        $form = $this->createForm(DecisionType::class, $decision);
+        $form->handleRequest($request);
+        $errors = [];
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var ClickableInterface $saveAsDraft  */
+            $saveAsDraft = $form->get('saveAsDraft');
+            if ($saveAsDraft->isClicked()) {
+                $decision->setStatus(Decision::STATUS_DRAFT);
+            }
+            /** @var ClickableInterface $save  */
+            $save = $form->get('save');
+            if ($save->isClicked()) {
+                $decision->setStatus(Decision::STATUS_CURRENT);
+            }
+            $this->workflow->addHistory($decision);
+            $decisionRepository->save($decision, true);
+            $this->addFlash('success', 'Decision sucessfully created !');
+            return $this->redirectToRoute('index_show');
+        } else {
+            foreach ($form->getErrors(true) as $error) {
+                $errors[] = $error->getMessage();
+            }
+        }
+        return $this->renderForm('decision/new.html.twig', [
+            'form' => $form,
+            'errors' => $errors,
+        ]);
     }
 }
