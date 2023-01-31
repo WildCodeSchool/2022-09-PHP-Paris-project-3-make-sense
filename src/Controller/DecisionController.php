@@ -83,22 +83,21 @@ class DecisionController extends AbstractController
         $form = $this->createForm(DecisionType::class, $decision);
         $form->handleRequest($request);
         $errors = [];
-if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
     /** @var ClickableInterface $saveAsDraft  */
-    $saveAsDraft = $form->get('saveAsDraft');
-    if ($saveAsDraft->isClicked()) {
-        $decision->setStatus(Decision::STATUS_DRAFT);
-    }
+            $saveAsDraft = $form->get('saveAsDraft');
+            if ($saveAsDraft->isClicked()) {
+                $decision->setStatus(Decision::STATUS_DRAFT);
+            }
     /** @var ClickableInterface $save  */
-    $save = $form->get('save');
-    if ($save->isClicked()) {
-        $decision->setStatus(Decision::STATUS_CURRENT);
-    }
-    $this->workflow->addHistory($decision);
-    $decisionRepository->save($decision, true);
-    $this->addFlash('success', 'Decision sucessfully created !');
-    return $this->redirectToRoute('index_show');
-
+            $save = $form->get('save');
+            if ($save->isClicked()) {
+                $decision->setStatus(Decision::STATUS_CURRENT);
+                }
+            $this->workflow->addHistory($decision);
+            $decisionRepository->save($decision, true);
+            $this->addFlash('success', 'Decision sucessfully created !');
+            return $this->redirectToRoute('index_show');
         } else {
             foreach ($form->getErrors(true) as $error) {
                 $errors[] = $error->getMessage();
