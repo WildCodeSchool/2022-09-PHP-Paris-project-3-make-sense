@@ -81,7 +81,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $plainPassword = null;
 
     #[ORM\Column]
-    // #[Assert\NotNull]
     private ?DateTimeImmutable $updatedAt = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Expertise::class)]
@@ -198,8 +197,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function eraseCredentials(): void
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
     }
 
     public function getFirstname(): ?string
@@ -300,7 +297,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeExpertise(Expertise $expertise): self
     {
         if ($this->expertises->removeElement($expertise)) {
-            // set the owning side to null (unless already changed)
             if ($expertise->getUser() === $this) {
                 $expertise->setUser(null);
             }
@@ -335,7 +331,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeDecision(Decision $decision): self
     {
         if ($this->decisions->removeElement($decision)) {
-            // set the owning side to null (unless already changed)
             if ($decision->getOwner() === $this) {
                 $decision->setOwner(null);
             }
@@ -365,7 +360,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeOpinion(Opinion $opinion): self
     {
         if ($this->opinions->removeElement($opinion)) {
-            // set the owning side to null (unless already changed)
             if ($opinion->getUser() === $this) {
                 $opinion->setUser(null);
             }
@@ -391,7 +385,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeValidation(Validation $validation): self
     {
         if ($this->validations->removeElement($validation)) {
-            // set the owning side to null (unless already changed)
             if ($validation->getUser() === $this) {
                 $validation->setUser(null);
             }
@@ -399,7 +392,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-    public function getNotification(): Collection
+    public function getNotifications(): Collection
     {
         return $this->notifications;
     }
@@ -424,10 +417,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
-    }
-
-    public function getNotifications(): Collection
-    {
-        return $this->notifications;
     }
 }

@@ -15,16 +15,59 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
-        for ($decisionId = 0; $decisionId < 5; $decisionId++) {
-            $history = new History();
-            $history->setStartedAt((new DateTimeImmutable('now')));
-            $history->setEndedAt((new DateTimeImmutable('now')));
-            $history->setcreatedAt((new DateTimeImmutable('now')));
-            $history->setDecision($this->getReference('decision_' . $decisionId));
-            $history->setStatus(Decision::STATUS_DRAFT);
-            $manager->persist($history);
-            $manager->flush();
-        }
+        $history = new History();
+        $history->setStartedAt((new DateTimeImmutable('now')));
+        $history->setEndedAt((new DateTimeImmutable('now')));
+        $history->setcreatedAt((new DateTimeImmutable('now')));
+        $history->setDecision($this->getReference('decision_0'));
+        $history->setStatus(Decision::STATUS_DRAFT);
+        $manager->persist($history);
+        $manager->flush();
+
+        $history = new History();
+        $history->setStartedAt((new DateTimeImmutable('now')));
+        $history->setEndedAt((new DateTimeImmutable('now')));
+        $history->setcreatedAt((new DateTimeImmutable('now')));
+        $history->setDecision($this->getReference('decision_1'));
+        $history->setStatus(Decision::STATUS_DRAFT);
+        $manager->persist($history);
+        $manager->flush();
+
+        $history = new History();
+        $history->setStartedAt((new DateTimeImmutable('now')));
+        $history->setEndedAt((new DateTimeImmutable('now')));
+        $history->setcreatedAt((new DateTimeImmutable('now')));
+        $history->setDecision($this->getReference('decision_1'));
+        $history->setStatus(Decision::STATUS_CURRENT);
+        $manager->persist($history);
+        $manager->flush();
+
+        $history = new History();
+        $history->setStartedAt((new DateTimeImmutable('now')));
+        $history->setEndedAt((new DateTimeImmutable('now')));
+        $history->setcreatedAt((new DateTimeImmutable('now')));
+        $history->setDecision($this->getReference('decision_2'));
+        $history->setStatus(Decision::STATUS_DRAFT);
+        $manager->persist($history);
+        $manager->flush();
+
+        $history = new History();
+        $history->setStartedAt((new DateTimeImmutable('now')));
+        $history->setEndedAt((new DateTimeImmutable('now')));
+        $history->setcreatedAt((new DateTimeImmutable('now')));
+        $history->setDecision($this->getReference('decision_2'));
+        $history->setStatus(Decision::STATUS_CURRENT);
+        $manager->persist($history);
+        $manager->flush();
+
+        $history = new History();
+        $history->setStartedAt((new DateTimeImmutable('now')));
+        $history->setEndedAt((new DateTimeImmutable('now')));
+        $history->setcreatedAt((new DateTimeImmutable('now')));
+        $history->setDecision($this->getReference('decision_2'));
+        $history->setStatus(Decision::STATUS_FIRST_DECISION);
+        $manager->persist($history);
+        $manager->flush();
     }
 
     public function getDependencies()

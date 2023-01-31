@@ -5,7 +5,6 @@ namespace App\DataFixtures;
 use App\Entity\Department as Department;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class DepartmentFixtures extends Fixture
 {

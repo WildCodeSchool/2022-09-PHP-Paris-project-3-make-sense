@@ -18,16 +18,16 @@ class OpinionFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Factory::create();
 
-        for ($userId = 0; $userId < self::NB_USER; $userId++) {
-            for ($decisionId = 0; $decisionId < self::NB_DECISION; $decisionId++) {
-                for ($opinionId = 0; $opinionId < self::NB_OPINION; $opinionId++) {
+        for ($userId = 0; $userId < UserFixtures::NB_USER; $userId++) {
+            for ($decisionId = 0; $decisionId < DecisionFixtures::NB_DECISION; $decisionId++) {
+                // for ($opinionId = 0; $opinionId < self::NB_OPINION; $opinionId++) {
                     $opinion = new Opinion();
                     $opinion->setIsLike($faker->boolean());
-                    $opinion->setUser($this->getReference('user_' . $faker->numberBetween(0, 4)));
-                    $opinion->setDecision($this->getReference('decision_' . $faker->numberBetween(0, 24)));
+                    $opinion->setUser($this->getReference('user_' . $userId));
+                    $opinion->setDecision($this->getReference('decision_' . $decisionId));
 
                      $manager->persist($opinion);
-                }
+                // }
 
                 $manager->flush();
             }
