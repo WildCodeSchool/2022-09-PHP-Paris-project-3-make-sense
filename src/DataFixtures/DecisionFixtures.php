@@ -2,13 +2,14 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Persistence\ObjectManager;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Faker;
+use DateTime;
+use DateTimeImmutable;
 use App\Entity\Decision;
 use App\Entity\Department;
-use Faker;
-use DateTimeImmutable;
+use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class DecisionFixtures extends Fixture implements DependentFixtureInterface
 {
