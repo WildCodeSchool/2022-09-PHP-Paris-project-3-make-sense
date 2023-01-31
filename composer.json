@@ -10,6 +10,8 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "components/font-awesome": "^6.2",
+        "ext-zip": "*",
+        "ckeditor/ckeditor": "^4.20",
         "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^2.7",
         "doctrine/doctrine-migrations-bundle": "^3.2",

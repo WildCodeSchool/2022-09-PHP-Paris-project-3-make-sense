@@ -30,11 +30,12 @@
     },
     "dependencies": {
         "@fontsource/raleway": "^4.5.11",
+        "@fortawesome/fontawesome-free": "^6.2.1",
         "@makesenseorg/design-system": "^1.8.0",
-        "bootstrap-datepicker": "^1.9.0",
-        "ckeditor4-plugin-exportpdf": "^1.0.6",
+        "ckeditor4": "^4.20.1",
         "h-include": "^4.4.0",
         "Hinclude": "^1.2.0",
-        "import": "^0.0.6"
+        "import": "^0.0.6",
+        "install": "^0.13.0"
     }
 }

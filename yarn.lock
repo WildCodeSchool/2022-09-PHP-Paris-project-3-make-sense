@@ -921,9 +921,9 @@
     "strip-json-comments" "^3.1.1"
 
 "@fontsource/raleway@^4.5.11":
-  "integrity" "sha512-WrFuS5q3tPqNci4iDwIf7lnkHY5jrkWswy6B007W//cAB7Iiw2NuxBNxrCetYpe3efPbEoFPcoKeTPqDzoWQ3A=="
-  "resolved" "https://registry.npmjs.org/@fontsource/raleway/-/raleway-4.5.11.tgz"
-  "version" "4.5.11"
+  version "4.5.11"
+  resolved "https://registry.yarnpkg.com/@fontsource/raleway/-/raleway-4.5.11.tgz#6da0bad1f44e0360fe465663ac0683601d29bda7"
+  integrity sha512-WrFuS5q3tPqNci4iDwIf7lnkHY5jrkWswy6B007W//cAB7Iiw2NuxBNxrCetYpe3efPbEoFPcoKeTPqDzoWQ3A==
 
 "@fortawesome/fontawesome-free@^6.2.1":
   "integrity" "sha512-viouXhegu/TjkvYQoiRZK3aax69dGXxgEjpvZW81wIJdxm5Fnvp3VVIP4VHKqX4SvFw6qpmkILkD4RJWAdrt7A=="
@@ -1778,22 +1778,15 @@
   "resolved" "https://registry.npmjs.org/boolbase/-/boolbase-1.0.0.tgz"
   "version" "1.0.0"
 
-"bootstrap-datepicker@^1.9.0":
-  "integrity" "sha512-9rYYbaVOheGYxjOr/+bJCmRPihfy+LkLSg4fIFMT9Od8WwWB/MB50w0JO1eBgKUMbb7PFHQD5uAfI3ArAxZRXA=="
-  "resolved" "https://registry.npmjs.org/bootstrap-datepicker/-/bootstrap-datepicker-1.9.0.tgz"
-  "version" "1.9.0"
-  dependencies:
-    "jquery" ">=1.7.1 <4.0.0"
+bootstrap@^5.2.3:
+  version "5.2.3"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-5.2.3.tgz#54739f4414de121b9785c5da3c87b37ff008322b"
+  integrity sha512-cEKPM+fwb3cT8NzQZYEu4HilJ3anCrWqh3CHAok1p9jXqMPsPTBhU25fBckEJHJ/p+tTxTFTsFQGM+gaHpi3QQ==
 
-"bootstrap@^5.2.3":
-  "integrity" "sha512-cEKPM+fwb3cT8NzQZYEu4HilJ3anCrWqh3CHAok1p9jXqMPsPTBhU25fBckEJHJ/p+tTxTFTsFQGM+gaHpi3QQ=="
-  "resolved" "https://registry.npmjs.org/bootstrap/-/bootstrap-5.2.3.tgz"
-  "version" "5.2.3"
-
-"brace-expansion@^1.1.7":
-  "integrity" "sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA=="
-  "resolved" "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz"
-  "version" "1.1.11"
+brace-expansion@^1.1.7:
+  version "1.1.11"
+  resolved "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz"
+  integrity sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==
   dependencies:
     "balanced-match" "^1.0.0"
     "concat-map" "0.0.1"
@@ -1924,25 +1917,15 @@
   "resolved" "https://registry.npmjs.org/ci-info/-/ci-info-3.6.1.tgz"
   "version" "3.6.1"
 
-"ckeditor4-plugin-exportpdf@^1.0.6":
-  "integrity" "sha512-gw1n23Ltlq2URoF+0lRiGq2+WV1HlmQcqH1m49GCkDK9ReCXd0TtEwcR2hwmxHDFHys44J8YpFizT3aCTjQFsw=="
-  "resolved" "https://registry.npmjs.org/ckeditor4-plugin-exportpdf/-/ckeditor4-plugin-exportpdf-1.0.6.tgz"
-  "version" "1.0.6"
+classnames@^2.2.5:
+  version "2.3.2"
+  resolved "https://registry.npmjs.org/classnames/-/classnames-2.3.2.tgz"
+  integrity sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==
 
-"ckeditor4@>=4.6.1":
-  "integrity" "sha512-OywaO5CC6n5NcY98Fi4Llc/h9rgmn8uHwEIfWxulVKpu0UCdL8x9p6xCfo/ZfgQN6FTS/eZcP7XzKMuokRN+mQ=="
-  "resolved" "https://registry.npmjs.org/ckeditor4/-/ckeditor4-4.20.1.tgz"
-  "version" "4.20.1"
-
-"classnames@^2.2.5":
-  "integrity" "sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw=="
-  "resolved" "https://registry.npmjs.org/classnames/-/classnames-2.3.2.tgz"
-  "version" "2.3.2"
-
-"clean-webpack-plugin@^4.0.0":
-  "integrity" "sha512-WuWE1nyTNAyW5T7oNyys2EN0cfP2fdRxhxnIQWiAp0bMabPdHhoGxM8A6YL2GhqwgrPnnaemVE7nv5XJ2Fhh2w=="
-  "resolved" "https://registry.npmjs.org/clean-webpack-plugin/-/clean-webpack-plugin-4.0.0.tgz"
-  "version" "4.0.0"
+clean-webpack-plugin@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.npmjs.org/clean-webpack-plugin/-/clean-webpack-plugin-4.0.0.tgz"
+  integrity sha512-WuWE1nyTNAyW5T7oNyys2EN0cfP2fdRxhxnIQWiAp0bMabPdHhoGxM8A6YL2GhqwgrPnnaemVE7nv5XJ2Fhh2w==
   dependencies:
     "del" "^4.1.1"
 
@@ -3135,25 +3118,25 @@
   "resolved" "https://registry.npmjs.org/inherits/-/inherits-2.0.3.tgz"
   "version" "2.0.3"
 
-"interpret@^2.2.0":
-  "integrity" "sha512-Ju0Bz/cEia55xDwUWEa8+olFpCiQoypjnQySseKtmjNrnps3P+xfpUmGr90T7yjlVJmOtybRvPXhKMbHr+fWnw=="
-  "resolved" "https://registry.npmjs.org/interpret/-/interpret-2.2.0.tgz"
-  "version" "2.2.0"
+interpret@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.npmjs.org/interpret/-/interpret-2.2.0.tgz"
+  integrity sha512-Ju0Bz/cEia55xDwUWEa8+olFpCiQoypjnQySseKtmjNrnps3P+xfpUmGr90T7yjlVJmOtybRvPXhKMbHr+fWnw==
 
-"ipaddr.js@^2.0.1":
-  "integrity" "sha512-1qTgH9NG+IIJ4yfKs2e6Pp1bZg8wbDbKHT21HrLIeYBTRLgMYKnMTPAuI3Lcs61nfx5h1xlXnbJtH1kX5/d/ng=="
-  "resolved" "https://registry.npmjs.org/ipaddr.js/-/ipaddr.js-2.0.1.tgz"
-  "version" "2.0.1"
+ipaddr.js@1.9.1:
+  version "1.9.1"
+  resolved "https://registry.npmjs.org/ipaddr.js/-/ipaddr.js-1.9.1.tgz"
+  integrity sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==
 
-"ipaddr.js@1.9.1":
-  "integrity" "sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g=="
-  "resolved" "https://registry.npmjs.org/ipaddr.js/-/ipaddr.js-1.9.1.tgz"
-  "version" "1.9.1"
+ipaddr.js@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/ipaddr.js/-/ipaddr.js-2.0.1.tgz"
+  integrity sha512-1qTgH9NG+IIJ4yfKs2e6Pp1bZg8wbDbKHT21HrLIeYBTRLgMYKnMTPAuI3Lcs61nfx5h1xlXnbJtH1kX5/d/ng==
 
-"is-arguments@^1.0.4":
-  "integrity" "sha512-8Q7EARjzEnKpt/PCD7e1cgUS0a6X8u5tdSiMqXhojOdoV9TsMsiO+9VLC5vAmO8N7/GmXn7yjR8qnA6bVAEzfA=="
-  "resolved" "https://registry.npmjs.org/is-arguments/-/is-arguments-1.1.1.tgz"
-  "version" "1.1.1"
+is-arguments@^1.0.4:
+  version "1.1.1"
+  resolved "https://registry.npmjs.org/is-arguments/-/is-arguments-1.1.1.tgz"
+  integrity sha512-8Q7EARjzEnKpt/PCD7e1cgUS0a6X8u5tdSiMqXhojOdoV9TsMsiO+9VLC5vAmO8N7/GmXn7yjR8qnA6bVAEzfA==
   dependencies:
     "call-bind" "^1.0.2"
     "has-tostringtag" "^1.0.0"
@@ -3308,10 +3291,10 @@
     "merge-stream" "^2.0.0"
     "supports-color" "^8.0.0"
 
-"jquery@^3.6.3", "jquery@>=1.7.1 <4.0.0":
-  "integrity" "sha512-bZ5Sy3YzKo9Fyc8wH2iIQK4JImJ6R0GWI9kL1/k7Z91ZBNgkRXE6U0JfHIizZbort8ZunhSI3jw9I6253ahKfg=="
-  "resolved" "https://registry.npmjs.org/jquery/-/jquery-3.6.3.tgz"
-  "version" "3.6.3"
+jquery@^3.6.3:
+  version "3.6.3"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.3.tgz#23ed2ffed8a19e048814f13391a19afcdba160e6"
+  integrity sha512-bZ5Sy3YzKo9Fyc8wH2iIQK4JImJ6R0GWI9kL1/k7Z91ZBNgkRXE6U0JfHIizZbort8ZunhSI3jw9I6253ahKfg==
 
 "js-tokens@^4.0.0":
   "integrity" "sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ=="
