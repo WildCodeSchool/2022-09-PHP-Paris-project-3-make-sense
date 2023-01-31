@@ -1,7 +1,8 @@
-$fa-font-path: '~@fortawesome/fontawesome-free/webfonts'; 
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 @import '~@fortawesome/fontawesome-free/scss/solid';
 @import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/brands';
 
 * {
     box-sizing: border-box;
@@ -21,7 +22,7 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
     border-radius: 50%;
 }
 
-.like {
+.like, .dislike {
     width: 20px;
     height: 20px;
 }
@@ -51,4 +52,58 @@ body #home-login {
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
+}
+
+.style-shadow{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 2em;
+}
+
+.card:hover{
+    box-shadow: 0px 10px 20px #ccc;
+    transform: scale(1.1);
+    transition-duration: 0.5s;
+}
+
+.thumb-position{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.thumb{
+    display: flex;
+    flex-direction: column;
+    padding-right: 10px;
+    justify-content: space-between;
+}
+
+.date-decision{
+    color:rgb(155, 8, 79);
+}
+
+.position-user-decision{
+    align-items: center;
+    display: flex;
+}
+
+.title-decision{
+    color:rgb(12, 57, 68);
+}
+
+.corner-decision  {
+    border-top-left-radius: 2rem !important ;
+    border-top-right-radius: 2rem !important;
+}
+
+.link-card{
+    text-decoration: none;
+}
+.status {
+    border: solid 2px rgb(155, 8, 79);
+    color:rgb(155, 8, 79);
+    background-color:rgb(155, 8, 79, 0.1);
+}
+.position-status{
+    margin-top: 15px;
 }
