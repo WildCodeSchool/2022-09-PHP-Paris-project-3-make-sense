@@ -30,7 +30,7 @@ class History
     #[Assert\Length(min: 1, max: 50)]
     private ?string $status = null;
 
-    #[ORM\ManyToOne(inversedBy: 'histories')]
+    #[ORM\ManyToOne(targetEntity:Decision::class, inversedBy: 'histories', cascade: ["persist"])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Decision $decision = null;
 
