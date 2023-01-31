@@ -72,10 +72,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Length(min: 1, max: 80)]
     private ?string $lastname = null;
 
-    #[ORM\Column(length: 255)]
-    #[Assert\Length(min: 1, max: 255)]
-    private ?string $imagename = null;
-
     #[ORM\Column]
     #[Assert\Positive]
     private ?int $phone = null;
@@ -224,18 +220,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastname(string $lastname): self
     {
         $this->lastname = $lastname;
-
-        return $this;
-    }
-
-    public function getImagename(): ?string
-    {
-        return $this->imagename;
-    }
-
-    public function setImagename(string $imagename): self
-    {
-        $this->imagename = $imagename;
 
         return $this;
     }

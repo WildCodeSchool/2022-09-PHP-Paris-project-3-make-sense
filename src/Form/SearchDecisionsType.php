@@ -33,27 +33,28 @@ class SearchDecisionsType extends AbstractType
                 ],
                 'label' => 'Chercher une décision',
                 'label_attr' => [
-                    'class' => 'form-label mt-5'
+                    'class' => 'form-label mt-5 text-white'
                 ],
                 'required' => false,
             ])
             ->add('departements', ChoiceType::class, [
                 'attr' => [
-                    'class' => 'form-check mt-3 mb-3 d-flex justify-content-around '
+                    'class' => 'form-check mt-3 mb-3 d-flex justify-content-around text-white'
                 ],
                 'choices' =>  $choicesDepartment,
                 'expanded' => 'checked',
                 'multiple' => 'checked',
                 'data' => [true],
                 'label' => 'departements',
-                'label_attr' => ['switch_custom'],
+                'label_attr' => ['switch_custom', 'class' => 'text-white'],
                 ])
             ->add('status', ChoiceType::class, [
                 'attr' => [
-                    'class' => 'form-check mt-3 '
+                    'class' => 'form-check mt-3'
                 ],
                 'required' => 'checked',
-                'choices' => $choicesStatus
+                'choices' => $choicesStatus,
+                'label_attr' => ['class' => 'text-white'],
             ]);
     }
     public function configureOptions(OptionsResolver $resolver): void
