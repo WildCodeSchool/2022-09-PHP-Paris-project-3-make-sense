@@ -29,7 +29,7 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
                 $history->setcreatedAt((new DateTimeImmutable('now')));
                 $history->setDecision($this->getReference('decision_' . $faker->numberBetween(0, 24)));
                 $key = array_rand(Decision::STATUSES);
-                $history->setStatus(Decision::STATUSES[$key]);
+                $history->setStatus($key);
                 $this->addReference('history_' . $historyRef, $history);
                 $manager->persist($history);
             }
