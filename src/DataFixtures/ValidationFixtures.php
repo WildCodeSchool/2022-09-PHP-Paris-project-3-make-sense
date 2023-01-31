@@ -11,31 +11,27 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class ValidationFixtures extends Fixture implements DependentFixtureInterface
 {
-    public const NB_USER = 5;
-    public const NB_DECISION = 5;
-    public const NB_VALIDATION = 5;
-
     public function load(ObjectManager $manager): void
     {
-        $faker = Factory::create();
+        // $faker = Factory::create();
 
-        for ($userId = 0; $userId < self::NB_USER; $userId++) {
-            for ($decisionId = 0; $decisionId < self::NB_DECISION; $decisionId++) {
-                for ($validationId = 0; $validationId < self::NB_VALIDATION; $validationId++) {
-                    $validation = new Validation();
-                    $validation->setComment($faker->text(55));
-                    $validation->setIsApproved(false);
-                    $validation->setUser($this->getReference('user_' . $userId));
-                    $validation->setDecision($this->getReference('decision_' .
-                        (string)(($userId * self::NB_DECISION) + $decisionId)));
-                    $validation->setCreatedAt(new DateTime('now'));
-                    $this->addReference('validation_' . (string)(((($userId * self::NB_DECISION) +
-                        $decisionId) * self::NB_VALIDATION) + $validationId), $validation);
-                    $manager->persist($validation);
-                }
-            }
-        }
-        $manager->flush();
+        // for ($userId = 0; $userId < self::NB_USER; $userId++) {
+        //     for ($decisionId = 0; $decisionId < self::NB_DECISION; $decisionId++) {
+        //         for ($validationId = 0; $validationId < self::NB_VALIDATION; $validationId++) {
+        //             $validation = new Validation();
+        //             $validation->setComment($faker->text(55));
+        //             $validation->setIsApproved(false);
+        //             $validation->setUser($this->getReference('user_' . $userId));
+        //             $validation->setDecision($this->getReference('decision_' .
+        //                 (string)(($userId * self::NB_DECISION) + $decisionId)));
+        //             $validation->setCreatedAt(new DateTime('now'));
+        //             $this->addReference('validation_' . (string)(((($userId * self::NB_DECISION) +
+        //                 $decisionId) * self::NB_VALIDATION) + $validationId), $validation);
+        //             $manager->persist($validation);
+        //         }
+        //     }
+        // }
+        // $manager->flush();
     }
 
     public function getDependencies(): array

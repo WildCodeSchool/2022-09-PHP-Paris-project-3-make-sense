@@ -89,7 +89,6 @@ class Department
     public function removeExpertise(Expertise $expertise): self
     {
         if ($this->expertises->removeElement($expertise)) {
-            // set the owning side to null (unless already changed)
             if ($expertise->getDepartment() === $this) {
                 $expertise->setDepartment(null);
             }
