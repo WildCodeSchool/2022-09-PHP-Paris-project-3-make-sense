@@ -2,6 +2,10 @@
 {% block title %}Création d'une décision
 {% endblock %}
 
+{% block stylesheet %}
+	{{ encore_entry_link_tags('datepicker') }}
+{% endblock %}
+
 {% block javascripts %}
 	{{ encore_entry_script_tags('range') }}
 {% endblock %}
@@ -9,7 +13,6 @@
 {% block body %}
 
 	{{ form_start(form) }}
-
 
 	<div class="container-fluid d-flex justify-content-center">
 		<div class="card mt-5">
@@ -21,9 +24,17 @@
 				<div class="card-body">
 					<div class="mb-5 d-flex justify-content-center">
 						<div class="col-10">
-							{{ form_row(form.title) }}
+							{{ form_label(form.title) }}
+							{{ form_widget(form.title) }}
+
+							{% if errors|length > 0 %}
+								<div class="alert alert-warning">
+									{{ form_errors(form.title) }}
+								</div>
+							{% endif %}
 						</div>
 					</div>
+
 
 					<div class="mb-3 d-flex justify-content-center">
 						<div class="col-10">
@@ -41,54 +52,91 @@
 
 					<div class="mb-5 d-flex justify-content-center">
 						<div class="col-10">
-							{{ form_row(form.like_threshold) }}
+							{{ form_label(form.like_threshold) }}
+							{{ form_widget(form.like_threshold) }}
 							<p>Value:
 								<span id="demo"></span>
 							</p>
 						</div>
 					</div>
 
+
 					<div id="datepicker" class="mb-5 d-flex justify-content-center">
 						<div class="col-10">
-							{{ form_row(form.end_at) }}
-						</div>
-					</div>
+							{{ form_label(form.end_at) }}
+							{{ form_widget(form.end_at) }}
 
-					<div class="mb-5 d-flex justify-content-center">
-						<div class="col-10">
-							{{ form_row(form.description) }}
-						</div>
-					</div>
-
-
-					<div class="mb-5 d-flex justify-content-center">
-						<div class="col-10">
-							{{ form_row(form.impacts) }}
+							{% if errors|length > 0 %}
+								<div class="alert alert-warning">
+									{{ form_errors(form.end_at) }}
+								</div>
+							{% endif %}
 						</div>
 					</div>
 
 
 					<div class="mb-5 d-flex justify-content-center">
 						<div class="col-10">
-							{{ form_row(form.benefits) }}
+							{{ form_label(form.description) }}
+							{{ form_widget(form.description) }}
+
+							{% if errors|length > 0 %}
+								<div class="alert alert-warning">
+									{{ form_errors(form.description) }}
+								</div>
+							{% endif %}
 						</div>
 					</div>
 
 
 					<div class="mb-5 d-flex justify-content-center">
 						<div class="col-10">
-							{{ form_row(form.risks) }}
+							{{ form_label(form.impacts) }}
+							{{ form_widget(form.impacts) }}
+
+							{% if errors|length > 0 %}
+								<div class="alert alert-warning">
+									{{ form_errors(form.impacts) }}
+								</div>
+							{% endif %}
 						</div>
 					</div>
 
-					<div class="d-flex justify-content-around">
-						{{ form_row(form.saveAsDraft) }}
-						{{ form_row(form.save) }}
+					<div class="mb-5 d-flex justify-content-center">
+						<div class="col-10">
+							{{ form_label(form.benefits) }}
+							{{ form_widget(form.benefits) }}
+
+							{% if errors|length > 0 %}
+								<div class="alert alert-warning">
+									{{ form_errors(form.benefits) }}
+								</div>
+							{% endif %}
+						</div>
 					</div>
+
+
+					<div class="mb-5 d-flex justify-content-center">
+						<div class="col-10">
+							{{ form_label(form.risks) }}
+							{{ form_widget(form.risks) }}
+
+							{% if errors|length > 0 %}
+								<div class="alert alert-warning">
+									{{ form_errors(form.risks) }}</li>
+							</div>
+						{% endif %}
+					</div>
+				</div>
+
+				<div class="d-flex justify-content-around">
+					{{ form_row(form.saveAsDraft) }}
+					{{ form_row(form.save) }}
 				</div>
 			</div>
 		</div>
 	</div>
+
 
 	{{form_end(form)}}
 {% endblock %}

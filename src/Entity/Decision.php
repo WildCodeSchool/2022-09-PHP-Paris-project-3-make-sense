@@ -43,30 +43,28 @@ class Decision
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    #[Assert\Length(min: 1, max: 255)]
-    #[Assert\NotBlank]
-    #[Assert\NotNull()]
+    #[ORM\Column()]
+    #[Assert\NotBlank(message: "Un titre est nécessaire")]
+    #[Assert\Length(min: 1, max: 80)]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(message: "Le champ ne peut être vide")]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(message: "Le champ ne peut être vide")]
     private ?string $impacts = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(message: "Le champ ne peut être vide")]
     private ?string $benefits = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(message: "Le champ ne peut être vide")]
     private ?string $risks = null;
 
     #[ORM\Column]
-    #[Assert\NotBlank()]
     #[Assert\PositiveOrZero()]
     #[Assert\LessThan(
         value: 100
@@ -87,21 +85,27 @@ class Decision
     #[Assert\Type("\DateTimeInterface")]
     private ?DateTimeInterface $createdAt = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Type("\DateTimeInterface")]
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\Type("\DateTimeInterface")]
-    private ?\DateTimeInterface $updatedAt = null;
+    private ?DateTimeInterface $updatedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'decisions')]
     private ?User $owner = null;
 
+    #[Assert\NotBlank]
     #[ORM\ManyToMany(targetEntity: Department::class, inversedBy: 'decisions')]
     private Collection $departments;
 
+    #[Assert\NotBlank]
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\Type("\DateTimeInterface")]
+    #[Assert\GreaterThanOrEqual('today')]
+    private ?DateTimeInterface $endAt = null;
+
     #[ORM\Column(length: 50)]
     private ?string $status = null;
-
-    #[ORM\Column]
-    private ?\DateTimeImmutable $endAt = null;
 
     #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Notification::class)]
     private Collection $notifications;
@@ -348,12 +352,12 @@ class Decision
         return $this;
     }
 
-    public function getEndAt(): ?\DateTimeImmutable
+    public function getEndAt(): ?DateTimeInterface
     {
         return $this->endAt;
     }
 
-    public function setEndAt(\DateTimeImmutable $endAt): self
+    public function setEndAt(DateTimeInterface $endAt): self
     {
         $this->endAt = $endAt;
 
