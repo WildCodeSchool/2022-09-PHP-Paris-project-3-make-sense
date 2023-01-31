@@ -53,8 +53,8 @@ class DecisionRepository extends ServiceEntityRepository
             ->setParameter('title', '%' . $title . '%');
         }
         if ($departements !== null) {
-            $querybuilder = $querybuilder->orWhere('dp.name IN (:name)')
-            ->setParameter('name', $departements);
+            $querybuilder = $querybuilder->orWhere('dp.name IN (:departements)')
+            ->setParameter('departements', $departements);
         }
         if ($status !== Decision::STATUS_ALL) {
             $querybuilder = $querybuilder->orWhere('d.status = :status')

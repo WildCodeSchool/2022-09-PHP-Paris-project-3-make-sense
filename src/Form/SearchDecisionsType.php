@@ -57,9 +57,4 @@ class SearchDecisionsType extends AbstractType
                 'label_attr' => ['class' => 'text-white'],
             ]);
     }
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-        ]);
-    }
 }
