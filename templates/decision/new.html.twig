@@ -27,7 +27,7 @@
 							{{ form_label(form.title) }}
 							{{ form_widget(form.title) }}
 
-							{% if errors|length > 0 %}
+							{% if form_errors(form.title) is not empty %}
 								<div class="alert alert-warning">
 									{{ form_errors(form.title) }}
 								</div>
@@ -66,7 +66,7 @@
 							{{ form_label(form.end_at) }}
 							{{ form_widget(form.end_at) }}
 
-							{% if errors|length > 0 %}
+							{% if form_errors(form.end_at) is not empty %}
 								<div class="alert alert-warning">
 									{{ form_errors(form.end_at) }}
 								</div>
@@ -80,7 +80,7 @@
 							{{ form_label(form.description) }}
 							{{ form_widget(form.description) }}
 
-							{% if errors|length > 0 %}
+							{% if form_errors(form.description) is not empty %}
 								<div class="alert alert-warning">
 									{{ form_errors(form.description) }}
 								</div>
@@ -94,7 +94,7 @@
 							{{ form_label(form.impacts) }}
 							{{ form_widget(form.impacts) }}
 
-							{% if errors|length > 0 %}
+							{% if form_errors(form.impacts) is not empty %}
 								<div class="alert alert-warning">
 									{{ form_errors(form.impacts) }}
 								</div>
@@ -107,7 +107,7 @@
 							{{ form_label(form.benefits) }}
 							{{ form_widget(form.benefits) }}
 
-							{% if errors|length > 0 %}
+							{% if form_errors(form.benefits) is not empty %}
 								<div class="alert alert-warning">
 									{{ form_errors(form.benefits) }}
 								</div>
@@ -121,7 +121,7 @@
 							{{ form_label(form.risks) }}
 							{{ form_widget(form.risks) }}
 
-							{% if errors|length > 0 %}
+							{% if form_errors(form.risks) is not empty %}
 								<div class="alert alert-warning">
 									{{ form_errors(form.risks) }}</li>
 							</div>
