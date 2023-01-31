@@ -13,7 +13,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use DateTimeImmutable;
-use App\Entity\Comment;
 
 /** @SuppressWarnings(PHPMD.TooManyPublicMethods)
  *   @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
