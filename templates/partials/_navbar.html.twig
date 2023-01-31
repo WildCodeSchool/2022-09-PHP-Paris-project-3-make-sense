@@ -6,7 +6,7 @@
 			</a>
 		</div>
 		<div class="col-8 nav justify-content-end align-items-center">
-		{% if app.request.attributes.get('_route') != 'decision_search' %}
+		{% if app.request.attributes.get('_route') == 'app_dashboard' %}
 			<li class="nav-item  col-3">
 				<div class="row offset-1 form ">
 					{{ form_start(form, {'attr': {'id': 'form_search'}}) }}

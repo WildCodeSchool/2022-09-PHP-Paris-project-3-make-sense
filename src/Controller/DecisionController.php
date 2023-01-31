@@ -14,6 +14,7 @@ use App\Form\SearchDecisionsType;
 use App\Controller\HomeController;
 use App\Repository\UserRepository;
 use Composer\XdebugHandler\Status;
+use App\Repository\OpinionRepository;
 use App\Repository\DecisionRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -69,13 +70,62 @@ class DecisionController extends AbstractController
         ]);
     }
 
-    #[Route('/decision/{decisionId}/firstdecision', name: 'app_conflict')]
-    #[Entity('decision', options: ['mapping' => ['decisionId' => 'id']])]
+    // #[Route('/decision/{decisionId}/firstdecision', name: 'app_conflict')]
+    // #[Entity('decision', options: ['mapping' => ['decisionId' => 'id']])]
+    #[Route('/decision/{decision_id}/opinions/{opinionState}', name: 'app_give_opinion')]
+    #[Entity('decision', options: ['mapping' => ['decision_id' => 'id']])]
+    public function giveOpinion(
+        Decision $decision,
+        string $opinionState,
+        DecisionRepository $decisionRepository,
+        OpinionLike $opinionLike,
+        OpinionRepository $opinionRepository,
+        Request $request
+    ): Response {
+
+        /** @var \App\Entity\User */
+        $user = $this->getUser();
+
+        $opinion = $opinionRepository->findOneBy(['user' => $user->getId(), 'decision' => $decision->getId()]);
+
+        if (!$opinion) {
+            $opinion = new Opinion();
+            $opinion->setDecision($decision);
+            $opinion->setUser($user);
+            if ($opinionState == "like") {
+                $opinion->setIsLike(true);
+            } else {
+                $opinion->setIsLike(false);
+            }
+        }
+
+        $form = $this->createForm(OpinionType::class, $opinion);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $opinionRepository->save($opinion, true);
+
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->renderForm(
+            'opinion/index.html.twig',
+            [
+                'form' => $form,
+                'decision' => $decisionRepository->findOneBy(['id' => $decision->getId()]),
+                'opinion' => $opinion,
+                'opinionLike' => $opinionLike->calculateOpinion($decision),
+            ]
+        );
+    }
+
+    #[Route('/decision/firstdecision/{decision_id}', name: 'app_first_decision')]
+    #[Entity('decision', options: ['mapping' => ['decision_id' => 'id']])]
     public function firtDecision(
         Decision $decision,
         DecisionRepository $decisionRepository,
         OpinionLike $opinionLike,
-        UserRepository $userRepository,
         Request $request
     ): Response {
 
@@ -103,12 +153,11 @@ class DecisionController extends AbstractController
         }
 
         return $this->renderForm(
-            'conflict/index.html.twig',
+            'firstdecision/index.html.twig',
             [
                 'form' => $form,
                 'decision' => $decision,
-                'opinionLike' => $opinionLike->calculateOpinion($decision),
-                'user' => $userRepository->findOneBy(['id' => $decision->getOwner()])
+                'opinionLike' => $opinionLike->calculateOpinion($decision)
             ]
         );
     }
@@ -117,10 +166,12 @@ class DecisionController extends AbstractController
     public function new(
         Request $request,
         DecisionRepository $decisionRepository,
-        UserRepository $userRepository
     ): Response {
         $decision = new Decision();
-        $user = $userRepository->findOneById([HomeController::USERID]);
+        /** @var \App\Entity\User */
+        $user = $this->getUser();
+
+        // $user = $userRepository->findOneById([HomeController::USERID]);
         $decision->setOwner($user);
         $form = $this->createForm(DecisionType::class, $decision);
         $form->handleRequest($request);

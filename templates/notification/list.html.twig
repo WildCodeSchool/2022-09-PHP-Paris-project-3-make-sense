@@ -22,8 +22,14 @@
 								<td class="col-4">
 									{{ constant('App\\Entity\\Notification::NOTIFICATIONS_MESSAGE')[notification[0].status]}}
 								</td>
-								<td class="col-1">
-									{{ constant('App\\Entity\\Decision::STATUSES')[notification[0].status] }}
+								<td
+									class="col-1">
+									{# {{ constant('App\\Entity\\Decision::STATUSES')[notification[0].status] }}  #}
+									{% include 'partials/_status-button.html.twig' with 
+										{
+											'status': notification[0].status
+										} 
+									%} 
 								</td>
 								{% include 'notification/button.html.twig' %}
 							</tr>

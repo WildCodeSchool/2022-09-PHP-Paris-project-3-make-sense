@@ -17,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ValidationController extends AbstractController
 {
-    #[Route('/validation/{decision_id}', name: 'app_opinion')]
+    #[Route('/validation/{decision_id}', name: 'app_validation')]
     #[Entity('decision', options: ['mapping' => ['decision_id' => 'id']])]
     public function index(
         Decision $decision,
@@ -40,7 +40,7 @@ class ValidationController extends AbstractController
         if (!$validation) {
             $validation = new Validation();
             $validation->setDecision($decision);
-            $validation->setUser($userRepository->findOneBy(['id' =>  HomeController::USERID]));
+            $validation->setUser($user);
         }
 
         $form = $this->createForm(ValidationType::class, $validation);
@@ -65,7 +65,7 @@ class ValidationController extends AbstractController
                 'decision' => $decision,
                 'validation' => $validation,
                 'opinionLike' => $opinionLike->calculateOpinion($decision),
-                'user' => $userRepository->findOneBy(['id' => $decision->getOwner()])
+                // 'owner' => $userRepository->findOneBy(['id' => $decision->getOwner()])
             ]
         );
     }
