@@ -93,7 +93,7 @@ class DecisionController extends AbstractController
             $save = $form->get('save');
             if ($save->isClicked()) {
                 $decision->setStatus(Decision::STATUS_CURRENT);
-                }
+            }
             $this->workflow->addHistory($decision);
             $decisionRepository->save($decision, true);
             $this->addFlash('success', 'Decision sucessfully created !');
