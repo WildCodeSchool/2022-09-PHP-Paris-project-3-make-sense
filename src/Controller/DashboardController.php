@@ -27,6 +27,7 @@ class DashboardController extends AbstractController
         $myLastDrafts = $decisionRepository->findByStatus(Decision::STATUS_DRAFT, 3, $user->getId());
         $allLastAccomplished = $decisionRepository->findByStatus(Decision::STATUS_DONE, 3);
 
+        // dd($opinionLike->calculateAllOpinion($myLastDecisions));
         return $this->render(
             'home/index.html.twig',
             [
@@ -39,8 +40,8 @@ class DashboardController extends AbstractController
                 'myLastDrafts' => $myLastDrafts,
                 'myLastDraftsOpinion' => $opinionLike->calculateAllOpinion($myLastDrafts),
 
-                'AllLastAccomplished' => $allLastAccomplished,
-                'AllLastAccomplishedOpinion' => $opinionLike->calculateAllOpinion($allLastAccomplished)
+                'allLastAccomplished' => $allLastAccomplished,
+                'allLastAccomplishedOpinion' => $opinionLike->calculateAllOpinion($allLastAccomplished)
             ]
         );
     }
