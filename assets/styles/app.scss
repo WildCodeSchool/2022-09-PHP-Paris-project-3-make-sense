@@ -31,10 +31,6 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
     height: 30px;
 }
 
-body {
-    font-family: 'Raleway', sans-serif;
-}
-
 .contener {
     display: flex;
     justify-content: space-around;
@@ -42,8 +38,8 @@ body {
 
  .bord {
     display: flex;
-    justify-content: flex-end;
-    margin-left: 20px;
+    justify-content: flex-start;
+    margin-left: 80px;
     padding-right: 2rem;
 
  }
@@ -82,16 +78,13 @@ body {
 .bord .test{
     display: flex;
     flex-direction: column;
-    margin-left: 8rem;
-    display: flex;
-    justify-content: center;
+    margin-left: 200px;
     max-height:37.775rem;
 }
 
-.historical {
-     display: flex;
-     justify-content: center;
-     margin-bottom: 20px;
+.history {
+    display: flex;
+    flex-direction: column;
 }
 
 .button {
@@ -103,6 +96,7 @@ body {
      display: flex;
      flex-direction: column;
      justify-content: space-between;
+     margin-right: 10px;
 }
 
 .avis {
@@ -123,24 +117,36 @@ body {
 
 .brouillon {
     background-color: #8a095d;
-
+    border:#8a095d 1px solid;
 }
 
-.status {
+.brouillon:hover {
+    background-color:rgb(112, 175, 144);
+    border:rgb(112, 175, 144) 1px solid;
+}
+
+.etat {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin-left: 10px;
 }
 
 .select {
     display: flex;
     flex-direction: column;
+    justify-items: center;
+    margin-left: 65px;
+    margin-top: 15px;
+    // max-width: 100px;
 }
 
 .title2 {
     display:flex;
     justify-content: center;
     padding-right: 1.5rem;
+    margin-left:78px;
+    // max-width: 100px;
 }
 
 .icon {
@@ -210,4 +216,45 @@ body #home-login {
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
+}
+
+.status {
+    border: solid 2px rgb(155, 8, 79);
+    color:rgb(155, 8, 79);
+    background-color:rgb(155, 8, 79, 0.1);
+}
+
+.like {
+    text-decoration: none;
+    color:#0d3944;
+}
+
+.like:hover {
+    color: rgb(155, 8, 79);
+}
+
+.align-tumb {
+    display: flex;
+    flex-direction: column;
+}
+.position-status-like{
+    display: flex;
+    justify-content: space-between;
+}
+
+.history_separator {
+    display: flex;
+    justify-content: center;
+}
+
+.history_decision{
+    display: flex;
+
+}
+
+.history_space_around {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-left: 10px;
 }

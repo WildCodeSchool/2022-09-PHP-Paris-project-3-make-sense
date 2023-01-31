@@ -12,7 +12,7 @@ use DateTimeImmutable;
 
 class DecisionFixtures extends Fixture implements DependentFixtureInterface
 {
-    public const NB_DECISION = 25;
+    public const NB_DECISION = 26;
 
     public function load(ObjectManager $manager): void
     {

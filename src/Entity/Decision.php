@@ -28,7 +28,7 @@ class Decision
     public const STATUS_UNDONE = 'undone';
 
     public const STATUSES = [
-        self::STATUS_DRAFT => 'Brouillon',
+        self::STATUS_DRAFT  => 'Brouillon',
         self::STATUS_CURRENT => 'En cours',
         self::STATUS_FIRST_DECISION => 'Première décision',
         self::STATUS_CONFLICT => 'Conflit',

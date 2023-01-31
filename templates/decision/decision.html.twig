@@ -5,10 +5,23 @@
 {% block body %}
 <div class="bord">
   <div class="row col-8 d-flex m-0 p-0" class="essaie">
-    <h1><section class="title"> {{ decision.title }} </section></h1>
+    <div class="position-status-like mt-4" >
+      <div class="status rounded-5 text-center mt-3" style="height: 30px; width:120px">{{ constant('App\\Entity\\Decision::STATUSES')[decision.status]}}</div>
+        {% if decision.status != 'draft' and decision.status != 'undone' and decision.status != 'done' %}
+          <div class="align-tumb">
+            <div class="p-1">
+              <a class="like" href=""><i class="fa-regular fa-thumbs-up fs-2"></i><small class="p-1">{{ opinionLikes[loop.index0].like }}</small></a>
+            </div>
+          <div class="p-1">
+            <a class="like" href=""><i class="fa-regular fa-thumbs-down fs-2"></i><small class="p-1">{{ opinionLikes[loop.index0].dislike }}</small></a>
+          </div>
+       </div>
+       {% endif %}
+  </div>
+    <h1><section class="title mt-3"> {{ decision.title }} </section></h1>
 			<div class="card-body m-0 p-0">
-        <img class="like ms-2" src="{{ asset('build/images/user.jpg') }}">
-        {{ decision.owner.poster ~ ' par ' }} <strong> {{ decision.owner.firstname ~ ' ' ~ decision.owner.lastname }} </strong> {{ 'status : ' }} <strong> {{ decision.status }} </strong>
+        <img class="like ms-2" src=" {{ decision.owner.poster }} ">
+        <strong> {{ decision.owner.firstname ~ ' ' ~ decision.owner.lastname }} </strong>
     <div class="accordion" id="accordionExample">
       <div class="accordion-item">
         <h2 class="accordion-header" id="headingOne">
@@ -25,7 +38,7 @@
     <div class="accordion-item">
       <h2 class="accordion-header" id="headingTwo">
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-        <section class="title">  Impact sur l'organisation </section> 
+        <section class="title">  Impact sur l'organisation </section>
         </button>
       </h2>
       <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
@@ -67,8 +80,8 @@
     <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample" style="">
       <div class="accordion-body">
       {% for opinion in decision.opinions %}
-      </br> 
-    {<img class="image" src="{{ asset('build/images/user.jpg') }}">}
+      </br>
+    <img class="image" src="{{ decision.owner.poster }}">
         {{ opinion.user.firstname }} {{" " ~ opinion.user.lastname }} </br>
        <section class="avis"> {{ opinion.message }} </section>
         {% endfor %}
@@ -89,7 +102,7 @@
       </div>
     </div>
     {% endif %}
-    {% if decision.status == 'conflit' or decision.status == 'non aboutie' or decision.status == 'aboutie' %}
+    {% if decision.status == 'conflict' or decision.status == 'undone' or decision.status == 'done' %}
         <div class="accordion-item">
       <h2 class="accordion-header" id="headingSix">
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
@@ -99,8 +112,8 @@
       <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample" style="">
         <div class="accordion-body">
             {% for validation in decision.validations %}
-            </br>    
-            <img class="image" src="{{ asset('build/images/user.jpg') }}">
+            </br>
+            <img class="image" src="{{ decision.owner.poster }}">
               {{ validation.user.firstname ~ " " ~ validation.user.lastname }} </br>
               <section class="expert">{{validation.comment}}</section>
             {% endfor %}
@@ -113,34 +126,34 @@
 </div>
 <div class="test">
 <p class="title2"><strong>Date à définir</strong></p>
-    <div class="historical">
-      <section class="date">
-        {% if decision.status != 'brouillon' %}
-          <p>{{ decision.createdAt | date("d-M-Y") }}</p>
-          <p>{{ decision.updatedAt | date("d-M-Y") }}</p>
-          <p>{{ decision.endAt | date("d-M-Y") }}</p>
-          <p>{{ decision.updatedAt | date("d-M-Y") }}</p>
-          <p>{{ decision.endAt | date("d-M-Y") }}</p>
-        {% endif %}
-      </section>
-      <img class="barre" src="{{ asset('build/images/trait.png') }}">
-      <div class="status">
-        {% if decision.status != 'brouillon' %}
-        <p>Prise de décision </br> commencée</p>
-        <p>Deadline pour </br> donner son avis</p>
-        <p>Première décision </br> prise</p>
-        <p>Deadline pour </br> rentrer en conflit</p>
-        <p>Décision définitive</p>
-        {% endif %}
-      </div>
+    <div class="history_decision">
+
+    <div class="history_space_around">
+      {% for history in decision.histories %}
+        <div class="history_date">
+          Du {{ history.startedAt | date("d-M-Y") }} </br> au {{ history.endedAt | date("d-M-Y") }} 
+        </div>
+      {% endfor %}
     </div>
-  <div class="select">
-    {% if decision.status != 'brouillon' and decision.status != 'non aboutie' and decision.status != 'aboutie' %}
-      <button type="submit" class="button-avis row col-19 btn btn-primary" href="#">Donner mon avis</button>
-    {% endif %}
-    {% if decision.status == 'brouillon' %}
-      <button type="submit" class="brouillon row col-19 btn btn-primary" href="#" >Enregistrer brouillon</button>
-    {% endif %}
+    
+        <div class="history_separator">
+          <img class="barre" src="{{ asset('build/images/trait.png') }}">
+        </div>
+
+    <div class="history_space_around">
+      {% for history in decision.histories %}
+        <div class="history_status">
+          {{ constant('App\\Entity\\Decision::STATUSES')[history.status] }}
+        </div>
+      {% endfor %}
+      </div>
+      </div>
+      <div class="select">
+        {% if decision.status == 'draft' %}
+          <button type="submit" class="brouillon row col-12 btn btn-primary" href="#" >Enregistrer</button>
+        {% endif %}
+    </div>
+
   </div>
 </div>
 </div>
