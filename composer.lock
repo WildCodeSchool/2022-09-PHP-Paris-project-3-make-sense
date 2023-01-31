@@ -4,13 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "content-hash": "282ddafd6568da878c4844e785780ffe",
-=======
-
-    "content-hash": "b0da4bcd8dbed7bfe024723752378608",
-
->>>>>>> f8f587e30e749f0ca2d80e9c77bf9aec72488ddb
+    "content-hash": "2bc8cbbbe1c579de8649936a3e8b0c9f",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1529,6 +1523,51 @@
                 "source": "https://github.com/FakerPHP/Faker/tree/v1.21.0"
             },
             "time": "2022-12-13T13:54:32+00:00"
+        },
+        {
+            "name": "fortawesome/font-awesome",
+            "version": "6.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FortAwesome/Font-Awesome.git",
+                "reference": "96cafbd73ec4339b8c73c36673ce1518db82cc5c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/96cafbd73ec4339b8c73c36673ce1518db82cc5c",
+                "reference": "96cafbd73ec4339b8c73c36673ce1518db82cc5c",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "CC-BY-4.0",
+                "OFL-1.1",
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "The Font Awesome Team",
+                    "homepage": "https://github.com/orgs/FortAwesome/people"
+                }
+            ],
+            "description": "The iconic font, CSS, and SVG framework",
+            "homepage": "https://fontawesome.com",
+            "keywords": [
+                "FontAwesome",
+                "awesome",
+                "bootstrap",
+                "font",
+                "icon",
+                "svg"
+            ],
+            "support": {
+                "docs": "http://fontawesome.com/docs",
+                "email": "hello@fontawesome.com",
+                "issues": "https://github.com/FortAwesome/Font-Awesome/issues",
+                "source": "https://github.com/FortAwesome/Font-Awesome"
+            },
+            "time": "2022-11-15T18:34:54+00:00"
         },
         {
             "name": "friendsofphp/proxy-manager-lts",
@@ -5979,7 +6018,6 @@
         },
         {
             "name": "symfony/runtime",
-<<<<<<< HEAD
             "version": "v6.2.5",
             "source": {
                 "type": "git",
@@ -5991,19 +6029,6 @@
                 "url": "https://api.github.com/repos/symfony/runtime/zipball/bf27ed7b4317982b06f8cc37255b8a315d5a9686",
                 "reference": "bf27ed7b4317982b06f8cc37255b8a315d5a9686",
                 "shasum": ""
-=======
-
-            "version": "v6.1.11",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/runtime.git",
-                "reference": "717cb91d66893a27a4607f227e28eb74ff007fde"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/runtime/zipball/717cb91d66893a27a4607f227e28eb74ff007fde",
-                "reference": "717cb91d66893a27a4607f227e28eb74ff007fde"  
->>>>>>> f8f587e30e749f0ca2d80e9c77bf9aec72488ddb
             },
             "require": {
                 "composer-plugin-api": "^1.0|^2.0",
@@ -6049,11 +6074,7 @@
             "description": "Enables decoupling PHP applications from global state",
             "homepage": "https://symfony.com",
             "support": {
-<<<<<<< HEAD
                 "source": "https://github.com/symfony/runtime/tree/v6.2.5"
-=======
-                "source": "https://github.com/symfony/runtime/tree/v6.2.0"
->>>>>>> f8f587e30e749f0ca2d80e9c77bf9aec72488ddb
             },
             "funding": [
                 {
@@ -6069,13 +6090,7 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
             "time": "2023-01-20T17:45:48+00:00"
-=======
-
-            "time": "2023-01-20T17:44:30+00:00"
-
->>>>>>> f8f587e30e749f0ca2d80e9c77bf9aec72488ddb
         },
         {
             "name": "symfony/security-bundle",
@@ -9745,10 +9760,6 @@
         },
         {
             "name": "phpstan/phpstan",
-<<<<<<< HEAD
-=======
-
->>>>>>> f8f587e30e749f0ca2d80e9c77bf9aec72488ddb
             "version": "1.9.14",
             "source": {
                 "type": "git",
@@ -9759,10 +9770,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/phpstan/phpstan/zipball/e5fcc96289cf737304286a9b505fbed091f02e58",
                 "reference": "e5fcc96289cf737304286a9b505fbed091f02e58",
-<<<<<<< HEAD
-=======
-
->>>>>>> f8f587e30e749f0ca2d80e9c77bf9aec72488ddb
                 "shasum": ""
             },
             "require": {
@@ -9792,13 +9799,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-<<<<<<< HEAD
                 "source": "https://github.com/phpstan/phpstan/tree/1.9.14"
-=======
-
-                "source": "https://github.com/phpstan/phpstan/tree/1.9.14"
-
->>>>>>> f8f587e30e749f0ca2d80e9c77bf9aec72488ddb
             },
             "funding": [
                 {
@@ -9814,13 +9815,7 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
             "time": "2023-01-19T10:47:09+00:00"
-=======
-
-            "time": "2023-01-19T10:47:09+00:00"
-
->>>>>>> f8f587e30e749f0ca2d80e9c77bf9aec72488ddb
         },
         {
             "name": "phpstan/phpstan-doctrine",
