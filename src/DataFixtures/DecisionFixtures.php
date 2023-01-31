@@ -3,10 +3,11 @@
 namespace App\DataFixtures;
 
 use Faker;
+use App\DataFixtures\UserFixtures;
+use DateTime;
 use DateTimeImmutable;
 use App\Entity\Decision;
 use App\Entity\Department;
-use App\DataFixtures\UserFixtures;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;

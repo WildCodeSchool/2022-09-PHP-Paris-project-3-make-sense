@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Department;
 use App\Entity\History;
 use PDO;
+use Doctrine\ORM\Mapping\Entity;
 
 /**
  * @extends ServiceEntityRepository<Decision>
