@@ -24,8 +24,6 @@ class DecisionController extends AbstractController
             'decision' => $decision, 'opinionLike' => $opinionLike->calculateOpinion($decision)
         ]);
     }
-
-    #[Route('/{decisionId}/opinions/{opinionState}', name: 'app_opinion')]
     private Workflow $workflow;
 
     public function __construct(Workflow $workflow)

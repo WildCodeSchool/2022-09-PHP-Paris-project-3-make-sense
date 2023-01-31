@@ -2,29 +2,53 @@
 {% block header %}
 {% include 'partials/_navbar.html.twig' %}
 {% endblock %}
+{% block title %}Decision - Show All !{% endblock %}
+
 {% block body %}
-<div class="ticket container-fluid row row-cols-2 d-flex justify-content-around">
-  {% for decision in decisions %}
-	<div class="row mt-4">
-		<div class="col-5 m-0 p-0 ">
-			<div class="card border-dark mb-10" style="width: 40rem;">
-				<div class="card-header fs-3 text-left card-bg-color text-white">{{ decision.status }}</div>
-					<div class="card-body m-0 p-0">
-						<div class="d-flex justify-content-between align-items-center border-2 border-bottom text-left">
-							<div class="mt-2 mb-2">
-								<img class="profil-photo" src="{{ asset('build/images/user.jpg') }}">
-								<a class="ms-2 text-decoration-none" href="{{ path('decision_show', {'decision' : decision.id } ) }}">{{ decision.title |striptags|slice(0, 40) }}</a>
-							</div>
-					<div class=" mt-2 mb-2">
-						<img class="like col-4 ms-2" src="{{ asset('build/images/thumbs-up-regular.png') }}">
-						<a>{{ opinionLikes[loop.index0].like }}</a>
-						<img class="like col-4 ms-2" src="{{ asset('build/images/thumbs-down-regular.png') }}">
-						<a>{{ opinionLikes[loop.index0].dislike }}</a>
-					</div>
-				</div>
-			</div>
-		</div>
+	<div id="home-login" class="bg-image">
+  <div class="row mt-5 justify-content-center">
+	{% for decision in decisions %}
+	<div class="card style-shadow mx-3 my-3 col-3 ">
+	<a href="{{ path('decision_show', {'decision' : decision.id } ) }}" class="link-card">
+  		<div class= "bg-transparent border-dark rounded-4">
+
+    	<div class="card-header thumb-position corner-decision">
+      	<div class="position-status">
+        	<div class="status rounded-5 text-center" style="height: 30px; width:120px">{{ constant('App\\Entity\\Decision::STATUSES')[decision.status] }}</div>
+      	</div>
+      	<div class="thumb text-black">
+
+        	<div class="p-1"><i class="fa-regular fa-thumbs-up fs-5"></i><small class="p-1">{{ opinionLikes[loop.index0].like }}</small></div>
+
+        	<div class="p-1"><i class="fa-regular fa-thumbs-down fs-5"></i><small class="p-1">{{ opinionLikes[loop.index0].dislike }}</small></div>
+
+      	</div>
+    	</div>  
+  	</div>
+  
+  	<div class="title-decision card-body mx-2 p-1">
+    	<h5>{{ decision.title |striptags|slice(0, 80) }}</h5>
+  	</div>
+
+  	<div class="date-decision mx-3 pb-4">
+    	<small>{{decision.createdAt | date("d M Y")}}</small>
+  	</div>
+
+  	<div class="mx-3">
+    	<div class="position-user-decision">
+      	<i class="fs-5 rounded-4 bg-light p-3 fa-regular fa-user"></i>
+    	<a class="ms-2 text-decoration-none text-muted" href="">par {{ decision.owner.firstname ~ ' ' ~ decision.owner.lastname }}</a>
+    </div>
 	</div>
-</div>
-        {% endfor %}		
+	</a>
+	</div>
+	{% endfor %}
+	</div>
+	<div class="navigation d-flex justify-content-center mt-5">
+        {# {{ knp_pagination_render(decisions) }} #}
+    </div>
+	</div>
+
+
+	
 {% endblock %}

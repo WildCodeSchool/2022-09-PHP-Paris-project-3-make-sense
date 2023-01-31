@@ -10,10 +10,10 @@
         {% if decision.status != 'draft' and decision.status != 'undone' and decision.status != 'done' %}
           <div class="align-tumb">
             <div class="p-1">
-              <a class="like" href=""><i class="fa-regular fa-thumbs-up fs-2"></i><small class="p-1">{{ opinionLikes[loop.index0].like }}</small></a>
+              <a class="like" href=""><i class="fa-regular fa-thumbs-up fs-2"></i><small class="p-1">{{ opinionLike.like }}</small></a>
             </div>
           <div class="p-1">
-            <a class="like" href=""><i class="fa-regular fa-thumbs-down fs-2"></i><small class="p-1">{{ opinionLikes[loop.index0].dislike }}</small></a>
+            <a class="like" href=""><i class="fa-regular fa-thumbs-down fs-2"></i><small class="p-1">{{ opinionLike.dislike }}</small></a>
           </div>
        </div>
        {% endif %}
@@ -124,14 +124,13 @@
   </div>
 </div>
 </div>
-<div class="test">
-<p class="title2"><strong>Date à définir</strong></p>
+<div class="history_fresco">
+<div class="title2 mt-5 mb-3"><strong>Date à définir</strong></div>
     <div class="history_decision">
-
     <div class="history_space_around">
       {% for history in decision.histories %}
         <div class="history_date">
-          Du {{ history.startedAt | date("d-M-Y") }} </br> au {{ history.endedAt | date("d-M-Y") }} 
+          Du {{ history.startedAt | date("d M Y") }} </br> au {{ history.endedAt | date("d M Y") }} 
         </div>
       {% endfor %}
     </div>

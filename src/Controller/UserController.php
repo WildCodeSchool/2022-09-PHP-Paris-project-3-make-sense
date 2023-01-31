@@ -6,6 +6,7 @@ use App\Entity\Decision;
 use App\Entity\User;
 use App\Repository\DecisionRepository;
 use App\Service\OpinionLike;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     #[Route('/{user}', methods: ['GET'], name: 'show')]
-    public function show(User $user, DecisionRepository $decisionRepository, OpinionLike $opinionLike): Response
+    public function show(User $user, DecisionRepository $decisionRepository, OpinionLike $opinionLike, PaginatorInterface $paginator): Response
     {
 
         $decisions = $decisionRepository->findBy(
