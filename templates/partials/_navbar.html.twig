@@ -5,9 +5,23 @@
 				<img class="logo" src="{{ asset('build/images/logo-makesense.png') }}">
 			</a>
 		</div>
-		<div class="col-6 nav justify-content-end align-items-center">
-			<li class="nav-item">
-				<a href="#" class="fs-4 me-5 btn" type="button">
+		<div class="col-8 nav justify-content-end align-items-center">
+		{% if app.request.attributes.get('_route') != 'decision_search' %}
+			<li class="nav-item  col-3">
+				<div class="row offset-1 form ">
+					{{ form_start(form, {'attr': {'id': 'form_search'}}) }}
+					<div>
+						{{ form_widget(form.search_title, {'attr': {'class': 'form-control'}}) }}
+					</div>
+					<div class="">
+						<button class=" btn text-black my-2 my-sm-0"><i class="fa fa-search"></i></button>
+					</div>
+					{{ form_end(form) }}
+				</div>
+			</li>
+		{% endif %}
+			<li class="nav-item offset-1">
+				<a href="{{ path('decision_search') }}" class="fs-4 me-5 btn" type="button">
 					Décisions
 				</a>
 			</li>
@@ -16,20 +30,22 @@
 			</a>
 			{{ render(controller('App\\Controller\\NotificationController::sumNotification', {default: 'Loading...'})) }}
 		</li>
-		<li class="nav-item">
-			<div class="dropdown">
-				<a href="#" class="fs-4 me-5 btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-					Mon Profil
-				</a>
-				<ul class="dropdown-menu">
-					<li>
-						<a class="fs-5 dropdown-item" href="#">Mes décisions</a>
-					</li>
-					<li>
-						<a class="fs-5 dropdown-item" href="#">Se déconnecter</a>
-					</li>
-				</ul>
-			</div>
-		</li>
+			<li class="nav-item">
+				<div class="dropdown">
+					<a href="#" class="fs-4 me-5 btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+						Mon Profil
+					</a>
+					<ul class="dropdown-menu">
+						<li>
+							<a class="fs-5 dropdown-item" href="#">Mes décisions</a>
+						</li>
+						<li>
+							<a class="fs-5 dropdown-item" href="#">Se déconnecter</a>
+						</li>
+					</ul>
+				</div>
+			</li>
+		</div>
+
 	</div>
 </nav>
