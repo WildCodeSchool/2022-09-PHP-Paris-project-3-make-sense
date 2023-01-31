@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class NotificationController extends AbstractController
 {
-    private  NotificationRepository $notificationRepository;
+    private NotificationRepository $notificationRepository;
 
     public function __construct(NotificationRepository $notificationRepository)
     {
@@ -54,10 +54,6 @@ class NotificationController extends AbstractController
         PaginatorInterface $paginator,
     ): Response {
 
-        // $user = $userRepository->findOneBy(['id' => HomeController::USERID]);
-
-        // $user = $userRepository->findOneBy(['id' => $this->getUser()]);
-
        /** @var \App\Entity\User */
         $user = $this->getUser();
         $notifications = $paginator->paginate(
@@ -69,12 +65,11 @@ class NotificationController extends AbstractController
         if (!empty($request->request->all())) {
             switch (key($request->request->all())) {
                 case Notification::STATUS_SHOW:
-                    dd($request->request->get(Notification::STATUS_SHOW));
+                    // dd($request->request->get(Notification::STATUS_SHOW));
                     $this->updateNotification($request, $user, Notification::STATUS_SHOW);
-                    return $this->redirectToRoute('app_show_decision', [
+                    return $this->redirectToRoute('app_give_opinion', [
                         'decision' => $request->request->get(Notification::STATUS_SHOW)
                     ]);
-                    break;
                 case Decision::STATUS_CURRENT:
                     $this->updateNotification($request, $user, Decision::STATUS_CURRENT);
                     return $this->redirectToRoute('app_give_opinion', [

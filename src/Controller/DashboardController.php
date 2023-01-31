@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DashboardController extends AbstractController
 {
-    public const USERID = 41;
+    // public const USERID = 41;
 
     #[Route('/dashboard', name: 'app_dashboard')]
     public function index(
@@ -19,9 +19,12 @@ class DashboardController extends AbstractController
         OpinionLike $opinionLike
     ): Response {
 
-        $myLastDecisions = $decisionRepository->findByStatus(Decision::STATUS_CURRENT, 3, self::USERID);
+        /** @var \App\Entity\User */
+        $user = $this->getUser();
+
+        $myLastDecisions = $decisionRepository->findByStatus(Decision::STATUS_CURRENT, 3, $user->getId());
         $allLastDecisions = $decisionRepository->findByStatus(Decision::STATUS_CURRENT, 3);
-        $myLastDrafts = $decisionRepository->findByStatus(Decision::STATUS_DRAFT, 3, self::USERID);
+        $myLastDrafts = $decisionRepository->findByStatus(Decision::STATUS_DRAFT, 3, $user->getId());
         $allLastAccomplished = $decisionRepository->findByStatus(Decision::STATUS_DONE, 3);
 
         return $this->render(

@@ -27,9 +27,12 @@ class ValidationController extends AbstractController
         Request $request
     ): Response {
 
+         /** @var \App\Entity\User */
+         $user = $this->getUser();
+
         $validation = $validationRepository->findOneBy(
             [
-                'user' => HomeController::USERID,
+                'user' => $user->getId(),
                 'decision' => $decision->getId()
             ]
         );
