@@ -12,18 +12,23 @@
 					</tr>
 				</thead>
 				<tbody>
-					{% for notification in notifications %}
-						<tr class="">
-							<td class="col-4">{{ notification[0].title }}{{ notification[0].id }}</td>
-							<td class="col-4">
-								{{ constant('App\\Entity\\Notification::NOTIFICATIONS_MESSAGE')[notification[0].status]}}
-							</td>
-							<td class="col-1">
-								{{ constant('App\\Entity\\Decision::STATUSES')[notification[0].status] }}
-							</td>
-							{% include 'notification/button.html.twig' %}
-						</tr>
-					{% endfor %}
+					<form method="POST">
+						{% for notification in notifications %}
+							<tr class="">
+								<td class="col-4">
+									<button type="submit" class="btn btn-link" name={{ constant('App\\Entity\\Notification::STATUS_SHOW')}} value={{ notification[0].id }}>
+										{{ notification[0].title }}</button>
+								</td>
+								<td class="col-4">
+									{{ constant('App\\Entity\\Notification::NOTIFICATIONS_MESSAGE')[notification[0].status]}}
+								</td>
+								<td class="col-1">
+									{{ constant('App\\Entity\\Decision::STATUSES')[notification[0].status] }}
+								</td>
+								{% include 'notification/button.html.twig' %}
+							</tr>
+						{% endfor %}
+					</form>
 				</tbody>
 			</table>
 

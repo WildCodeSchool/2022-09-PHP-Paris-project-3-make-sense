@@ -73,20 +73,11 @@ class NotificationRepository extends ServiceEntityRepository
 
     public function sumByUser(int $userId): int
     {
-        $t = $this->createQueryBuilder('n')
-        ->select('count(n.user)')
-        ->where('n.user = :userid and userRead = 0')
-        ->setParameter('userid', $userId)
-        ->getQuery()
-        ->getResult();
-
-        dd($t);
-
         return $this->createQueryBuilder('n')
             ->select('count(n.user)')
-            ->where('n.user = :userid and userRead = 0')
+            ->where('n.user = :userid and n.userRead = 0')
             ->setParameter('userid', $userId)
             ->getQuery()
-            ->getResult()[0][1];
+            ->getOneOrNullResult()['1'];
     }
 }

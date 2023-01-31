@@ -10,6 +10,8 @@ use App\Entity\Decision;
 #[ORM\Entity(repositoryClass: NotificationRepository::class)]
 class Notification
 {
+    public const STATUS_SHOW = "show";
+
     public const NOTIFICATIONS_MESSAGE =
     [
         Decision::STATUS_DRAFT  => "Erreur",
@@ -28,6 +30,7 @@ class Notification
         Decision::STATUS_CONFLICT => "Accord ou refus",
         Decision::STATUS_DONE => "",
         Decision::STATUS_UNDONE => "",
+        self::STATUS_SHOW => ""
     ];
 
     #[ORM\Id]

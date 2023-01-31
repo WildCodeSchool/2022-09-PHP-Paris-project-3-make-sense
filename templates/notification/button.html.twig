@@ -1,4 +1,4 @@
-<form method="POST">
+
 	{% if notification[0].status == constant('App\\Entity\\Decision::STATUS_CONFLICT') %}
 		{% if notification.isExpert == '1' %}
 			<td class="text-center">
@@ -35,4 +35,3 @@
 			{% endif %}
 		{% endif %}
 	{% endif %}
-</form>
