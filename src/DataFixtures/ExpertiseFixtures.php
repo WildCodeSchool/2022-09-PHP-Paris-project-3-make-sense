@@ -11,8 +11,6 @@ use App\Entity\Department as Department;
 
 class ExpertiseFixtures extends Fixture implements DependentFixtureInterface
 {
-    // public const NB_DECISION = 5;
-    // public const NB_USER = 5;
     public const NB_EXPERTISE = 5;
 
     public function load(ObjectManager $manager): void
