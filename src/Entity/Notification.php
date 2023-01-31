@@ -41,6 +41,9 @@ class Notification
     #[ORM\ManyToOne(inversedBy: 'notifications')]
     private ?Decision $decision = null;
 
+    #[ORM\Column]
+    private bool $userRead;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -66,6 +69,18 @@ class Notification
     public function setDecision(?Decision $decision): self
     {
         $this->decision = $decision;
+
+        return $this;
+    }
+
+    public function isUserRead(): ?bool
+    {
+        return $this->userRead;
+    }
+
+    public function setUserRead(bool $userRead): self
+    {
+        $this->userRead = $userRead;
 
         return $this;
     }

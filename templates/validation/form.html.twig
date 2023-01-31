@@ -1,0 +1,78 @@
+<div class="container-fluid">
+	<div class="row mt-5">
+		<div class="d-flex justify-content-center m-0 p-0">
+			<div class="col-8">
+				<div class="card border-dark mb-3">
+					<div class="card-header fs-3 card-bg-color text-white d-flex justify-content-between">
+						<div class="mt-2">
+							Status :
+							{{ decision.status }}
+						</div>
+						<div>
+							<div>
+								<i class="fs-5 fa-regular fa-thumbs-up"></i>
+								<span class="fs-5">({{ opinionLike.like }})</span>
+							</div>
+							<div>
+								<i class="fs-5 fa-regular fa-thumbs-down"></i>
+								<span class="fs-5">({{ opinionLike.dislike }})</span>
+							</div>
+						</div>
+					</div>
+					<div class="card-body m-0 p-0 mt-2">
+						<div class="d-flex justify-content-between align-items-center">
+							<div class="col-8">
+								<div class="ms-4 mt-2 fs-3">
+									{{ decision.title}}
+								</div>
+								<div class="ms-4 mt-2 fs-3">
+									{% if user.poster is not empty %}
+										<img class="ms-2 profil-photo" src="{{ user.poster }}" alt="">
+									{% else %}
+										<i class="fs-5 p-2 rounded-5 bg-secondary fa-regular fa-user"></i>
+									{% endif %}
+									<span class="fs-6 ms-3">
+										par
+										{{ user.firstname }}
+										{{ user.lastname }}
+									</span>
+								</div>
+							</div>
+							<div class="d-flex flex-column justify-content-end col-4 align-items-end">
+							<div class="ms-4 me-4">
+								<p class="me-4">Votre avis</p>
+								{% if opinion.isIslike() == "true" %}
+									<div id="likeLogoId" class="me-5 fa-regular fa-thumbs-up like"></div>
+								{% else %}
+									<div id="likeLogoId" class="me-5 fa-regular fa-thumbs-down dislike"></div>
+								{% endif %}
+							</div>
+						</div>
+						<div class="col-12 d-flex justify-content-center">
+							<h1 class="mt-5 mb-5">Avis de l'expert</h1>
+						</div>
+						<div>
+							{{ form_start(form) }}
+							{{ form_row(form.comment) }}
+							<div class="d-flex justify-content-between align-items-center">
+								<div class="w-100 text-center">
+									{{ form_row(form.avispositif, { 'label': 'avis positif' }) }}
+								</div>
+								<div class="w-100 text-center">
+									{{ form_row(form.avisnegatif, { 'label': 'avis négatif' }) }}
+								</div>
+
+								{{ form_row(form.isLike) }}
+								{{ form_row(form.message) }}
+								<div class="text-center">
+									{{ form_widget(form.submit, { 'label' : 'Soumettre'}) }}
+								</div>
+								{{ form_end(form) }}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
