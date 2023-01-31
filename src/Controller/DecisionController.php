@@ -23,8 +23,8 @@ class DecisionController extends AbstractController
         $this->workflow = $workflow;
     }
 
-    #[Route('/decision/{decisionId}/firstdecision', name: 'app_conflict')]
-    #[Entity('decision', options: ['mapping' => ['decisionId' => 'id']])]
+    #[Route('/decision/firstdecision/{decision_id}', name: 'app_first_decision')]
+    #[Entity('decision', options: ['mapping' => ['decision_id' => 'id']])]
     public function firtDecision(
         Decision $decision,
         DecisionRepository $decisionRepository,
