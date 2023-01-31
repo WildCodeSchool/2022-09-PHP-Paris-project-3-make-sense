@@ -2,10 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Entity\Decision;
 use App\Entity\Notification;
-use App\Repository\DecisionRepository;
 use App\Repository\NotificationRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,11 +29,11 @@ class NotificationController extends AbstractController
         // $this->decisionRepository = $decisionRepository;
     }
 
-    public function updateNotification(Request $request, USER $user, string $status): void
+    public function updateNotification(Request $request, string $status): void
     {
         $notification = $this->notificationRepository->findOneBy(
             [
-                'user' => $user,
+                'user' => $this->getUser(),
                 'decision' => $request->request->get($status)
             ]
         );
@@ -72,23 +70,25 @@ class NotificationController extends AbstractController
         if (!empty($request->request->all())) {
             switch (key($request->request->all())) {
                 case Notification::STATUS_SHOW:
-                    $this->updateNotification($request, $user, Notification::STATUS_SHOW);
+                    $this->updateNotification($request, Notification::STATUS_SHOW);
                     return $this->redirectToRoute('app_give_opinion', [
-                        'decision' => $request->request->get(Notification::STATUS_SHOW)
+                        'decision_id' => $request->request->get(Notification::STATUS_SHOW),
+                        'opinionState' => 'like'
                     ]);
                 case Decision::STATUS_CURRENT:
-                    $this->updateNotification($request, $user, Decision::STATUS_CURRENT);
                     return $this->redirectToRoute('app_give_opinion', [
-                        'decision_id' => $request->request->get(Decision::STATUS_CURRENT)
+                        'decision_id' => $request->request->get(Decision::STATUS_CURRENT),
+                        'opinionState' => 'like'
                     ]);
 
                 case Decision::STATUS_FIRST_DECISION:
-                    // $this->updateNotification($request, $user, Decision::STATUS_FIRST_DECISION);
+                    $this->updateNotification($request, Decision::STATUS_FIRST_DECISION);
                     return $this->redirectToRoute('app_first_decision', [
                         'decision_id' => $request->request->get(Decision::STATUS_FIRST_DECISION)
                     ]);
 
                 case Decision::STATUS_CONFLICT:
+                    $this->updateNotification($request, Decision::STATUS_CONFLICT);
                     return $this->redirectToRoute('app_validation', [
                         'decision_id' => $request->request->get(Decision::STATUS_CONFLICT)
                     ]);
@@ -109,8 +109,7 @@ class NotificationController extends AbstractController
         return $this->render(
             'notification/index.html.twig',
             [
-                'notifications' => $notifications,
-                'user' => $user
+                'notifications' => $notifications
             ]
         );
     }

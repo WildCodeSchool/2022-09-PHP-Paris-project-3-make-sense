@@ -40,7 +40,7 @@ class ValidationController extends AbstractController
         if (!$validation) {
             $validation = new Validation();
             $validation->setDecision($decision);
-            $validation->setUser($userRepository->findOneBy(['id' =>  $user->getId()]));
+            $validation->setUser($user);
         }
 
         $form = $this->createForm(ValidationType::class, $validation);
@@ -65,7 +65,7 @@ class ValidationController extends AbstractController
                 'decision' => $decision,
                 'validation' => $validation,
                 'opinionLike' => $opinionLike->calculateOpinion($decision),
-                'owner' => $userRepository->findOneBy(['id' => $decision->getOwner()])
+                // 'owner' => $userRepository->findOneBy(['id' => $decision->getOwner()])
             ]
         );
     }

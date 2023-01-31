@@ -4,10 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Opinion;
 use App\Entity\Decision;
+use App\Form\OpinionType;
 use App\Service\Workflow;
 use App\Service\OpinionLike;
 use App\Form\FirstDecisionType;
-use App\Repository\UserRepository;
 use App\Repository\OpinionRepository;
 use App\Repository\DecisionRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,24 +25,26 @@ class DecisionController extends AbstractController
         $this->workflow = $workflow;
     }
 
-    #[Route('/decision/{decisionId}/opinions/{opinionState}', name: 'app_opinion')]
-    #[Entity('decision', options: ['mapping' => ['decisionId' => 'id']])]
+    #[Route('/decision/{decision_id}/opinions/{opinionState}', name: 'app_give_opinion')]
+    #[Entity('decision', options: ['mapping' => ['decision_id' => 'id']])]
     public function giveOpinion(
         Decision $decision,
         string $opinionState,
         DecisionRepository $decisionRepository,
         OpinionLike $opinionLike,
-        UserRepository $userRepository,
         OpinionRepository $opinionRepository,
         Request $request
     ): Response {
 
-        $opinion = $opinionRepository->findOneBy(['user' => HomeController::USERID, 'decision' => $decision->getId()]);
+        /** @var \App\Entity\User */
+        $user = $this->getUser();
+
+        $opinion = $opinionRepository->findOneBy(['user' => $user->getId(), 'decision' => $decision->getId()]);
 
         if (!$opinion) {
             $opinion = new Opinion();
             $opinion->setDecision($decision);
-            $opinion->setUser($userRepository->findOneBy(['id' => HomeController::USERID]));
+            $opinion->setUser($user);
             if ($opinionState == "like") {
                 $opinion->setIsLike(true);
             } else {
@@ -67,18 +69,16 @@ class DecisionController extends AbstractController
                 'decision' => $decisionRepository->findOneBy(['id' => $decision->getId()]),
                 'opinion' => $opinion,
                 'opinionLike' => $opinionLike->calculateOpinion($decision),
-                'user' => $userRepository->findOneBy(['id' => $decision->getOwner()])
             ]
         );
     }
-    
+
     #[Route('/decision/firstdecision/{decision_id}', name: 'app_first_decision')]
     #[Entity('decision', options: ['mapping' => ['decision_id' => 'id']])]
     public function firtDecision(
         Decision $decision,
         DecisionRepository $decisionRepository,
         OpinionLike $opinionLike,
-        UserRepository $userRepository,
         Request $request
     ): Response {
 
@@ -106,12 +106,11 @@ class DecisionController extends AbstractController
         }
 
         return $this->renderForm(
-            'conflict/index.html.twig',
+            'firstdecision/index.html.twig',
             [
                 'form' => $form,
                 'decision' => $decision,
-                'opinionLike' => $opinionLike->calculateOpinion($decision),
-                'user' => $userRepository->findOneBy(['id' => $decision->getOwner()])
+                'opinionLike' => $opinionLike->calculateOpinion($decision)
             ]
         );
     }
