@@ -11,26 +11,25 @@
 					Décisions
 				</a>
 			</li>
-				<a href="#" class="fs-4 btn" type="button">
-					Notification
+			<a href="#" class="fs-4 btn" type="button">
+				Notification
+			</a>
+			{{ render(controller('App\\Controller\\NotificationController::sumNotification', {default: 'Loading...'})) }}
+		</li>
+		<li class="nav-item">
+			<div class="dropdown">
+				<a href="#" class="fs-4 me-5 btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					Mon Profil
 				</a>
-				{{ render(controller('App\\Controller\\NotificationController::sumNotification', {default: 'Loading...'})) }}
-			</li>
-			<li class="nav-item">
-				<div class="dropdown">
-					<a href="#" class="fs-4 me-5 btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-						Mon Profil
-					</a>
-					<ul class="dropdown-menu">
-						<li>
-							<a class="fs-5 dropdown-item" href="#">Mes décisions</a>
-						</li>
-						<li>
-							<a class="fs-5 dropdown-item" href="#">Se déconnecter</a>
-						</li>
-					</ul>
-				</div>
-			</li>
-		</div>
+				<ul class="dropdown-menu">
+					<li>
+						<a class="fs-5 dropdown-item" href="#">Mes décisions</a>
+					</li>
+					<li>
+						<a class="fs-5 dropdown-item" href="#">Se déconnecter</a>
+					</li>
+				</ul>
+			</div>
+		</li>
 	</div>
 </nav>
