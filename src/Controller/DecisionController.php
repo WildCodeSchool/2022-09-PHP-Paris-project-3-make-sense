@@ -11,8 +11,10 @@ use App\Form\DecisionType;
 use App\Service\OpinionLike;
 use App\Form\FirstDecisionType;
 use App\Repository\OpinionRepository;
-use App\Repository\DecisionRepository;
 use App\Repository\ValidationRepository;
+use App\Form\SearchDecisionsType;
+use App\Repository\DecisionRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\ClickableInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -81,6 +83,43 @@ class DecisionController extends AbstractController
 
     #[Route('/firstdecision/{decision_id}', name: 'first_decision')]
     #[Entity('decision', options: ['mapping' => ['decision_id' => 'id']])]
+    #[Route('/{title?}', name: 'search')]
+    public function search(
+        DecisionRepository $decisionRepository,
+        Request $request,
+        ?string $title,
+        PaginatorInterface $paginator
+    ): Response {
+        if (!empty($request->request->all())) {
+            $title = $request->request->all()['search_decisions']['search'];
+        }
+        $form = $this->createForm(SearchDecisionsType::class, ['title' => $title]);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $decisions =  $paginator->paginate($decisionRepository->search(
+                $form->getData()['search'],
+                $form->getData()['status'],
+                $form->getData()['departements']
+            ), $request->query->getInt('page', 1), 6);
+        } else {
+            $decisions = $paginator->paginate(
+                $decisionRepository->search($title, Decision::STATUS_ALL),
+                $request->query->getInt(
+                    'page',
+                    1
+                ),
+                6
+            );
+        }
+        return $this->render('decision/index.html.twig', [
+            'decisions' => $decisions,
+            'form' => $form->createView(),
+            'title' => $title
+        ]);
+    }
+
+    #[Route('/decision/{decisionId}/firstdecision', name: 'app_conflict')]
+    #[Entity('decision', options: ['mapping' => ['decisionId' => 'id']])]
     public function firtDecision(
         Decision $decision,
         DecisionRepository $decisionRepository,

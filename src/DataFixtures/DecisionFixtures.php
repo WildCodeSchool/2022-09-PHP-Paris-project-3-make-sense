@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use Faker;
+use App\DataFixtures\UserFixtures;
 use DateTime;
 use DateTimeImmutable;
 use App\Entity\Decision;
