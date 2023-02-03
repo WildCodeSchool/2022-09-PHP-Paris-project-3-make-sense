@@ -18,7 +18,6 @@ class FirstDecisionType extends AbstractType
             $builder
                 ->add('endAt', DateType::class, [
                     'label' => 'Veuillez indiquer la nouvelle deadline',
-                    'input'  => 'datetime_immutable',
                 ]);
         }
 

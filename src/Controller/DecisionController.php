@@ -6,20 +6,21 @@ use App\Entity\Opinion;
 use App\Entity\Decision;
 use App\Form\OpinionType;
 use App\Service\Workflow;
+use App\Entity\Validation;
+use App\Form\DecisionType;
 use App\Service\OpinionLike;
 use App\Form\FirstDecisionType;
 use App\Repository\OpinionRepository;
 use App\Repository\DecisionRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\ValidationRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\ClickableInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
-use Symfony\Component\Form\ClickableInterface;
-use App\Form\DecisionType;
-use App\Repository\UserRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/decision', name: 'decision_')]
+#[Route('/decision', name: 'app_decision_')]
 
 class DecisionController extends AbstractController
 {
@@ -30,7 +31,7 @@ class DecisionController extends AbstractController
         $this->workflow = $workflow;
     }
 
-    #[Route('/decision/{decision_id}/opinions/{opinionState}', name: 'app_give_opinion')]
+    #[Route('/{decision_id}/opinions/{opinionState}', name: 'give_opinion')]
     #[Entity('decision', options: ['mapping' => ['decision_id' => 'id']])]
     public function giveOpinion(
         Decision $decision,
@@ -78,7 +79,7 @@ class DecisionController extends AbstractController
         );
     }
 
-    #[Route('/decision/firstdecision/{decision_id}', name: 'app_first_decision')]
+    #[Route('/firstdecision/{decision_id}', name: 'first_decision')]
     #[Entity('decision', options: ['mapping' => ['decision_id' => 'id']])]
     public function firtDecision(
         Decision $decision,
@@ -120,7 +121,7 @@ class DecisionController extends AbstractController
         );
     }
 
-    #[Route('/new', name: 'decision_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
         DecisionRepository $decisionRepository,
@@ -158,5 +159,57 @@ class DecisionController extends AbstractController
             'form' => $form,
             'errors' => $errors,
         ]);
+    }
+
+    #[Route('/validation/{decision_id}', name: 'validation')]
+    #[Entity('decision', options: ['mapping' => ['decision_id' => 'id']])]
+    public function index(
+        Decision $decision,
+        OpinionLike $opinionLike,
+        ValidationRepository $validationRepository,
+        Request $request
+    ): Response {
+
+         /** @var \App\Entity\User */
+         $user = $this->getUser();
+
+        $validation = $validationRepository->findOneBy(
+            [
+                'user' => $user->getId(),
+                'decision' => $decision->getId()
+            ]
+        );
+
+        if (!$validation) {
+            $validation = new Validation();
+            $validation->setDecision($decision);
+            $validation->setUser($user);
+        }
+
+        $form = $this->createForm(ValidationType::class, $validation);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            /** @var ClickableInterface $button  */
+            $button = $form->get('avispositif');
+            $button->isClicked() ? $validation->setIsApproved(true) : $validation->setIsApproved(false);
+
+            $validationRepository->save($validation, true);
+
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->renderForm(
+            'validation/index.html.twig',
+            [
+                'form' => $form,
+                'decision' => $decision,
+                'validation' => $validation,
+                'opinionLike' => $opinionLike->calculateOpinion($decision),
+                // 'owner' => $userRepository->findOneBy(['id' => $decision->getOwner()])
+            ]
+        );
     }
 }

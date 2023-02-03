@@ -12,10 +12,12 @@
 
 {% block body %}
 
+	{% include 'partials/_navbar.html.twig' %}
+
 	{{ form_start(form) }}
 
 	<div class="container-fluid d-flex justify-content-center">
-		<div class="card mt-5">
+		<div class="card mt-5 mb-5">
 			<div class="card-header card-bg-color">
 				<h1 class="text-center text-white">Ajouter une décision</h1>
 			</div>
@@ -114,7 +116,6 @@
 							{% endif %}
 						</div>
 					</div>
-
 
 					<div class="mb-5 d-flex justify-content-center">
 						<div class="col-10">

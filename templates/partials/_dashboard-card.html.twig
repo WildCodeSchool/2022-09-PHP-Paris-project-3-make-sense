@@ -1,16 +1,15 @@
-<div class="card border-dark mb-3" style="width: 40rem;">
+<div class="card border-dark mb-3" style="width: 50rem; height:400px">
 	<div class="card-header fs-3 text-center card-bg-color text-white">{{ title }}</div>
 	<div class="card-body m-0 p-0">
 		{% if decisions is not empty  %}
 			{% for i in range(0, min(2, decisions|length-1)) %}
-				<div class="d-flex justify-content-between align-items-center">
+				<div class="d-flex justify-content-between align-items-center border-bottom border-dark">
 					<div class="d-flex align-items-center mt-2 mb-2 w-75">
 						<div>
 							<i class="fs-5 fa-regular fa-user rounded-5 bg-secondary p-2 ms-1"></i>
 						</div>
 						<div class="ms-2">
-							<a class="text-decoration-none" href="#">{{ decisions[i].title  }}
-								{{ decisions[i].id }}</a>
+							<a class="text-decoration-none" href="#">{{ decisions[i].title  }}</a>
 						</div>
 					</div>
 					{% if opinions is defined %}
