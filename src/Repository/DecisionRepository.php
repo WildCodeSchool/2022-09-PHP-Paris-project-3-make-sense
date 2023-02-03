@@ -6,6 +6,9 @@ use App\Entity\Decision;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Department;
+use App\Entity\History;
+use PDO;
 use Doctrine\ORM\Mapping\Entity;
 
 /**
@@ -41,6 +44,27 @@ class DecisionRepository extends ServiceEntityRepository
         }
     }
 
+    public function search(?string $title, ?string $status, ?array $departements = null): array
+    {
+        $querybuilder = $this->createQueryBuilder('d')
+            ->select('d', 'dp')
+            ->join('d.departments', 'dp');
+        if ($title !== null) {
+            $querybuilder->where('d.title LIKE :title')
+            ->setParameter('title', '%' . $title . '%');
+        }
+        if ($departements !== null) {
+            $querybuilder = $querybuilder->orWhere('dp.name IN (:departements)')
+            ->setParameter('departements', $departements);
+        }
+        if ($status !== Decision::STATUS_ALL) {
+            $querybuilder = $querybuilder->orWhere('d.status = :status')
+            ->setParameter('status', $status);
+        }
+        $querybuilder = $querybuilder->orderBy('d.title', 'ASC')
+            ->getQuery();
+        return $querybuilder->getResult();
+    }
     public function findByStatus(string $status, int $maxres = 0, ?int $ownerId = null): mixed
     {
 
