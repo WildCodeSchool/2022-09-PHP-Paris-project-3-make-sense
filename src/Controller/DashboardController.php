@@ -13,8 +13,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DashboardController extends AbstractController
 {
-    // public const USERID = 41;
-
     #[Route('/dashboard', name: 'app_dashboard')]
     public function index(
         DecisionRepository $decisionRepository,
@@ -28,7 +26,7 @@ class DashboardController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $title = $form->getData()['search_title'];
-            return $this->redirectToRoute('decision_search', ['title' => $title]);
+            return $this->redirectToRoute('app_decision_search', ['title' => $title]);
         }
         $myLastDecisions = $decisionRepository->findByStatus(Decision::STATUS_CURRENT, 3, $user->getId());
         $allLastDecisions = $decisionRepository->findByStatus(Decision::STATUS_CURRENT, 3);

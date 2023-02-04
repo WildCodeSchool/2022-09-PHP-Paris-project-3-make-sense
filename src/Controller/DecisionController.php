@@ -69,7 +69,7 @@ class DecisionController extends AbstractController
     //     ]);
     // }
 
-    #[Route('/decision/{decision_id}/opinions/{opinionState}', name: 'app_give_opinion')]
+    #[Route('/decision/{decision_id}/opinions/{opinionState}', name: 'give_opinion')]
     #[Entity('decision', options: ['mapping' => ['decision_id' => 'id']])]
     public function giveOpinion(
         Decision $decision,
@@ -117,8 +117,6 @@ class DecisionController extends AbstractController
         );
     }
 
-    #[Route('/firstdecision/{decision_id}', name: 'first_decision')]
-    #[Entity('decision', options: ['mapping' => ['decision_id' => 'id']])]
     #[Route('/show/{decision}', name: 'show')]
     public function show(Decision $decision, OpinionLike $opinionLike): Response
     {
@@ -127,7 +125,7 @@ class DecisionController extends AbstractController
         ]);
     }
 
-    #[Route('/{title?}', name: 'search')]
+    #[Route('/search/{title?}', name: 'search')]
     public function search(
         DecisionRepository $decisionRepository,
         Request $request,
@@ -155,14 +153,14 @@ class DecisionController extends AbstractController
                 6
             );
         }
-        return $this->render('decision/index.html.twig', [
+        return $this->render('decision/search.html.twig', [
             'decisions' => $decisions,
             'form' => $form->createView(),
             'title' => $title
         ]);
     }
 
-    #[Route('/decision/{decisionId}/firstdecision', name: 'app_conflict')]
+    #[Route('/decision/{decisionId}/firstdecision', name: 'firstdecision')]
     #[Entity('decision', options: ['mapping' => ['decisionId' => 'id']])]
     public function firtDecision(
         Decision $decision,
