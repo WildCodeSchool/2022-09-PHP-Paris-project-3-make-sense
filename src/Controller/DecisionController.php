@@ -8,12 +8,13 @@ use App\Form\OpinionType;
 use App\Service\Workflow;
 use App\Entity\Validation;
 use App\Form\DecisionType;
+use App\Form\ValidationType;
 use App\Service\OpinionLike;
 use App\Form\FirstDecisionType;
-use App\Repository\OpinionRepository;
-use App\Repository\ValidationRepository;
 use App\Form\SearchDecisionsType;
+use App\Repository\OpinionRepository;
 use App\Repository\DecisionRepository;
+use App\Repository\ValidationRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\ClickableInterface;
@@ -83,6 +84,14 @@ class DecisionController extends AbstractController
 
     #[Route('/firstdecision/{decision_id}', name: 'first_decision')]
     #[Entity('decision', options: ['mapping' => ['decision_id' => 'id']])]
+    #[Route('/show/{decision}', name: 'show')]
+    public function show(Decision $decision, OpinionLike $opinionLike): Response
+    {
+        return $this->render('decision/decision.html.twig', [
+            'decision' => $decision, 'opinionLike' => $opinionLike->calculateOpinion($decision)
+        ]);
+    }
+
     #[Route('/{title?}', name: 'search')]
     public function search(
         DecisionRepository $decisionRepository,
