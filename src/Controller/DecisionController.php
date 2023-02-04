@@ -127,7 +127,7 @@ class DecisionController extends AbstractController
         ]);
     }
 
-    #[Route('/{title?}', name: 'search')]
+    #[Route('/search/{title?}', name: 'search')]
     public function search(
         DecisionRepository $decisionRepository,
         Request $request,
@@ -155,7 +155,7 @@ class DecisionController extends AbstractController
                 6
             );
         }
-        return $this->render('decision/index.html.twig', [
+        return $this->render('decision/search.html.twig', [
             'decisions' => $decisions,
             'form' => $form->createView(),
             'title' => $title
