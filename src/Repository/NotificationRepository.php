@@ -63,7 +63,7 @@ class NotificationRepository extends ServiceEntityRepository
             ->leftjoin('App\Entity\Expertise', 'exp', 'WITH', 'exp.department = dep_dec and exp.user = :user_id')
             ->groupBy('d.id')
             ->where('n.user = :user_id and n.userRead = 0')
-            ->orderby('d.createdAt', 'DESC')
+            ->orderby('d.updatedAt', 'DESC')
             ->setParameter('user_id', $userId);
 
         $queryBuilder = $queryBuilder->getQuery();

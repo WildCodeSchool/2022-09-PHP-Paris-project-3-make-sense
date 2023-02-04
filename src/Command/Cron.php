@@ -11,7 +11,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /*
-    Command --save => don't save to the database
+    Command --nosave => don't save to the database
     Command --nooutput => don't save to the database
 */
 
@@ -19,8 +19,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 class Cron extends Command
 {
     public const OPTIONS = [
-        'save' => 'save',
-        'output' => 'nooutput'
+        'nosave' => 'nosave',
+        'nooutput' => 'nooutput'
     ];
 
     private Workflow $workflow;
@@ -35,7 +35,7 @@ class Cron extends Command
 
     public function outputMessage(InputInterface $input, OutputInterface $output, string $message): void
     {
-        if (!$input->getOption(self::OPTIONS['output'])) {
+        if (!$input->getOption(self::OPTIONS['nooutput'])) {
             $output->writeln($message);
         }
     }
@@ -44,10 +44,10 @@ class Cron extends Command
     {
         $this->setHelp('This command allows you to update the database history');
         $this->addOption(
-            self::OPTIONS['save']
+            self::OPTIONS['nosave']
         );
         $this->addOption(
-            self::OPTIONS['output']
+            self::OPTIONS['nooutput']
         );
     }
 
@@ -60,7 +60,7 @@ class Cron extends Command
 
         foreach ($decisions as $decision) {
             $decision->setStatus(Decision::STATUS_FIRST_DECISION);
-            if ($input->getOption(self::OPTIONS['save'])) {
+            if (!$input->getOption(self::OPTIONS['nosave'])) {
                 $decisionRepository->save($decision, true);
                 $this->workflow->addHistory($decision);
                 $this->workflow->addNotifications($decision);
@@ -84,10 +84,10 @@ class Cron extends Command
                 $decision[0]->setStatus(Decision::STATUS_UNDONE);
             }
 
-            if ($input->getOption('save')) {
+            if (!$input->getOption('nosave')) {
                 $decisionRepository->save($decision[0], true);
-                $this->workflow->addHistory($decision);
-                $this->workflow->addNotifications($decision);
+                $this->workflow->addHistory($decision[0]);
+                $this->workflow->addNotifications($decision[0]);
 
                 $this->outputMessage($input, $output, 'Save decision : ' . $decision[0]->getId() .
                     ' status to : ' . $decision[0]->getStatus() . ' with pourcent : ' . $pourcentValidation . '%');

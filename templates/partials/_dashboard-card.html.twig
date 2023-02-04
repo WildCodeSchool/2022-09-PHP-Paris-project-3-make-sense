@@ -9,7 +9,15 @@
 							<i class="fs-5 fa-regular fa-user rounded-5 bg-secondary p-2 ms-1"></i>
 						</div>
 						<div class="ms-2">
-							<a class="text-decoration-none" href="#">{{ decisions[i].title  }}</a>
+							{% if decisions[i].status != constant('App\\Entity\\Decision::STATUS_DRAFT')%}
+								<a class="text-decoration-none" href="{{ path('app_decision_show', { 'decision_id' : decisions[i].id})}}">
+									{{ decisions[i].title  }}
+								</a>
+							{% else %}
+								<a class="text-decoration-none" href="{{ path('app_decision_edit', { 'decision_id' : decisions[i].id})}}">
+									{{ decisions[i].title  }}
+								</a>
+							{% endif %}
 						</div>
 					</div>
 					{% if opinions is defined %}

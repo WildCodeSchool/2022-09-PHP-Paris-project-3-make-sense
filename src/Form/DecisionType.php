@@ -7,6 +7,7 @@ use App\Entity\Department;
 use Symfony\Component\Form\AbstractType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -38,14 +39,23 @@ class DecisionType extends AbstractType
                 'label' => 'Titre',
                 'label_attr' => [
                     'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3']])
-            ->add('departments', ChoiceType::class, [
-                'required' => true,
-                'attr' => [
-                    'class' => 'form-check'],
-                'choices' => $choiceDepartments,
-                'mapped' => false,
-                'expanded' => true,
-                'multiple' => true,])
+            // ->add('departments', ChoiceType::class, [
+            //     'required' => true,
+            //     'attr' => [
+            //         'class' => 'form-check'],
+            //     'choices' => $choiceDepartments,
+            //     'mapped' => false,
+            //     'expanded' => true,
+            //     'multiple' => true,])
+            ->add('departments', EntityType::class, [
+                 'class' => Department::class,
+                 'required' => true,
+                 'attr' => [
+                     'class' => 'form-check'],
+                //  'choices' => $choiceDepartments,
+                //  'mapped' => false,
+                 'expanded' => true,
+                 'multiple' => true,])
             ->add('like_threshold', RangeType::class, [
                 'required' => true,
                 'attr' => [

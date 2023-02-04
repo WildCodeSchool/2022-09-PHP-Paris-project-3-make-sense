@@ -69,13 +69,14 @@ class NotificationController extends AbstractController
 
         if (!empty($request->request->all())) {
             switch (key($request->request->all())) {
-                case Notification::STATUS_SHOW:
-                    $this->updateNotification($request, Notification::STATUS_SHOW);
-                    return $this->redirectToRoute('app_decision_give_opinion', [
-                        'decision_id' => $request->request->get(Notification::STATUS_SHOW),
-                        'opinionState' => 'like'
-                    ]);
+                // case Notification::STATUS_SHOW:
+                //     $this->updateNotification($request, Notification::STATUS_SHOW);
+                //     return $this->redirectToRoute('app_decision_give_opinion', [
+                //         'decision_id' => $request->request->get(Notification::STATUS_SHOW),
+                //         'opinionState' => 'like'
+                //     ]);
                 case Decision::STATUS_CURRENT:
+                    $this->updateNotification($request, Decision::STATUS_CURRENT);
                     return $this->redirectToRoute('app_decision_give_opinion', [
                         'decision_id' => $request->request->get(Decision::STATUS_CURRENT),
                         'opinionState' => 'like'
@@ -83,7 +84,7 @@ class NotificationController extends AbstractController
 
                 case Decision::STATUS_FIRST_DECISION:
                     $this->updateNotification($request, Decision::STATUS_FIRST_DECISION);
-                    return $this->redirectToRoute('app_decision_first_decision', [
+                    return $this->redirectToRoute('app_decision_firstdecision', [
                         'decision_id' => $request->request->get(Decision::STATUS_FIRST_DECISION)
                     ]);
 
@@ -97,14 +98,6 @@ class NotificationController extends AbstractController
                     break;
             }
         }
-
-        // $decisionLike = $this->decisionRepository->findFirstDecisionLike($decision->getId());
-
-        // $conflict = (($decisionLike['sumLike'] / $decisionLike['countLike']) * 100)
-        //     < $decisionLike['likeThreshold'];
-
-        // dd($this->decisionRepository->findOneById('176')->getOpinions()[1]);
-
 
         return $this->render(
             'notification/index.html.twig',
