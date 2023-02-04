@@ -7,7 +7,6 @@ use App\Entity\Decision;
 use App\Form\OpinionType;
 use App\Service\Workflow;
 use App\Entity\Validation;
-use App\Form\DecisionType;
 use App\Form\ValidationType;
 use App\Service\OpinionLike;
 use App\Form\FirstDecisionType;
@@ -17,11 +16,12 @@ use App\Repository\DecisionRepository;
 use App\Repository\ValidationRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\ClickableInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\ClickableInterface;
+use App\Form\DecisionType;
 
 #[Route('/decision', name: 'app_decision_')]
 
@@ -34,7 +34,42 @@ class DecisionController extends AbstractController
         $this->workflow = $workflow;
     }
 
-    #[Route('/{decision_id}/opinions/{opinionState}', name: 'give_opinion')]
+    // #[Route('/{title?}', name: 'search')]
+    // public function search(
+    //     DecisionRepository $decisionRepository,
+    //     Request $request,
+    //     ?string $title,
+    //     PaginatorInterface $paginator
+    // ): Response {
+    //     if (!empty($request->request->all())) {
+    //         $title = $request->request->all()['search_decisions']['search'];
+    //     }
+    //     $form = $this->createForm(SearchDecisionsType::class, ['title' => $title]);
+    //     $form->handleRequest($request);
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $decisions =  $paginator->paginate($decisionRepository->search(
+    //             $form->getData()['search'],
+    //             $form->getData()['status'],
+    //             $form->getData()['departements']
+    //         ), $request->query->getInt('page', 1), 6);
+    //     } else {
+    //         $decisions = $paginator->paginate(
+    //             $decisionRepository->search($title, Decision::STATUS_ALL),
+    //             $request->query->getInt(
+    //                 'page',
+    //                 1
+    //             ),
+    //             6
+    //         );
+    //     }
+    //     return $this->render('decision/index.html.twig', [
+    //         'decisions' => $decisions,
+    //         'form' => $form->createView(),
+    //         'title' => $title
+    //     ]);
+    // }
+
+    #[Route('/decision/{decision_id}/opinions/{opinionState}', name: 'app_give_opinion')]
     #[Entity('decision', options: ['mapping' => ['decision_id' => 'id']])]
     public function giveOpinion(
         Decision $decision,

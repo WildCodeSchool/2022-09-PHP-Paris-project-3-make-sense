@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Decision;
 use App\Service\OpinionLike;
+use App\Form\SearchTitleType;
 use App\Repository\DecisionRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,12 +18,18 @@ class DashboardController extends AbstractController
     #[Route('/dashboard', name: 'app_dashboard')]
     public function index(
         DecisionRepository $decisionRepository,
-        OpinionLike $opinionLike
+        OpinionLike $opinionLike,
+        Request $request
     ): Response {
 
         /** @var \App\Entity\User */
         $user = $this->getUser();
-
+        $form = $this->createForm(SearchTitleType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $title = $form->getData()['search_title'];
+            return $this->redirectToRoute('decision_search', ['title' => $title]);
+        }
         $myLastDecisions = $decisionRepository->findByStatus(Decision::STATUS_CURRENT, 3, $user->getId());
         $allLastDecisions = $decisionRepository->findByStatus(Decision::STATUS_CURRENT, 3);
         $myLastDrafts = $decisionRepository->findByStatus(Decision::STATUS_DRAFT, 3, $user->getId());
@@ -40,7 +48,9 @@ class DashboardController extends AbstractController
                 'myLastDraftsOpinion' => $opinionLike->calculateAllOpinion($myLastDrafts),
 
                 'allLastAccomplished' => $allLastAccomplished,
-                'allLastAccomplishedOpinion' => $opinionLike->calculateAllOpinion($allLastAccomplished)
+                'allLastAccomplishedOpinion' => $opinionLike->calculateAllOpinion($allLastAccomplished),
+
+                'form' => $form->createView()
             ]
         );
     }
