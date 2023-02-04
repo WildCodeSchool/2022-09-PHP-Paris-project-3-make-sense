@@ -100,7 +100,9 @@ class DecisionController extends AbstractController
         ?string $title,
         PaginatorInterface $paginator
     ): Response {
+
         if (!empty($request->request->all())) {
+            // dd($request->request->all());
             $title = $request->request->all()['search_decisions']['search'];
         }
         $form = $this->createForm(SearchDecisionsType::class, ['title' => $title]);
@@ -184,7 +186,6 @@ class DecisionController extends AbstractController
         /** @var \App\Entity\User */
         $user = $this->getUser();
 
-        // $user = $userRepository->findOneById([HomeController::USERID]);
         $decision->setOwner($user);
         $form = $this->createForm(DecisionType::class, $decision);
         $form->handleRequest($request);
