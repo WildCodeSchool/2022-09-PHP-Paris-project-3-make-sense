@@ -18,11 +18,11 @@
 							<div>
 								<div>
 									<i class="fs-5 fa-regular fa-thumbs-up"></i>
-									<span class="fs-5">({{ opinionLike.like }})</span>
+									<span class="fs-5">({{ calculateOpinion(decision).like }})</span>
 								</div>
 								<div>
 									<i class="fs-5 fa-regular fa-thumbs-down"></i>
-									<span class="fs-5">({{ opinionLike.dislike }})</span>
+									<span class="fs-5">({{ calculateOpinion(decision).dislike }})</span>
 								</div>
 							</div>
 						</div>

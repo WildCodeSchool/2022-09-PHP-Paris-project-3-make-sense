@@ -11,11 +11,13 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 }
 
 :root {
-    --cerise-dark-color: #8a095d;
+    --cerise-dark: #8a095d;
+    --sahara-sand: #FCF6A0;
+    --silver-tree : #70AF90;
 }
 
 .card-bg-color {
-    background-color: var(--cerise-dark-color);
+    background-color: var(--cerise-dark);
 }
 
 .profil-photo {
@@ -52,20 +54,20 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
     background-color: #0d3944;
 }
 
-.essaie {
-    padding-right: 6rem;
-}
+// .essaie {
+//     padding-right: 6rem;
+// }
 
 .button {
     width: 15rem;
 }
 
-.like,
-dislike {
-    border-radius: 100px;
-    width: 50px;
-    height: 50px;
-}
+// .like,
+// dislike {
+//     border-radius: 100px;
+//     width: 50px;
+//     height: 50px;
+// }
 
 .accordion-button:not(.collapsed) {
     color: #8a095d;
@@ -163,12 +165,12 @@ dislike {
         width: 3rem;
     }
 
-    .like,
-    dislike {
-        border-radius: 100px;
-        width: 30px;
-        height: 30px;
-    }
+    // .like,
+    // dislike {
+    //     border-radius: 100px;
+    //     width: 30px;
+    //     height: 30px;
+    // }
 
     .historical {
         display: none;
@@ -212,7 +214,7 @@ body {
 
 body #home-login {
     background-image: url('/assets/images/background-login.png');
-    height: 125vh;
+    height: 80vh;
     position: relative;
     overflow: hidden;
     background-repeat: no-repeat;
@@ -228,37 +230,8 @@ body #home-login {
     transform: translate(-50%, -50%);
 }
 
-.style-shadow {
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    border-radius: 2em;
-}
-
-.decision-card:hover {
-    box-shadow: 0px 10px 20px #ccc;
-    transform: scale(1.1);
-    transition-duration: 0.5s;
-}
-
-.thumb-position {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-}
-
-.thumb {
-    display: flex;
-    flex-direction: column;
-    padding-right: 10px;
-    justify-content: space-between;
-}
-
 .date-decision {
     color: rgb(155, 8, 79);
-}
-
-.position-user-decision {
-    align-items: center;
-    display: flex;
 }
 
 .title-decision {
@@ -274,20 +247,15 @@ body #home-login {
     text-decoration: none;
 }
 
-.status {
-    border: solid 2px rgb(155, 8, 79);
-    color: rgb(155, 8, 79);
-    background-color: rgb(155, 8, 79, 0.1);
-}
 
-.like {
-    text-decoration: none;
-    color: #0d3944;
-}
+// .like {
+//     text-decoration: none;
+//     color: #0d3944;
+// }
 
-.like:hover {
-    color: rgb(155, 8, 79);
-}
+// .like:hover {
+//     color: rgb(155, 8, 79);
+// }
 
 .align-tumb {
     display: flex;

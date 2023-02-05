@@ -11,7 +11,6 @@ use App\Service\Workflow;
 use App\Entity\Validation;
 use App\Form\DecisionType;
 use App\Form\ValidationType;
-use App\Service\OpinionLike;
 use App\Form\FirstDecisionType;
 use App\Form\SearchDecisionsType;
 use App\Repository\OpinionRepository;
@@ -42,7 +41,7 @@ class DecisionController extends AbstractController
         Decision $decision,
         string $opinionState,
         DecisionRepository $decisionRepository,
-        OpinionLike $opinionLike,
+        // OpinionLike $opinionLike,
         OpinionRepository $opinionRepository,
         Request $request
     ): Response {
@@ -70,7 +69,7 @@ class DecisionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $opinionRepository->save($opinion, true);
 
-            return $this->redirectToRoute('app_decision_show', [ 'decision_id' => $decision->getId()]);
+            return $this->redirectToRoute('app_decision_show', ['decision_id' => $decision->getId()]);
         }
 
         return $this->renderForm(
@@ -79,17 +78,18 @@ class DecisionController extends AbstractController
                 'form' => $form,
                 'decision' => $decisionRepository->findOneBy(['id' => $decision->getId()]),
                 'opinion' => $opinion,
-                'opinionLike' => $opinionLike->calculateOpinion($decision),
+                // 'opinionLike' => $opinionLike->calculateOpinion($decision),
             ]
         );
     }
 
     #[Route('/show/{decision_id}', name: 'show')]
     #[Entity('decision', options: ['mapping' => ['decision_id' => 'id']])]
-    public function show(Decision $decision, OpinionLike $opinionLike): Response
+    public function show(Decision $decision): Response
     {
         return $this->render('decision/show.html.twig', [
-            'decision' => $decision, 'opinionLike' => $opinionLike->calculateOpinion($decision)
+            'decision' => $decision,
+            // 'opinionLike' => $opinionLike->calculateOpinion($decision)
         ]);
     }
 
@@ -135,7 +135,7 @@ class DecisionController extends AbstractController
     public function firtDecision(
         Decision $decision,
         DecisionRepository $decisionRepository,
-        OpinionLike $opinionLike,
+        // OpinionLike $opinionLike,
         Request $request
     ): Response {
 
@@ -164,7 +164,7 @@ class DecisionController extends AbstractController
             $this->workflow->addHistory($decision);
             $this->workflow->addNotifications($decision);
 
-            return $this->redirectToRoute('app_decision_show', [ 'decision_id' => $decision->getId()]);
+            return $this->redirectToRoute('app_decision_show', ['decision_id' => $decision->getId()]);
         }
 
         return $this->renderForm(
@@ -172,7 +172,7 @@ class DecisionController extends AbstractController
             [
                 'form' => $form,
                 'decision' => $decision,
-                'opinionLike' => $opinionLike->calculateOpinion($decision)
+                // 'opinionLike' => $opinionLike->calculateOpinion($decision)
             ]
         );
     }
@@ -275,7 +275,7 @@ class DecisionController extends AbstractController
     #[Entity('decision', options: ['mapping' => ['decision_id' => 'id']])]
     public function index(
         Decision $decision,
-        OpinionLike $opinionLike,
+        // OpinionLike $opinionLike,
         ValidationRepository $validationRepository,
         Request $request
     ): Response {
@@ -308,7 +308,7 @@ class DecisionController extends AbstractController
 
             $validationRepository->save($validation, true);
 
-            return $this->redirectToRoute('app_decision_show', [ 'decision_id' => $decision->getId()]);
+            return $this->redirectToRoute('app_decision_show', ['decision_id' => $decision->getId()]);
         }
 
         return $this->renderForm(
@@ -317,7 +317,7 @@ class DecisionController extends AbstractController
                 'form' => $form,
                 'decision' => $decision,
                 'validation' => $validation,
-                'opinionLike' => $opinionLike->calculateOpinion($decision),
+                // 'opinionLike' => $opinionLike->calculateOpinion($decision),
             ]
         );
     }

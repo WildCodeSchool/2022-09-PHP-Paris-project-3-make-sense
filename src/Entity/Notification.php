@@ -27,7 +27,7 @@ class Notification
         Decision::STATUS_DRAFT  => "Erreur",
         Decision::STATUS_CURRENT => "Donner son avis",
         Decision::STATUS_FIRST_DECISION => "Compte-rendu",
-        Decision::STATUS_CONFLICT => "Accord ou refus",
+        Decision::STATUS_CONFLICT => "Avis de l'expert",
         Decision::STATUS_DONE => "",
         Decision::STATUS_UNDONE => "",
         self::STATUS_SHOW => ""

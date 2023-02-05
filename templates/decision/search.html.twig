@@ -1,66 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Decision - Show All !{% endblock %}
+{% block title %}Decision - Show All !
+{% endblock %}
 
 {% block body %}
-{% include "partials/_navbar.html.twig" %}
+	{% include "partials/_navbar.html.twig" %}
 
 	<div id="home-login" class="bg-image">
-				<div class="container">
-					<div class="row">
-						{{ form_start(form) }}
-						{{ form_widget(form) }}
-						<div class="mt-2">
-							<button id="search_button_decision" class="offset-5 col-2 btn text-white my-2 my-sm-0">Search</button>
-						</div>
-						{{ form_end(form) }}
-					</div>
+		<div class="container">
+			<div class="row">
+				{{ form_start(form) }}
+				{{ form_widget(form) }}
+				<div class="mt-2">
+					<button id="search_button_decision" class="offset-5 col-2 btn text-white my-2 my-sm-0">Search</button>
 				</div>
-		
-		
-		<div class="row mt-5 justify-content-center">
-			{% for decision in decisions %}
-					<div class="card style-shadow mx-3 my-3 col-3 ">
-						<a href="" class="link-card">
-							<div class= "bg-transparent border-dark rounded-4">
-
-								<div class="card-header thumb-position corner-decision">
-									<div class="position-status">
-										<div class="status rounded-5 text-center" style="height: 50px; width:120px">{{ constant('App\\Entity\\Decision::STATUSES')[decision.status] }}
-										</div>
-									</div>
-									<div class="thumb text-black">
-										<div class="p-1"><i class="fa-regular fa-thumbs-up fs-5"></i><small class="p-1">(12)</small>
-										</div>
-										<div class="p-1"><i class="fa-regular fa-thumbs-down fs-5"></i><small class="p-1">(05)</small>
-										</div>
-									</div>
-								</div>  
-
-							</div>
-							
-							<div class="title-decision card-body mx-2 p-1">
-								<h5>{{decision.title}}</h5>
-							</div>
-
-							<div class="date-decision mx-3 pb-4">
-								<small>{{decision.createdAt | date('d/m/Y')}}</small>
-							</div>
-
-							<div class="mx-3">
-								<div class="position-user-decision">
-									<i class="fs-5 rounded-4 bg-light p-3 fa-regular fa-user">
-									</i>
-									<a class="ms-2 text-decoration-none text-muted" href="">{{decision.owner.firstname}} {{decision.owner.lastname}}
-									</a>
-								</div>
-							</div>
-						</a>
-					</div>
-		{% endfor %}
+				{{ form_end(form) }}
+			</div>
 		</div>
-		 <div class="navigation d-flex justify-content-center mt-5">
-            {{ knp_pagination_render(decisions) }}
-        </div>
+
+
+		<div class="row mt-5 justify-content-center">
+		
+			{% for decision in decisions %}
+
+				{% include 'partials/_decision-card.html.twig' with 
+						{
+						'decision': decision 
+						} 
+				%} 
+
+
+			{% endfor %}
+
+		</div>
+		<div class="navigation d-flex justify-content-center mt-5">
+			{{ knp_pagination_render(decisions) }}
+		</div>
 	</div>
 {% endblock %}
