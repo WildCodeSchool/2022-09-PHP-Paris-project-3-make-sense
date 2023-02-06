@@ -100,9 +100,12 @@ body {
     display: flex;
     flex-direction: column;
     margin-left: 200px;
-    max-height: 37.775rem;
     width: -webkit-fill-available;
 
+}
+
+.history-fix-position {
+    max-height: 610px;
 }
 
 .history {
