@@ -1,10 +1,10 @@
 @import '_navbar.scss';
 
-$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+// $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 @import '~@fortawesome/fontawesome-free/scss/solid';
 @import '~@fortawesome/fontawesome-free/scss/regular';
-@import '~@fortawesome/fontawesome-free/scss/brands';
+// @import '~@fortawesome/fontawesome-free/scss/brands';
 
 * {
     box-sizing: border-box;
@@ -13,11 +13,25 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 :root {
     --cerise-dark: #8a095d;
     --sahara-sand: #FCF6A0;
-    --silver-tree : #70AF90;
+    --silver-tree: #70AF90;
 }
 
 .card-bg-color {
     background-color: var(--cerise-dark);
+}
+
+
+body {
+    font-family: "Raleway", sans-serif;
+    font-weight: 700;
+    background-image: url('/assets/images/background-login.png');
+    height: 100vh;
+
+    //     position: relative;
+    //     overflow: hidden;
+    //     background-repeat: no-repeat;
+    background-size: cover;
+    //     overflow: scroll;
 }
 
 .profil-photo {
@@ -159,68 +173,52 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
     margin-left: 3px;
 }
 
-@media screen and (min-width: 320px)and (max-width: 1100px) {
+// @media screen and (min-width: 320px)and (max-width: 1100px) {
 
-    .title {
-        width: 3rem;
-    }
+//     .title {
+//         width: 3rem;
+//     }
 
-    // .like,
-    // dislike {
-    //     border-radius: 100px;
-    //     width: 30px;
-    //     height: 30px;
-    // }
+//     // .like,
+//     // dislike {
+//     //     border-radius: 100px;
+//     //     width: 30px;
+//     //     height: 30px;
+//     // }
 
-    .historical {
-        display: none;
-    }
+//     .historical {
+//         display: none;
+//     }
 
-    .accordion {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        width: 15px;
-    }
+//     .accordion {
+//         display: flex;
+//         flex-direction: column;
+//         justify-content: center;
+//         width: 15px;
+//     }
 
-    .title2 {
-        display: none;
-    }
+//     .title2 {
+//         display: none;
+//     }
 
-    .bord {
-        display: flex;
-        flex-direction: column;
-    }
+//     .bord {
+//         display: flex;
+//         flex-direction: column;
+//     }
 
-    .bord .test {
-        display: flex;
-        justify-content: start;
-        margin-top: 3rem;
-    }
+//     .bord .test {
+//         display: flex;
+//         justify-content: start;
+//         margin-top: 3rem;
+//     }
 
-    .ticket {
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        width: 200px;
-    }
-}
-
-body {
-    font-family: "Raleway", sans-serif;
-    font-weight: 700;
-}
-
-
-body #home-login {
-    background-image: url('/assets/images/background-login.png');
-    height: 80vh;
-    position: relative;
-    overflow: hidden;
-    background-repeat: no-repeat;
-    background-size: cover;
-    overflow: scroll;
-}
+//     .ticket {
+//         display: flex;
+//         align-items: center;
+//         flex-direction: column;
+//         width: 200px;
+//     }
+// }
 
 .login-center {
 
