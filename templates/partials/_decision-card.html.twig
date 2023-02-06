@@ -1,46 +1,53 @@
-{% extends 'base.html.twig' %}
-{% block title %}Decision - Show All !{% endblock %}
+<div class="decision-card card style-shadow mx-3 my-3 col-3 ">
+	{% if decision.status != constant('App\\Entity\\Decision::STATUS_DRAFT')%}
+		<a class="link-card" href="{{ path('app_decision_show', { 'decision_id' : decision.id})}}">
+	{% else %}
+		<a class="link-card"> 
+	{% endif %}
+	
+	<div class="bg-transparent border-dark rounded-4">
 
-{% block body %}
-<div id="home-login" class="bg-image">
+		<div class="card-header thumb-position corner-decision">
+			<div class="position-status">
+					{% include 'partials/_status-button.html.twig' with { 'status' : decision.status } %} 
+			</div> 
 
-  <div class="card style-shadow mx-3 my-3 col-3 ">
-    <a href="" class="link-card">
-      <div class= "bg-transparent border-dark rounded-4">
+			<div class="mt-1 thumb text-black">
 
-        <div class="card-header thumb-position corner-decision">
-          <div class="position-status">
-            <div class="status rounded-5 text-center" style="height: 30px; width:120px">En cours</div>
-          </div>
-          <div class="thumb text-black">
+				{# <div class="p-1">
+					<i class="fa-regular fa-thumbs-up fs-5"></i>
+						<small class="p-1">({{ calculateOpinion(decision).like }})</small>
+				</div>
 
-            <div class="p-1"><i class="fa-regular fa-thumbs-up fs-5"></i><small class="p-1">(12)</small></div>
+				<div class="p-1">
+					<i class="fa-regular fa-thumbs-down fs-5"></i>
+					<small class="p-1">({{ calculateOpinion(decision).dislike }})</small>
+				</div> #}
 
-            <div class="p-1"><i class="fa-regular fa-thumbs-down fs-5"></i><small class="p-1">(05)</small></div>
+				<div class="me-3">
+					{% include 'partials/_like-button.html.twig' with { 'decision' : decision } %}
+				</div>
 
-          </div>
-        </div>  
-      </div>
-      
-      <div class="title-decision card-body mx-2 p-1">
-        <h5>Changement de caftière bonjour je m'appelle Neha</h5>
-      </div>
+			</div>
+		</div>
+	</div>
 
-      <div class="date-decision mx-3 pb-4">
-        <small>crée le 27/01/2023</small>
-      </div>
+	<div class="title-decision card-body mx-2 p-1">
+				<a>{{ decision.title}}</a>
+	</div>
 
-      <div class="mx-3">
-        <div class="position-user-decision">
-          <i class="fs-5 rounded-4 bg-light p-3 fa-regular fa-user"></i>
-          <a class="ms-2 text-decoration-none text-muted" href="">par Mushtaq Neha</a>
-        </div>
-      </div>
-    </a>
-  </div>
+	<div class="date-decision mx-3 pb-4">
+		<small>crée le
+			<small>{{decision.createdAt | date('d/m/Y')}}</small>
+			</small>
+	</div>
+
+	<div class="mx-3">
+		<div class="position-user-decision">
+				<i class="fs-5 rounded-4 bg-light p-3 fa-regular fa-user"></i>
+				<a class="ms-2 text-decoration-none text-muted">{{decision.owner.firstname}}
+					{{decision.owner.lastname}}</a>
+		</div>
+	</div>
+	</a>
 </div>
-
-
-
-
-{% endblock %}

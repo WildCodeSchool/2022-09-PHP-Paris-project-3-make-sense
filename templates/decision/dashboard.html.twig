@@ -1,46 +1,99 @@
 <div class="container-fluid">
-	<div class="row mt-5 mb-5">
-		<div class="col-6 d-flex justify-content-center m-0 p-0">
+
+	<div class="row justify-content-around mt-5 mb-5">
+		<div class="col-3 d-flex justify-content-center m-0 p-0">
 			{% include 'partials/_dashboard-card.html.twig' with 
 				{
-					'title': 'Mes dernières décisions créées', 
-					'decisions' : myLastDecisions, 
-					'opinions' : myLastDecisionsOpinion 
+					'title': 'Mes décisions brouillons', 
+					'decisions' : myLastDraftDecisions, 
 					} 
 			%}
 		</div>
 
-		<div class="col-6 d-flex justify-content-center m-0 p-0">
+		<div class="col-3 d-flex justify-content-center m-0 p-0">
 
 			{% include 'partials/_dashboard-card.html.twig' with 
 				{
-					'title': 'Mes dernières décisions créées', 
-					'decisions' : allLastDecisions, 
-					'opinions' : allLastDecisionsOpinion 
+					'title': 'Mes décisions en cours', 
+					'decisions' : myLastCurrentDecisions, 
 					} 
 			%}
 		</div>
+
+		<div class="col-3 d-flex justify-content-center m-0 p-0">
+
+			{% include 'partials/_dashboard-card.html.twig' with 
+				{
+					'title': 'Mes premières décisions', 
+					'decisions' : myLastFirstDecisions, 
+					} 
+			%}
+		</div>
+
 	</div>
 
-
-	<div class="row mt-5">
-		<div class="col-6 d-flex justify-content-center m-0 p-0">
+	<div class="row justify-content-around mt-5 mb-5">
+		<div class="col-3 d-flex justify-content-center m-0 p-0">
 			{% include 'partials/_dashboard-card.html.twig' with 
 				{
-					'title': 'Mes dernières décisions créées', 
-					'decisions' : myLastDrafts,  
+					'title': 'Mes décisions en conflit', 
+					'decisions' : myLastConflictDecisions, 
 					} 
 			%}
 		</div>
 
-		<div class="col-6 d-flex justify-content-center m-0 p-0">
+		<div class="col-3 d-flex justify-content-center m-0 p-0">
+
 			{% include 'partials/_dashboard-card.html.twig' with 
 				{
-					'title': 'Mes dernières décisions créées', 
-					'decisions' : allLastAccomplished, 
-					'opinions' : allLastAccomplishedOpinion
+					'title': 'Mes décisions abouties', 
+					'decisions' : myLastDoneDecisions, 
 					} 
 			%}
 		</div>
+
+		<div class="col-3 d-flex justify-content-center m-0 p-0">
+
+			{% include 'partials/_dashboard-card.html.twig' with 
+				{
+					'title': 'Mes décisions non abouties', 
+					'decisions' : myLastUndoneDecisions, 
+					} 
+			%}
+		</div>
+
 	</div>
+
+	<div class="row justify-content-around mt-5 mb-5">
+		<div class="col-3 d-flex justify-content-center m-0 p-0">
+			{% include 'partials/_dashboard-card.html.twig' with 
+				{
+					'title': 'Toutes les décisions en cours', 
+					'decisions' : allLastCurrentDecisions, 
+					} 
+			%}
+		</div>
+
+		<div class="col-3 d-flex justify-content-center m-0 p-0">
+
+			{% include 'partials/_dashboard-card.html.twig' with 
+				{
+					'title': 'Toutes les décisions abouties', 
+					'decisions' : allLastDoneDecisions, 
+					} 
+			%}
+		</div>
+
+		<div class="col-3 d-flex justify-content-center m-0 p-0">
+
+			{% include 'partials/_dashboard-card.html.twig' with 
+				{
+					'title': 'Toutes les décisions non abouties', 
+					'decisions' : allLastUndoneDecisions, 
+					} 
+			%}
+		</div>
+
+	</div>
+
 </div>

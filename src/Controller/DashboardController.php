@@ -13,12 +13,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DashboardController extends AbstractController
 {
-    // public const USERID = 41;
-
     #[Route('/dashboard', name: 'app_dashboard')]
     public function index(
         DecisionRepository $decisionRepository,
-        OpinionLike $opinionLike,
         Request $request
     ): Response {
 
@@ -30,25 +27,24 @@ class DashboardController extends AbstractController
             $title = $form->getData()['search_title'];
             return $this->redirectToRoute('app_decision_search', ['title' => $title]);
         }
-        $myLastDecisions = $decisionRepository->findByStatus(Decision::STATUS_CURRENT, 3, $user->getId());
-        $allLastDecisions = $decisionRepository->findByStatus(Decision::STATUS_CURRENT, 3);
-        $myLastDrafts = $decisionRepository->findByStatus(Decision::STATUS_DRAFT, 3, $user->getId());
-        $allLastAccomplished = $decisionRepository->findByStatus(Decision::STATUS_DONE, 3);
+
+        // $myLastDecisions = $decisionRepository->findByStatus(Decision::STATUS_CURRENT, 3, $user->getId());
+        // $allLastDecisions = $decisionRepository->findByStatus(Decision::STATUS_CURRENT, 3);
+        // $myLastDrafts = $decisionRepository->findByStatus(Decision::STATUS_DRAFT, 3, $user->getId());
+        // $allLastAccomplished = $decisionRepository->findByStatus(Decision::STATUS_DONE, 3);
 
         return $this->render(
             'home/index.html.twig',
             [
-                'myLastDecisions' => $myLastDecisions,
-                'myLastDecisionsOpinion' => $opinionLike->calculateAllOpinion($myLastDecisions),
-
-                'allLastDecisions' => $allLastDecisions,
-                'allLastDecisionsOpinion' => $opinionLike->calculateAllOpinion($allLastDecisions),
-
-                'myLastDrafts' => $myLastDrafts,
-                'myLastDraftsOpinion' => $opinionLike->calculateAllOpinion($myLastDrafts),
-
-                'allLastAccomplished' => $allLastAccomplished,
-                'allLastAccomplishedOpinion' => $opinionLike->calculateAllOpinion($allLastAccomplished),
+                'myLastCurrentDecisions' => $decisionRepository->findByStatus(Decision::STATUS_CURRENT, 3, $user->getId()),
+                'myLastDraftDecisions' => $decisionRepository->findByStatus(Decision::STATUS_DRAFT, 3, $user->getId()),
+                'myLastFirstDecisions' => $decisionRepository->findByStatus(Decision::STATUS_FIRST_DECISION, 3, $user->getId()),
+                'myLastConflictDecisions' => $decisionRepository->findByStatus(Decision::STATUS_CONFLICT, 3, $user->getId()),
+                'myLastDoneDecisions' => $decisionRepository->findByStatus(Decision::STATUS_DONE, 3, $user->getId()),
+                'myLastUndoneDecisions' => $decisionRepository->findByStatus(Decision::STATUS_UNDONE, 3, $user->getId()),
+                'allLastCurrentDecisions' => $decisionRepository->findByStatus(Decision::STATUS_CURRENT, 3),
+                'allLastDoneDecisions' => $decisionRepository->findByStatus(Decision::STATUS_DONE, 3),
+                'allLastUndoneDecisions' => $decisionRepository->findByStatus(Decision::STATUS_UNDONE, 3),
 
                 'form' => $form->createView()
             ]

@@ -2,11 +2,15 @@
 	<div class="container-fluid">
 		<div class="nav nav-pills nav-fill col-4">
 			<a class="dropdown-item" href="{{ path('app_dashboard') }}">
-				<img class="logo" src="{{ asset('build/images/logo-makesense.png') }}">
+				<img class="logo" src="{{ asset('/build/images/logo-makesense.png') }}">
 			</a>
 		</div>
 		<div class="col-8 nav justify-content-end align-items-center">
+<<<<<<< HEAD
 			    {% if app.request.attributes.get('_route') == 'app_dashboard' %}
+=======
+			 	{% if app.request.attributes.get('_route') == 'app_dashboard' %}
+>>>>>>> 49eab3a7ce3c318e35324df814cee6fa812844c7
 						<li class="nav-item  col-3">
 							<div class="row offset-1 form ">
 								{{ form_start(form, {'attr': {'id': 'form_search'}}) }}
@@ -19,9 +23,20 @@
 								{{ form_end(form) }}
 							</div>
 						</li>
+<<<<<<< HEAD
 				{% endif %}
 			<li class="nav-item offset-1">
 				<a href="{{ path('app_decision_search') }}" class="fs-4 me-5 btn" type="button">
+=======
+				{% endif %} 
+			<li class="nav-item offset-1">
+				<a href="{{ path('app_decision_new') }}" class="fs-4 me-5 btn text-white card-bg-color" type="button">ajouter une décision</a>
+			</li>
+
+
+			<li class="nav-item offset-1">
+				 <a href="{{ path('app_decision_search') }}" class="fs-4 me-5 btn" type="button">
+>>>>>>> 49eab3a7ce3c318e35324df814cee6fa812844c7
 					Décisions
 				</a>
 			</li>
@@ -54,5 +69,4 @@
 			</div>
 		</li>
 	</div>
-
-</div></nav>
+</nav>

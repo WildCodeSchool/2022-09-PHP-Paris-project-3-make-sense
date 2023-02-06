@@ -6,14 +6,14 @@
 					<div class="card-header fs-3 card-bg-color text-white d-flex justify-content-between">
 						<div class="d-flex align-items-center">
 							<div class="fs-4 me-4">Status :</div>
-							{# {% if decision.status == (constant('App\\Entity\\Decision::STATUS_CONFLICT')) %}
+							{% if decision.status == (constant('App\\Entity\\Decision::STATUS_CONFLICT')) %}
 								<div class="ms-4 text-white fs-6 bg-danger pb-1 pe-3 ps-3 rounded-5">
 								{% else %}
 									<div class="ms-4 text-white fs-6 bg-success pb-1 pe-3 ps-3 rounded-5">
 									{% endif %}
 									<small>{{ constant('App\\Entity\\Decision::STATUSES')[decision.status] }}</small>
 								</div>
-							</div> #}
+							</div> 
 							
 						</div>
 

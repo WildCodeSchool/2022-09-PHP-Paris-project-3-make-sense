@@ -1,18 +1,12 @@
-{% if status == (constant('App\\Entity\\Decision::STATUS_CONFLICT')) or status == (constant('App\\Entity\\Decision::STATUS_UNDONE')) %}
-  <div class="text-white text-center fs-6 bg-danger pb-1 pe-3 ps-3 rounded-5">
-{% endif %}
+{# {% if status == (constant('Ap\\Entity\\Decision::STATUS_CONFLICT')) or status == (constant('App\\Entity\\Decision::STATUS_UNDONE')) %}
+  <div class="text-white tex-center fs-6 bg-danger pb-1 pe-3 ps-3 rounded-5">
+{% endif %}{% if status == (constant('Ap\\Entity\\Decision::STATUS_DONE')) %}
+	<div class="text-white txt-center fs-6 bg-success pb-1 pe-3 ps-3 rounded-5">
+{% endif %}{% if status == (constant('Ap\\Entity\\Decision::STATUS_CURRENT')) %}
+	<div class="text-white txt-center fs-6 bg-black pb-1 pe-3 ps-3 rounded-5">
+{% endif %}{% if status == (constant('Ap\\Entity\\Decision::STATUS_FIRST_DECISION')) %}
+	<div class="text-white txt-center fs-6 bg-secondary pb-1 pe-3 ps-3 rounded-5">
+{% endif %}<small>{{ constant('App\\Entty\\Decision::STATUSES')[status] }}</small>
+</div> #}
 
-{% if status == (constant('App\\Entity\\Decision::STATUS_DONE')) %}
-	<div class="text-white text-center fs-6 bg-success pb-1 pe-3 ps-3 rounded-5">
-{% endif %}
-
-{% if status == (constant('App\\Entity\\Decision::STATUS_CURRENT')) %}
-	<div class="text-white text-center fs-6 bg-black pb-1 pe-3 ps-3 rounded-5">
-{% endif %}
-
-{% if status == (constant('App\\Entity\\Decision::STATUS_FIRST_DECISION')) %}
-	<div class="text-white text-center fs-6 bg-secondary pb-1 pe-3 ps-3 rounded-5">
-{% endif %}
-
-<small>{{ constant('App\\Entity\\Decision::STATUSES')[status] }}</small>
-</div>
+<div class="status rounded-5 text-center ps-3 pe-3">{{ constant('App\\Entity\\Decision::STATUSES')[status] }}</div>

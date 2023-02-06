@@ -2,11 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Decision;
 use App\Entity\User;
 use App\Repository\DecisionRepository;
-use App\Service\OpinionLike;
-use Knp\Component\Pager\PaginatorInterface;
+// use App\Service\OpinionLike;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,13 +13,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     #[Route('/{user}', methods: ['GET'], name: 'show')]
-    public function show(User $user, DecisionRepository $decisionRepository, OpinionLike $opinionLike): Response
+    public function show(User $user, DecisionRepository $decisionRepository): Response
     {
-
-        $decisions = $decisionRepository->findBy(['owner' => $user], ['createdAt' => 'DESC']);
-
-        $opinionLikes = $opinionLike->calculateAllOpinion($decisions);
-        return $this->render('user/show.html.twig', ['user' => $user, 'decisions' => $decisions,
-        'opinionLikes' => $opinionLikes]);
+        return $this->render(
+            'user/show.html.twig',
+            [
+                'user' => $user,
+                'decisions' => $decisionRepository->findBy(['owner' => $user], ['createdAt' => 'DESC'])
+            ]
+        );
     }
 }

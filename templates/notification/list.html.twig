@@ -16,8 +16,10 @@
 						{% for notification in notifications %}
 							<tr class="">
 								<td class="col-4">
-									<button type="submit" class="btn btn-link" name={{ constant('App\\Entity\\Notification::STATUS_SHOW')}} value={{ notification[0].id }}>
-										{{ notification[0].title }}</button>
+									<button class="btn btn-link text-decoration-none" type="submit" 
+										name={{constant('App\\Entity\\Notification::STATUS_SHOW')}} value={{ notification[0].id }} >
+										{{ notification[0].title }}	
+									</button>		
 								</td>
 								<td class="col-4">
 									{{ constant('App\\Entity\\Notification::NOTIFICATIONS_MESSAGE')[notification[0].status]}}

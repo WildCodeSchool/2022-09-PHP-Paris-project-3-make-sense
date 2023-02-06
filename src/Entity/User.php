@@ -281,10 +281,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, Decision>
      */
-    public function getExpertise(): Collection
+    public function getExpertises(): Collection
     {
         return $this->expertises;
     }
+
     public function addExpertise(Expertise $expertise): self
     {
         if (!$this->expertises->contains($expertise)) {
