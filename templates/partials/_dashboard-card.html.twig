@@ -8,6 +8,7 @@
 						<div>
 							<i class="fs-5 rounded-4 bg-light p-3 fa-regular fa-user"></i>
 						</div>
+
 						<div class="ms-2">
 							{% if decision.status != constant('App\\Entity\\Decision::STATUS_DRAFT')%}
 								<a class="text-decoration-none" href="{{ path('app_decision_show', { 'decision_id' : decision.id})}}">

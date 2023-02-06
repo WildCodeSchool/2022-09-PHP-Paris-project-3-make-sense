@@ -3,24 +3,22 @@
 namespace App\Controller;
 
 use App\Entity\User;
-
-use App\Repository\DecisionRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use App\Form\UserType;
 use DateTimeImmutable;
 use App\Entity\Expertise;
-use App\Entity\Department;
 use App\Repository\UserRepository;
+use App\Repository\DecisionRepository;
 use App\Repository\ExpertiseRepository;
 use App\Repository\DepartmentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-
+#[Route('/user', name: 'user_')]
 class UserController extends AbstractController
 {
     private ExpertiseRepository $expertiseRepository;
@@ -76,7 +74,7 @@ class UserController extends AbstractController
     }
 
 
-    #[Route('/user/edit/{id}', name: 'user_edit', methods: ['POST', 'GET'])]
+    #[Route('/edit/{id}', name: 'edit', methods: ['POST', 'GET'])]
     public function edit(UserRepository $userRepository, User $user, Request $request): Response
     {
 
@@ -85,7 +83,7 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->updateExpertise($request->request->all()['user']['departments'], $user);
             $userRepository->save($user, true);
-            return $this->redirectToRoute('user');
+            return $this->redirectToRoute('user_admin');
         }
 
         return $this->render('User/edit.html.twig', [
@@ -93,7 +91,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/user/new', name: 'user_new', methods: ['POST', 'GET'])]
+    #[Route('/new', name: 'new', methods: ['POST', 'GET'])]
     public function new(
         Request $request,
         EntityManagerInterface $manager,
@@ -121,7 +119,7 @@ class UserController extends AbstractController
                 $user
             );
 
-            return $this->redirectToRoute('user');
+            return $this->redirectToRoute('user_admin');
         }
 
         return $this->render('User/new.html.twig', [
@@ -129,7 +127,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/user', name: 'user')]
+    #[Route('/admin', name: 'admin')]
     public function read(UserRepository $userRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $users = $paginator->paginate(
@@ -143,7 +141,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{user}', methods: ['GET'], name: 'show')]
+    #[Route('/show-decisions/{id}', methods: ['GET'], name: 'show')]
     public function show(User $user, DecisionRepository $decisionRepository): Response
     {
         return $this->render(
