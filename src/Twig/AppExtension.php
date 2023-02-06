@@ -15,6 +15,7 @@ class AppExtension extends AbstractExtension
         return [
             new TwigFunction('expertDecision', [$this, 'expertDecision']),
             new TwigFunction('calculateOpinion', [$this, 'calculateOpinion']),
+            new TwigFunction('calculateExpert', [$this, 'calculateExpert']),
         ];
     }
 
@@ -43,6 +44,19 @@ class AppExtension extends AbstractExtension
 
         foreach ($decision->getOpinions() as $opinion) {
             $opinion->isIsLike() ? $like++ : $dislike++;
+        }
+
+
+        return ['like' => $like, 'dislike' => $dislike];
+    }
+
+    public function calculateExpert(Decision $decision): array
+    {
+        $like = 0;
+        $dislike = 0;
+
+        foreach ($decision->getValidations() as $validation) {
+            $validation->isIsApproved() ? $like++ : $dislike++;
         }
 
 

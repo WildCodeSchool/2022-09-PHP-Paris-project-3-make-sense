@@ -1,0 +1,31 @@
+<div class="d-flex align-items-center">
+	<div class="d-flex p-1 status rounded-1" style="background-color: #70AF90">
+		{% if click is defined and decision.status == constant('App\\Entity\\Decision::STATUS_CONFLICT') %}
+			<a class="d-flex text-decoration-none" 
+					href="{{ path('app_decision_validation', { 'decision_id' : decision.id})}}">
+				<div class="fs-5 fa-regular fa-thumbs-up text-dark"></div>
+				<div class="ms-1 me-2 text-white">({{ calculateExpert(decision).like }})</div>
+			</a>
+		{% else %}
+			<div class="fs-5 fa-regular fa-thumbs-up text-dark"></div>
+			<div class="ms-1 me-2 text-white">({{ calculateExpert(decision).like }})</div>
+		{% endif %}
+	</div>
+	<div class="d-flex p-1 status rounded-1" style="background-color: rgb(155, 8, 79, 0.1)">
+
+		{% if click is defined and decision.status == constant('App\\Entity\\Decision::STATUS_CONFLICT') %}
+			<a class="d-flex text-decoration-none" 
+				href="{{ path('app_decision_validation', { 'decision_id' : decision.id })}}">
+				<div class="fs-5 fa-regular fa-thumbs-down text-dark"></div>
+				<div class="ms-1 me-2 text-dark">({{ calculateExpert(decision).dislike }})</div>
+			</a>
+		{% else %}
+			<div class="fs-5 fa-regular fa-thumbs-down text-dark"></div>
+			<div class="ms-1 me-2 text-dark">({{ calculateExpert(decision).dislike }})</div>
+		{% endif %}
+	</div>
+	<div class="d-flex p-1 status rounded-1" style="background-color: #FCF6A0">
+		<div class="fs-6 text-dark">50%</div>
+	</div>
+
+</div>

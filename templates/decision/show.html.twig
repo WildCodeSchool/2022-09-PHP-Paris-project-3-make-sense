@@ -154,11 +154,12 @@
 								{{'(' ~ decision.validations|length ~ ')'}}
 							</section>
 							{% if expertDecision(decision, app.user) == true and decision.status == 'conflict' %} 
-								<div>
-									<a href="{{ path('app_decision_firstdecision', { 'decision_id' : decision.id }) }}" class="btn ms-3 fs-6 rounded-5 col-12 card-bg-color text-white">
+								<div class= "ms-2">
+									{% include 'partials/_like-expert-button.html.twig' with { 'decision' : decision, 'click' : true } %}
+									{# <a href="{{ path('app_decision_firstdecision', { 'decision_id' : decision.id }) }}" class="btn ms-3 fs-6 rounded-5 col-12 card-bg-color text-white">
 										<small>{{ constant('App\\Entity\\Notification::NOTIFICATIONS_BUTTON')[decision.status]}}
 										</small>
-									</a>
+									</a> #}
 								</div>
 							{% endif %} 
 
