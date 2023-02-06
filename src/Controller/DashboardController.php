@@ -28,11 +28,6 @@ class DashboardController extends AbstractController
             return $this->redirectToRoute('app_decision_search', ['title' => $title]);
         }
 
-        // $myLastDecisions = $decisionRepository->findByStatus(Decision::STATUS_CURRENT, 3, $user->getId());
-        // $allLastDecisions = $decisionRepository->findByStatus(Decision::STATUS_CURRENT, 3);
-        // $myLastDrafts = $decisionRepository->findByStatus(Decision::STATUS_DRAFT, 3, $user->getId());
-        // $allLastAccomplished = $decisionRepository->findByStatus(Decision::STATUS_DONE, 3);
-
         return $this->render(
             'home/index.html.twig',
             [
