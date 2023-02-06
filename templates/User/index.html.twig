@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+{% block header %}
+{% include 'partials/_navbar.html.twig' %}
+{% endblock %}
+
+{% block title %} Make-Sense - Les utilisateurs {% endblock %}
+
+{% block body %}
+
+
+    <div class="container mt-4 ">
+               <u> <h3> Les utilisateurs </h3></u>
+             Il y a {{ users.getTotalItemCount}} utilisateurs
+        <div class="count mt-4 d-flex justify-content-end">
+          <a href="{{ path('user_new') }}" class="btn btn-success rounded-5" role="button">Ajouter un utilisateur</a>
+        </div>
+        <div>
+            <table class="table table-bordered border-dark mt-4 text-center">
+                <thead class="table-light fs-6">
+                    <tr>
+                    <th scope="col">Photo</th>
+                    <th scope="col">Date de création</th>
+                    <th scope="col">Date de modification </th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Domaine d'expertise</th>
+                    <th scope="col">Centre d'intérêt</th>
+                    <th scope="col">Rôle</th>
+                    <th scope="col">Edition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>
+                          <img src="{{ vich_uploader_asset(user) }} " style="width:50px;height:60px;"  class="rounded hover:rounded-lg" alt="{{ user.posterFile }}">
+                        </td>
+                        <td>{{user.createdAt |date("m/d/Y")}}</td>
+                        <td>{{user.updatedAt |date("m/d/Y")}}</td>
+                        <td>{{user.lastname}}</td>
+                        <td>{{user.firstname}}</td>
+                        <td>{{user.email}}</td>
+                        <td>
+                            {% for expertise in user.expertises %}
+                                {% if expertise.isExpert == 'true' %}
+                                 <div class="card-bg-color text-white rounded-5 text-center mt-1" style="width:120px"><small>{{ constant('App\\Entity\\Department::DEPARTMENTS')[expertise.department.name] }}</small></div>
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for expertise in user.expertises %}
+                               {% if expertise.isExpert != 'true' %}
+                                 <div class="card-bg-color text-white rounded-5 text-center mt-1" style="width:120px"><small>{{ constant('App\\Entity\\Department::DEPARTMENTS')[expertise.department.name] }}</small></div>
+                               {% endif %}
+                            {% endfor %}
+                        <td>
+                         {% if user.roles|join(', ') == 'ROLE_USER' %}
+                            User
+                         {% elseif user.roles|join(', ') != 'ROLE_USER' %}
+                            Admin
+                         {% endif %}
+                        </td>
+                        <td>
+                          <a href="{{ path('user_edit', { id: user.id}) }}" class="btn btn-info rounded-5">Modifier</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="navigation d-flex justify-content-center mt-4">
+            {{ knp_pagination_render(users) }}
+        </div>
+    </div>
+{% endblock %}

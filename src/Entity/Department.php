@@ -19,7 +19,6 @@ class Department
     public const DEPARTMENT_FINANCE = 'finance';
     public const DEPARTMENT_BUYER = 'buyer';
     public const DEPARTMENT_LEGAL = 'legal';
-
     public const DEPARTMENTS = [
         self::DEPARTMENT_HUMAN_RESSOURCES =>  'Ressources Humaines',
         self::DEPARTMENT_SALES => 'Commercial',
