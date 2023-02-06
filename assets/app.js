@@ -22,3 +22,5 @@ import "@fortawesome/fontawesome-free/css/all.css";
 
 import './styles/app.scss';
 import './styles/_decision-card.css';
+import './styles/_department-card.css';
+
