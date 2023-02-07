@@ -31,15 +31,24 @@ class DashboardController extends AbstractController
         return $this->render(
             'home/index.html.twig',
             [
-                'myLastCurrentDecisions' => $decisionRepository->findByStatus(Decision::STATUS_CURRENT, 3, $user->getId()),
-                'myLastDraftDecisions' => $decisionRepository->findByStatus(Decision::STATUS_DRAFT, 3, $user->getId()),
-                'myLastFirstDecisions' => $decisionRepository->findByStatus(Decision::STATUS_FIRST_DECISION, 3, $user->getId()),
-                'myLastConflictDecisions' => $decisionRepository->findByStatus(Decision::STATUS_CONFLICT, 3, $user->getId()),
-                'myLastDoneDecisions' => $decisionRepository->findByStatus(Decision::STATUS_DONE, 3, $user->getId()),
-                'myLastUndoneDecisions' => $decisionRepository->findByStatus(Decision::STATUS_UNDONE, 3, $user->getId()),
-                'allLastCurrentDecisions' => $decisionRepository->findByStatus(Decision::STATUS_CURRENT, 3),
-                'allLastDoneDecisions' => $decisionRepository->findByStatus(Decision::STATUS_DONE, 3),
-                'allLastUndoneDecisions' => $decisionRepository->findByStatus(Decision::STATUS_UNDONE, 3),
+                'myLastCurrentDecisions' =>
+                $decisionRepository->findByStatus(Decision::STATUS_CURRENT, 3, $user->getId()),
+                'myLastDraftDecisions' =>
+                $decisionRepository->findByStatus(Decision::STATUS_DRAFT, 3, $user->getId()),
+                'myLastFirstDecisions' =>
+                $decisionRepository->findByStatus(Decision::STATUS_FIRST_DECISION, 3, $user->getId()),
+                'myLastConflictDecisions' =>
+                $decisionRepository->findByStatus(Decision::STATUS_CONFLICT, 3, $user->getId()),
+                'myLastDoneDecisions' =>
+                $decisionRepository->findByStatus(Decision::STATUS_DONE, 3, $user->getId()),
+                'myLastUndoneDecisions' =>
+                $decisionRepository->findByStatus(Decision::STATUS_UNDONE, 3, $user->getId()),
+                'allLastCurrentDecisions' =>
+                $decisionRepository->findByStatus(Decision::STATUS_CURRENT, 3),
+                'allLastDoneDecisions' =>
+                $decisionRepository->findByStatus(Decision::STATUS_DONE, 3),
+                'allLastUndoneDecisions' =>
+                $decisionRepository->findByStatus(Decision::STATUS_UNDONE, 3),
 
                 'form' => $form->createView()
             ]

@@ -99,7 +99,6 @@ class DecisionController extends AbstractController
         ?string $title,
         PaginatorInterface $paginator
     ): Response {
-
         if (!empty($request->request->all())) {
             $title = $request->request->all()['search_decisions']['search'];
         }

@@ -16,7 +16,6 @@
 						{% for notification in notifications %}
 							<tr class="bg-white">
 								<td class="col-4">
-
 									<button class="fs-4 btn btn-link text-dark text-decoration-none" type="submit" name={{constant('App\\Entity\\Notification::STATUS_SHOW')}} value={{ notification[0].id }}>
 										{{ notification[0].title }}
 									</button>
