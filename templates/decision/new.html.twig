@@ -17,9 +17,9 @@
 	{{ form_start(form) }}
 
 	<div class="container-fluid d-flex justify-content-center">
-		<div class="card mt-5 mb-5">
-			<div class="card-header card-bg-color">
-				<h1 class="text-center text-white">Ajouter une décision</h1>
+		<div class="card box-card mt-5 mb-5">
+			<div class="card-header style-shadow">
+				<h1 class="text-center">Ajouter une décision</h1>
 			</div>
 
 			<div class="row col-12">
@@ -68,7 +68,7 @@
 							{{ form_label(form.end_at) }}
 							{{ form_widget(form.end_at) }}
 
-								{% if form_errors(form.end_at) is not empty %}
+							{% if form_errors(form.end_at) is not empty %}
 								<div class="alert alert-warning">
 									{{ form_errors(form.end_at) }}
 								</div>

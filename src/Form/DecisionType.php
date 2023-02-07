@@ -26,8 +26,8 @@ class DecisionType extends AbstractType
     ): void {
         $choiceDepartments = [];
 
-        foreach (Department::DEPARTMENTS as $departmentValue) {
-            $choiceDepartments[$departmentValue] = $departmentValue;
+        foreach (Department::DEPARTMENTS as $departmentKey => $departmentValue) {
+            $choiceDepartments[$departmentKey] = $departmentValue;
         }
 
         $builder
@@ -44,7 +44,7 @@ class DecisionType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'class' => 'form-check'],
-               //  'choices' => $choiceDepartments,
+                 'label' => $choiceDepartments,
                //  'mapped' => false,
                 'expanded' => true,
                 'multiple' => true,])
@@ -101,11 +101,11 @@ class DecisionType extends AbstractType
                     'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3']])
             ->add('saveAsDraft', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-secondary card-bg-color'],
+                    'class' => 'btn btn-secondary button-make-sense'],
                 'label' => 'Enregistrer en tant que brouillon',])
             ->add('save', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-secondary card-bg-color',],
+                    'class' => 'btn btn-secondary button-make-sense',],
                 'label' => 'Soumettre',]);
         ;
     }
