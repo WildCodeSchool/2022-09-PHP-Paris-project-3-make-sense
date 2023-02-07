@@ -8,10 +8,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/user', name: 'user_')]
+#[Route('/user', name: 'app_user_')]
 class UserController extends AbstractController
 {
-    #[Route('/show-decisions/{user}', methods: ['GET'], name: 'show')]
+    #[Route('/show-decisions/{id}', methods: ['GET'], name: 'show')]
     public function show(User $user, DecisionRepository $decisionRepository): Response
     {
         return $this->render(

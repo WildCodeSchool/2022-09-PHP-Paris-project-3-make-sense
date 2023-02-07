@@ -100,9 +100,7 @@ class DecisionController extends AbstractController
         ?string $title,
         PaginatorInterface $paginator
     ): Response {
-
         if (!empty($request->request->all())) {
-            // dd($request->request->all());
             $title = $request->request->all()['search_decisions']['search'];
         }
         $form = $this->createForm(SearchDecisionsType::class, ['title' => $title]);
