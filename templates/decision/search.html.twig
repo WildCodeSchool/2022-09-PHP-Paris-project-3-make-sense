@@ -6,7 +6,7 @@
 {% block body %}
 	{% include "partials/_navbar.html.twig" %}
 
-	<div id="home-login" class="bg-image">
+	<div id="" class="m-0 p-0">
 		<div class="container">
 			<div class="row">
 				{{ form_start(form) }}
@@ -19,9 +19,11 @@
 		</div>
 
 		<div class="row mt-5 justify-content-center">
-		
+
 			{% for decision in decisions %}
-				{% include 'partials/_decision-card.html.twig' with { 'decision': decision } %} 
+				<div class="style-shadow mx-3 my-3 col-3">
+					{% include 'partials/_decision-card.html.twig' with { 'decision': decision } %}
+				</div>
 			{% endfor %}
 
 		</div>
