@@ -1,71 +1,68 @@
 {% extends 'base.html.twig' %}
 {% block header %}
-	{% include 'partials/_navbar.html.twig' %}
+{% include 'partials/_navbar.html.twig' %}
 {% endblock %}
 
-{% block title %}
-	Make-Sense - ajout utilisateur
-{% endblock %}
+{% block title %} Make-Sense - Ajouter un utilisateur {% endblock %}
 
 {% block body %}
 
-	<div class="card border-bg-color mb-3 container d-flex justify-content-center mt-4" style="width: 45rem;">
-		<div class="card-header fs-3 text-center card-bg-color text-white">
-			<h4 class="mt-4">Ajouter un utilisateur</h4>
-		</div>
-		<div class="card-body">
-			{{ form_start(form) }}
+    <div class="card border-bg-color mb-3 container d-flex justify-content-center mt-4" style="width: 45rem;"> 
+     <div class="card-header style-shadow text-center">
+         <h4 class="mt-4">Modifier un utilisateur</h4>
+     </div>
+    <div class="card-body">
+        {{ form_start(form) }}
 
-			<div class="form-group">
-				{{ form_label(form.firstname) }}
-				{{ form_widget(form.firstname) }}
-				{{ form_errors(form) }}
-			</div>
+             <div class="form-group">
+               {{ form_label(form.firstname) }}
+               {{ form_widget(form.firstname) }}   
+               {{ form_errors(form) }}
+            </div>  
 
-			<div class="form-group">
-				{{ form_label(form.lastname) }}
-				{{ form_widget(form.lastname) }}
-				{{ form_errors(form) }}
-			</div>
+             <div class="form-group">
+               {{ form_label(form.lastname) }}
+               {{ form_widget(form.lastname) }}  
+                {{ form_errors(form) }}  
+            </div>
 
-			<div class="form-group">
-				{{ form_label(form.email) }}
-				{{ form_widget(form.email) }}
-				{{ form_errors(form) }}
-			</div>
+             <div class="form-group">
+               {{ form_label(form.email) }}
+               {{ form_widget(form.email) }}  
+                {{ form_errors(form) }}
+            </div>  
 
-			<div class="form-group">
-				{{ form_label(form.password) }}
-				{{ form_widget(form.password) }}
-				{{ form_errors(form) }}
-			</div>
+            <div class="form-group">
+               {{ form_label(form.password) }}
+               {{ form_widget(form.password) }}  
+                {{ form_errors(form) }}
+            </div>
 
-			<div class="form-group">
-				{{ form_label(form.roles) }}
-				{{ form_widget(form.roles) }}
-				{{ form_errors(form) }}
-			</div>
+              <div class="form-group">
+               {{ form_label(form.roles) }}
+               {{ form_widget(form.roles) }}
+                {{ form_errors(form) }}
+            </div> 
 
-			{{ form_row(form.posterFile) }}
+               {{ form_row(form.posterFile) }}  
 
-			<div class="form-group">
-				{{ form_label(form.phone) }}
-				{{ form_widget(form.phone) }}
-				{{ form_errors(form) }}
-			</div>
+             <div class="form-group">
+               {{ form_label(form.phone) }}
+               {{ form_widget(form.phone) }}
+                {{ form_errors(form) }}
+            </div>
+            
+            <div class="d-flex align-content-around flex-wrap mt-4 gap-1" >
+            {% for department in form.departments %}
+                {{ form_label(department)}}
+                {{ form_widget(department)}}
+                <br>
+            {% endfor %}
+            </div> 
 
-			<div class="d-flex align-content-around flex-wrap mt-4 gap-1">
-				{% for department in form.departments %}
-					{{ form_label(department)}}
-					{{ form_widget(department)}}
-					<br>
-				{% endfor %}
-			</div>
-
-			<div class="d-flex justify-content-end ">
-				{{ form_row(form.submit, { 'label': 'Enregistrer' }) }}
-			</div>
-			{{ form_end(form) }}
-		</div>
-        
-	{% endblock %}
+            <div class="d-flex justify-content-end ">
+               {{ form_row(form.submit, { 'label': 'Enregistrer' }) }}
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

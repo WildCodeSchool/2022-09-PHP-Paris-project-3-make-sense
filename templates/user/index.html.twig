@@ -2,17 +2,13 @@
 {% block header %}
 {% include 'partials/_navbar.html.twig' %}
 {% endblock %}
-
 {% block title %} Make-Sense - Les utilisateurs {% endblock %}
-
 {% block body %}
-
-
     <div class="container-fluid mt-4 text-white col-8 ">
                <u> <h3> Les utilisateurs </h3></u>
              Il y a {{ users.getTotalItemCount}} utilisateurs
         <div class="count mt-4 d-flex justify-content-end">
-          <a href="{{ path('app_user_new') }}" class="btn btn-success rounded-5" role="button">Ajouter un utilisateur</a>
+          <a href="{{ path('app_user_new') }}" class="fs-4 me-5 ml-2 btn button-make-sense" type="button">Ajouter un utilisateur</a>
         </div>
         <div class="row mt-5 d-flex justify-content-center">
             <table class="table table-striped table-bordered bg-grey-light">
@@ -54,7 +50,7 @@
                                   {% include 'partials/_department-card.html.twig' with { 'department' : expertise.department.name } %}
                                {% endif %}
                             {% endfor %}
-                        </td>    
+                        </td>
                         <td>
                          {% if user.roles|join(', ') == 'ROLE_USER' %}
                             User
@@ -63,7 +59,7 @@
                          {% endif %}
                         </td>
                         <td>
-                          <a href="{{ path('app_user_edit', { id: user.id}) }}" class="btn btn-outline-info rounded-5 text-center">Modifier</a>
+                          <a href="{{ path('app_user_edit', { id: user.id}) }}" class="fs-4 me-5 ml-2 btn button-make-sense" type="button">Modifier</a>
                         </td>
                     </tr>
                 {% endfor %}
