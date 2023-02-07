@@ -19,10 +19,6 @@
 								<div class="mt-2">
 									{% include 'partials/_like-button.html.twig' with { 'decision' : decision, 'click' : true } %}
 								</div>
-								<div>
-									seuil
-									{{ decision.likeThreshold}}%
-								</div>
 							</div>
 						{% endif %}
 					</div>
@@ -32,7 +28,12 @@
 						</section>
 					</h1>
 					<div class="card-body m-0 p-0 mb-3">
-						<img class="like ms-2" src=" {{ decision.owner.poster }} ">
+						{% if decision.owner.poster != "" %}
+							<img class="rounded-5" src="{{ vich_uploader_asset(decision.owner, 'posterFile') }}" style="height:45px; width:45px" alt="..">
+						{% else %}
+							<i class="fs-5 rounded-4 bg-light p-3 fa-regular fa-user"></i>
+						{% endif %}
+						
 						<strong>
 							{{ decision.owner.firstname ~ ' ' ~ decision.owner.lastname }}
 						</strong>
@@ -109,7 +110,12 @@
 									<div class="accordion-body">
 										{% for opinion in decision.opinions %}
 										</br>
-										<img class="image" src="{{ decision.owner.poster }}">
+										{% if decision.owner.poster != "" %}
+											<img class="rounded-5" src="{{ vich_uploader_asset(opinion.user, 'posterFile') }}" style="height:45px; width:45px" alt="..">
+										{% else %}
+											<i class="fs-5 rounded-4 bg-light p-3 fa-regular fa-user"></i>
+										{% endif %}
+
 										{{ opinion.user.firstname }}
 										{{" " ~ opinion.user.lastname }}
 									</br>
@@ -169,7 +175,12 @@
 								<div class="accordion-body">
 									{% for validation in decision.validations %}
 									</br>
-									<img class="image" src="{{ decision.owner.poster }}">
+									{# <img class="image" src="{{ decision.owner.poster }}"> #}
+									{% if decision.owner.poster != "" %}
+										<img class="rounded-5" src="{{ vich_uploader_asset(validation.user, 'posterFile') }}" style="height:45px; width:45px" alt="..">
+									{% else %}
+										<i class="fs-5 rounded-4 bg-light p-3 fa-regular fa-user"></i>
+									{% endif %}
 									{{ validation.user.firstname ~ " " ~ validation.user.lastname }}
 								</br>
 								<section class="expert">

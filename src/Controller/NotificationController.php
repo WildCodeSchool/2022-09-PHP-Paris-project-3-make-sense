@@ -87,7 +87,8 @@ class NotificationController extends AbstractController
                 case Decision::STATUS_CONFLICT:
                     // $this->updateNotification($request, Decision::STATUS_CONFLICT);
                     return $this->redirectToRoute('app_decision_validation', [
-                        'decision_id' => $request->request->get(Decision::STATUS_CONFLICT)
+                        'decision_id' => $request->request->get(Decision::STATUS_CONFLICT),
+                        // 'state' => 'like'
                     ]);
 
                 default:

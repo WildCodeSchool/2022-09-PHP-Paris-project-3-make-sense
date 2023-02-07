@@ -55,13 +55,23 @@
 						<div class="w-100 text-center mb-2">
 							{{ form_row(form.avispositif, { 'label': 'avis positif' }) }}
 						</div>
-					{% else %}
+					{% endif %}
+					{% if state == 'dislike' %}
 						<div class="w-100 text-center mb-2">
 							{{ form_row(form.avisnegatif, { 'label': 'avis négatif' }) }}
 						</div>
 					{% endif %}
+					{% if state is null %}
+						<div class="w-100 text-center mb-2">
+							{{ form_row(form.avispositif, { 'label': 'avis positif' }) }}
+						</div>
+						<div class="w-100 text-center mb-2">
+							{{ form_row(form.avisnegatif, { 'label': 'avis négatif' }) }}
+						</div>
+					{% endif %}
+
 				</div>
-				
+
 				{{ form_end(form) }}
 
 			</div>

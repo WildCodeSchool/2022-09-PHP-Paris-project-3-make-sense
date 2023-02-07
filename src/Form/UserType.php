@@ -40,8 +40,7 @@ class UserType extends AbstractType
                 ],
             ])
             ->add('password', PasswordType::class, [
-                'required' => false,
-                // 'mapped' => false,
+                'required' => true,
                 'attr' => [
                     'class' => 'form-control',
                 ],

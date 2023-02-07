@@ -34,7 +34,11 @@
 
 	<div class="mx-3">
 		<div class="position-user-decision">
+			{% if decision.owner.poster != "" %}
+				<img class="rounded-5" src="{{ vich_uploader_asset(decision.owner, 'posterFile') }}" style="height:45px; width:45px" alt="..">
+			{% else %}
 				<i class="fs-5 rounded-4 bg-light p-3 fa-regular fa-user"></i>
+			{% endif %}
 				<a class="ms-2 text-decoration-none text-muted">{{decision.owner.firstname}}
 					{{decision.owner.lastname}}</a>
 		</div>

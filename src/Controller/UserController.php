@@ -82,8 +82,15 @@ class UserController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->updateExpertise($request->request->all()['user']['departments'], $user);
+            $user->setPassword(
+                $this->passwordHasher->hashPassword(
+                    $user,
+                    $form->get('password')->getData()
+                )
+            );
+            $user->setUpdatedAt(new DateTimeImmutable('now'));
             $userRepository->save($user, true);
-            return $this->redirectToRoute('user_admin');
+            return $this->redirectToRoute('app_user_admin');
         }
 
         return $this->render('user/edit.html.twig', [
@@ -119,7 +126,7 @@ class UserController extends AbstractController
                 $user
             );
 
-            return $this->redirectToRoute('user_admin');
+            return $this->redirectToRoute('app_user_admin');
         }
 
         return $this->render('user/new.html.twig', [

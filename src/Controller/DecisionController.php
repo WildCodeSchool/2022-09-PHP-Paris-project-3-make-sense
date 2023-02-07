@@ -249,11 +249,12 @@ class DecisionController extends AbstractController
             if ($save->isClicked()) {
                 $decision->setUpdatedAt(new DateTime('now'));
                 $decision->setStatus(Decision::STATUS_CURRENT);
+                $this->workflow->addNotifications($decision);
+                $this->workflow->addHistory($decision);
             }
 
-            $this->workflow->addHistory($decision);
             $decisionRepository->save($decision, true);
-            $this->addFlash('success', 'Decision sucessfully created !');
+            $this->addFlash('success', 'Decision sucessfully saved !');
             return $this->redirectToRoute('app_dashboard');
         } else {
             foreach ($form->getErrors(true) as $error) {
@@ -268,11 +269,11 @@ class DecisionController extends AbstractController
     }
 
 
-    #[Route('/validation/{decision_id}/{state}', name: 'validation')]
+    #[Route('/validation/{decision_id}/{state?}', name: 'validation')]
     #[Entity('decision', options: ['mapping' => ['decision_id' => 'id']])]
     public function index(
         Decision $decision,
-        string $state,
+        ?string $state,
         ValidationRepository $validationRepository,
         Request $request
     ): Response {

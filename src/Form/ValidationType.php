@@ -18,7 +18,7 @@ class ValidationType extends AbstractType
             'empty_data' => ''
         ]);
 
-        if ($options['state'] == 'like') {
+        if (!$options['state'] || $options['state'] == 'like') {
             $builder->add('avispositif', SubmitType::class, [
                 'attr' => [
                     'class' => 'mt-2 mb-2 button-make-sense'
@@ -26,7 +26,7 @@ class ValidationType extends AbstractType
             ]);
         }
 
-        if ($options['state'] == 'dislike') {
+        if (!$options['state'] || $options['state'] == 'dislike') {
             $builder->add('avisnegatif', SubmitType::class, [
                 'attr' => [
                     'class' => 'mt-2 mb-2 button-make-sense'
