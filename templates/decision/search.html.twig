@@ -6,9 +6,9 @@
 {% block body %}
 	{% include "partials/_navbar.html.twig" %}
 
-	<div id="home-login" class="bg-image">
-		<div class="container">
-			<div class="row">
+	
+		<div class="container mt-3">
+			<div class="row ">
 				{{ form_start(form) }}
 				{{ form_widget(form) }}
 				<div class="mt-2">
@@ -18,15 +18,15 @@
 			</div>
 		</div>
 
-		<div class="row mt-5 justify-content-center">
-		
+		<div class="container mt-5">
+			<div class="row d-flex justify-content-around  ">
 			{% for decision in decisions %}
 				{% include 'partials/_decision-card.html.twig' with { 'decision': decision } %} 
 			{% endfor %}
-
+			</div>
 		</div>
 		<div class="navigation d-flex justify-content-center mt-5">
 			{{ knp_pagination_render(decisions) }}
 		</div>
-	</div>
+	
 {% endblock %}

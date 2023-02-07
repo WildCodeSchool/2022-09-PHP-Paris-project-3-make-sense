@@ -33,7 +33,7 @@ class SearchDecisionsType extends AbstractType
                 ],
                 'label' => 'Chercher une décision',
                 'label_attr' => [
-                    'class' => 'form-label mt-5 text-white'
+                    'class' => 'form-label  text-white'
                 ],
                 'required' => false,
             ])
