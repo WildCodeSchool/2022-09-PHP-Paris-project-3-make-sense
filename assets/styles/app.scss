@@ -20,18 +20,17 @@
     background-color: var(--cerise-dark);
 }
 
+.bg-grey-light {
+    background-color: #ccc;
+}
+
 
 body {
     font-family: "Raleway", sans-serif;
     font-weight: 700;
     background-image: url('/assets/images/background-login.png');
     height: 100vh;
-
-    //     position: relative;
-    //     overflow: hidden;
-    //     background-repeat: no-repeat;
     background-size: cover;
-    //     overflow: scroll;
 }
 
 
@@ -41,11 +40,11 @@ body {
     border-radius: 50%;
 }
 
-.like,
-.dislike {
-    width: 20px;
-    height: 20px;
-}
+// .like,
+// .dislike {
+//     width: 20px;
+//     height: 20px;
+// }
 
 .logo {
     width: 150px;
@@ -69,9 +68,6 @@ body {
     background-color: #0d3944;
 }
 
-// .essaie {
-//     padding-right: 6rem;
-// }
 
 .button {
     width: 15rem;
@@ -85,9 +81,9 @@ body {
 // }
 
 .accordion-button:not(.collapsed) {
-    color: #8a095d;
-    background-color: #fff;
-}
+     color: #8a095d;
+     background-color: #fff;
+ }
 
 .accordion {
     margin-top: 1.5rem;

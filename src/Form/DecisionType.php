@@ -52,8 +52,6 @@ class DecisionType extends AbstractType
                  'required' => true,
                  'attr' => [
                      'class' => 'form-check'],
-                //  'choices' => $choiceDepartments,
-                //  'mapped' => false,
                  'expanded' => true,
                  'multiple' => true,])
             ->add('like_threshold', RangeType::class, [

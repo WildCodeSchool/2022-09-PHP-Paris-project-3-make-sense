@@ -61,16 +61,16 @@ class NotificationController extends AbstractController
         $notifications = $paginator->paginate(
             $this->notificationRepository->findNotification($user->getId()),
             $request->query->getInt('page', 1),
-            10
+            8
         );
 
         if (!empty($request->request->all())) {
             switch (key($request->request->all())) {
                 case Notification::STATUS_SHOW:
                     //  $this->updateNotification($request, Notification::STATUS_SHOW);
-                      return $this->redirectToRoute('app_decision_show', [
-                          'decision_id' => $request->request->get(Notification::STATUS_SHOW),
-                      ]);
+                    return $this->redirectToRoute('app_decision_show', [
+                        'decision_id' => $request->request->get(Notification::STATUS_SHOW),
+                    ]);
                 case Decision::STATUS_CURRENT:
                     // $this->updateNotification($request, Decision::STATUS_CURRENT);
                     return $this->redirectToRoute('app_decision_give_opinion', [
@@ -91,7 +91,7 @@ class NotificationController extends AbstractController
                     ]);
 
                 default:
-                break;
+                    break;
             }
         }
 
