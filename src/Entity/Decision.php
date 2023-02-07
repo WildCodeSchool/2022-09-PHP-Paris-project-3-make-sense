@@ -103,7 +103,7 @@ class Decision
     #[Assert\NotBlank]
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\Type("\DateTimeInterface")]
-    #[Assert\GreaterThanOrEqual('today')]
+    // #[Assert\GreaterThanOrEqual('today')]
     private ?DateTimeInterface $endAt = null;
 
     #[ORM\Column(length: 50)]

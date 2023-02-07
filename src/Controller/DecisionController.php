@@ -267,7 +267,7 @@ class DecisionController extends AbstractController
             }
         }
 
-        return $this->renderForm('decision/new.html.twig', [
+        return $this->renderForm('decision/edit.html.twig', [
             'form' => $form,
             'errors' => $errors,
         ]);

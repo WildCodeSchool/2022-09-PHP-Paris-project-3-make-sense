@@ -48,20 +48,19 @@ class DecisionType extends AbstractType
             //     'expanded' => true,
             //     'multiple' => true,])
             ->add('departments', EntityType::class, [
-                 'class' => Department::class,
-                 'required' => true,
-                 'attr' => [
-                     'class' => 'form-check'],
-                //  'choices' => $choiceDepartments,
-                //  'mapped' => false,
-                 'expanded' => true,
-                 'multiple' => true,])
+                'class' => Department::class,
+                'required' => true,
+                'attr' => [
+                    'class' => 'form-check'],
+               //  'choices' => $choiceDepartments,
+               //  'mapped' => false,
+                'expanded' => true,
+                'multiple' => true,])
             ->add('like_threshold', RangeType::class, [
                 'required' => true,
                 'attr' => [
                     'min' => '1',
                     'max'  => '100',
-                    'value' => '50',
                     'class' => 'col-2 form-range slider',
                     'id' => "myRange",],
                 'constraints' => [
@@ -73,7 +72,7 @@ class DecisionType extends AbstractType
                 'required' => true,
                 'constraints' => [
                     new NotBlank(),
-                    new GreaterThanOrEqual('today', message:'Cette valeur ne peut être inférieur à la date du jour'),
+                    // new GreaterThanOrEqual('today', message:'Cette valeur ne peut être inférieur à la date du jour'),
                 ],
                 'widget' => 'single_text',
                 'attr' => ['class' => 'js-datepicker form-control'],
