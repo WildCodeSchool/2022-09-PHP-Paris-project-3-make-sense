@@ -1,0 +1,31 @@
+* {
+      box-sizing: border-box;
+}
+
+:root {
+    --cerise-dark-color: rgb(6, 57, 190);
+}
+
+.card-bg-color {
+    background-color: var(--cerise-dark-color);
+}
+
+.profil-photo {
+    border-radius: 50%;
+}
+
+.like {
+    width: 15px;
+    height: 15px;
+}
+
+.logo {
+    width: 100px;
+    height: 10px;
+}
+
+
+body {
+     font-family: Raleway;
+ }
+

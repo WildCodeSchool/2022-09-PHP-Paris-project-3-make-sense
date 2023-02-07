@@ -1,0 +1,159 @@
+{% extends 'base.html.twig' %}
+{% block header %}
+{% include 'partials/_navbar.html.twig' %}
+{% endblock %}
+{% block body %}
+<div class="bord">
+  <div class="row col-8 d-flex m-0 p-0" class="essaie">
+    <div class="position-status-like mt-4" >
+      <div class="status rounded-5 text-center mt-3" style="height: 30px; width:120px">{{ constant('App\\Entity\\Decision::STATUSES')[decision.status]}}</div>
+        {% if decision.status != 'draft' and decision.status != 'undone' and decision.status != 'done' %}
+          <div class="align-tumb">
+            <div class="p-1">
+              <a class="like" href=""><i class="fa-regular fa-thumbs-up fs-2"></i><small class="p-1">{{ opinionLike.like }}</small></a>
+            </div>
+          <div class="p-1">
+            <a class="like" href=""><i class="fa-regular fa-thumbs-down fs-2"></i><small class="p-1">{{ opinionLike.dislike }}</small></a>
+          </div>
+       </div>
+       {% endif %}
+  </div>
+    <h1><section class="title mt-3"> {{ decision.title }} </section></h1>
+			<div class="card-body m-0 p-0">
+        <img class="like ms-2" src=" {{ decision.owner.poster }} ">
+        <strong> {{ decision.owner.firstname ~ ' ' ~ decision.owner.lastname }} </strong>
+    <div class="accordion" id="accordionExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+            <section class="title"> Les details de la decision </section>
+          </button>
+        </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
+      <div class="accordion-body">
+         {{ decision.description }}
+      </div>
+    </div>
+  </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        <section class="title">  Impact sur l'organisation </section>
+        </button>
+      </h2>
+      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          {{ decision.impacts }}
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingThree">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        <section class="title"> Bénéfices </section> <img class="icon" src="{{ asset('build/images/pouces.png') }}">
+        </button>
+      </h2>
+      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          {{ decision.benefits }}
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingFour">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+        <section class="title">  Risques potentiels </section> <img class="icon" src="{{ asset('build/images/light.png') }}">
+        </button>
+      </h2>
+      <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample" style="">
+        <div class="accordion-body">
+          {{ decision.risks }}
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingFive">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+        <section class="title"> Avis {{'(' ~ decision.opinions|length ~ ')'}} </section> <img class="icon" src="{{ asset('build/images/speech.png') }}">
+        </button>
+      </h2>
+    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample" style="">
+      <div class="accordion-body">
+      {% for opinion in decision.opinions %}
+      </br>
+    <img class="image" src="{{ decision.owner.poster }}">
+        {{ opinion.user.firstname }} {{" " ~ opinion.user.lastname }} </br>
+       <section class="avis"> {{ opinion.message }} </section>
+        {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% if decision.status == '1ère décision' or decision.status == 'non aboutie' or decision.status == 'aboutie' %}
+        <div class="accordion-item">
+      <h2 class="accordion-header" id="headingSeven">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+        <section class="title"> Premiere décision </section>
+        </button>
+      </h2>
+      <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSencen" data-bs-parent="#accordionExample" style="">
+        <div class="accordion-body">
+          {{ decision.description }}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% if decision.status == 'conflict' or decision.status == 'undone' or decision.status == 'done' %}
+        <div class="accordion-item">
+      <h2 class="accordion-header" id="headingSix">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+        <section class="title"> Avis d'expert </section>
+        </button>
+      </h2>
+      <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample" style="">
+        <div class="accordion-body">
+            {% for validation in decision.validations %}
+            </br>
+            <img class="image" src="{{ decision.owner.poster }}">
+              {{ validation.user.firstname ~ " " ~ validation.user.lastname }} </br>
+              <section class="expert">{{validation.comment}}</section>
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+</div>
+<div class="history_fresco">
+<div class="title2 mt-5 mb-3"><strong>Date à définir</strong></div>
+    <div class="history_decision">
+    <div class="history_space_around">
+      {% for history in decision.histories %}
+        <div class="history_date">
+          Du {{ history.startedAt | date("d M Y") }} </br> au {{ history.endedAt | date("d M Y") }} 
+        </div>
+      {% endfor %}
+    </div>
+    
+        <div class="history_separator">
+          <img class="barre" src="{{ asset('build/images/trait.png') }}">
+        </div>
+
+    <div class="history_space_around">
+      {% for history in decision.histories %}
+        <div class="history_status">
+          {{ constant('App\\Entity\\Decision::STATUSES')[history.status] }}
+        </div>
+      {% endfor %}
+      </div>
+      </div>
+      <div class="select">
+        {% if decision.status == 'draft' %}
+          <button type="submit" class="brouillon row col-12 btn btn-primary" href="#" >Enregistrer</button>
+        {% endif %}
+    </div>
+
+  </div>
+</div>
+</div>
+{% endblock %}

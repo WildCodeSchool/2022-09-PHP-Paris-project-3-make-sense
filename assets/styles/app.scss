@@ -7,11 +7,11 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import '~@fortawesome/fontawesome-free/scss/brands';
 
 * {
-    box-sizing: border-box;
+     box-sizing: border-box;
 }
 
 :root {
-    --cerise-dark-color: rgb(155, 8, 79);
+    --cerise-dark-color: #8a095d;
   }
 
 .card-bg-color {
@@ -25,13 +25,181 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 }
 
 .like, .dislike {
-    width: 20px;
-    height: 20px;
+     width: 20px;
+     height: 20px;
 }
 
 .logo {
     width: 150px;
     height: 30px;
+}
+
+.contener {
+    display: flex;
+    justify-content: space-around;
+}
+
+ .bord {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 80px;
+    padding-right: 2rem;
+
+ }
+
+ .button-avis {
+    background-color: #0d3944;
+ }
+
+ .essaie {
+    padding-right: 6rem;
+ }
+
+.button {
+    width: 15rem;
+}
+
+.like, dislike {
+    border-radius: 100px;
+    width: 50px;
+    height: 50px;
+}
+
+.accordion-button:not(.collapsed) {
+    color: #8a095d;
+    background-color: #fff;
+}
+
+.accordion {
+    margin-top: 1.5rem;
+}
+
+.title {
+    font-weight: bold;
+}
+
+.bord .history_fresco {
+    display: flex;
+    flex-direction: column;
+    margin-left: 200px;
+    max-height:37.775rem;
+    width: -webkit-fill-available;
+
+}
+
+.history {
+    display: flex;
+    flex-direction: column;
+}
+
+.button {
+     display: flex;
+     justify-content: center;
+}
+
+.date {
+     display: flex;
+     flex-direction: column;
+     justify-content: space-between;
+     margin-right: 10px;
+}
+
+.avis {
+    padding-left: 2.5rem;
+}
+
+.expert {
+    padding-left: 2.5rem;
+
+}
+
+.image {
+    border-radius: 100px;
+    width: 35px;
+    height: 35px;
+
+}
+
+.brouillon {
+    background-color: #8a095d;
+    border:#8a095d 1px solid;
+}
+
+.brouillon:hover {
+    background-color:#0d3944;
+    border:#0d3944 1px solid;
+}
+
+.etat {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 10px;
+}
+
+.select {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    margin-top: 15px;
+}
+
+.title2 {
+    display:flex;
+    justify-content: center;
+    padding-right: 1rem;
+}
+
+.icon {
+    width: 25px;
+    margin-left: 3px;
+}
+
+@media screen and (min-width: 320px)and (max-width: 1100px)
+{
+    
+    .title {
+        width: 3rem;
+    }
+
+    .like,dislike {
+        border-radius: 100px;
+        width: 30px;
+        height: 30px;
+    }
+
+    .historical {
+        display: none;
+    }
+
+   .accordion {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 15px;
+    }
+
+    .title2 {
+    display: none;
+    }
+
+    .bord {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .bord .test {
+        display: flex;
+        justify-content: start;
+        margin-top: 3rem;
+    }
+
+    .ticket {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        width: 200px;
+    }
 }
 
 body {
@@ -47,6 +215,7 @@ body #home-login {
     overflow: hidden;
     background-repeat: no-repeat;
     background-size: cover;
+    overflow: scroll;
 }
 
 .login-center {
@@ -106,6 +275,40 @@ body #home-login {
     border: solid 2px rgb(155, 8, 79);
     color:rgb(155, 8, 79);
     background-color:rgb(155, 8, 79, 0.1);
+}
+
+.like {
+    text-decoration: none;
+    color:#0d3944;
+}
+
+.like:hover {
+    color: rgb(155, 8, 79);
+}
+
+.align-tumb {
+    display: flex;
+    flex-direction: column;
+}
+.position-status-like{
+    display: flex;
+    justify-content: space-between;
+}
+
+.history_separator {
+    display: flex;
+    justify-content: center;
+}
+
+.history_decision{
+    display: flex;
+
+}
+
+.history_space_around {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 .position-status{
     margin-top: 15px;

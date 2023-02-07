@@ -25,6 +25,7 @@ use Symfony\Component\Form\ClickableInterface;
 use App\Form\DecisionType;
 
 #[Route('/decision', name: 'decision_')]
+
 class DecisionController extends AbstractController
 {
     private Workflow $workflow;
@@ -32,6 +33,14 @@ class DecisionController extends AbstractController
     public function __construct(Workflow $workflow)
     {
         $this->workflow = $workflow;
+    }
+
+    #[Route('/show/{decision}', name: 'show')]
+    public function show(Decision $decision, OpinionLike $opinionLike): Response
+    {
+        return $this->render('decision/decision.html.twig', [
+            'decision' => $decision, 'opinionLike' => $opinionLike->calculateOpinion($decision)
+        ]);
     }
 
     #[Route('/{title?}', name: 'search')]
