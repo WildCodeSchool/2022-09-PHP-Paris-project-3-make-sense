@@ -99,11 +99,11 @@ class DecisionType extends AbstractType
                     'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3']])
             ->add('saveAsDraft', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-secondary button-make-sense'],
+                    'class' => 'btn button-make-sense'],
                 'label' => 'Enregistrer en tant que brouillon',])
             ->add('save', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-secondary button-make-sense',],
+                    'class' => 'btn button-make-sense',],
                 'label' => 'Soumettre',]);
         ;
     }
