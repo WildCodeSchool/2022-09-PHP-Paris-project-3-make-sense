@@ -1,10 +1,17 @@
-.button-make-sense
+.button-make-sense-status
 {
     border: solid 2px rgb(155, 8, 79);
     color: rgb(155, 8, 79);
     background-color: rgb(155, 8, 79, 0.1);
 }
 
-.button-make-sense:hover{
+.button-make-sense-department
+{
+    border: solid 2px rgb(12,57,68);
+    color: rgb(12,57,68);
+    background-color: rgb(12,57,68,0.1);
+}
+.button-make-sense:hover
+{
     background-color: var(--silver-tree);
 }
