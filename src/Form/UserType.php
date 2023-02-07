@@ -8,6 +8,7 @@ use Symfony\Component\Form\CallbackTransformer;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -40,7 +41,7 @@ class UserType extends AbstractType
                 ],
             ])
             ->add('password', PasswordType::class, [
-                'required' => false,
+                'required' => true,
                 // 'mapped' => false,
                 'attr' => [
                     'class' => 'form-control',
@@ -84,7 +85,7 @@ class UserType extends AbstractType
             ])
             ->add(
                 'phone',
-                TextType::class,
+                TelType::class,
                 [
                     'attr' => [
                         'class' => 'form-control',
