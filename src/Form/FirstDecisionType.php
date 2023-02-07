@@ -28,7 +28,7 @@ class FirstDecisionType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
-                    'class' => 'mb-2 rounded-5 col-2 card-bg-color text-white'
+                    'class' => 'mb-2 button-make-sense'
                 ]
             ]);
     }
