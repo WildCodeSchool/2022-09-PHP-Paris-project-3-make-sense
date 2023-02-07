@@ -2,7 +2,7 @@
 	<div class="d-flex p-1 status rounded-1" style="background-color: #70AF90">
 		{% if click is defined and decision.status == constant('App\\Entity\\Decision::STATUS_CONFLICT') %}
 			<a class="d-flex text-decoration-none" 
-					href="{{ path('app_decision_validation', { 'decision_id' : decision.id})}}">
+					href="{{ path('app_decision_validation', { 'decision_id' : decision.id, 'state' : 'like'})}}">
 				<div class="fs-5 fa-regular fa-thumbs-up text-dark"></div>
 				<div class="ms-1 me-2 text-white">({{ calculateExpert(decision).like }})</div>
 			</a>
@@ -15,7 +15,7 @@
 
 		{% if click is defined and decision.status == constant('App\\Entity\\Decision::STATUS_CONFLICT') %}
 			<a class="d-flex text-decoration-none" 
-				href="{{ path('app_decision_validation', { 'decision_id' : decision.id })}}">
+				href="{{ path('app_decision_validation', { 'decision_id' : decision.id, 'state' : 'dislike' })}}">
 				<div class="fs-5 fa-regular fa-thumbs-down text-dark"></div>
 				<div class="ms-1 me-2 text-dark">({{ calculateExpert(decision).dislike }})</div>
 			</a>

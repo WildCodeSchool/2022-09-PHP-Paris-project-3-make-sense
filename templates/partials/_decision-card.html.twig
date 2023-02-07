@@ -1,13 +1,13 @@
-<div class="decision-card card style-shadow mx-3 my-3 col-3 ">
+<div class="decision-card card style-shadow col-3">
 	{% if decision.status != constant('App\\Entity\\Decision::STATUS_DRAFT')%}
 		<a class="link-card" href="{{ path('app_decision_show', { 'decision_id' : decision.id})}}">
 	{% else %}
 		<a class="link-card"> 
 	{% endif %}
 	
-	<div class="bg-transparent border-dark rounded-4">
+	<div class="">
 
-		<div class="card-header thumb-position corner-decision">
+		<div class="card-header thumb-position">
 			<div class="position-status">
 					{% include 'partials/_status-button.html.twig' with { 'status' : decision.status } %} 
 			</div> 
@@ -23,7 +23,7 @@
 	</div>
 
 	<div class="title-decision card-body mx-2 p-1">
-				<a>{{ decision.title}}</a>
+		<a>{{ decision.title}}</a>
 	</div>
 
 	<div class="date-decision mx-3 pb-4">

@@ -18,18 +18,10 @@
 			</div>
 		</div>
 
-
 		<div class="row mt-5 justify-content-center">
 		
 			{% for decision in decisions %}
-
-				{% include 'partials/_decision-card.html.twig' with 
-						{
-						'decision': decision 
-						} 
-				%} 
-
-
+				{% include 'partials/_decision-card.html.twig' with { 'decision': decision } %} 
 			{% endfor %}
 
 		</div>

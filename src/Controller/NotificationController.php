@@ -61,37 +61,37 @@ class NotificationController extends AbstractController
         $notifications = $paginator->paginate(
             $this->notificationRepository->findNotification($user->getId()),
             $request->query->getInt('page', 1),
-            10
+            8
         );
 
         if (!empty($request->request->all())) {
             switch (key($request->request->all())) {
                 case Notification::STATUS_SHOW:
                     //  $this->updateNotification($request, Notification::STATUS_SHOW);
-                return $this->redirectToRoute('app_decision_show', [
-                    'decision_id' => $request->request->get(Notification::STATUS_SHOW),
-                ]);
+                    return $this->redirectToRoute('app_decision_show', [
+                        'decision_id' => $request->request->get(Notification::STATUS_SHOW),
+                    ]);
                 case Decision::STATUS_CURRENT:
                     // $this->updateNotification($request, Decision::STATUS_CURRENT);
-                return $this->redirectToRoute('app_decision_give_opinion', [
+                    return $this->redirectToRoute('app_decision_give_opinion', [
                         'decision_id' => $request->request->get(Decision::STATUS_CURRENT),
                         'opinionState' => 'like'
-                ]);
+                    ]);
 
                 case Decision::STATUS_FIRST_DECISION:
                     // $this->updateNotification($request, Decision::STATUS_FIRST_DECISION);
-                return $this->redirectToRoute('app_decision_firstdecision', [
+                    return $this->redirectToRoute('app_decision_firstdecision', [
                         'decision_id' => $request->request->get(Decision::STATUS_FIRST_DECISION)
-                ]);
+                    ]);
 
                 case Decision::STATUS_CONFLICT:
                     // $this->updateNotification($request, Decision::STATUS_CONFLICT);
-                return $this->redirectToRoute('app_decision_validation', [
+                    return $this->redirectToRoute('app_decision_validation', [
                         'decision_id' => $request->request->get(Decision::STATUS_CONFLICT)
-                ]);
+                    ]);
 
                 default:
-                break;
+                    break;
             }
         }
 

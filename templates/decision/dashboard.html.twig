@@ -1,11 +1,12 @@
 <div class="container-fluid">
 
-	<div class="row justify-content-around mt-5 mb-5">
+	<div class="row justify-content-around mt-3 mb-5">
 		<div class="col-3 d-flex justify-content-center m-0 p-0">
 
 			{% include 'partials/_dashboard-card.html.twig' with 
 				{
-					'title': 'Mes décisions brouillons', 
+					'title': 'Mes décisions', 
+					'status' : 'draft',
 					'decisions' : myLastDraftDecisions, 
 					} 
 			%}
@@ -15,7 +16,8 @@
 
 			{% include 'partials/_dashboard-card.html.twig' with 
 				{
-					'title': 'Mes décisions en cours', 
+					'title': 'Mes décisions', 
+					'status' : 'current',
 					'decisions' : myLastCurrentDecisions, 
 					} 
 			%}
@@ -25,7 +27,8 @@
 
 			{% include 'partials/_dashboard-card.html.twig' with 
 				{
-					'title': 'Mes premières décisions', 
+					'title': 'Mes décisions', 
+					'status' : 'first_decision',
 					'decisions' : myLastFirstDecisions, 
 					} 
 			%}
@@ -37,7 +40,8 @@
 		<div class="col-3 d-flex justify-content-center m-0 p-0">
 			{% include 'partials/_dashboard-card.html.twig' with 
 				{
-					'title': 'Mes décisions en conflit', 
+					'title': 'Mes décisions', 
+					'status' : 'conflict',
 					'decisions' : myLastConflictDecisions, 
 					} 
 			%}
@@ -47,7 +51,8 @@
 
 			{% include 'partials/_dashboard-card.html.twig' with 
 				{
-					'title': 'Mes décisions abouties', 
+					'title': 'Mes décisions', 
+					'status' : 'done',
 					'decisions' : myLastDoneDecisions, 
 					} 
 			%}
@@ -57,7 +62,8 @@
 
 			{% include 'partials/_dashboard-card.html.twig' with 
 				{
-					'title': 'Mes décisions non abouties', 
+					'title': 'Mes décisions',
+					'status' : 'undone', 
 					'decisions' : myLastUndoneDecisions, 
 					} 
 			%}
@@ -69,7 +75,8 @@
 		<div class="col-3 d-flex justify-content-center m-0 p-0">
 			{% include 'partials/_dashboard-card.html.twig' with 
 				{
-					'title': 'Toutes les décisions en cours', 
+					'title': 'Toutes les décisions', 
+					'status' : 'current',
 					'decisions' : allLastCurrentDecisions, 
 					} 
 			%}
@@ -79,7 +86,8 @@
 
 			{% include 'partials/_dashboard-card.html.twig' with 
 				{
-					'title': 'Toutes les décisions abouties', 
+					'title': 'Toutes les décisions',
+					'status' : 'done', 
 					'decisions' : allLastDoneDecisions, 
 					} 
 			%}
@@ -89,7 +97,8 @@
 
 			{% include 'partials/_dashboard-card.html.twig' with 
 				{
-					'title': 'Toutes les décisions non abouties', 
+					'title': 'Toutes les décisions',
+					'status' : 'undone', 
 					'decisions' : allLastUndoneDecisions, 
 					} 
 			%}
