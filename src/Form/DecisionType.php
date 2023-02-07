@@ -44,7 +44,7 @@ class DecisionType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'class' => 'form-check'],
-               //  'choices' => $choiceDepartments,
+                    // 'choices' => [ 'ee' ],
                //  'mapped' => false,
                 'expanded' => true,
                 'multiple' => true,])

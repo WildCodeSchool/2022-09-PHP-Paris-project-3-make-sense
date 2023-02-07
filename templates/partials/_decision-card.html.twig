@@ -7,12 +7,12 @@
 	
 	<div class="">
 
-		<div class="card-header thumb-position">
-			<div class="position-status">
+		<div class="card-header d-flex justify-content-between align-items-center">
+			<div class="">
 					{% include 'partials/_status-button.html.twig' with { 'status' : decision.status } %} 
 			</div> 
 
-			<div class="mt-1 thumb text-black">
+			<div class="thumb text-black">
 
 				<div class="me-3">
 					{% include 'partials/_like-button.html.twig' with { 'decision' : decision } %}
