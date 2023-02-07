@@ -1,4 +1,4 @@
-<div class="decision-card card style-shadow col-3">
+<div class="decision-card card style-shadow">
 	{% if decision.status != constant('App\\Entity\\Decision::STATUS_DRAFT')%}
 		<a class="link-card" href="{{ path('app_decision_show', { 'decision_id' : decision.id})}}">
 	{% else %}
