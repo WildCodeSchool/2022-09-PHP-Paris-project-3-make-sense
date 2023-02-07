@@ -12,7 +12,7 @@
                <u> <h3> Les utilisateurs </h3></u>
              Il y a {{ users.getTotalItemCount}} utilisateurs
         <div class="count mt-4 d-flex justify-content-end">
-          <a href="{{ path('user_new') }}" class="btn btn-success rounded-5" role="button">Ajouter un utilisateur</a>
+          <a href="{{ path('app_user_new') }}" class="btn btn-outline-warning rounded-5" role="button">Ajouter un utilisateur</a>
         </div>
         <div class="row mt-5 d-flex justify-content-center">
             <table class="table table-bordered text-center">
@@ -63,7 +63,7 @@
                          {% endif %}
                         </td>
                         <td>
-                          <a href="{{ path('user_edit', { id: user.id}) }}" class="btn btn-outline-info rounded-5 text-center">Modifier</a>
+                          <a href="{{ path('app_user_edit', { id: user.id}) }}" class="btn btn-outline-info rounded-5 text-center">Modifier</a>
                         </td>
                     </tr>
                 {% endfor %}
