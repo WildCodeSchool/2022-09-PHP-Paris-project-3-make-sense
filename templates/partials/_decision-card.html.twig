@@ -14,16 +14,6 @@
 
 			<div class="mt-1 thumb text-black">
 
-				{# <div class="p-1">
-					<i class="fa-regular fa-thumbs-up fs-5"></i>
-						<small class="p-1">({{ calculateOpinion(decision).like }})</small>
-				</div>
-
-				<div class="p-1">
-					<i class="fa-regular fa-thumbs-down fs-5"></i>
-					<small class="p-1">({{ calculateOpinion(decision).dislike }})</small>
-				</div> #}
-
 				<div class="me-3">
 					{% include 'partials/_like-button.html.twig' with { 'decision' : decision } %}
 				</div>
