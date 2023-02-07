@@ -44,11 +44,11 @@
 				<ul class="dropdown-menu">
 				    {% if is_granted('ROLE_ADMIN') %}
 				    <li>
-						<a class="fs-5 dropdown-item" href="{{ path('user_admin')}}">Utilisateurs</a>
+						<a class="fs-5 dropdown-item" href="{{ path('app_user_admin')}}">Utilisateurs</a>
 					</li>
                     {% endif %}
 					<li>
-						<a class="fs-5 dropdown-item" href="{{ path('user_show', {'id': app.user.id})}}">Mes décisions</a>
+						<a class="fs-5 dropdown-item" href="{{ path('app_user_show', {'id': app.user.id})}}">Mes décisions</a>
 					</li>
 					<li>
 						<a class="fs-5 dropdown-item" href="{{ path('app_logout')}}">Se déconnecter</a>
