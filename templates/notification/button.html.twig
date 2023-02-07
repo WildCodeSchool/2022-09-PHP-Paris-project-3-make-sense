@@ -1,37 +1,37 @@
 
 	{% if notification[0].status == constant('App\\Entity\\Decision::STATUS_CONFLICT') %}
 		{% if notification.isExpert == '1' %}
-			<td class="text-center">
+			{# <td class="text-center"> #}
 				<button type="submit" name={{notification[0].status }} value={{ notification[0].id }} 
-					class="rounded-5 col-8 card-bg-color text-white">
+					class="rounded-5 col-8 button-make-sense">
 					{{ constant('App\\Entity\\Notification::NOTIFICATIONS_BUTTON')[notification[0].status] }}
 				</button>
-			</td>
+			{# </td> #}
 		{% else %}
-			<td class="col-1"></td>
+			{# <td class="col-1"></td> #}
 		{% endif %}
 	{% else %}
 		{% if notification[0].status == constant('App\\Entity\\Decision::STATUS_FIRST_DECISION') %}
 			{% if notification[0].owner.id == app.user.id %}
-				<td class="text-center">
+				{# <td class="text-center"> #}
 					<button type="submit" name={{notification[0].status}} value={{ notification[0].id }} 
-						class="rounded-5 col-8 card-bg-color text-white">
+						class="rounded-5 col-8 button-make-sense">
 						{{ constant('App\\Entity\\Notification::NOTIFICATIONS_BUTTON')[notification[0].status]}}
 					</button>
-				</td>
+				{# </td> #}
 			{% else %}
-				<td class="col-1"></td>
+				{# <td class="col-1"></td> #}
 			{% endif %}
 		{% else %}
 			{% if constant('App\\Entity\\Notification::NOTIFICATIONS_BUTTON')[notification[0].status] is not empty %}
-				<td class="text-center">
+				{# <td class="text-center"> #}
 					<button type="submit" name={{notification[0].status}} value={{ notification[0].id }} 
-						class="rounded-5 col-8 card-bg-color text-white">
+						class="rounded-5 col-8 button-make-sense ">
 						{{ constant('App\\Entity\\Notification::NOTIFICATIONS_BUTTON')[notification[0].status]}}
 					</button>
-				</td>
+				{# </td> #}
 			{% else %}
-				<td class="col-1"></td>
+				{# <td class="col-1"></td> #}
 			{% endif %}
 		{% endif %}
 	{% endif %}

@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-#[Route('/user', name: 'user_')]
+#[Route('/user', name: 'app_user_')]
 class UserController extends AbstractController
 {
     private ExpertiseRepository $expertiseRepository;

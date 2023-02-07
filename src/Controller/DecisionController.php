@@ -41,7 +41,6 @@ class DecisionController extends AbstractController
         Decision $decision,
         string $opinionState,
         DecisionRepository $decisionRepository,
-        // OpinionLike $opinionLike,
         OpinionRepository $opinionRepository,
         Request $request
     ): Response {
@@ -100,11 +99,10 @@ class DecisionController extends AbstractController
         ?string $title,
         PaginatorInterface $paginator
     ): Response {
-
         if (!empty($request->request->all())) {
-            // dd($request->request->all());
             $title = $request->request->all()['search_decisions']['search'];
         }
+
         $form = $this->createForm(SearchDecisionsType::class, ['title' => $title]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -175,7 +173,6 @@ class DecisionController extends AbstractController
             [
                 'form' => $form,
                 'decision' => $decision,
-                // 'opinionLike' => $opinionLike->calculateOpinion($decision)
             ]
         );
     }
@@ -210,8 +207,6 @@ class DecisionController extends AbstractController
                 $this->workflow->addNotifications($decision);
             }
 
-            // $this->workflow->addHistory($decision);
-            // $decisionRepository->save($decision, true);
             $this->addFlash('success', 'Decision sucessfully created !');
             return $this->redirectToRoute('app_dashboard');
         } else {
@@ -238,7 +233,6 @@ class DecisionController extends AbstractController
         /** @var \App\Entity\User */
         $user = $this->getUser();
 
-        // $user = $userRepository->findOneById([HomeController::USERID]);
         $decision->setOwner($user);
         $form = $this->createForm(DecisionType::class, $decision);
         $form->handleRequest($request);
@@ -274,11 +268,11 @@ class DecisionController extends AbstractController
     }
 
 
-    #[Route('/validation/{decision_id}', name: 'validation')]
+    #[Route('/validation/{decision_id}/{state}', name: 'validation')]
     #[Entity('decision', options: ['mapping' => ['decision_id' => 'id']])]
     public function index(
         Decision $decision,
-        // OpinionLike $opinionLike,
+        string $state,
         ValidationRepository $validationRepository,
         Request $request
     ): Response {
@@ -299,15 +293,13 @@ class DecisionController extends AbstractController
             $validation->setUser($user);
         }
 
-        $form = $this->createForm(ValidationType::class, $validation);
+        $form = $this->createForm(ValidationType::class, $validation, ['state' => $state]);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            /** @var ClickableInterface $button  */
-            $button = $form->get('avispositif');
-            $button->isClicked() ? $validation->setIsApproved(true) : $validation->setIsApproved(false);
+            isset($request->request->all()['validation']['avispositif']) ?
+                $validation->setIsApproved(true) : $validation->setIsApproved(false);
 
             $validationRepository->save($validation, true);
 
@@ -320,7 +312,7 @@ class DecisionController extends AbstractController
                 'form' => $form,
                 'decision' => $decision,
                 'validation' => $validation,
-                // 'opinionLike' => $opinionLike->calculateOpinion($decision),
+                'state' => $state
             ]
         );
     }
