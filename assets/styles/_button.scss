@@ -1,6 +1,7 @@
 .button-make-sense {
-    color: white;
-    background-color: #0d6efd;
+    border: solid 2px rgb(155, 8, 79);
+    color: rgb(155, 8, 79);
+    background-color: rgb(176, 176, 176, 0.1);
 }
 
 .button-make-sense-department {
@@ -12,29 +13,29 @@
 .button-brouillon {
     border: solid 2px rgb(15, 8, 155);
     color: rgb(15, 8, 155);
-    background-color: rgb(15, 8, 155, 0.1);
+    background-color: rgba(176, 176, 176, 0.1);
 }
 
 .button-en-cours {
     border: solid 2px rgb(208, 88, 9);
     color: rgb(208, 88, 9);
-    background-color: rgb(208, 88, 9, 0.1);
+    background-color: rgb(176, 176, 176, 0.1);
 }
 
 .button-en-conflit {
     border: solid 2px rgb(191, 7, 13);
     color: rgb(191, 7, 13);
-    background-color: rgb(191, 7, 13, 0.1);
+    background-color: rgb(176, 176, 176, 0.1);
 }
 
 .button-en-aboutie {
     border: solid 2px rgb(46, 191, 6);
     color: rgb(46, 191, 6);
-    background-color: rgb(46, 191, 6, 0.1);
+    background-color: rgb(176, 176, 176, 0.1);
 }
 
 .button-en-premiere {
     border: solid 2px rgb(117, 119, 116);
     color: rgb(117, 119, 116);
-    background-color: rgb(117, 119, 116, 0.1);
+    background-color: rgb(176, 176, 176, 0.1);
 }
