@@ -20,15 +20,13 @@
 							</div>
 						{% endif %}
 					</div>
-
 					<div class="container mt-2 mb-5 ">
-                        <div class="row col-8">
-                            {% for department in decision.departments %}
-                                    <div class=" col-3 text-center button-make-sense-department rounded-5 item-center pt-1 mt-1 ps-3 pe-3"><small>{{ constant('App\\Entity\\Department::DEPARTMENTS')[department.name] }}</small></div>
-                            {% endfor %}
-                        </div>
-                    </div>
-
+						<div class="row col-8">
+							{% for department in decision.departments %}
+									<div class=" col-3 text-center button-make-sense-department rounded-5 item-center pt-1 mt-1 ps-3 pe-3"><small>{{ constant('App\\Entity\\Department::DEPARTMENTS')[department.name] }}</small></div>
+							{% endfor %}
+						</div>	
+					</div>
 					<h1>
 						<section class="title mt-3">
 							{{ decision.title  }}
@@ -143,7 +141,7 @@
 
 									{% if decision.status == 'first_decision' and app.user == decision.owner %}
 										<div>
-											<a href="{{ path('app_decision_firstdecision', { 'decision_id' : decision.id }) }}" class="btn ms-3 fs-6 rounded-5 col-12 card-bg-color text-white">
+											<a href="{{ path('app_decision_firstdecision', { 'decision_id' : decision.id }) }}" class="btn ms-3 fs-6 rounded-5 col-12 button-make-sense">
 												<small>
 													{{ constant('App\\Entity\\Notification::NOTIFICATIONS_BUTTON')[decision.status]}}
 												</small>
@@ -185,23 +183,23 @@
 								<div class="accordion-body">
 									{% if expertDecision(decision, app.user) == true %}
 										{% for validation in decision.validations %}
-										</br>
-										{% if decision.owner.poster != "" %}
-											<img class="rounded-5" src="{{ vich_uploader_asset(validation.user, 'posterFile') }}" style="height:45px; width:45px" alt="..">
-										{% else %}
+											</br>
+											{% if decision.owner.poster != "" %}
+												<img class="rounded-5" src="{{ vich_uploader_asset(validation.user, 'posterFile') }}" style="height:45px; width:45px" alt="..">
+											{% else %}
 											<i class="fs-5 rounded-4 bg-light p-3 fa-regular fa-user"></i>
-										{% endif %}
-										{{ validation.user.firstname ~ " " ~ validation.user.lastname }}
-										</br>
-										<section class="expert">
-											{{validation.comment | raw}}
-										</section>
+											{% endif %}
+											{{ validation.user.firstname ~ " " ~ validation.user.lastname }}
+											</br>
+											<section class="expert">
+												{{validation.comment | raw}}
+											</section>
 										{% endfor %}
 									{% endif %}
 								</div>
 							</div>
 						</div>
-					{% endif %}
+					{% endif %} 
 
 					{% if decision.status == 'undone' or decision.status == 'done' %}
 					<div class="accordion-item">
