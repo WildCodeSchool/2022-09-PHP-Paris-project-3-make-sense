@@ -234,6 +234,7 @@ body {
 
 .date-decision {
     color: rgb(155, 8, 79);
+    font-size: 1rem!important;
 }
 
 .title-decision {
@@ -272,6 +273,8 @@ body {
 .history_separator {
     display: flex;
     justify-content: center;
+    margin-right: 1vw;
+    margin-left: 1vw;
 }
 
 .history_decision {
