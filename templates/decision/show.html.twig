@@ -13,10 +13,10 @@
 							{% include 'partials/_status-button.html.twig' with { 'status' : decision.status } %}
 						</div>
 						{% for department in decision.departments %}
-								<div class=" button-make-sense-department rounded-5 text-center pt-1 mt-1 ps-3 pe-3">{{ constant('App\\Entity\\Department::DEPARTMENTS')[department.name] }}</div>
-							{% endfor %}
-							
-						
+							<div class=" button-make-sense-department rounded-5 text-center pt-1 mt-1 ps-3 pe-3">{{ constant('App\\Entity\\Department::DEPARTMENTS')[department.name] }}</div>
+						{% endfor %}
+
+
 						{% if decision.status != 'draft' and decision.status != 'undone' and decision.status != 'done' %}
 							<div class="align-tumb">
 
@@ -37,7 +37,7 @@
 						{% else %}
 							<i class="fs-5 rounded-4 bg-light p-3 fa-regular fa-user"></i>
 						{% endif %}
-						
+
 						<strong>
 							{{ decision.owner.firstname ~ ' ' ~ decision.owner.lastname }}
 						</strong>
@@ -168,8 +168,12 @@
 										{{'(' ~ decision.validations|length ~ ')'}}
 									</section>
 									{% if expertDecision(decision, app.user) == true and decision.status == 'conflict' %}
-										<div class="ms-2">
+										<div class="ms-3">
 											{% include 'partials/_like-expert-button.html.twig' with { 'decision' : decision, 'click' : true } %}
+										</div>
+									{% else %}
+										<div class="ms-3">
+											{% include 'partials/_like-expert-button.html.twig' with { 'decision' : decision } %}
 										</div>
 									{% endif %}
 
@@ -177,68 +181,70 @@
 							</h2>
 							<div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample" style="">
 								<div class="accordion-body">
-									{% for validation in decision.validations %}
+									{% if expertDecision(decision, app.user) == true %}
+										{% for validation in decision.validations %}
+										</br>
+										{% if decision.owner.poster != "" %}
+											<img class="rounded-5" src="{{ vich_uploader_asset(validation.user, 'posterFile') }}" style="height:45px; width:45px" alt="..">
+										{% else %}
+											<i class="fs-5 rounded-4 bg-light p-3 fa-regular fa-user"></i>
+										{% endif %}
+										{{ validation.user.firstname ~ " " ~ validation.user.lastname }}
 									</br>
-									{# <img class="image" src="{{ decision.owner.poster }}"> #}
-									{% if decision.owner.poster != "" %}
-										<img class="rounded-5" src="{{ vich_uploader_asset(validation.user, 'posterFile') }}" style="height:45px; width:45px" alt="..">
-									{% else %}
-										<i class="fs-5 rounded-4 bg-light p-3 fa-regular fa-user"></i>
-									{% endif %}
-									{{ validation.user.firstname ~ " " ~ validation.user.lastname }}
-								</br>
-								<section class="expert">
-									{{validation.comment | raw}}
-								</section>
-							{% endfor %}
+									<section class="expert">
+										{{validation.comment | raw}}
+									</section>
+								{% endfor %}
+								{% endif%}
+							</div>
 						</div>
 					</div>
-				</div>
-			{% endif %}
+				{% endif %}
 
-			{% if decision.status == 'undone' or decision.status == 'done' %}
-				<div class="accordion-item">
-					<h2 class="accordion-header" id="headingSix">
-						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-							<section class="title">
-								Décision
-								{{ constant('App\\Entity\\Decision::STATUSES')[decision.status] }}
-							</section>
-						</button>
-					</h2>
-				</div>
-			{% endif %}
+				{% if decision.status == 'undone' or decision.status == 'done' %}
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingSix">
+							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+								<section class="title">
+									Décision
+									{{ constant('App\\Entity\\Decision::STATUSES')[decision.status] }}
+								</section>
+							</button>
+						</h2>
+					</div>
+				{% endif %}
 
+			</div>
 		</div>
 	</div>
-</div>
-<div class="history-fix-position d-flex align-items-center justify-content-center col-3 m-0 p-0">
-	<div class="history_fresco">
-		<div class="title2 mt-5 mb-3">
-			<strong>Historique</strong>
-		</div>
-		<div class="history_decision justify-content: center">
+	<div class="history-fix-position d-flex align-items-center justify-content-center col-3 m-0 p-0">
+		<div class="history_fresco">
+			<div class="title2 mt-5 mb-3">
+				<strong>Historique</strong>
+			</div>
+			<div class="history_decision justify-content: center">
+				<div class="history_space_around">
+					{% for history in decision.histories %}
+						<div class="history_date">
+							Du
+							{{ history.startedAt | date("d M Y") }}
+						</br>
+						au
+						{{ history.endedAt | date("d M Y") }}
+					</div>
+				{% endfor %}
+			</div>
+			<div class="history_separator">
+				<img class="barre" src="{{ asset('build/images/trait.png') }}">
+			</div>
+
 			<div class="history_space_around">
 				{% for history in decision.histories %}
-					<div class="history_date">
-						Du
-						{{ history.startedAt | date("d M Y") }}
-					</br>
-					au
-					{{ history.endedAt | date("d M Y") }}
-				</div>
-			{% endfor %}
-		</div>
-		<div class="history_separator">
-			<img class="barre" src="{{ asset('build/images/trait.png') }}">
-		</div>
-
-		<div class="history_space_around">
-			{% for history in decision.histories %}
-				<div class="history_status">
-					{{ constant('App\\Entity\\Decision::STATUSES')[history.status] }}
-				</div>
-			{% endfor %}
+					<div class="history_status">
+						{{ constant('App\\Entity\\Decision::STATUSES')[history.status] }}
+					</div>
+				{% endfor %}
+			</div>
 		</div>
 	</div>
-</div>{% endblock %}
+{% endblock %}
