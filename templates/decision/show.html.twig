@@ -9,14 +9,14 @@
 			<div class="d-flex">
 				<div class="container">
 					<div class="position-status-like mt-4">
-						<div class="col-2">
+						<div class=" col-2">
 							{% include 'partials/_status-button.html.twig' with { 'status' : decision.status } %}
-							
-							{% for department in decision.departments %}
-								<div class="button-make-sense-department rounded-5 text-center pt-1 mt-1 ps-3 pe-3">{{ constant('App\\Entity\\Department::DEPARTMENTS')[department.name] }}</div>
-							{% endfor %}
-						
 						</div>
+						{% for department in decision.departments %}
+								<div class=" button-make-sense-department rounded-5 text-center pt-1 mt-1 ps-3 pe-3">{{ constant('App\\Entity\\Department::DEPARTMENTS')[department.name] }}</div>
+							{% endfor %}
+							
+						
 						{% if decision.status != 'draft' and decision.status != 'undone' and decision.status != 'done' %}
 							<div class="align-tumb">
 
