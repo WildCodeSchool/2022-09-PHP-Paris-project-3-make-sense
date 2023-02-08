@@ -7,8 +7,8 @@
 					<tr class="text-dark fs-5">
 						<th class="col-4 text-center">Décision</th>
 						<th class="col-4 text-center">Message</th>
-						<th class="col-2 text-center">Status</th>
-						<th class="col-2"></th>
+						<th class="col-1 text-center">Status</th>
+						<th class="col-1"></th>
 					</tr>
 				</thead>
 				<tbody class="">
@@ -16,7 +16,7 @@
 						{% for notification in notifications %}
 							<tr class="bg-white">
 								<td class="">
-									<button class="text-start fs-4 btn btn-link text-dark text-decoration-none" type="submit" name={{constant('App\\Entity\\Notification::STATUS_SHOW')}} value={{ notification[0].id }}>
+									<button class="text-start fs-5 btn btn-link text-dark text-decoration-none" type="submit" name={{constant('App\\Entity\\Notification::STATUS_SHOW')}} value={{ notification[0].id }}>
 										{{ notification[0].title }}
 									</button>
 									<div class="d-flex align-items-center">
@@ -41,7 +41,7 @@
 									{{ constant('App\\Entity\\Notification::NOTIFICATIONS_MESSAGE')[notification[0].status]}}
 								</td>
 
-								<td class="col-2 pt-4">
+								<td class="col-1 pt-4">
 									{% include 'partials/_status-button.html.twig' with 
 										{
 											'status': notification[0].status, 
@@ -49,7 +49,7 @@
 									%}
 
 								</td>
-								<td class="col-2 pt-4 text-center">
+								<td class="col-1 pt-4 text-center">
 									{% include 'notification/button.html.twig' %}
 
 								</td>
