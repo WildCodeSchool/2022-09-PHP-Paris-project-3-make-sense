@@ -112,7 +112,7 @@ class UserType extends AbstractType
             );
         $builder->add('submit', SubmitType::class, [
             'attr' => [
-                'class' => 'button-make-sense mt-4',
+                'class' => 'btn btn-primary mt-4',
             ],
             'label' => 'Enregistrer'
         ]);

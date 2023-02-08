@@ -28,7 +28,7 @@ class OpinionType extends AbstractType
         ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
-                    'class' => 'mt-2 mb-2 button-make-sense'
+                    'class' => 'mt-2 mb-2 btn btn-primary'
                 ]
             ]);
     }

@@ -28,7 +28,7 @@ class FirstDecisionType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
-                    'class' => 'mb-2 button-make-sense'
+                    'class' => 'mb-2 btn btn-primary'
                 ]
             ]);
     }

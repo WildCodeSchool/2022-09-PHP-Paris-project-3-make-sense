@@ -103,7 +103,7 @@ class DecisionType extends AbstractType
                 'label' => 'Enregistrer en tant que brouillon',])
             ->add('save', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn button-make-sense',],
+                    'class' => 'btn btn btn-primary',],
                 'label' => 'Soumettre',]);
         ;
     }
