@@ -11,7 +11,7 @@
 					'decisions' : myLastDraftDecisions, 
 					} 
 			%}
-			</div>
+			</div> 
 
 			<div class=" col-4 d-flex justify-content-center m-0 p-0">
 
@@ -25,20 +25,6 @@
 			</div>
 
 			<div class="col-4 d-flex justify-content-center m-0 p-0">
-
-				{% include 'partials/_dashboard-card.html.twig' with 
-				{
-					'title': 'Mes décisions', 
-					'status' : 'first_decision',
-					'decisions' : myLastFirstDecisions, 
-					} 
-			%}
-			</div>
-
-		</div>
-
-		<div class="row justify-content-around mt-5 mb-5">
-			<div class="col-4 d-flex justify-content-center m-0 p-0">
 				{% include 'partials/_dashboard-card.html.twig' with 
 				{
 					'title': 'Mes décisions', 
@@ -48,30 +34,9 @@
 			%}
 			</div>
 
-			<div class="col-4 d-flex justify-content-center m-0 p-0">
-
-				{% include 'partials/_dashboard-card.html.twig' with 
-				{
-					'title': 'Mes décisions', 
-					'status' : 'done',
-					'decisions' : myLastDoneDecisions, 
-					} 
-			%}
-			</div>
-
-			<div class="col-4 d-flex justify-content-center m-0 p-0">
-
-				{% include 'partials/_dashboard-card.html.twig' with 
-				{
-					'title': 'Mes décisions',
-					'status' : 'undone', 
-					'decisions' : myLastUndoneDecisions, 
-					} 
-			%}
-			</div>
-
 		</div>
 
+			
 		<div class="row justify-content-around mt-5 mb-5">
 			<div class="col-4 d-flex justify-content-center m-0 p-0">
 				{% include 'partials/_dashboard-card.html.twig' with 
@@ -81,7 +46,7 @@
 					'decisions' : allLastCurrentDecisions, 
 					} 
 			%}
-			</div>
+			</div> 
 
 			<div class="col-4 d-flex justify-content-center m-0 p-0">
 
@@ -92,7 +57,7 @@
 					'decisions' : allLastDoneDecisions, 
 					} 
 			%}
-			</div>
+			</div> 
 
 			<div class="col-4 d-flex justify-content-center m-0 p-0">
 
@@ -103,7 +68,7 @@
 					'decisions' : allLastUndoneDecisions, 
 					} 
 			%}
-			</div>
+			</div> 
 
 		</div>
 
