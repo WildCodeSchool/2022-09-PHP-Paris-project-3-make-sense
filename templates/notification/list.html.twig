@@ -16,19 +16,25 @@
 						{% for notification in notifications %}
 							<tr class="bg-white">
 								<td class="">
-									<button class="text-start fs-4 btn btn-link text-dark text-decoration-none" type="submit" 
-												name={{constant('App\\Entity\\Notification::STATUS_SHOW')}} value={{ notification[0].id }}>
+									<button class="text-start fs-4 btn btn-link text-dark text-decoration-none" type="submit" name={{constant('App\\Entity\\Notification::STATUS_SHOW')}} value={{ notification[0].id }}>
 										{{ notification[0].title }}
 									</button>
-
-									<div class="row date-decision fs-5 ms-1">
-										<small>crée le
-											<small>{{notification[0].createdAt | date('d M Y')}}
-												par
-												{{notification[0].owner.firstname}}{{notification[0].owner.lastname}}</small>
-										</small>
+									<div class="d-flex align-items-center">
+										<div>
+											{% if notification[0].owner.poster != "" %}
+												<img class="rounded-5" src="{{ vich_uploader_asset(notification[0].owner, 'posterFile') }}" style="height:45px; width:45px" alt="..">
+											{% else %}
+												<i class="fs-5 rounded-4 bg-light p-3 fa-regular fa-user"></i>
+											{% endif %}
+										</div>
+										<div class="row date-decision fs-5 ms-1">
+											<small>crée le
+												<small>{{notification[0].createdAt | date('d M Y')}}
+													par
+													{{notification[0].owner.firstname}}{{notification[0].owner.lastname}}</small>
+											</small>
+										</div>
 									</div>
-
 								</td>
 
 								<td class="col-4 pt-4">
@@ -44,19 +50,18 @@
 
 								</td>
 								<td class="col-2 pt-4 text-center">
-									{% include 'notification/button.html.twig' %} 
-							
+									{% include 'notification/button.html.twig' %}
+
 								</td>
 							</tr>
 						{% endfor %}
-					</form>
+					</tr>
 				</tbody>
-			</table>
+			</form>
+		</tbody>
+	</tbody>
+</table>
 
-			<div class="mt-5 navigation d-flex justify-content-center">
-				{{ knp_pagination_render(notifications) }}
-			</div>
-
-		</div>
-	</div>
-</div>
+<div class="mt-5 navigation d-flex justify-content-center">
+	{{ knp_pagination_render(notifications) }}
+</div></div></div></div>

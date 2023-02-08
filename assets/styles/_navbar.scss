@@ -1,17 +1,18 @@
-.logo_search
-{
-    width : 30px;
+.logo_search {
+    width: 30px;
     height: 30px;
-    background-color:  rgb(155, 8, 79);
+    background-color: rgb(155, 8, 79);
     border-radius: 100%;
 }
 
-#form_search
-{
+#form_search {
     display: flex;
 }
 
-#search_button_decision
-{
-    background-color:  rgb(155, 8, 79);
+#search_button_decision {
+    background-color: rgb(155, 8, 79);
+}
+
+.navbar-height {
+    height: 55px;
 }

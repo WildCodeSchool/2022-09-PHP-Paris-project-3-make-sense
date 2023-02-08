@@ -1,109 +1,111 @@
-<div class="container-fluid">
+<div class="frame d-flex align-items-center">
+	<div class="container-fluid">
 
-	<div class="row mt-5 mb-5">
-		<div class="col-4 d-flex justify-content-center m-0 p-0">
+		<div class="row mt-5 mb-5">
+			<div class="col-4 d-flex justify-content-center m-0 p-0">
 
-			{% include 'partials/_dashboard-card.html.twig' with 
+				{% include 'partials/_dashboard-card.html.twig' with 
 				{
 					'title': 'Mes décisions', 
 					'status' : 'draft',
 					'decisions' : myLastDraftDecisions, 
 					} 
 			%}
-		</div>
+			</div>
 
-		<div class=" col-4 d-flex justify-content-center m-0 p-0"> 
+			<div class=" col-4 d-flex justify-content-center m-0 p-0">
 
-			{% include 'partials/_dashboard-card.html.twig' with 
+				{% include 'partials/_dashboard-card.html.twig' with 
 				{
 					'title': 'Mes décisions', 
 					'status' : 'current',
 					'decisions' : myLastCurrentDecisions, 
 					} 
 			%}
-		</div> 
+			</div>
 
-		<div class="col-4 d-flex justify-content-center m-0 p-0">
+			<div class="col-4 d-flex justify-content-center m-0 p-0">
 
-			{% include 'partials/_dashboard-card.html.twig' with 
+				{% include 'partials/_dashboard-card.html.twig' with 
 				{
 					'title': 'Mes décisions', 
 					'status' : 'first_decision',
 					'decisions' : myLastFirstDecisions, 
 					} 
 			%}
+			</div>
+
 		</div>
 
-	</div>
-
-	<div class="row justify-content-around mt-5 mb-5">
-		<div class="col-4 d-flex justify-content-center m-0 p-0">
-			{% include 'partials/_dashboard-card.html.twig' with 
+		<div class="row justify-content-around mt-5 mb-5">
+			<div class="col-4 d-flex justify-content-center m-0 p-0">
+				{% include 'partials/_dashboard-card.html.twig' with 
 				{
 					'title': 'Mes décisions', 
 					'status' : 'conflict',
 					'decisions' : myLastConflictDecisions, 
 					} 
 			%}
-		</div>
+			</div>
 
-		<div class="col-4 d-flex justify-content-center m-0 p-0">
+			<div class="col-4 d-flex justify-content-center m-0 p-0">
 
-			{% include 'partials/_dashboard-card.html.twig' with 
+				{% include 'partials/_dashboard-card.html.twig' with 
 				{
 					'title': 'Mes décisions', 
 					'status' : 'done',
 					'decisions' : myLastDoneDecisions, 
 					} 
 			%}
-		</div>
+			</div>
 
-		<div class="col-4 d-flex justify-content-center m-0 p-0">
+			<div class="col-4 d-flex justify-content-center m-0 p-0">
 
-			{% include 'partials/_dashboard-card.html.twig' with 
+				{% include 'partials/_dashboard-card.html.twig' with 
 				{
 					'title': 'Mes décisions',
 					'status' : 'undone', 
 					'decisions' : myLastUndoneDecisions, 
 					} 
 			%}
+			</div>
+
 		</div>
 
-	</div>
-
-	<div class="row justify-content-around mt-5 mb-5">
-		<div class="col-4 d-flex justify-content-center m-0 p-0">
-			{% include 'partials/_dashboard-card.html.twig' with 
+		<div class="row justify-content-around mt-5 mb-5">
+			<div class="col-4 d-flex justify-content-center m-0 p-0">
+				{% include 'partials/_dashboard-card.html.twig' with 
 				{
 					'title': 'Toutes les décisions', 
 					'status' : 'current',
 					'decisions' : allLastCurrentDecisions, 
 					} 
 			%}
-		</div>
+			</div>
 
-		<div class="col-4 d-flex justify-content-center m-0 p-0">
+			<div class="col-4 d-flex justify-content-center m-0 p-0">
 
-			{% include 'partials/_dashboard-card.html.twig' with 
+				{% include 'partials/_dashboard-card.html.twig' with 
 				{
 					'title': 'Toutes les décisions',
 					'status' : 'done', 
 					'decisions' : allLastDoneDecisions, 
 					} 
 			%}
-		</div>
+			</div>
 
-		<div class="col-4 d-flex justify-content-center m-0 p-0">
+			<div class="col-4 d-flex justify-content-center m-0 p-0">
 
-			{% include 'partials/_dashboard-card.html.twig' with 
+				{% include 'partials/_dashboard-card.html.twig' with 
 				{
 					'title': 'Toutes les décisions',
 					'status' : 'undone', 
 					'decisions' : allLastUndoneDecisions, 
 					} 
 			%}
+			</div>
+
 		</div>
 
 	</div>
-
 </div>
