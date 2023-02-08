@@ -35,8 +35,8 @@
 			<li class="nav-item ">
 				<a href="{{ path('app_notification') }}" class="fs-4 btn" type="button">
 					Notification
+					{{ render(controller('App\\Controller\\NotificationController::sumNotification', {default: 'Loading...'})) }}
 				</a>
-				{{ render(controller('App\\Controller\\NotificationController::sumNotification', {default: 'Loading...'})) }}
 			</li>
 			<li class="nav-item">
 				<div class="dropdown">
