@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block body %}
-	<div class="center-car d-flex justify-content-center">
+	<div class="d-flex justify-content-center mt-3" >
 		<div class="card style-shadow mx-3 my-3 col-10">
 			<div class="d-flex">
 				<div class="container">
@@ -43,8 +43,9 @@
 						<strong>
 							{{ decision.owner.firstname ~ ' ' ~ decision.owner.lastname }}
 						</strong>
+
 						<div class="accordion" id="accordionExample">
-							<div class="accordion-item">
+							<div class="accordion-item ">
 								<h2 class="accordion-header" id="headingOne">
 									<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
 										<section class="title">
@@ -221,14 +222,14 @@
 </div>
 
 		<div class="history-fix-position d-flex align-items-center justify-content-center col-3 m-0 p-0">
-			<div class="history_fresco">
-				<div class="title2 offset-1 mt-5 mb-3">
+			<div class="">
+				<div class="title2 offset-1 mt-5 mb-3 border border-primary">
 					<strong>Historique</strong>
 				</div>
-				<div class="history_decision justify-content: center">
-					<div class="history_space_around col-6">
+				<div class="history_decision ">
+					<div class="history_space_around col-6 border border-primary">
 						{% for history in decision.histories %}
-							<div class="history_date">
+							<div class="">
 								Du
 								{{ history.startedAt | date("d M Y") }}
 							</br>
@@ -240,7 +241,7 @@
 					<div class="history_separator">
 						<img class="barre" src="{{ asset('build/images/trait.png') }}">
 					</div>
-					<div class="history_space_around">
+					<div class="history_space_around col-4 ms-2">
 						{% for history in decision.histories %}
 							<div class="history_status">
 								{{ constant('App\\Entity\\Decision::STATUSES')[history.status] }}
