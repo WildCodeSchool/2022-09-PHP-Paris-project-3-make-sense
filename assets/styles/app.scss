@@ -35,6 +35,11 @@ body {
     background-size: cover;
 }
 
+// screen size - navbar-size
+.frame {
+    height: calc(100vh - 55px);
+    border: 1px solid black;
+}
 
 .profil-photo {
     height: 60px;
@@ -83,9 +88,9 @@ body {
 // }
 
 .accordion-button:not(.collapsed) {
-     color: #8a095d;
-     background-color: #fff;
- }
+    color: #8a095d;
+    background-color: #fff;
+}
 
 .accordion {
     margin-top: 1.5rem;
