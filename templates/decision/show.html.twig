@@ -15,8 +15,6 @@
 						{% for department in decision.departments %}
 							<div class=" button-make-sense-department rounded-5 text-center pt-1 mt-1 ps-3 pe-3">{{ constant('App\\Entity\\Department::DEPARTMENTS')[department.name] }}</div>
 						{% endfor %}
-
-
 						{% if decision.status != 'draft' and decision.status != 'undone' and decision.status != 'done' %}
 							<div class="align-tumb">
 
@@ -37,7 +35,6 @@
 						{% else %}
 							<i class="fs-5 rounded-4 bg-light p-3 fa-regular fa-user"></i>
 						{% endif %}
-
 						<strong>
 							{{ decision.owner.firstname ~ ' ' ~ decision.owner.lastname }}
 						</strong>
@@ -50,7 +47,7 @@
 										</section>
 									</button>
 								</h2>
-								<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
+								<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
 									<div class="accordion-body">
 										{{ decision.description | raw}}
 									</div>
@@ -113,23 +110,23 @@
 								<div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample" style="">
 									<div class="accordion-body">
 										{% for opinion in decision.opinions %}
-										</br>
-										{% if decision.owner.poster != "" %}
-											<img class="rounded-5" src="{{ vich_uploader_asset(opinion.user, 'posterFile') }}" style="height:45px; width:45px" alt="..">
-										{% else %}
-											<i class="fs-5 rounded-4 bg-light p-3 fa-regular fa-user"></i>
-										{% endif %}
+											</br>
+											{% if decision.owner.poster != "" %}
+												<img class="rounded-5" src="{{ vich_uploader_asset(opinion.user, 'posterFile') }}" style="height:45px; width:45px" alt="..">
+											{% else %}
+												<i class="fs-5 rounded-4 bg-light p-3 fa-regular fa-user"></i>
+											{% endif %}
 
-										{{ opinion.user.firstname }}
-										{{" " ~ opinion.user.lastname }}
-									</br>
-									<section class="avis">
-										{{ opinion.message | raw}}
-									</section>
-								{% endfor %}
+											{{ opinion.user.firstname }}
+											{{" " ~ opinion.user.lastname }}
+											</br>
+											<section class="avis">
+												{{ opinion.message | raw}}
+											</section>
+										{% endfor %}
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>
 
 					{% if decision.status != 'draft' or decision.status != 'current' %}
 						<div class="accordion-item">
@@ -190,18 +187,18 @@
 											<i class="fs-5 rounded-4 bg-light p-3 fa-regular fa-user"></i>
 										{% endif %}
 										{{ validation.user.firstname ~ " " ~ validation.user.lastname }}
-									</br>
-									<section class="expert">
-										{{validation.comment | raw}}
-									</section>
-								{% endfor %}
-								{% endif%}
+										</br>
+										<section class="expert">
+											{{validation.comment | raw}}
+										</section>
+										{% endfor %}
+									{% endif %}
+								</div>
 							</div>
 						</div>
-					</div>
-				{% endif %}
+					{% endif %}
 
-				{% if decision.status == 'undone' or decision.status == 'done' %}
+					{% if decision.status == 'undone' or decision.status == 'done' %}
 					<div class="accordion-item">
 						<h2 class="accordion-header" id="headingSix">
 							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
@@ -212,38 +209,40 @@
 							</button>
 						</h2>
 					</div>
-				{% endif %}
+					{% endif %}
 
+				</div>
 			</div>
 		</div>
-	</div>
-	<div class="history-fix-position d-flex align-items-center justify-content-center col-3 m-0 p-0">
-		<div class="history_fresco">
-			<div class="title2 mt-5 mb-3">
-				<strong>Historique</strong>
-			</div>
-			<div class="history_decision justify-content: center">
-				<div class="history_space_around">
-					{% for history in decision.histories %}
-						<div class="history_date">
-							Du
-							{{ history.startedAt | date("d M Y") }}
-						</br>
-						au
-						{{ history.endedAt | date("d M Y") }}
-					</div>
-				{% endfor %}
-			</div>
-			<div class="history_separator">
-				<img class="barre" src="{{ asset('build/images/trait.png') }}">
-			</div>
 
-			<div class="history_space_around">
-				{% for history in decision.histories %}
-					<div class="history_status">
-						{{ constant('App\\Entity\\Decision::STATUSES')[history.status] }}
+		<div class="history-fix-position d-flex align-items-center justify-content-center col-3 m-0 p-0">
+			<div class="history_fresco">
+				<div class="title2 mt-5 mb-3">
+					<strong>Historique</strong>
+				</div>
+				<div class="history_decision justify-content: center">
+					<div class="history_space_around">
+						{% for history in decision.histories %}
+							<div class="history_date">
+								Du
+								{{ history.startedAt | date("d M Y") }}
+							</br>
+							au
+							{{ history.endedAt | date("d M Y") }}
+							</div>
+						{% endfor %}
 					</div>
-				{% endfor %}
+					<div class="history_separator">
+						<img class="barre" src="{{ asset('build/images/trait.png') }}">
+					</div>
+					<div class="history_space_around">
+						{% for history in decision.histories %}
+							<div class="history_status">
+								{{ constant('App\\Entity\\Decision::STATUSES')[history.status] }}
+							</div>
+						{% endfor %}
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
