@@ -141,7 +141,7 @@
 
 									{% if decision.status == 'first_decision' and app.user == decision.owner %}
 										<div>
-											<a href="{{ path('app_decision_firstdecision', { 'decision_id' : decision.id }) }}" class="btn ms-3 fs-6 rounded-5 col-12 card-bg-color text-white">
+											<a href="{{ path('app_decision_firstdecision', { 'decision_id' : decision.id }) }}" class="btn ms-3 fs-6 rounded-5 col-12 button-make-sense">
 												<small>
 													{{ constant('App\\Entity\\Notification::NOTIFICATIONS_BUTTON')[decision.status]}}
 												</small>
@@ -179,7 +179,6 @@
 								<div class="accordion-body">
 									{% for validation in decision.validations %}
 									</br>
-									{# <img class="image" src="{{ decision.owner.poster }}"> #}
 									{% if decision.owner.poster != "" %}
 										<img class="rounded-5" src="{{ vich_uploader_asset(validation.user, 'posterFile') }}" style="height:45px; width:45px" alt="..">
 									{% else %}
