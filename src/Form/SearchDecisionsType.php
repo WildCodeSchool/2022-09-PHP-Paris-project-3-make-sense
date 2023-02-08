@@ -45,8 +45,8 @@ class SearchDecisionsType extends AbstractType
                 'expanded' => 'checked',
                 'multiple' => 'checked',
                 'data' => [true],
-                'label' => 'departements',
-                'label_attr' => ['switch_custom', 'class' => 'text-white'],
+                'label' => 'Departements',
+                'label_attr' => ['switch_custom', 'class' => 'mt-4 text-white'],
                 ])
             ->add('status', ChoiceType::class, [
                 'attr' => [
@@ -54,7 +54,7 @@ class SearchDecisionsType extends AbstractType
                 ],
                 'required' => 'checked',
                 'choices' => $choicesStatus,
-                'label_attr' => ['class' => 'text-white'],
+                'label_attr' => ['class' => ' mt-4  text-white'],
             ]);
     }
 }
