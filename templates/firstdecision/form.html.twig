@@ -32,8 +32,8 @@
 
 						<div class="mx-3">
 							<div class="">
-								{% if decision.owner.poster is not empty %}
-									<img class="ms-2 profil-photo" src="{{ asset('build/images/' ~ decision.owner.poster) }}" alt="">
+								{% if decision.owner.poster is not null and decision.owner.poster != ""  %}
+									<img class="ms-2 profil-photo" src="{{ vich_uploader_asset(decision.owner, 'posterFile') }}" alt="">
 								{% else %}
 									<i class="fs-5 rounded-4 bg-light p-3 fa-regular fa-user"></i>
 								{% endif %}

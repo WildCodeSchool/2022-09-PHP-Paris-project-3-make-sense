@@ -1,4 +1,4 @@
-<div class="decision-card card style-shadow border border-primary mt-5 mb-5" style="height : 350px; width : 30vw">
+<div class="decision-card card style-shadow border border-primary mt-1 mb-1" style="height : 300px; width : 30vw">
 
 		<div class="card-header fs-4 text-dark d-flex justify-content-between align-items-center">
 			<div class="">{{ title }}</div>
@@ -13,12 +13,12 @@
 				<div class="d-flex justify-content-between mt-2 mx-3 mb-2">
 					<div>
 						{% if decision.status != constant('App\\Entity\\Decision::STATUS_DRAFT') %}
-							<a class="text-dark fs-5 text-decoration-none" 
+							<a class="text-dark fs-6 text-decoration-none" 
 								href="{{ path('app_decision_show', { 'decision_id' : decision.id})}}">
 								{{ decision.title}}
 							</a>
 						{% else %}
-							<a class="text-dark fs-5 text-decoration-none" 
+							<a class="text-dark fs-6 text-decoration-none" 
 									href="{{ path('app_decision_edit', {'decision_id' : decision.id})}}">
 								{{ decision.title}}
 							</a>

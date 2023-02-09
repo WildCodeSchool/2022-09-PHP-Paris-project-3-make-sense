@@ -16,7 +16,7 @@ class Notification
     [
         Decision::STATUS_DRAFT  => "Erreur",
         Decision::STATUS_CURRENT  => "Veuillez donner votre avis sur cette décision",
-        Decision::STATUS_FIRST_DECISION => "Cette décision est en attente de la décision finale",
+        Decision::STATUS_FIRST_DECISION => "Cette décision est en attente du compte-rendu",
         Decision::STATUS_CONFLICT => "Cette décision est en attente de la décision des experts",
         Decision::STATUS_DONE => "La décision a été prise",
         Decision::STATUS_UNDONE => "La décision a été prise",

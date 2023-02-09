@@ -7,7 +7,7 @@
 	{% include "partials/_navbar.html.twig" %}
 
 	<div class="container">
-		<div class="row mt-5">
+		<div class="row mt-2">
 			{{ form_start(form) }}
 			{{ form_widget(form) }}
 			<button class="offset-5 col-2 text-white my-2 my-sm-0 btn btn-primary">Search</button>
@@ -16,7 +16,7 @@
 	</div>
 
 	<div class="container-fluid">
-		<div class="row mt-3 justify-content-center">
+		<div class="row mt-2 justify-content-center">
 			{% for decision in decisions %}
 				<div class=" style-shadow mx-3 my-3 col-3">
 					{% include 'partials/_decision-card.html.twig' with { 'decision': decision } %}

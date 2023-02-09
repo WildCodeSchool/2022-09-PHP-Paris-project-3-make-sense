@@ -28,7 +28,7 @@ class SearchDecisionsType extends AbstractType
         $builder
             ->add('search', SearchType::class, [
                 'attr' => [
-                    'class' => 'form-control mb-2',
+                    'class' => 'form-control mb-1',
                     'value' => $options['data']['title'],
                 ],
                 'label' => 'Chercher une décision',
@@ -39,14 +39,14 @@ class SearchDecisionsType extends AbstractType
             ])
             ->add('departements', ChoiceType::class, [
                 'attr' => [
-                    'class' => 'form-check mt-2 mb-2 d-flex justify-content-around text-white'
+                    'class' => 'form-check mt-1 d-flex justify-content-around text-white'
                 ],
                 'choices' =>  $choicesDepartment,
                 'expanded' => 'checked',
                 'multiple' => 'checked',
                 'data' => [true],
                 'label' => 'Departements',
-                'label_attr' => ['switch_custom', 'class' => 'mt-4 text-white'],
+                'label_attr' => ['switch_custom', 'class' => 'mt-1 text-white'],
                 ])
             ->add('status', ChoiceType::class, [
                 'attr' => [
@@ -54,7 +54,7 @@ class SearchDecisionsType extends AbstractType
                 ],
                 'required' => 'checked',
                 'choices' => $choicesStatus,
-                'label_attr' => ['class' => ' mt-4  text-white'],
+                'label_attr' => ['class' => ' mt-1 text-white'],
             ]);
     }
 }

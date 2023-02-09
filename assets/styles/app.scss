@@ -1,4 +1,4 @@
-@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+// @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 @import '~@fortawesome/fontawesome-free/scss/solid';
 @import '~@fortawesome/fontawesome-free/scss/regular';
 @import '_navbar.scss';
@@ -31,8 +31,8 @@
 
 
 body {
-    font-family: "Raleway", sans-serif;
-    font-weight: 700;
+    // font-family: "Raleway", sans-serif;
+    // font-weight: 700;
     background-image: url('/assets/images/background-login.png');
     height: 100vh;
     background-size: cover;

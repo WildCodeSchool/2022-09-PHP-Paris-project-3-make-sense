@@ -61,7 +61,7 @@ class NotificationController extends AbstractController
         $notifications = $paginator->paginate(
             $this->notificationRepository->findNotification($user->getId()),
             $request->query->getInt('page', 1),
-            5
+            4
         );
 
         if (!empty($request->request->all())) {
