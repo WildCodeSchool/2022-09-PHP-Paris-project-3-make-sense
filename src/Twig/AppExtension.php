@@ -3,7 +3,6 @@
 namespace App\Twig;
 
 use App\Entity\User;
-use App\Entity\Expertise;
 use Twig\TwigFunction;
 use App\Entity\Decision;
 use Twig\Extension\AbstractExtension;
