@@ -21,10 +21,9 @@ class AppExtension extends AbstractExtension
 
     public function expertDecision(Decision $decision, User $user): bool
     {
-        /** @var \App\Entity\Expertise */
-        $expertises = $user->getExpertises();
+        $expertises = (array)$user->getExpertises();
 
-        $departments = $decision->getDepartments();
+        $departments = (array)$decision->getDepartments();
 
         foreach ($expertises as $expertise) {
             foreach ($departments as $department) {
