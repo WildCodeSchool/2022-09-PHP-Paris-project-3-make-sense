@@ -18,7 +18,6 @@ class FirstDecisionType extends AbstractType
             $builder
                 ->add('endAt', DateType::class, [
                     'label' => 'Veuillez indiquer la nouvelle deadline',
-                    'input'  => 'datetime_immutable',
                 ]);
         }
 
@@ -29,7 +28,7 @@ class FirstDecisionType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
-                    'class' => 'mb-2 rounded-5 col-2 card-bg-color text-white'
+                    'class' => 'mb-2 btn btn-primary'
                 ]
             ]);
     }

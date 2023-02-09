@@ -1,0 +1,29 @@
+<div class="d-flex align-items-center">
+	<div class="d-flex p-1 status rounded-3 border">
+		{% if click is defined and decision.status == constant('App\\Entity\\Decision::STATUS_CURRENT') %}
+			<a class="d-flex text-decoration-none" href="{{ path('app_decision_give_opinion', { 'decision_id' : decision.id, 'opinionState' : 'like'})}}">
+				<div class="fs-5 fa-regular fa-thumbs-up text-dark"></div>
+				<div class="ms-1 me-2 text-dark">({{ calculateOpinion(decision).like }})</div>
+			</a>
+		{% else %}
+			<div class="fs-5 fa-regular fa-thumbs-up text-dark"></div>
+			<div class="ms-1 me-2 text-dark">({{ calculateOpinion(decision).like }})</div>
+		{% endif %}
+	</div>
+	<div class="d-flex p-1 rounded-3 status border">
+
+		{% if click is defined and decision.status == constant('App\\Entity\\Decision::STATUS_CURRENT') %}
+			<a class="d-flex text-decoration-none" href="{{ path('app_decision_give_opinion', { 'decision_id' : decision.id, 'opinionState' : 'dislike'})}}">
+				<div class="fs-5 fa-regular fa-thumbs-down text-dark"></div>
+				<div class="ms-1 me-2 text-dark">({{ calculateOpinion(decision).dislike }})</div>
+			</a>
+		{% else %}
+			<div class="fs-5 fa-regular fa-thumbs-down text-dark"></div>
+			<div class="ms-1 me-2 text-dark">({{ calculateOpinion(decision).dislike }})</div>
+		{% endif %}
+	</div>
+	<div class="d-flex p-1 rounded-3">
+		<div class="fs-6 text-dark">>{{ decision.likeThreshold}}%</div>
+	</div>
+
+</div>

@@ -3,16 +3,14 @@
 namespace App\Entity;
 
 use DateTime;
-use DateTimeImmutable;
 use DateTimeInterface;
-use App\Entity\Comment;
 use App\Entity\History;
 use App\Entity\Opinion;
 use App\Entity\Notification;
 use App\Entity\User;
-use App\Repository\DecisionRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\DecisionRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -105,7 +103,7 @@ class Decision
     #[Assert\NotBlank]
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\Type("\DateTimeInterface")]
-    #[Assert\GreaterThanOrEqual('today')]
+    // #[Assert\GreaterThanOrEqual('today')]
     private ?DateTimeInterface $endAt = null;
 
     #[ORM\Column(length: 50)]

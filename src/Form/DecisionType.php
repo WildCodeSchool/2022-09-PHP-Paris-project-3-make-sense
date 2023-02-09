@@ -2,28 +2,21 @@
 
 namespace App\Form;
 
-use App\Entity\Department;
 use App\Entity\Decision;
-use DateTimeImmutable;
+use App\Entity\Department;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\ChoiceList\ChoiceList;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use Symfony\Component\Form\Extension\Core\Type\PercentType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
-use Symfony\Component\Validator\Constraints\PositiveOrZero;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class DecisionType extends AbstractType
 {
@@ -33,8 +26,8 @@ class DecisionType extends AbstractType
     ): void {
         $choiceDepartments = [];
 
-        foreach (Department::DEPARTMENTS as $departmentValue) {
-            $choiceDepartments[$departmentValue] = $departmentValue;
+        foreach (Department::DEPARTMENTS as $departmentKey => $departmentValue) {
+            $choiceDepartments[$departmentKey] = $departmentValue;
         }
 
         $builder
@@ -46,12 +39,11 @@ class DecisionType extends AbstractType
                 'label' => 'Titre',
                 'label_attr' => [
                     'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3']])
-            ->add('departments', ChoiceType::class, [
+            ->add('departments', EntityType::class, [
+                'class' => Department::class,
                 'required' => true,
                 'attr' => [
                     'class' => 'form-check'],
-                'choices' => $choiceDepartments,
-                'mapped' => false,
                 'expanded' => true,
                 'multiple' => true,])
             ->add('like_threshold', RangeType::class, [
@@ -59,7 +51,6 @@ class DecisionType extends AbstractType
                 'attr' => [
                     'min' => '1',
                     'max'  => '100',
-                    'value' => '50',
                     'class' => 'col-2 form-range slider',
                     'id' => "myRange",],
                 'constraints' => [
@@ -67,11 +58,11 @@ class DecisionType extends AbstractType
                 'label' => 'Avis négatifs générant un conflit (%)',
                 'label_attr' => [
                     'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3'],])
-            ->add('end_at', DateTimeType::class, [
+            ->add('end_at', DateType::class, [
                 'required' => true,
                 'constraints' => [
                     new NotBlank(),
-                    new GreaterThanOrEqual('today', message:'Cette valeur ne peut être inférieur à la date du jour'),
+                    // new GreaterThanOrEqual('today', message:'Cette valeur ne peut être inférieur à la date du jour'),
                 ],
                 'widget' => 'single_text',
                 'attr' => ['class' => 'js-datepicker form-control'],
@@ -108,11 +99,11 @@ class DecisionType extends AbstractType
                     'class' => 'form-label h4 d-flex justify-content-start mb-3 mt-3']])
             ->add('saveAsDraft', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-secondary card-bg-color'],
+                    'class' => 'btn btn-primary'],
                 'label' => 'Enregistrer en tant que brouillon',])
             ->add('save', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-secondary card-bg-color',],
+                    'class' => 'btn btn-primary',],
                 'label' => 'Soumettre',]);
         ;
     }

@@ -3,13 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Decision;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use App\Repository\UserRepository;
+use App\Entity\Notification;
 use App\Repository\NotificationRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  *
@@ -18,75 +18,77 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class NotificationController extends AbstractController
 {
-    public function sumNotification(NotificationRepository $notificationRep): Response
+    private NotificationRepository $notificationRepository;
+
+    public function __construct(
+        NotificationRepository $notificationRepository,
+    ) {
+        $this->notificationRepository = $notificationRepository;
+    }
+
+    public function updateNotification(Request $request, string $status): void
     {
+        $notification = $this->notificationRepository->findOneBy(
+            [
+                'user' => $this->getUser(),
+                'decision' => $request->request->get($status)
+            ]
+        );
+
+        $notification->setUserRead(true);
+        $this->notificationRepository->save($notification, true);
+    }
+
+    public function sumNotification(): Response
+    {
+        /** @var \App\Entity\User */
+        $user = $this->getUser();
+
         return $this->render(
             'partials/_notification.html.twig',
-            ['notifications' => $notificationRep->sumByUser(HomeController::USERID)]
+            ['notifications' => $this->notificationRepository->sumByUser($user->getId())]
         );
     }
 
     #[Route('/notification', name: 'app_notification')]
     public function index(
         Request $request,
-        NotificationRepository $notificationRepository,
-        UserRepository $userRepository,
         PaginatorInterface $paginator,
     ): Response {
 
-        $user = $userRepository->findOneBy(['id' => HomeController::USERID]);
-
+        /** @var \App\Entity\User */
+        $user = $this->getUser();
         $notifications = $paginator->paginate(
-            $notificationRepository->findNotification(HomeController::USERID),
+            $this->notificationRepository->findNotification($user->getId()),
             $request->query->getInt('page', 1),
-            5
+            4
         );
 
         if (!empty($request->request->all())) {
             switch (key($request->request->all())) {
+                case Notification::STATUS_SHOW:
+                    //  $this->updateNotification($request, Notification::STATUS_SHOW);
+                    return $this->redirectToRoute('app_decision_show', [
+                        'decision_id' => $request->request->get(Notification::STATUS_SHOW),
+                    ]);
                 case Decision::STATUS_CURRENT:
-                    $notification = $notificationRepository->findOneBy(
-                        [
-                            'user' => $user,
-                            'decision' => $request->request->get(Decision::STATUS_CURRENT)
-                        ]
-                    );
-
-                    $notification->setUserRead(true);
-                    $notificationRepository->save($notification, true);
-
-                    return $this->redirectToRoute('app_give_opinion', [
-                        'decision' => $request->request->get(Decision::STATUS_CURRENT)
+                    // $this->updateNotification($request, Decision::STATUS_CURRENT);
+                    return $this->redirectToRoute('app_decision_give_opinion', [
+                        'decision_id' => $request->request->get(Decision::STATUS_CURRENT),
+                        'opinionState' => 'like'
                     ]);
 
                 case Decision::STATUS_FIRST_DECISION:
-                    $notification = $notificationRepository->findOneBy(
-                        [
-                            'user' => $user,
-                            'decision' => $request->request->get(Decision::STATUS_FIRST_DECISION)
-                        ]
-                    );
-
-                    $notification->setUserRead(true);
-                    $notificationRepository->save($notification, true);
-
-                    return $this->redirectToRoute('app_conflict', [
-                        'decision' => $request->request->get(Decision::STATUS_FIRST_DECISION)
+                    // $this->updateNotification($request, Decision::STATUS_FIRST_DECISION);
+                    return $this->redirectToRoute('app_decision_firstdecision', [
+                        'decision_id' => $request->request->get(Decision::STATUS_FIRST_DECISION)
                     ]);
 
                 case Decision::STATUS_CONFLICT:
-                    $notification = $notificationRepository->findOneBy(
-                        [
-                            'user' => $user,
-                            'decision' => $request->request->get(Decision::STATUS_CONFLICT)
-                        ]
-                    );
-
-                    $notification->setUserRead(true);
-                    $notificationRepository->save($notification, true);
-
-                    return $this->redirectToRoute('app_validation', [
-                        'decision' => $request->request->get(Decision::STATUS_CONFLICT)
+                    // $this->updateNotification($request, Decision::STATUS_CONFLICT);
+                    return $this->redirectToRoute('app_decision_validation', [
+                        'decision_id' => $request->request->get(Decision::STATUS_CONFLICT),
+                        // 'state' => 'like'
                     ]);
 
                 default:
@@ -97,8 +99,7 @@ class NotificationController extends AbstractController
         return $this->render(
             'notification/index.html.twig',
             [
-                'notifications' => $notifications,
-                'user' => $user
+                'notifications' => $notifications
             ]
         );
     }

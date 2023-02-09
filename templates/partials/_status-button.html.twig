@@ -1,0 +1,19 @@
+
+{% if  constant('App\\Entity\\Decision::STATUSES')[status] == constant('App\\Entity\\Decision::STATUSES')['draft'] %}
+    <div class="button-brouillon  rounded-5 text-center ps-3 pe-3">{{ constant('App\\Entity\\Decision::STATUSES')[status] }}</div>
+{% endif %}
+{% if  constant('App\\Entity\\Decision::STATUSES')[status] == constant('App\\Entity\\Decision::STATUSES')['current'] %}
+    <div class="button-en-cours rounded-5 text-center ps-3 pe-3">{{ constant('App\\Entity\\Decision::STATUSES')[status] }}</div>
+{% endif %}
+{% if  constant('App\\Entity\\Decision::STATUSES')[status] == constant('App\\Entity\\Decision::STATUSES')['conflict'] %}
+    <div class="button-en-conflit  rounded-5 text-center ps-3 pe-3">{{ constant('App\\Entity\\Decision::STATUSES')[status] }}</div>
+{% endif %}
+{% if  constant('App\\Entity\\Decision::STATUSES')[status] == constant('App\\Entity\\Decision::STATUSES')['done'] %}
+    <div class="button-en-aboutie rounded-5 text-center ps-3 pe-3">{{ constant('App\\Entity\\Decision::STATUSES')[status] }}</div>
+{% endif %}
+{% if  constant('App\\Entity\\Decision::STATUSES')[status] == constant('App\\Entity\\Decision::STATUSES')['undone'] %}
+    <div class="status rounded-5 text-center ps-3 pe-3">{{ constant('App\\Entity\\Decision::STATUSES')[status] }}</div>
+{% endif %}
+{% if  constant('App\\Entity\\Decision::STATUSES')[status] == constant('App\\Entity\\Decision::STATUSES')['first_decision'] %}
+    <div class="button-en-premiere rounded-5 text-center ps-3 pe-3">{{ constant('App\\Entity\\Decision::STATUSES')[status] }}</div>
+{% endif %}

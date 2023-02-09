@@ -16,23 +16,30 @@ class ValidationType extends AbstractType
         $builder->add('comment', CKEditorType::class, [
             'label' => false,
             'empty_data' => ''
-        ])
-            ->add('avispositif', SubmitType::class, [
+        ]);
+
+        if (!$options['state'] || $options['state'] == 'like') {
+            $builder->add('avispositif', SubmitType::class, [
                 'attr' => [
-                    'class' => 'mt-2 mb-2 rounded-5 col-4 card-bg-color text-white'
+                    'class' => 'mt-2 mb-2 button-make-sense'
                 ],
-            ])
-            ->add('avisnegatif', SubmitType::class, [
+            ]);
+        }
+
+        if (!$options['state'] || $options['state'] == 'dislike') {
+            $builder->add('avisnegatif', SubmitType::class, [
                 'attr' => [
-                    'class' => 'mt-2 mb-2 rounded-5 col-4 card-bg-color text-white'
+                    'class' => 'mt-2 mb-2 btn btn-primary'
                 ]
             ]);
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Validation::class,
+            'state' => ''
         ]);
     }
 }

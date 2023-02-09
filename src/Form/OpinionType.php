@@ -28,7 +28,7 @@ class OpinionType extends AbstractType
         ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
-                    'class' => 'mt-2 mb-2 rounded-5 col-2 card-bg-color text-white'
+                    'class' => 'mt-2 mb-2 btn btn-primary'
                 ]
             ]);
     }

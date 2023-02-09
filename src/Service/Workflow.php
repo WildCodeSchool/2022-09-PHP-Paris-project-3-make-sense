@@ -9,6 +9,8 @@ use App\Entity\Notification;
 use App\Repository\HistoryRepository;
 use App\Repository\NotificationRepository;
 use App\Repository\UserRepository;
+use Composer\XdebugHandler\Status;
+use DateTime;
 
 /**
  * @SuppressWarnings(PHPMD.LongVariable)
@@ -32,9 +34,19 @@ class Workflow
 
     public function addHistory(Decision $decision): void
     {
-        $history = new History();
+        $history = $this->historyRepository->findOneBy(['decision' => $decision->getId()]);
+
+        if (!$history || ($history->getStatus() != $decision->getStatus())) {
+            $history = new History();
+        }
+
         $history->setStatus($decision->getStatus());
-        $history->setStartedAt($decision->getCreatedAt());
+        if ($decision->getStatus() == Decision::STATUS_CURRENT) {
+            $history->setStartedAt(new DateTime('now'));
+        } else {
+            $history->setStartedAt($decision->getCreatedAt());
+        }
+
         $history->setEndedAt($decision->getEndAt());
         $history->setDecision($decision);
 
@@ -54,8 +66,10 @@ class Workflow
             $notification = new Notification();
             $notification->setUser($user);
             $notification->setDecision($decision);
-            $this->notificationRepository->save($notification, true);
         }
+
+        $notification->setUserRead(false);
+        $this->notificationRepository->save($notification, true);
     }
 
     public function addNotifications(Decision $decision): void

@@ -10,11 +10,13 @@ use App\Entity\Decision;
 #[ORM\Entity(repositoryClass: NotificationRepository::class)]
 class Notification
 {
+    public const STATUS_SHOW = "show";
+
     public const NOTIFICATIONS_MESSAGE =
     [
         Decision::STATUS_DRAFT  => "Erreur",
         Decision::STATUS_CURRENT  => "Veuillez donner votre avis sur cette décision",
-        Decision::STATUS_FIRST_DECISION => "Cette décision est en attente de la décision finale",
+        Decision::STATUS_FIRST_DECISION => "Cette décision est en attente du compte-rendu",
         Decision::STATUS_CONFLICT => "Cette décision est en attente de la décision des experts",
         Decision::STATUS_DONE => "La décision a été prise",
         Decision::STATUS_UNDONE => "La décision a été prise",
@@ -25,9 +27,10 @@ class Notification
         Decision::STATUS_DRAFT  => "Erreur",
         Decision::STATUS_CURRENT => "Donner son avis",
         Decision::STATUS_FIRST_DECISION => "Compte-rendu",
-        Decision::STATUS_CONFLICT => "Accord ou refus",
+        Decision::STATUS_CONFLICT => "Avis de l'expert",
         Decision::STATUS_DONE => "",
         Decision::STATUS_UNDONE => "",
+        self::STATUS_SHOW => ""
     ];
 
     #[ORM\Id]
@@ -73,7 +76,12 @@ class Notification
         return $this;
     }
 
-    public function isUserRead(): ?bool
+    public function getUserRead(): bool
+    {
+        return $this->userRead;
+    }
+
+    public function isUserRead(): bool
     {
         return $this->userRead;
     }

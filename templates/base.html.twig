@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="icon" type="image/png" href=""/>
-        <title>
-        {% block title %}Projet 3 Name{% endblock %}
-        </title>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="icon" type="image/png" href=""/>
+		<title>
+			{% block title %}Projet 3 Name
+			{% endblock %}
+		</title>
 
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
@@ -17,9 +18,8 @@
 		{% endblock %}
 	</head>
 	<body>
-		{% block header %}
-			{% include "./partials/_navbar.html.twig" %}
-		{% endblock %}
+		{% block header %}{% endblock %}
+
 		{% block body %}{% endblock %}
 	</body>
 </html>
