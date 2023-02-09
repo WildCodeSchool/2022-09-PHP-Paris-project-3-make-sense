@@ -37,11 +37,11 @@
 									</div>
 								</td>
 
-								<td class="col-4 pt-4">
+								<td class="col-4" style="padding-top : 35px">
 									{{ constant('App\\Entity\\Notification::NOTIFICATIONS_MESSAGE')[notification[0].status]}}
 								</td>
 
-								<td class="col-1 pt-4">
+								<td class="col-1" style="padding-top : 40px">
 									{% include 'partials/_status-button.html.twig' with 
 										{
 											'status': notification[0].status, 
@@ -49,7 +49,7 @@
 									%}
 
 								</td>
-								<td class="col-1 pt-4 text-center">
+								<td class="col-1 text-center" style="padding-top : 35px">
 									{% include 'notification/button.html.twig' %}
 
 								</td>
