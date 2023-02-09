@@ -60,8 +60,14 @@
 			</li>
 			<li class="nav-item">
 				{% if app.user.poster != "" %}
+			
 					<a href="{{ path('app_logout')}}">
-						<img class="rounded-5" src="{{ vich_uploader_asset(app.user, 'posterFile') }}" style="height:45px; width:45px" alt="..">
+					{% if decision is defined %} 
+						<img class="rounded-5 border border-4 gold" src="{{ vich_uploader_asset(app.user, 'posterFile') }}" style="height:45px; width:45px" alt="..">
+					{% else %}
+						<img class="rounded-5" src="{{ vich_uploader_asset(app.user, 'posterFile') }}" style="height:45px; width:45px" alt="..">						
+					{% endif %}
+
 					</a>
 				{% else %}
 					<i class="fs-5 rounded-4 bg-light p-3 fa-regular fa-user"></i>
